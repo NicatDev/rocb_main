@@ -1,0 +1,870 @@
+{% load static %} {% load i18n %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+
+    <!-- Site Title -->
+    <title>Rocb Europe</title>
+
+    <!-- Place favicon.ico in the root directory -->
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'assets/images/fav.png' %}"
+    />
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/font-awesome-pro.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/bexon-icons.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/swiper.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/venobox.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/odometer-theme-default.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+  </head>
+
+  <body>
+    <div class="body-overlay"></div>
+
+    <!-- Preloader Start -->
+    <div class="tj-preloader is-loading">
+      <div class="tj-preloader-inner">
+        <div class="tj-preloader-ball-wrap">
+          <div class="tj-preloader-ball-inner-wrap">
+            <div class="tj-preloader-ball-inner">
+              <div class="tj-preloader-ball"></div>
+            </div>
+            <div class="tj-preloader-ball-shadow"></div>
+          </div>
+          <div class="tj-preloader-text">Loading...</div>
+        </div>
+      </div>
+      <div class="tj-preloader-overlay"></div>
+    </div>
+    <!-- Preloader end -->
+
+    <!-- back to top start -->
+    <div class="back-to-top-wrapper">
+      <button id="back_to_top" type="button" class="back-to-top-btn">
+        <span><i class="tji-arrow-up-long"></i></span>
+      </button>
+    </div>
+    <!-- back to top end -->
+
+    <!-- start: Search Popup -->
+    <div class="search-popup-overlay"></div>
+    <!-- end: Search Popup -->
+
+    <!-- start: Offcanvas Menu -->
+    <div class="tj-offcanvas-area d-none d-lg-block">
+      <div class="hamburger_bg"></div>
+      <div class="hamburger_wrapper">
+        <div class="hamburger_inner">
+          <div
+            class="hamburger_top d-flex align-items-center justify-content-between"
+          >
+            <div class="hamburger_logo">
+              <a href="{% url 'home' %}" class="mobile_logo">
+                <img src="{% static 'logo.png' %}" alt="Logo" />
+              </a>
+            </div>
+            <div class="hamburger_close">
+              <button class="hamburger_close_btn">
+                <i class="fa-thin fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <div class="offcanvas-text">
+            <p>
+              Developing personalize our customer journeys to increase
+              satisfaction & loyalty of our expansion recognized by industry
+              leaders.
+            </p>
+          </div>
+          <div class="hamburger-search-area">
+            <h5 class="hamburger-title">Search Now!</h5>
+            <div class="hamburger_search">
+              <form method="get" action="{% url 'home' %}">
+                <button type="submit"><i class="tji-search"></i></button>
+                <input
+                  type="search"
+                  autocomplete="off"
+                  name="s"
+                  value=""
+                  placeholder="Search here..."
+                />
+              </form>
+            </div>
+          </div>
+          <div class="hamburger-infos">
+            <h5 class="hamburger-title">Contact Info</h5>
+            <div class="contact-info">
+              <div class="contact-item">
+                <span class="subtitle">Phone</span>
+                <a class="contact-link" href="tel:10095447818"
+                  >+1 (009) 544-7818</a
+                >
+              </div>
+              <div class="contact-item">
+                <span class="subtitle">Email</span>
+                <a class="contact-link" href="mailto:info@bexon.com"
+                  >info@bexon.com</a
+                >
+              </div>
+              <div class="contact-item">
+                <span class="subtitle">Location</span>
+                <span class="contact-link"
+                  >993 Renner Burg, West Rond, MT 94251-030</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hamburger-socials">
+          <h5 class="hamburger-title">Follow Us</h5>
+          <div class="social-links style-3">
+            <ul>
+              <li>
+                <a href="https://www.facebook.com/" target="_blank"
+                  ><i class="fa-brands fa-facebook-f"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/" target="_blank"
+                  ><i class="fa-brands fa-instagram"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://x.com/" target="_blank"
+                  ><i class="fa-brands fa-x-twitter"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/" target="_blank"
+                  ><i class="fa-brands fa-linkedin-in"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end: Offcanvas Menu -->
+
+    <!-- start: Hamburger Menu -->
+    <div class="hamburger-area d-lg-none">
+      <div class="hamburger_bg"></div>
+      <div class="hamburger_wrapper">
+        <div class="hamburger_inner">
+          <div
+            class="hamburger_top d-flex align-items-center justify-content-between"
+          >
+            <div class="hamburger_logo">
+              <a href="{% url 'home' %}" class="mobile_logo">
+                <img
+                  style="height: 75px"
+                  src="{% static 'logo.png' %}"
+                  alt="Logo"
+                />
+              </a>
+            </div>
+            <div class="hamburger_close">
+              <button class="hamburger_close_btn">
+                <i class="fa-thin fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <div class="hamburger_menu">
+            <div class="mobile_menu"></div>
+          </div>
+          <div class="hamburger-infos">
+            <h5 class="hamburger-title">Contact Info</h5>
+            <div class="contact-info">
+              <div class="contact-item">
+                <span class="subtitle">Phone</span>
+                <a class="contact-link" href="tel:8089091313">808-909-1313</a>
+              </div>
+              <div class="contact-item">
+                <span class="subtitle">Email</span>
+                <a class="contact-link" href="mailto:info@bexon.com"
+                  >info@bexon.com</a
+                >
+              </div>
+              <div class="contact-item">
+                <span class="subtitle">Location</span>
+                <span class="contact-link"
+                  >993 Renner Burg, West Rond, MT 94251-030</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hamburger-socials">
+          <h5 class="hamburger-title">Follow Us</h5>
+          <div class="social-links style-3">
+            <ul>
+              <li>
+                <a href="https://www.facebook.com/" target="_blank"
+                  ><i class="fa-brands fa-facebook-f"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/" target="_blank"
+                  ><i class="fa-brands fa-instagram"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://x.com/" target="_blank"
+                  ><i class="fa-brands fa-x-twitter"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/" target="_blank"
+                  ><i class="fa-brands fa-linkedin-in"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end: Hamburger Menu -->
+
+    <!-- start: Header Area -->
+    {% include 'components/navbar.html' %}
+    <!-- end: Header Area -->
+
+    <!-- start: Header Area -->
+    {% include 'components/scroll-navbar.html' %}
+    <!-- end: Header Area -->
+
+    <main id="primary" class="site-main">
+      <!-- start: Banner Section -->
+      <section class="tj-banner-section section-gap-x">
+        <div class="banner-area">
+          <div class="banner-left-box">
+            <div class="banner-content">
+              <span class="sub-title wow fadeInDown" data-wow-delay=".2s">
+                <i class="tji-excellence"></i> Rocb Europe
+              </span>
+              <h1 class="banner-title title-anim">
+                WCO <span>Europe</span> Regional Office for Capacity Building
+              </h1>
+              <div class="banner-desc-area wow fadeInUp" data-wow-delay=".7s">
+                <a class="banner-link" href="about.html">
+                  <span><i class="tji-arrow-right-big"></i></span>
+                </a>
+                <div class="banner-desc">
+                  ROCB Europe supports member states in modernizing Customs
+                  Services by addressing regional needs and international
+                  standards.
+                </div>
+              </div>
+            </div>
+            <div class="banner-shape">
+              <img
+                src="{% static 'assets/images/shape/pattern-bg.webp' %}"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="banner-right-box">
+            <div class="banner-img">
+              <img
+                data-speed="0.8"
+                src="{% static 'assets/images/hero.jpg' %}"
+                alt=""
+                data-lag="0"
+              />
+            </div>
+            <div class="box-area">
+              <div class="customers-box">
+                <a
+                  class="customers-number link-hero wow fadeInUp"
+                  data-wow-delay=".5s"
+                  style="
+                    visibility: visible;
+                    animation-delay: 0.5s;
+                    animation-name: fadeInUp;
+                  "
+                >
+                  Contact us
+                  <div class="banner-link ">
+                  <span><i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+                </a>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="banner-scroll wow fadeInDown"
+          data-wow-delay="2s"
+          style="
+            visibility: visible;
+            animation-delay: 2s;
+            animation-name: fadeInDown;
+          "
+        >
+          <a href="#choose" class="scroll-down">
+            <span><i class="tji-arrow-down-long"></i></span>
+            Scroll Down
+          </a>
+        </div>
+      </section>
+      <!-- end: Banner Section -->
+
+      <!-- start: Blog Section -->
+      <section class="tj-blog-section section-gap">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="sec-heading text-center">
+                <span class="sub-title wow fadeInUp" data-wow-delay=".3s"
+                  ><i class="tji-box"></i>Events</span
+                >
+                <h2 class="sec-title title-anim">
+                 Last events</span>
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div class="row row-gap-4">
+            {% for event in events %}
+            <div class="col-xl-4 col-md-6">
+              <div class="blog-item wow fadeInUp" data-wow-delay=".4s">
+                <div class="blog-thumb">
+                  <a href="blog-details.html"
+                    ><img
+                      src="{{event.image.url}}"
+                      alt=""
+                  /></a>
+                  <div class="blog-date">
+                    <span class="date">{{ event.date|date:"j" }}</span>  
+                    <span class="month">{{ event.date|date:"M" }}</span> 
+                  </div>
+                </div>
+                <div class="blog-content">
+          
+                    {% if event.tag %}
+                            <div class="blog-meta">
+                    <span class="categories"
+                      ><a href="blog-details.html">{{ event.tag }}</a></span
+                    >
+                    </div>
+                    {% endif %}
+                  
+                  <h4 class="title">
+                    <a href="blog-details.html"
+                      >{{ event.title }}</a
+                    >
+                  </h4>
+                  <a class="text-btn" href="blog-details.html">
+                    <span class="btn-text"><span>Read More</span></span>
+                    <span class="btn-icon"
+                      ><i class="tji-arrow-right-long"></i
+                    ></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+      <!-- end: Blog Section -->
+
+      <!-- start: Service Section -->
+      <section
+        class="tj-service-section overflow-hidden section-gap section-gap-x"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="sec-heading text-center">
+                <span
+                  class="sub-title text-white wow fadeInUp"
+                  data-wow-delay=".3s"
+                  ><i class="tji-box"></i>News</span
+                >
+                <h2 class="sec-title text-white title-anim">
+                  Last news
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid p-0">
+          <div class="row">
+            <div class="col-12">
+              <div class="service-wrapper wow fadeInUp" data-wow-delay=".4s">
+                <div class="swiper service-slider">
+                  <div class="swiper-wrapper">
+                    {% for news in news %}
+                    <div class="swiper-slide">
+                      <div class="service-item style-1">
+                        <div class="service-img">
+                          <img
+                            src="{{news.image.url}}"
+                            alt=""
+                          />
+                        </div>
+                        <div class="service-content">
+                          <h4 class="title">
+                            <a href="service-details.html"
+                              >{{ news.title }}</a
+                            >
+                          </h4>
+                          <p class="desc">
+                            {{ news.description }}
+                          </p>
+                          <a class="text-btn" href="service-details.html">
+                            <span class="btn-text"
+                              ><span>Learn More</span></span
+                            >
+                            <span class="btn-icon"
+                              ><i class="tji-arrow-right-long"></i
+                            ></span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  <div class="swiper-pagination-area white-pagination"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-shape-1">
+          <img src="{% static 'assets/images/shape/pattern-2.svg' %}" alt="" />
+        </div>
+        <div class="bg-shape-2">
+          <img src="{% static 'assets/images/shape/pattern-3.svg' %}" alt="" />
+        </div>
+      </section>
+      <!-- end: Service Section -->
+
+
+      <!-- start: Countup Section -->
+      <div class="tj-countup-section section-gap ">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="countup-wrap">
+                <div class="countup-item">
+                  <div class="inline-content">
+                    <span
+                      class="odometer countup-number"
+                      data-count="93"
+                    ></span>
+                    <span class="count-plus">%</span>
+                  </div>
+                  <span class="count-text">Projects Completed.</span>
+                  <span
+                    class="count-separator"
+                    data-bg-image="{% static 'assets/images/shape/separator.svg' %}"
+                  ></span>
+                </div>
+                <div class="countup-item">
+                  <div class="inline-content">
+                    <span
+                      class="odometer countup-number"
+                      data-count="20"
+                    ></span>
+                    <span class="count-plus">M</span>
+                  </div>
+                  <span class="count-text">Reach Worldwide</span>
+                  <span
+                    class="count-separator"
+                    data-bg-image="{% static 'assets/images/shape/separator.svg' %}"
+                  ></span>
+                </div>
+                <div class="countup-item">
+                  <div class="inline-content">
+                    <span
+                      class="odometer countup-number"
+                      data-count="8.5"
+                    ></span>
+                    <span class="count-plus">X</span>
+                  </div>
+                  <span class="count-text">Faster Growth</span>
+                  <span
+                    class="count-separator"
+                    data-bg-image="{% static 'assets/images/shape/separator.svg' %}"
+                  ></span>
+                </div>
+                <div class="countup-item">
+                  <div class="inline-content">
+                    <span
+                      class="odometer countup-number"
+                      data-count="100"
+                    ></span>
+                    <span class="count-plus">+</span>
+                  </div>
+                  <span class="count-text">Awards Archived</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end: Countup Section -->
+
+
+      <!-- start: Faq Section -->
+      <section class="tj-faq-section section-gap">
+        <div class="container">
+          <div class="row justify-content-between">
+            <div class="col-lg-6">
+              <div class="faq-img-area wow fadeInLeft" data-wow-delay=".3s">
+                <div class="faq-img">
+                  <img src="{% static 'assets/images/faq/faq.webp' %}" alt="" />
+                  <h2 class="title title-anim">Need Help? Start Here...</h2>
+                </div>
+                <div class="box-area">
+                  <div class="call-box wow fadeInUp" data-wow-delay=".4s">
+                    <h4 class="title">Get Started Free Call?</h4>
+                    <span class="call-icon"><i class="tji-phone"></i></span>
+                    <a class="number" href="tel:18884521505"
+                      ><span>1-888-452-1505</span></a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="accordion tj-faq" id="faqOne">
+                <div
+                  class="accordion-item active wow fadeInUp"
+                  data-wow-delay=".3s"
+                >
+                  <button
+                    class="faq-title"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faq-1"
+                    aria-expanded="true"
+                  >
+                    What services does Bexon offer to clients?
+                  </button>
+                  <div
+                    id="faq-1"
+                    class="collapse show"
+                    data-bs-parent="#faqOne"
+                  >
+                    <div class="accordion-body faq-text">
+                      <p>
+                        Getting started is easy! Simply reach out to us through
+                        our contact form or give us a call, and we’ll schedule a
+                        consultation to discuss your project and how we can best
+                        assist you. Our team keeps you informed throughout the
+                        process, ensuring quality control and timely delivery.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item wow fadeInUp" data-wow-delay=".3s">
+                  <button
+                    class="faq-title collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faq-2"
+                    aria-expanded="false"
+                  >
+                    How do I get started with Corporate Business?
+                  </button>
+                  <div id="faq-2" class="collapse" data-bs-parent="#faqOne">
+                    <div class="accordion-body faq-text">
+                      <p>
+                        Getting started is easy! Simply reach out to us through
+                        our contact form or give us a call, and we’ll schedule a
+                        consultation to discuss your project and how we can best
+                        assist you. Our team keeps you informed throughout the
+                        process, ensuring quality control and timely delivery.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item wow fadeInUp" data-wow-delay=".3s">
+                  <button
+                    class="faq-title collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faq-3"
+                    aria-expanded="false"
+                  >
+                    How do you ensure the success of a project?
+                  </button>
+                  <div id="faq-3" class="collapse" data-bs-parent="#faqOne">
+                    <div class="accordion-body faq-text">
+                      <p>
+                        Getting started is easy! Simply reach out to us through
+                        our contact form or give us a call, and we’ll schedule a
+                        consultation to discuss your project and how we can best
+                        assist you. Our team keeps you informed throughout the
+                        process, ensuring quality control and timely delivery.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item wow fadeInUp" data-wow-delay=".3s">
+                  <button
+                    class="faq-title collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faq-4"
+                    aria-expanded="false"
+                  >
+                    How long will it take to complete my project?
+                  </button>
+                  <div id="faq-4" class="collapse" data-bs-parent="#faqOne">
+                    <div class="accordion-body faq-text">
+                      <p>
+                        Getting started is easy! Simply reach out to us through
+                        our contact form or give us a call, and we’ll schedule a
+                        consultation to discuss your project and how we can best
+                        assist you. Our team keeps you informed throughout the
+                        process, ensuring quality control and timely delivery.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item wow fadeInUp" data-wow-delay=".3s">
+                  <button
+                    class="faq-title collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faq-5"
+                    aria-expanded="false"
+                  >
+                    Can I track the progress of my project?
+                  </button>
+                  <div id="faq-5" class="collapse" data-bs-parent="#faqOne">
+                    <div class="accordion-body faq-text">
+                      <p>
+                        Getting started is easy! Simply reach out to us through
+                        our contact form or give us a call, and we’ll schedule a
+                        consultation to discuss your project and how we can best
+                        assist you. Our team keeps you informed throughout the
+                        process, ensuring quality control and timely delivery.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- end: Faq Section -->
+
+      <!-- start: Contact Section -->
+      <section class="tj-contact-section section-gap section-gap-x">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="global-map wow fadeInUp" data-wow-delay=".3s">
+                <div class="global-map-img">
+                  <img
+                    src="{% static 'assets/images/bg/map.svg' %}"
+                    alt="Image"
+                  />
+                  <div class="location-indicator loc-1">
+                    <div class="location-tooltip">
+                      <span>Head office:</span>
+                      <p>993 Renner Burg, West Rond, MT 94251-030, USA.</p>
+                      <a href="tel:10095447818">P: +1 (009) 544-7818</a>
+                      <a href="mailto:support@bexon.com"
+                        >M: support@bexon.com</a
+                      >
+                    </div>
+                  </div>
+                  <div class="location-indicator loc-2">
+                    <div class="location-tooltip">
+                      <span>Regional office:</span>
+                      <p>Hessisch Lichtenau 37235, Kassel, Germany.</p>
+                      <a href="tel:10098801810">P: +1 (009) 880-1810</a>
+                      <a href="mailto:support@bexon.com"
+                        >M: support@bexon.com</a
+                      >
+                    </div>
+                  </div>
+                  <div class="location-indicator loc-3">
+                    <div class="location-tooltip">
+                      <span>Regional office:</span>
+                      <p>32 Altamira, State of Pará, Brazil.</p>
+                      <a href="tel:10095447818">P: +1 (009) 544-7818</a>
+                      <a href="mailto:support@bexon.com"
+                        >M: support@bexon.com</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div
+                class="contact-form style-2 wow fadeInUp"
+                data-wow-delay=".4s"
+              >
+                <div class="sec-heading">
+                  <span class="sub-title text-white"
+                    ><i class="tji-box"></i>Get in Touch</span
+                  >
+                  <h2 class="sec-title title-anim">
+                    Drop Us a <span>Line.</span>
+                  </h2>
+                </div>
+                <form id="contact-form-2">
+                  <div class="row wow fadeInUp" data-wow-delay=".5s">
+                    <div class="col-sm-6">
+                      <div class="form-input">
+                        <input
+                          type="text"
+                          name="cfName2"
+                          placeholder="Full Name *"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-input">
+                        <input
+                          type="email"
+                          name="cfEmail2"
+                          placeholder="Email Address *"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-input">
+                        <input
+                          type="tel"
+                          name="cfPhone2"
+                          placeholder="Phone number *"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-input">
+                        <div class="tj-nice-select-box">
+                          <div class="tj-select">
+                            <select name="cfSubject2">
+                              <option value="0">Chose a option</option>
+                              <option value="1">Business Strategy</option>
+                              <option value="2">Customer Experience</option>
+                              <option value="3">Sustainability and ESG</option>
+                              <option value="4">
+                                Training and Development
+                              </option>
+                              <option value="5">
+                                IT Support & Maintenance
+                              </option>
+                              <option value="6">Marketing Strategy</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                      <div class="form-input message-input">
+                        <textarea
+                          name="cfMessage2"
+                          id="message"
+                          placeholder="Type message *"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="submit-btn">
+                      <button class="main-color-rocb" type="submit">
+                        <span class="btn-text"><span>Send Message</span></span>
+                        <span class="btn-icon"
+                          ><i class="tji-arrow-right-long"></i
+                        ></span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-shape-1">
+          <img src="{% static 'assets/images/shape/pattern-2.svg' %}" alt="" />
+        </div>
+        <div class="bg-shape-2">
+          <img src="{% static 'assets/images/shape/pattern-3.svg' %}" alt="" />
+        </div>
+      </section>
+      <!-- end: Contact Section -->
+
+      <!-- start: Cta Section -->
+      <section class="tj-cta-section">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="cta-area">
+                <div class="cta-content">
+                  <h2 class="title title-anim">Let’s Build Future Together.</h2>
+                  <div class="cta-btn wow fadeInUp" data-wow-delay=".6s">
+                    <a class="main-color-rocb btn-dark" href="contact.html">
+                      <span class="btn-text"><span>Get Started Now</span></span>
+                      <span class="btn-icon"
+                        ><i class="tji-arrow-right-long"></i
+                      ></span>
+                    </a>
+                  </div>
+                </div>
+                <div class="cta-img">
+                  <img
+                    src="{% static 'assets/images/cta/cta-bg.webp' %}"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- end: Cta Section -->
+    </main>
+
+    <!-- start: Footer Section -->
+    {% include 'components/footer.html' %}
+    <!-- end: Footer Section -->
+
+    <!-- JS here -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-scroll-to-plugin.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-scroll-trigger.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-split-text.min.js' %}"></script>
+    <script src="{% static 'assets/js/smooth-scroll.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/swiper.min.js' %}"></script>
+    <script src="{% static 'assets/js/odometer.min.js' %}"></script>
+    <script src="{% static 'assets/js/venobox.min.js' %}"></script>
+    <script src="{% static 'assets/js/appear.min.js' %}"></script>
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/meanmenu.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+    <script src="{% static 'assets/js/navbar.js' %}"></script>
+  </body>
+</html>

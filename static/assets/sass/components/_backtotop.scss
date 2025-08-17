@@ -1,0 +1,59 @@
+@use "../utilities" as *;
+/**----------------------------------------
+START: Back to top CSS
+----------------------------------------*/
+.back-to-top-wrapper {
+	position: fixed;
+	right: 60px;
+	bottom: 0;
+	display: block;
+	border-radius: 50%;
+	z-index: 99;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s ease-in-out;
+	cursor: pointer;
+	@media #{$md} {
+		right: 45px;
+	}
+	@media #{$sm, $xs} {
+		right: 15px;
+	}
+}
+.back-to-top-btn {
+	color: var(--tj-color-heading-primary);
+	line-height: 1;
+	font-weight: var(--tj-fw-sbold);
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	span {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		font-size: 20px;
+		color: var(--tj-color-common-white);
+		background-color: var(--tj-color-theme-primary);
+		border-radius: 50%;
+		box-shadow: 0 0 0 1px var(--tj-color-grey-1);
+	}
+}
+.back-to-top-wrapper.back-to-top-btn-show {
+	visibility: visible;
+	opacity: 1;
+	bottom: 85px;
+
+	&:hover {
+		transform: translateY(-6px);
+	}
+	@media #{$lg, $md} {
+		right: 30px;
+		bottom: 30px;
+	}
+	@media #{$sm, $xs} {
+		bottom: 25px;
+	}
+}
+/* !END: Back to top CSS */

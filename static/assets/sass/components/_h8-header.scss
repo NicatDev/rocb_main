@@ -1,0 +1,59 @@
+@use "../utilities" as *;
+
+/**----------------------------------------
+START: Theme Header CSS
+----------------------------------------*/
+.h8-header {
+	&.header-absolute {
+		position: absolute;
+		top: 15px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 100%;
+		max-width: 1382px;
+		margin: 0 auto;
+		border-radius: 12px;
+		z-index: 999;
+		border-top-right-radius: 0;
+		border-top-left-radius: 0;
+		background-color: var(--tj-color-grey-1);
+		padding-bottom: 15px;
+		// outline: 15px solid var(--tj-color-theme-bg);
+		@media #{$sm,$xs} {
+			left: 12px;
+			top: 24px;
+			width: calc(100% - 48px);
+		}
+
+		.header-wrapper {
+			border-radius: 7px;
+
+			margin: 0 3px;
+		}
+		&::after,
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			width: 13px;
+			height: 13px;
+			background: url('data:image/svg+xml,<svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-11 h-11"><path d="M11 1.54972e-06L0 0L2.38419e-07 11C1.65973e-07 4.92487 4.92487 1.62217e-06 11 1.54972e-06Z" fill="%23ecf0f0"></path></svg>');
+		}
+		&::before {
+			left: -13px;
+			transform: rotate(90deg);
+		}
+		&::after {
+			right: -13px;
+		}
+	}
+	&.sticky {
+		width: calc(100% - 30px);
+		max-width: inherit;
+		@media #{$sm,$xs} {
+			width: 100%;
+		}
+	}
+}
+
+/* !END: Theme Header CSS */

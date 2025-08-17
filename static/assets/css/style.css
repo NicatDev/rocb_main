@@ -1,0 +1,8 @@
+.tj-post__navigation .tj-nav-post__nav .disabled:hover span {
+    background-color: inherit !important;
+    border-color: #c9d1d1 !important;
+}
+
+.tj-post__navigation .tj-nav-post__nav .disabled:hover span i{
+    color: #0c1e21 !important;
+}

@@ -1,0 +1,40 @@
+@use "../utilities" as *;
+
+/**----------------------------------------
+START: Animation  CSS
+----------------------------------------*/
+
+.tj-anim-move-var-big {
+	animation-name: moveVarBig;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-timing-function: ease-in-out;
+}
+@keyframes moveVarBig {
+	0% {
+		transform: translateY(0);
+	}
+
+	100% {
+		transform: translateY(150px);
+	}
+}
+.tj-anim-move-var-big-reverse {
+	animation-name: moveVarBigReverse;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-timing-function: ease-in-out;
+}
+@keyframes moveVarBigReverse {
+	0% {
+		transform: translateY(150px);
+	}
+
+	100% {
+		transform: translateY(0);
+	}
+}
+
+/* !END: Animation CSS */
