@@ -105,6 +105,9 @@ class ListSection(models.Model):
         Region, on_delete=models.CASCADE, related_name='list_sections')
     title = models.CharField(max_length=200, verbose_name="List Section Title")
     description = models.TextField(verbose_name="List Section Description")
+    image = models.ImageField(
+        upload_to='region_images/', verbose_name="List Section Image", blank=True, null=True)
+    slug = models.SlugField(unique=True, editable=False, blank=True, null=True)
 
     class Meta:
         verbose_name = "List Section"
@@ -113,7 +116,12 @@ class ListSection(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
 
 class ListItem(models.Model):
     list_section = models.ForeignKey(
@@ -128,5 +136,3 @@ class ListItem(models.Model):
 
     def __str__(self):
         return self.title
-    
-    

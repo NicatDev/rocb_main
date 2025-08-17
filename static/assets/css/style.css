@@ -6,3 +6,31 @@
 .tj-post__navigation .tj-nav-post__nav .disabled:hover span i{
     color: #0c1e21 !important;
 }
+
+.list-section-title {
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    font-weight: var(--tj-fw-sbold);
+    color: var(--tj-color-heading-primary);
+    background: var(--tj-color-common-white);
+    padding: 20px 15px 17px 25px;
+    border-radius: 10px;
+}
+
+.list-section-title:hover{
+    color: #ffffff;
+    background-color: #12579e;
+}
+
+.list-section-title .icon {
+    font-size: 24px;
+    line-height: 1;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+}
