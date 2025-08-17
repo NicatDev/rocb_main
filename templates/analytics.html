@@ -91,7 +91,7 @@
             <div class="col-lg-12">
               <div class="tj-page-header-content text-center">
                 <span id="tj-page-title" class="tj-page-title"
-                  >{% trans "About Us" %}</span
+                  >{% trans "Analytics" %}</span
                 >
                 <div class="tj-page-link">
                   <span><i class="tji-home"></i></span>
@@ -100,7 +100,7 @@
                   </span>
                   <span><i class="tji-arrow-right"></i></span>
                   <span>
-                    <span>{% trans "About Us" %}</span>
+                    <span>{% trans "Analytics" %}</span>
                   </span>
                 </div>
               </div>
@@ -121,48 +121,23 @@
             <div class="col-lg-8">
               <div class="post-details-wrapper">
                 <div class="blog-images wow fadeInUp" data-wow-delay=".1s">
-                  {% if about.image %}
-                  <img src="{{ about.image.url }}" alt="{{ about.title }}" />
+                  {% if analytics.image %}
+                  <img
+                    src="{{ analytics.image.url }}"
+                    alt="{{ analytics.title }}"
+                  />
                   {% endif %}
                 </div>
-                <h1 class="title title-anim">{{ about.title }}</h1>
+                <h1 class="title title-anim">{{ analytics.title }}</h1>
                 <div
                   class="blog-category-two wow fadeInUp"
                   data-wow-delay=".3s"
-                >
-                  <div class="category-item">
-                    <div class="cate-images">
-                      {% if about.autorized_image %}
-                      <img
-                        src="{{ about.autorized_image.url }}"
-                        alt="{{ about.title }}"
-                      />
-                      {% else %}
-                      <img
-                        src="{% static 'assets/images/testimonial/client-2.webp' %}"
-                        alt="Images"
-                      />
-                      {% endif %}
-                    </div>
-                    <div class="cate-text">
-                      <span class="degination">{% trans "Authored by" %}</span>
-                      <h6 class="title">
-                        <a href="blog-details.html">{{ about.created_by }}</a>
-                      </h6>
-                    </div>
-                  </div>
-                </div>
+                ></div>
                 <div class="blog-text">
                   <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ about.description }}
+                    {{ analytics.description }}
                   </p>
-                  {% for section in sections %} {% for quote in
-                  section.block_quotes.all %}
-                  <blockquote class="wow fadeInUp" data-wow-delay=".3s">
-                    <p>{{ quote.content }}</p>
-                    <cite>{{ quote.fullname }}</cite>
-                  </blockquote>
-                  {% endfor %}
+                  {% for section in analytics.sections.all %}
                   <h3 class="wow fadeInUp" data-wow-delay=".3s">
                     {{ section.title }}
                   </h3>
@@ -238,55 +213,14 @@
                     </ul>
                   </div>
                 </div>
-                <div
-                  class="tj-post__navigation wow fadeInUp"
-                  data-wow-delay=".3s"
-                >
-                  <!-- previous tab -->
-                  <div class="tj-nav__post previous">
-                    <div class="tj-nav-post__nav prev_post">
-                      {% if prev_tab %}
-                      <a href="{% url 'about:about_tab' slug=prev_tab.slug %}">
-                        <span><i class="tji-arrow-left"></i></span>{% trans
-                        "Previous" %}
-                      </a>
-                      {% else %}
-                      <a class="disabled"
-                        ><span><i class="tji-arrow-left"></i></span>{% trans
-                        "Previous" %}</a
-                      >
-                      {% endif %}
-                    </div>
-                  </div>
-
-                  <div class="tj-nav-post__grid">
-                    <a href="{% url 'about:about_default' %}"
-                      ><i class="tji-window"></i
-                    ></a>
-                  </div>
-
-                  <!-- next tab -->
-                  <div class="tj-nav__post next">
-                    <div class="tj-nav-post__nav next_post">
-                      {% if next_tab %}
-                      <a href="{% url 'about:about_tab' slug=next_tab.slug %}">
-                        {% trans "Next" %}<span
-                          ><i class="tji-arrow-right"></i
-                        ></span>
-                      </a>
-                      {% else %}
-                      <a class="disabled"
-                        >{% trans "Next" %}<span
-                          ><i class="tji-arrow-right"></i></span
-                      ></a>
-                      {% endif %}
-                    </div>
-                  </div>
-                </div>
+            
               </div>
             </div>
-           <div class="col-lg-4">
-              <div class="tj-main-sidebar sticky-lg-top">
+            {% endfor %}
+          <div class="col-lg-4">
+              <div class="pin-spacer">
+                <div class="tj-main-sidebar slidebar-stickiy">
+                  
                   <div class="tj-sidebar-widget widget-categories wow fadeInUp" data-wow-delay=".1s">
                     <h4 class="widget-title">{% trans "Social Networks" %}</h4>
 
@@ -331,28 +265,11 @@
                     </div>
 
                   </div>
-                <div class="tj-sidebar-widget service-categories wow fadeInUp" data-wow-delay=".1s" >
-                  <h4 class="widget-title">{% trans "Discover More" %}</h4>
-                  <ul>
-                    {% for tab in tabs %}
-                    <li>
-                      <a
-                        href="{% url 'about:about_tab' tab.slug %}"
-                        class="{% if tab == selected_tab %}active{% endif %}"
-                      >
-                        {{ tab.title }}
-                        <span class="icon"
-                          ><i class="tji-arrow-right"></i
-                        ></span>
-                      </a>
-                    </li>
-                    {% endfor %}
-                  </ul>
+
                 </div>
-               
               </div>
             </div>
-          </div>
+  
         </div>
       </section>
       <!-- end: Blog Section -->
