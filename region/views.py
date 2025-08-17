@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Region
+from .models import Region, ListSection, MiniTitle, Image, BlockQuote, ListItem, Tag
 
 
 def region_page(request, slug=None):
@@ -20,7 +20,7 @@ def region_page(request, slug=None):
     current_index = regiontabs.index(selected_tab)
     prev_tab = regiontabs[current_index - 1] if current_index > 0 else None
     next_tab = regiontabs[current_index +
-                    1] if current_index < len(regiontabs) - 1 else None
+                          1] if current_index < len(regiontabs) - 1 else None
 
     sections = selected_tab.sections.prefetch_related(
         'mini_titles', 'images', 'block_quotes'
@@ -39,4 +39,26 @@ def region_page(request, slug=None):
         "list_sections": list_sections,
         "prev_tab": prev_tab,
         "next_tab": next_tab
+    })
+
+
+def listsection_detail(request, slug):
+    list_section = get_object_or_404(ListSection, slug=slug)
+
+    # İlgili ilişkili veriler
+    list_items = list_section.list_items.all()
+    mini_titles = MiniTitle.objects.filter(
+        regionsection__region=list_section.region)
+    images = Image.objects.filter(regionsection__region=list_section.region)
+    blockquotes = BlockQuote.objects.filter(
+        regionsection__region=list_section.region)
+    tags = Tag.objects.filter(region=list_section.region)
+
+    return render(request, "region_detail.html", {
+        "list_section": list_section,
+        "list_items": list_items,
+        "mini_titles": mini_titles,
+        "images": images,
+        "blockquotes": blockquotes,
+        "tags": tags
     })

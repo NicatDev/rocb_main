@@ -121,12 +121,12 @@
             <div class="col-lg-8">
               <div class="post-details-wrapper">
                 <div class="blog-images wow fadeInUp" data-wow-delay=".1s">
-                  {% if region.image %}
-                  <img src="{{ region.image.url }}" alt="{{ region.title }}" />
+                  {% if list_section.image %}
+                  <img src="{{ list_section.image.url }}" alt="{{ list_section.title }}" />
                   {% endif %}
                 </div>
-                <h1 class="title title-anim">{{ region.title }}</h1>
-                    {% if region.created_by %}
+                <h1 class="title title-anim">{{ list_section.title }}</h1>
+                    {% if list_section.created_by %}
 
                 <div
                   class="blog-category-two wow fadeInUp"
@@ -134,10 +134,10 @@
                 >
                   <div class="category-item">
                     <div class="cate-images">
-                      {% if region.autorized_image %}
+                      {% if list_section.autorized_image %}
                       <img
-                        src="{{ region.autorized_image.url }}"
-                        alt="{{ region.title }}"
+                        src="{{ list_section.autorized_image.url }}"
+                        alt="{{ list_section.title }}"
                       />
                       {% else %}
                       {% endif %}
@@ -145,7 +145,7 @@
                     <div class="cate-text">
                       <span class="degination">{% trans "Authored by" %}</span>
                       <h6 class="title">
-                        <a href="blog-details.html">{{ region.created_by }}</a>
+                        <a href="blog-details.html">{{ list_section.created_by }}</a>
                       </h6>
                     </div>
                   </div>
@@ -153,7 +153,7 @@
                     {% endif %}
                 <div class="blog-text">
                   <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ region.description }}
+                    {{ list_section.description }}
                   </p>
                 {% for section in sections %} 
                   {% for quote in section.block_quotes.all %}
@@ -201,21 +201,6 @@
                 
                  {% endfor %}
 
-                </div>
-               
-                <div class="tj-tags-post wow fadeInUp" data-wow-delay=".3s">
-                  <div>
-                    
-                    
-                    {% for list_section in list_sections %}
-                        <a href="{% url 'region:region_detail' slug=list_section.slug %}" class="list-section-title">
-                            {{ list_section.title }}
-                            <span class="icon"><i class="tji-arrow-right"></i></span>
-
-                        </a>
-                    {% endfor %}
-
-                  </div>
                 </div>
 
                 <div class="tj-tags-post wow fadeInUp" data-wow-delay=".3s">
