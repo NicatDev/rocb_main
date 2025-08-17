@@ -43,7 +43,6 @@ def home(request):
     news = News.objects.filter(in_home=True)[0:8]
     tabs = About.objects.order_by('created_at')
     regiontabs = Region.objects.order_by('created_at')
-
     context = {
         "events": events,
         "news": news,

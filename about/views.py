@@ -6,13 +6,6 @@ from region.models import Region
 def about_page(request, slug=None):
     tabs = list(About.objects.order_by('created_at'))
     regiontabs = list(Region.objects.order_by('created_at'))
-
-    if not regiontabs:
-        return render(request, "about.html", {
-            "regiontabs": [],
-            "selected_region": None,
-        })
-
     if not tabs:
         return render(request, "about.html", {
             "tabs": [],
@@ -24,7 +17,6 @@ def about_page(request, slug=None):
         selected_tab = get_object_or_404(About, slug=slug)
     else:
         selected_tab = tabs[0]
-
     current_index = tabs.index(selected_tab)
     prev_tab = tabs[current_index - 1] if current_index > 0 else None
     next_tab = tabs[current_index +
@@ -34,7 +26,6 @@ def about_page(request, slug=None):
         'mini_titles', 'images', 'block_quotes'
     ).all()
     tags = selected_tab.tags.all()
-
     return render(request, "about.html", {
         "tabs": tabs,
         "selected_tab": selected_tab,

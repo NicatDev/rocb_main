@@ -46,7 +46,7 @@
                 <li>
                   <a href="#">Events</a>
                 </li>
-                <li><a href="#">Analytics</a></li>
+                <li><a href="{% url 'analytics' %}">Analytics</a></li>
                 <li><a href="#">E-Training</a></li>
                 <li class="has-dropdown">
                   <a href="#">Publicity</a>
@@ -140,8 +140,13 @@
               </button>
             </div>
             <div class="header-button">
-              <a class="main-color-rocb" href="{% url 'contact:contact' %}">
-                <span class="btn-text"><span>Let’s Talk</span></span>
+              <a class="main-color-rocb" href="{% url 'login' %}">
+                {% if not user.is_authenticated %}
+                <span class="btn-text"><span>Login</span></span>
+                {% else %}
+                <span class="btn-text" id="auth-btn-logout"><span>Log out</span></span>
+                {% endif %}
+                
                 <span class="btn-icon"><i class="fa-solid fa-user"></i></span>
               </a>
             </div>
@@ -192,3 +197,31 @@
     </div>
   </div>
 </header>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const authBtn = document.getElementById("auth-btn-logout");
+
+  authBtn.addEventListener("click", function() {
+
+      fetch("{% url 'logout' %}", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Refresh page or redirect after logout
+          window.location.reload();
+        } else {
+          alert("Logout failed");
+        }
+      });
+
+  });
+});
+</script>
