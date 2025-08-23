@@ -129,22 +129,28 @@
                   class="blog-category-two wow fadeInUp"
                   data-wow-delay=".3s"
                 ></div>
-                <div class="blog-text">
-                  {% for news in newsletters %}
-                  <h3 class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ news.title }}
+              <div class="newsletter-container">
+                {% for news in newsletters %}
+                <div class="newsletter-card">
+                  <h3 class="newsletter-title">
+                    <a href="{% if news.file %}{{ news.file.url }}{% endif %}" target="_blank">
+                      📄 {{ news.title }} 
+                    </a>
                   </h3>
-                  <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ news.description }}
-                  </p>
-                  {% for item in news.items.all %}
-                        <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ item.order }} {{ item.title }}
-                  </p>
-                  {% endfor %}
-                  {% endfor %}
+                  <p class="newsletter-description">{{ news.description }}</p>
+
+                  {% if news.items.all %}
+                  <ul class="newsletter-items">
+                    {% for item in news.items.all|dictsort:"order" %}
+                      <li>
+                        <span class="item-order">{{ item.order }}.</span> {{ item.title }}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
                 </div>
-       
+                {% endfor %}
+              </div>
                  
                 <div class="tj-tags-post wow fadeInUp" data-wow-delay=".3s">
             
