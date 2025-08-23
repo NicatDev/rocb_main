@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+from dotenv import load_dotenv
 from django.utils.translation import gettext_lazy as _
 from pathlib import Path
 import os
@@ -105,6 +106,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
+
+load_dotenv()
 
 DATABASES = {
     'default': {
