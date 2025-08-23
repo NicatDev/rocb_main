@@ -5,49 +5,36 @@ from .models import Contact
 
 class ContactForm(forms.ModelForm):
     # Phone number validator
-    phone_validator = RegexValidator(
-        regex=r'^\+?1?\d{9,15}$',
-        message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
-    )
+    # phone_validator = RegexValidator(
+    #     regex=r'^\+?\d{9,15}$',
+    #     message="Phone number must contain 9 to 15 digits (optionally with +)."
+    # )
 
     class Meta:
         model = Contact
         fields = ['name', 'email', 'address', 'phone', 'subject', 'message']
         widgets = {
             'name': forms.TextInput(attrs={
-                'class': 'form-control',
                 'placeholder': '',
                 'id': 'name'
             }),
             'email': forms.EmailInput(attrs={
-                'class': 'form-control',
                 'placeholder': '',
                 'id': 'email'
             }),
             'address': forms.TextInput(attrs={
-                'class': 'form-control',
                 'placeholder': '',
                 'id': 'address'
             }),
             'phone': forms.TextInput(attrs={
-                'class': 'form-control',
                 'placeholder': '',
                 'id': 'phone'
             }),
-            'subject': forms.Select(attrs={
-                'class': 'form-control',
+            'subject': forms.TextInput(attrs={
+                'placeholder': '',
                 'id': 'subject'
-            }, choices=[
-                ('', 'Choose an option'),
-                ('Business Strategy', 'Business Strategy'),
-                ('Customer Experience', 'Customer Experience'),
-                ('Sustainability and ESG', 'Sustainability and ESG'),
-                ('Training and Development', 'Training and Development'),
-                ('IT Support & Maintenance', 'IT Support & Maintenance'),
-                ('Marketing Strategy', 'Marketing Strategy'),
-            ]),
+            }),
             'message': forms.Textarea(attrs={
-                'class': 'form-control',
                 'rows': 5,
                 'placeholder': '',
                 'id': 'message'
@@ -66,7 +53,7 @@ class ContactForm(forms.ModelForm):
         self.fields['address'].required = False  # Address optional
 
         # Phone validator əlavə et
-        self.fields['phone'].validators.append(self.phone_validator)
+        # self.fields['phone'].validators.append(self.phone_validator)
 
         # Help texts
         self.fields['name'].help_text = 'Enter your full name'
@@ -86,23 +73,26 @@ class ContactForm(forms.ModelForm):
 
     def clean_phone(self):
         phone = self.cleaned_data.get('phone', '').strip()
-        # Remove common formatting characters
-        cleaned_phone = phone.replace(' ', '').replace(
-            '-', '').replace('(', '').replace(')', '')
+        # yalnız rəqəmləri saxla
+        cleaned_phone = ''.join(filter(str.isdigit, phone))
 
-        if len(cleaned_phone) < 10:
+        if len(cleaned_phone) < 9:
             raise forms.ValidationError(
-                'Phone number must be at least 10 digits.')
+                'Phone number must be at least 9 digits.')
         if len(cleaned_phone) > 15:
             raise forms.ValidationError(
                 'Phone number cannot be more than 15 digits.')
 
-        return phone
+        return "+" + cleaned_phone if not phone.startswith("+") else phone
 
     def clean_subject(self):
         subject = self.cleaned_data.get('subject', '').strip()
-        if not subject or subject == '':
-            raise forms.ValidationError('Please select a subject.')
+        if len(subject) < 2:
+            raise forms.ValidationError(
+                'Subject must be at least 2 characters long.')
+        if not subject.replace(' ', '').isalpha():
+            raise forms.ValidationError(
+                'Subject should only contain letters and spaces.')
         return subject
 
     def clean_message(self):
