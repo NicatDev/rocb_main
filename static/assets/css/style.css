@@ -34,3 +34,10 @@
     display: -ms-inline-flexbox;
     display: inline-flex;
 }
+
+.tj-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}

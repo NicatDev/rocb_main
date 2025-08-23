@@ -244,7 +244,7 @@
     <div class="tj-nav__post previous">
         <div class="tj-nav-post__nav prev_post">
             {% if prev_tab %}
-                <a href="{% url 'region:region_tab' slug=prev_tab.slug %}">
+                <a href="{% url 'region:region_detail' slug=prev_tab.slug %}">
                     <span><i class="tji-arrow-left"></i></span>{% trans "Previous" %}
                 </a>
             {% else %}
@@ -261,7 +261,7 @@
     <div class="tj-nav__post next">
         <div class="tj-nav-post__nav next_post">
             {% if next_tab %}
-                <a href="{% url 'region:region_tab' slug=next_tab.slug %}">
+                <a href="{% url 'region:region_detail' slug=next_tab.slug %}">
                     {% trans "Next" %}<span><i class="tji-arrow-right"></i></span>
                 </a>
             {% else %}
@@ -275,29 +275,55 @@
             </div>
             
             <div class="col-lg-4">
-              <div class="tj-main-sidebar sticky-lg-top">
-                <div
-                  class="tj-sidebar-widget service-categories wow fadeInUp"
-                  data-wow-delay=".1s"
-                >
-                  <h4 class="widget-title">{% trans "Discover More" %}</h4>
-                  <ul>
-                    {% for tab in regiontabs %}
-                    <li>
-                      <a
-                        href="{% url 'region:region_tab' tab.slug %}"
-                        class="{% if tab == selected_tab %}active{% endif %}"
-                      >
-                        {{ tab.title }}
-                        <span class="icon"
-                          ><i class="tji-arrow-right"></i
-                        ></span>
-                      </a>
-                    </li>
-                    {% endfor %}
-                  </ul>
+              <div class="pin-spacer">
+                <div class="tj-main-sidebar slidebar-stickiy">
+                  
+                  <div class="tj-sidebar-widget widget-categories wow fadeInUp" data-wow-delay=".1s">
+                    <h4 class="widget-title">{% trans "Social Networks" %}</h4>
+
+                    <div class="infos-item">
+                      <div class="project-icons">
+                        <i class="fab fa-twitter"></i>
+                      </div>
+                      <div class="project-text">
+                        <span>{% trans "Twitter" %}</span>
+                        <h6 class="title"><a href="https://twitter.com/yourprofile" target="_blank">@yourprofile</a></h6>
+                      </div>
+                    </div>
+
+                    <div class="infos-item">
+                      <div class="project-icons">
+                        <i class="fab fa-linkedin"></i>
+                      </div>
+                      <div class="project-text">
+                        <span>{% trans "LinkedIn" %}</span>
+                        <h6 class="title"><a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></h6>
+                      </div>
+                    </div>
+
+                    <div class="infos-item">
+                      <div class="project-icons">
+                        <i class="fab fa-whatsapp"></i>
+                      </div>
+                      <div class="project-text">
+                        <span>{% trans "WhatsApp" %}</span>
+                        <h6 class="title"><a href="https://wa.me/1234567890" target="_blank">+1 234 567 890</a></h6>
+                      </div>
+                    </div>
+
+                    <div class="infos-item">
+                      <div class="project-icons">
+                        <i class="fas fa-globe"></i>
+                      </div>
+                      <div class="project-text">
+                        <span>{% trans "Website" %}</span>
+                        <h6 class="title"><a href="https://www.yourwebsite.com" target="_blank">www.yourwebsite.com</a></h6>
+                      </div>
+                    </div>
+
+                  </div>
+
                 </div>
-               
               </div>
             </div>
           </div>
