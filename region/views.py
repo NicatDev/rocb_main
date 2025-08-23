@@ -44,8 +44,8 @@ def region_page(request, slug=None):
 
 def listsection_detail(request, slug):
     list_section = get_object_or_404(ListSection, slug=slug)
+    list_sections_tabs = list(ListSection.objects.all())
 
-    # İlgili ilişkili veriler
     list_items = list_section.list_items.all()
     mini_titles = MiniTitle.objects.filter(
         regionsection__region=list_section.region)
@@ -54,11 +54,19 @@ def listsection_detail(request, slug):
         regionsection__region=list_section.region)
     tags = Tag.objects.filter(region=list_section.region)
 
+    current_index = list_sections_tabs.index(list_section)
+    prev_tab = list_sections_tabs[current_index -
+                                  1] if current_index > 0 else None
+    next_tab = list_sections_tabs[current_index +
+                                  1] if current_index < len(list_sections_tabs) - 1 else None
+
     return render(request, "region_detail.html", {
         "list_section": list_section,
         "list_items": list_items,
         "mini_titles": mini_titles,
         "images": images,
         "blockquotes": blockquotes,
-        "tags": tags
+        "tags": tags,
+        "prev_tab": prev_tab,
+        "next_tab": next_tab,
     })
