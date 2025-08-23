@@ -52,7 +52,7 @@
             </div>
             <div class="tj-preloader-ball-shadow"></div>
           </div>
-          <div class="tj-preloader-text">Loading...</div>
+          <div class="tj-preloader-text">{% trans "Loading" %}...</div>
         </div>
       </div>
       <div class="tj-preloader-overlay"></div>
@@ -70,176 +70,8 @@
     <!-- start: Search Popup -->
     <div class="search-popup-overlay"></div>
     <!-- end: Search Popup -->
-
-    <!-- start: Offcanvas Menu -->
-    <div class="tj-offcanvas-area d-none d-lg-block">
-      <div class="hamburger_bg"></div>
-      <div class="hamburger_wrapper">
-        <div class="hamburger_inner">
-          <div
-            class="hamburger_top d-flex align-items-center justify-content-between"
-          >
-            <div class="hamburger_logo">
-              <a href="index.html" class="mobile_logo">
-                <img src="assets/images/logos/logo-2.webp" alt="Logo" />
-              </a>
-            </div>
-            <div class="hamburger_close">
-              <button class="hamburger_close_btn">
-                <i class="fa-thin fa-times"></i>
-              </button>
-            </div>
-          </div>
-          <div class="offcanvas-text">
-            <p>
-              Developing personalize our customer journeys to increase
-              satisfaction & loyalty of our expansion recognized by industry
-              leaders.
-            </p>
-          </div>
-          <div class="hamburger-search-area">
-            <h5 class="hamburger-title">Search Now!</h5>
-            <div class="hamburger_search">
-              <form method="get" action="index.html">
-                <button type="submit"><i class="tji-search"></i></button>
-                <input
-                  type="search"
-                  autocomplete="off"
-                  name="s"
-                  value=""
-                  placeholder="Search here..."
-                />
-              </form>
-            </div>
-          </div>
-          <div class="hamburger-infos">
-            <h5 class="hamburger-title">Contact Info</h5>
-            <div class="contact-info">
-              <div class="contact-item">
-                <span class="subtitle">Phone</span>
-                <a class="contact-link" href="tel:10095447818"
-                  >+1 (009) 544-7818</a
-                >
-              </div>
-              <div class="contact-item">
-                <span class="subtitle">Email</span>
-                <a class="contact-link" href="mailto:info@bexon.com"
-                  >info@bexon.com</a
-                >
-              </div>
-              <div class="contact-item">
-                <span class="subtitle">Location</span>
-                <span class="contact-link"
-                  >993 Renner Burg, West Rond, MT 94251-030</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="hamburger-socials">
-          <h5 class="hamburger-title">Follow Us</h5>
-          <div class="social-links style-3">
-            <ul>
-              <li>
-                <a href="https://www.facebook.com/" target="_blank"
-                  ><i class="fa-brands fa-facebook-f"></i
-                ></a>
-              </li>
-              <li>
-                <a href="https://www.instagram.com/" target="_blank"
-                  ><i class="fa-brands fa-instagram"></i
-                ></a>
-              </li>
-              <li>
-                <a href="https://x.com/" target="_blank"
-                  ><i class="fa-brands fa-x-twitter"></i
-                ></a>
-              </li>
-              <li>
-                <a href="https://www.linkedin.com/" target="_blank"
-                  ><i class="fa-brands fa-linkedin-in"></i
-                ></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end: Offcanvas Menu -->
-
-    <!-- start: Hamburger Menu -->
-    <div class="hamburger-area d-lg-none">
-      <div class="hamburger_bg"></div>
-      <div class="hamburger_wrapper">
-        <div class="hamburger_inner">
-          <div
-            class="hamburger_top d-flex align-items-center justify-content-between"
-          >
-            <div class="hamburger_logo">
-              <a href="index.html" class="mobile_logo">
-                <img src="assets/images/logos/logo-2.webp" alt="Logo" />
-              </a>
-            </div>
-            <div class="hamburger_close">
-              <button class="hamburger_close_btn">
-                <i class="fa-thin fa-times"></i>
-              </button>
-            </div>
-          </div>
-          <div class="hamburger_menu">
-            <div class="mobile_menu"></div>
-          </div>
-          <div class="hamburger-infos">
-            <h5 class="hamburger-title">Contact Info</h5>
-            <div class="contact-info">
-              <div class="contact-item">
-                <span class="subtitle">Phone</span>
-                <a class="contact-link" href="tel:8089091313">808-909-1313</a>
-              </div>
-              <div class="contact-item">
-                <span class="subtitle">Email</span>
-                <a class="contact-link" href="mailto:info@bexon.com"
-                  >info@bexon.com</a
-                >
-              </div>
-              <div class="contact-item">
-                <span class="subtitle">Location</span>
-                <span class="contact-link"
-                  >993 Renner Burg, West Rond, MT 94251-030</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="hamburger-socials">
-          <h5 class="hamburger-title">Follow Us</h5>
-          <div class="social-links style-3">
-            <ul>
-              <li>
-                <a href="https://www.facebook.com/" target="_blank"
-                  ><i class="fa-brands fa-facebook-f"></i
-                ></a>
-              </li>
-              <li>
-                <a href="https://www.instagram.com/" target="_blank"
-                  ><i class="fa-brands fa-instagram"></i
-                ></a>
-              </li>
-              <li>
-                <a href="https://x.com/" target="_blank"
-                  ><i class="fa-brands fa-x-twitter"></i
-                ></a>
-              </li>
-              <li>
-                <a href="https://www.linkedin.com/" target="_blank"
-                  ><i class="fa-brands fa-linkedin-in"></i
-                ></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- start: Header Area -->
+    {% include 'components/hamburger-menu.html' %}
     <!-- end: Hamburger Menu -->
 
     <!-- start: Header Area -->
@@ -254,21 +86,20 @@
       <!-- start: Breadcrumb Section -->
       <section
         class="tj-page-header section-gap-x"
-        data-bg-image="{% static 'assets/images/bg/pheader-bg.webp' %}"
       >
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
               <div class="tj-page-header-content text-center">
-                <h1 class="tj-page-title">Contact Us</h1>
+                <h1 class="tj-page-title">{% trans "Contact Us" %}</h1>
                 <div class="tj-page-link">
                   <span><i class="tji-home"></i></span>
                   <span>
-                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'home' %}">{% trans "Home" %}</a>
                   </span>
                   <span><i class="tji-arrow-right"></i></span>
                   <span>
-                    <span>Contact Us</span>
+                    <span>{% trans "Contact Us" %}</span>
                   </span>
                 </div>
               </div>
@@ -308,10 +139,10 @@
             <div class="col-12">
               <div class="sec-heading text-center">
                 <span class="sub-title wow fadeInUp" data-wow-delay=".1s"
-                  ><i class="tji-box"></i>Contact info</span
+                  ><i class="tji-box"></i>{% trans "Contact info" %}</span
                 >
                 <h2 class="sec-title title-anim">
-                  <span>Reach</span> Out to Us
+                  <span>{% trans "Reach" %}</span> {% trans "Out to Us" %}
                 </h2>
               </div>
             </div>
@@ -327,7 +158,7 @@
                 <div class="contact-icon">
                   <i class="tji-location-3"></i>
                 </div>
-                <h3 class="contact-title">Our Location</h3>
+                <h3 class="contact-title">{% trans "Our Location" %}</h3>
                 <p>{{ contact_info.location }}</p>
               </div>
             </div>
@@ -339,7 +170,7 @@
                 <div class="contact-icon">
                   <i class="tji-envelop"></i>
                 </div>
-                <h3 class="contact-title">Email us</h3>
+                <h3 class="contact-title">{% trans "Email us" %}</h3>
                 <ul class="contact-list">
                   <li>
                     <a href="mailto:{{ contact_info.email }}"
@@ -357,7 +188,7 @@
                 <div class="contact-icon">
                   <i class="tji-phone"></i>
                 </div>
-                <h3 class="contact-title">Call us</h3>
+                <h3 class="contact-title">{% trans "Call us" %}</h3>
                 <ul class="contact-list">
                   <li>
                     <a
@@ -384,7 +215,7 @@
                 <div class="contact-icon">
                   <i class="tji-chat"></i>
                 </div>
-                <h3 class="contact-title">Live chat</h3>
+                <h3 class="contact-title">{% trans "Live chat" %}</h3>
                 <ul class="contact-list">
                   <li>
                     <a href="mailto:{{ contact_info.email }}"
@@ -392,7 +223,9 @@
                     >
                   </li>
                   <li class="active">
-                    <a href="{% url 'contact:contact' %}">Need help?</a>
+                    <a href="{% url 'contact:contact' %}"
+                      >{% trans "Need help?" %}</a
+                    >
                   </li>
                 </ul>
               </div>
@@ -407,8 +240,8 @@
                 <div class="contact-icon">
                   <i class="tji-location-3"></i>
                 </div>
-                <h3 class="contact-title">Our Location</h3>
-                <p>993 Renner Burg, West Rond, MT 94251-030</p>
+                <h3 class="contact-title">{% trans "Our Location" %}</h3>
+                <p>{{ contact_info.location }}</p>
               </div>
             </div>
             <div class="col-xl-3 col-lg-6 col-sm-6">
@@ -419,12 +252,18 @@
                 <div class="contact-icon">
                   <i class="tji-envelop"></i>
                 </div>
-                <h3 class="contact-title">Email us</h3>
+                <h3 class="contact-title">{% trans "Email us" %}</h3>
                 <ul class="contact-list">
                   <li>
-                    <a href="mailto:support@bexon.com">support@bexon.com</a>
+                    <a href="mailto:{{ contact_info.email }}"
+                      >{{ contact_info.email }}</a
+                    >
                   </li>
-                  <li><a href="mailto:info@bexon.com">info@bexon.com</a></li>
+                  <li>
+                    <a href="mailto:{{ contact_info.email }}"
+                      >{{ contact_info.email }}</a
+                    >
+                  </li>
                 </ul>
               </div>
             </div>
@@ -436,10 +275,13 @@
                 <div class="contact-icon">
                   <i class="tji-phone"></i>
                 </div>
-                <h3 class="contact-title">Call us</h3>
+                <h3 class="contact-title">{% trans "Call us" %}</h3>
                 <ul class="contact-list">
-                  <li><a href="tel:10095447818">+1 (009) 544-7818</a></li>
-                  <li><a href="tel:10098801810">+1 (009) 880-1810</a></li>
+                  <li>
+                    <a href="tel:{{ contact_info.phone_number }}"
+                      >{{ contact_info.phone_number }}</a
+                    >
+                  </li>
                 </ul>
               </div>
             </div>
@@ -449,15 +291,14 @@
                 data-wow-delay=".9s"
               >
                 <div class="contact-icon">
-                  <i class="tji-chat"></i>
+                  <i class="tji-phone"></i>
                 </div>
-                <h3 class="contact-title">Live chat</h3>
+                <h3 class="contact-title">{% trans "Fax" %}</h3>
                 <ul class="contact-list">
                   <li>
-                    <a href="mailto:livechat@bexon.com">livechat@bexon.com</a>
-                  </li>
-                  <li class="active">
-                    <a href="{% url 'contact:contact' %}">Need help?</a>
+                    <a href="mailto:livechat@bexon.com"
+                      >{{ contact_info.fax }}</a
+                    >
                   </li>
                 </ul>
               </div>
@@ -475,7 +316,7 @@
             <div class="col-lg-6">
               <div class="contact-form wow fadeInUp" data-wow-delay=".1s">
                 <h3 class="title">
-                  Feel Free to Get in Touch or Visit our Location.
+                  {% blocktrans %} Get in Touch or Visit our Location. {% endblocktrans %}
                 </h3>
                 <form id="contact-form" method="post" novalidate>
                   {% csrf_token %}
@@ -483,7 +324,9 @@
                     <div class="col-sm-6">
                       <div class="form-input">
                         {{ form.name }}
-                        <label class="cf-label">Full Name <span>*</span></label>
+                        <label class="cf-label"
+                          >{% trans "Full Name" %} <span>*</span></label
+                        >
                         <div class="error-message" data-field="name"></div>
                       </div>
                     </div>
@@ -491,7 +334,7 @@
                       <div class="form-input">
                         {{ form.email }}
                         <label class="cf-label"
-                          >Email Address <span>*</span></label
+                          >{% trans "Email Address" %} <span>*</span></label
                         >
                         <div class="error-message" data-field="email"></div>
                       </div>
@@ -500,7 +343,7 @@
                       <div class="form-input">
                         {{ form.phone }}
                         <label class="cf-label"
-                          >Phone number <span>*</span></label
+                          >{% trans "Phone number" %} <span>*</span></label
                         >
                         <div class="error-message" data-field="phone"></div>
                       </div>
@@ -508,15 +351,14 @@
                     <div class="col-sm-6">
                       <div class="form-input">
                         {{ form.address }}
-                        <label class="cf-label">Address</label>
+                        <label class="cf-label">{% trans "Address" %}</label>
                         <div class="error-message" data-field="address"></div>
                       </div>
                     </div>
                     <div class="col-sm-12">
                       <div class="form-input">
-                        <div class="tj-nice-select-box">
-                          <div class="tj-select">{{ form.subject }}</div>
-                        </div>
+                        {{ form.subject }}
+                        <label class="cf-label">{% trans "Subject" %}</label>
                         <div class="error-message" data-field="subject"></div>
                       </div>
                     </div>
@@ -536,9 +378,11 @@
                         id="submit-btn"
                       >
                         <span class="btn-text">
-                          <span class="btn-text-content">Submit Now</span>
+                          <span class="btn-text-content"
+                            >{% trans "Submit" %}</span
+                          >
                           <span class="btn-loading" style="display: none"
-                            >Sending...</span
+                            >{% trans "Sending" %}...</span
                           >
                         </span>
                         <span class="btn-icon"
@@ -552,12 +396,11 @@
             </div>
             <div class="col-lg-6">
               <div class="map-area wow fadeInUp" data-wow-delay=".3s">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d316440.5712687838!2d-74.01091796224334!3d40.67186885683901!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1745918398047!5m2!1sen!2sbd"
-                ></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.2402606166424!2d49.86910307600945!3d40.38136737144525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d1c697d8689%3A0x63cac8368ac04559!2s4%20Natig%20Aliyev%20Street%2C%20Bak%C4%B1!5e0!3m2!1saz!2saz!4v1755977439630!5m2!1saz!2saz"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>
             </div>
           </div>
+          <div class="contact-alert"></div>
         </div>
       </section>
       <!-- end: Contact Section -->
@@ -657,9 +500,12 @@
           }
 
           // Validate subject
-          const subject = $('select[name="subject"]').val();
-          if (!subject || subject === "" || subject === "0") {
-            showError("subject", "Please select a subject");
+          const subject = $('input[name="subject"]').val().trim();
+          if (subject === "") {
+            showError("subject", "Subject is required");
+            isValid = false;
+          } else if (subject.length < 2) {
+            showError("subject", "Subject must be at least 2 characters");
             isValid = false;
           }
 
@@ -683,90 +529,72 @@
         }
 
         // Form submission
-        $("#contact-form").on("submit", function (e) {
-          e.preventDefault();
+       // Form submission
+// Form submission
+$("#contact-form").on("submit", function (e) {
+    e.preventDefault();
 
-          if (!validateForm()) {
-            // Scroll to first error
-            const firstError = $(".form-input.error").first();
-            if (firstError.length) {
-              $("html, body").animate(
-                {
-                  scrollTop: firstError.offset().top - 100,
-                },
-                500
-              );
-            }
-            return;
-          }
+    if (!validateForm()) {
+        const firstError = $(".form-input.error").first();
+        if (firstError.length) {
+            $("html, body").animate({ scrollTop: firstError.offset().top - 100 }, 500);
+        }
+        return;
+    }
 
-          // Show loading state
-          const $submitBtn = $("#submit-btn");
-          const $btnText = $(".btn-text-content");
-          const $btnLoading = $(".btn-loading");
+    const $submitBtn = $("#submit-btn");
+    const $btnText = $(".btn-text-content");
+    const $btnLoading = $(".btn-loading");
 
-          $submitBtn.prop("disabled", true);
-          $btnText.hide();
-          $btnLoading.show();
+    $submitBtn.prop("disabled", true);
+    $btnText.hide();
+    $btnLoading.show();
 
-          // Submit form via AJAX
-          $.ajax({
-            url: '{% url "contact:contact" %}',
-            type: "POST",
-            data: $(this).serialize(),
-            success: function (response) {
-              // Show success message
-              $("main").prepend(`
-                <div class="container mt-4">
-                  <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Your message has been sent successfully! We'll get back to you soon.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                  </div>
-                </div>
-              `);
+    $.ajax({
+        url: '{% url "contact:contact" %}',
+        type: "POST",
+        data: $(this).serialize(),
+        success: function (response) {
+            // SweetAlert success with translation
+            Swal.fire({
+                icon: 'success',
+                title: '{% trans "Success!" %}',
+                text: '{% trans "Your message has been sent successfully! We will get back to you soon." %}',
+                confirmButtonText: '{% trans "OK" %}'
+            });
 
-              // Reset form
-              $("#contact-form")[0].reset();
-              $(".form-input").removeClass("has-value error");
-              $(".error-message").hide();
+            $("#contact-form")[0].reset();
+            $(".form-input").removeClass("has-value error");
+            $(".error-message").hide();
+        },
+        error: function (xhr) {
+            let errorMessage = '{% trans "There was an error sending your message. Please try again." %}';
 
-              // Scroll to top
-              $("html, body").animate({ scrollTop: 0 }, 500);
-            },
-            error: function (xhr) {
-              let errorMessage =
-                "There was an error sending your message. Please try again.";
-
-              if (xhr.responseJSON && xhr.responseJSON.errors) {
-                // Handle form validation errors
+            if (xhr.responseJSON && xhr.responseJSON.errors) {
                 const errors = xhr.responseJSON.errors;
                 Object.keys(errors).forEach((field) => {
-                  showError(field, errors[field][0]);
+                    showError(field, errors[field][0]);
                 });
-                errorMessage = "Please correct the errors below and try again.";
-              }
+                errorMessage = '{% trans "Please correct the errors below and try again." %}';
+            }
 
-              // Show error message
-              $("main").prepend(`
-                <div class="container mt-4">
-                  <div class="alert alert-error alert-dismissible fade show" role="alert">
-                    ${errorMessage}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                  </div>
-                </div>
-              `);
+            // SweetAlert error with translation
+            Swal.fire({
+                icon: 'error',
+                title: '{% trans "Error!" %}',
+                text: errorMessage,
+                confirmButtonText: '{% trans "OK" %}'
+            });
+        },
+        complete: function () {
+            $submitBtn.prop("disabled", false);
+            $btnText.show();
+            $btnLoading.hide();
+        }
+    });
+});
 
-              // Scroll to top
-              $("html, body").animate({ scrollTop: 0 }, 500);
-            },
-            complete: function () {
-              // Hide loading state
-              $submitBtn.prop("disabled", false);
-              $btnText.show();
-              $btnLoading.hide();
-            },
-          });
-        });
+
 
         // Real-time validation on input
         $("input, textarea, select").on("blur", function () {
@@ -798,11 +626,8 @@
               break;
 
             case "phone":
-              const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-              if (value === "") {
-                showError("phone", "Phone number is required");
-              } else if (!phoneRegex.test(value.replace(/[\s\-\(\)]/g, ""))) {
-                showError("phone", "Please enter a valid phone number");
+              if (!value || value === "" || value === "0") {
+                showError("phone", "Please select a phone");
               }
               break;
 
@@ -858,5 +683,7 @@
         });
       });
     </script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   </body>
 </html>

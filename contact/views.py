@@ -14,8 +14,7 @@ from about.models import About
 
 @require_http_methods(["GET", "POST"])
 def contact_view(request):
-    # ContactInfo modelinden data götürülecek
-    contact_infos = ContactInfo.objects.all()
+    contact_info = ContactInfo.objects.first()
     tabs = About.objects.order_by('created_at')
 
     if request.method == 'POST':
@@ -162,7 +161,7 @@ def contact_view(request):
 
     context = {
         'form': form,
-        'contact_infos': contact_infos,
+        'contact_info': contact_info,
         'tabs': tabs
     }
 

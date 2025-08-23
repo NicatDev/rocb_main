@@ -82,3 +82,7 @@
       font-size: 1rem;
       font-weight: 500;
     }
+
+    .form-input.has-value label.cf-label {
+    display: none;
+}
