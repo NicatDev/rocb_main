@@ -6,8 +6,8 @@ class Analytics(models.Model):
     title = models.CharField(max_length=200, verbose_name="Title")
     slug = models.SlugField(unique=True, editable=False, blank=True, null=True)
     description = models.TextField(verbose_name="Description")
-    image = models.ImageField(
-        upload_to='analytics_images/', verbose_name="Image", blank=True, null=True)
+    image = models.ImageField(upload_to='analytics_images/', verbose_name="Image", blank=True, null=True)
+    file = models.FileField(null=True,blank=True)
 
     class Meta:
         verbose_name = "Analytic"
