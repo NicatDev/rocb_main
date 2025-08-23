@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     Region, RegionSection, MiniTitle, Image, BlockQuote, Tag,
-    ListSection, ListItem
+    ListSection, ListItem, Country
 )
 
 
@@ -72,3 +72,10 @@ admin.site.register(Image)
 admin.site.register(BlockQuote)
 admin.site.register(Tag)
 admin.site.register(ListItem)
+
+
+@admin.register(Country)
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ("title", "region")
+    search_fields = ("title", "description")
+    list_filter = ("region",)

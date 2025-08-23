@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Region, ListSection, MiniTitle, Image, BlockQuote, ListItem, Tag
+from .models import Region, ListSection, MiniTitle, Image, BlockQuote, ListItem, Tag, Country
 
 
 def region_page(request, slug=None):
@@ -30,6 +30,8 @@ def region_page(request, slug=None):
     list_sections = selected_tab.list_sections.prefetch_related(
         'list_items').all()
 
+    countries = Country.objects.all().order_by('title')
+
     return render(request, "region.html", {
         "regiontabs": regiontabs,
         "selected_tab": selected_tab,
@@ -38,7 +40,8 @@ def region_page(request, slug=None):
         "tags": tags,
         "list_sections": list_sections,
         "prev_tab": prev_tab,
-        "next_tab": next_tab
+        "next_tab": next_tab,
+        'countries': countries
     })
 
 

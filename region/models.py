@@ -5,7 +5,8 @@ from django.db import models
 class Region(models.Model):
     title = models.CharField(max_length=200, verbose_name="Title")
     slug = models.SlugField(unique=True, editable=False, blank=True, null=True)
-    description = models.TextField(verbose_name="Description")
+    description = models.TextField(
+        verbose_name="Description", blank=True, null=True)
     image = models.ImageField(
         upload_to='region_images/', verbose_name="Image", blank=True, null=True)
     created_at = models.DateTimeField(
@@ -133,6 +134,25 @@ class ListItem(models.Model):
         verbose_name = "List Item"
         verbose_name_plural = "List Items"
         ordering = ['title']
+
+    def __str__(self):
+        return self.title
+
+
+class Country(models.Model):
+    title = models.CharField(max_length=100, verbose_name="Country Name")
+    code = models.CharField(
+        max_length=10, verbose_name="Country Code", blank=True, null=True)
+    description = models.TextField(
+        verbose_name="Country Description", blank=True, null=True)
+    region = models.ForeignKey(
+        Region, on_delete=models.CASCADE, related_name='countries', blank=True, null=True)
+    href = models.URLField(
+        max_length=200, verbose_name="Country Link", blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Country"
+        verbose_name_plural = "Countries"
 
     def __str__(self):
         return self.title

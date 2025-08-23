@@ -155,6 +155,16 @@
                   <p class="wow fadeInUp" data-wow-delay=".3s">
                     {{ region.description }}
                   </p>
+                   {% if countries %}
+                  <div class="country-grid">
+                   {% for country in countries %}
+                    <a href="{{ country.href }}" class="country-card"></a>
+                      <div class="flag">{{ country.code }}</div>
+                      <div class="country-name">{{ country.title }}</div>
+                    </a>
+                    {% endfor %}
+                  </div>
+                  {% endif %}
                 {% for section in sections %} 
                   {% for quote in section.block_quotes.all %}
                   <blockquote class="wow fadeInUp" data-wow-delay=".3s">
