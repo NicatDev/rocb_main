@@ -64,7 +64,8 @@ INSTALLED_APPS = [
     "contact",
     "region",
     "account",
-    "analytics"
+    "analytics",
+    "publicity"
 ]
 
 

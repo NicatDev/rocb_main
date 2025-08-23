@@ -438,7 +438,7 @@ img {
 
 .section-gap {
   padding-top: 90px;
-  padding-bottom: 120px;
+  padding-bottom: 80px;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .section-gap {
@@ -22314,4 +22314,71 @@ START: Hero CSS
 .woocommerce-form-login__rememberme{
   margin-top:0px !important;
   margin-bottom:10px !important;
+}
+
+.download-section {
+  background: #0d1b3d; /* dark blue */
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.download-card {
+  background: #ffffff64;
+  border-radius: 16px;
+  padding: 20px 30px;
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 30px 0px 20px;
+}
+
+.download-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.download-icon {
+  font-size: 40px;
+  background: #e6f0ff;
+  color: #003399;
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.download-text h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #222;
+}
+
+.download-text p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.download-btn {
+  background: #0066ff;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+  margin-left: auto;
+}
+
+.download-btn:hover {
+  background: #b7d3fa;
 }
