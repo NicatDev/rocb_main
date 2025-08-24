@@ -91,7 +91,7 @@
             <div class="col-lg-12">
               <div class="tj-page-header-content text-center">
                 <span id="tj-page-title" class="tj-page-title"
-                  >{% trans "Analytics" %}</span
+                  >{% trans "Virtual Gallery" %}</span
                 >
                 <div class="tj-page-link">
                   <span><i class="tji-home"></i></span>
@@ -100,7 +100,11 @@
                   </span>
                   <span><i class="tji-arrow-right"></i></span>
                   <span>
-                    <span>{% trans "Analytics" %}</span>
+                    <span>{% trans "Publicity" %}</span>
+                  </span>
+                  <span><i class="tji-arrow-right"></i></span>
+                  <span>
+                    <span>{% trans "Virtual Gallery" %}</span>
                   </span>
                 </div>
               </div>
@@ -120,66 +124,103 @@
           <div class="row row-gap-5">
             <div class="col-lg-8">
               <div class="post-details-wrapper">
-                <div class="blog-images wow fadeInUp" data-wow-delay=".1s">
-                  {% if analytics.image %}
-                  <img
-                    src="{{ analytics.image.url }}"
-                    alt="{{ analytics.title }}"
-                  />
-                  {% endif %}
-                </div>
-                <h1 class="title title-anim">{{ analytics.title }}</h1>
+                <h1 class="title title-anim">{% trans 'Gallery' %}</h1>
                 <div
                   class="blog-category-two wow fadeInUp"
                   data-wow-delay=".3s"
                 ></div>
-                <div class="blog-text">
-                  <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ analytics.description }}
-                  </p>
-                  {% for section in analytics.sections.all %}
-                  <h3 class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ section.title }}
-                  </h3>
-                  <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ section.description }}
-                  </p>
-                  {% if section.images.all %}
-                  <div class="images-wrap">
-                    <div class="row">
-                      {% for image in section.images.all %}
-                      <div class="col-sm-6">
-                        <div
-                          class="image-box wow fadeInUp"
-                          data-wow-delay=".3s"
-                        >
-                          <img
-                            src="{{ image.image.url }}"
-                            alt="{{ image.alttag|default:'Image' }}"
-                          />
-                        </div>
-                      </div>
-                      {% endfor %}
-                    </div>
-                  </div>
-                  {% endif %}
+
+                <!-- Pagination Info -->
+                {% if gallery.paginator.count > 0 %}
+                <div class="pagination-info">
+                  {% trans "Showing" %} {{ gallery.start_index }} - {{ gallery.end_index }} 
+                  {% trans "of" %} {{ gallery.paginator.count }} {% trans "images" %}
                 </div>
-       
-                  <div class="download-card wow fadeInUp" data-wow-delay=".3s">
-                    <div class="download-info">
-                      <div class="download-icon">
-                        📄
-                      </div>
-                      <div class="download-text">
-                        <h2>{% trans 'ROCB Europe Analytics Information Note' %}</h2>
-                        <p>{% trans 'Click below to review and get detailed insights about ROCB Europe Analytics' %}</p>
+                {% endif %}
+
+                <!-- Gallery Grid -->
+                <div class="gallerySection-gallery">
+                  {% for item in gallery %}
+                    <div class="gallerySection-gallery-item">
+                      <img
+                        src="{{ item.image.url }}"
+                        alt="{{ item.title|default:'Gallery Image' }}"
+                        loading="lazy"
+                      />
+                      <div class="gallerySection-overlay">
+                        <i class="fas fa-search-plus"></i>
                       </div>
                     </div>
-                    <a href="{% if analytics.file %}{{ analytics.file.url }}{% endif %}" class="download-btn">{% trans 'Review Now' %}</a>
+                  {% empty %}
+                    <div class="col-12">
+                      <div class="text-center py-5">
+                        <i class="fas fa-images" style="font-size: 4rem; color: #ccc; margin-bottom: 1rem;"></i>
+                        <h4 class="text-muted">{% trans "No images found" %}</h4>
+                        <p class="text-muted">{% trans "Gallery is currently empty" %}</p>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+
+                <!-- Custom Pagination -->
+                <!-- TJ Pagination -->
+{% if gallery.has_other_pages %}
+<div class="tj-pagination d-flex">
+  <ul>
+    <!-- Previous Page -->
+    {% if gallery.has_previous %}
+      <li>
+        <a class="prev page-numbers" href="?page={{ gallery.previous_page_number }}">
+          <i class="tji-arrow-left-long"></i>
+        </a>
+      </li>
+    {% endif %}
+
+    <!-- Page Numbers -->
+    {% for num in gallery.paginator.page_range %}
+      {% if gallery.number == num %}
+        <li>
+          <span aria-current="page" class="page-numbers current">{{ num }}</span>
+        </li>
+      {% elif num > gallery.number|add:'-3' and num < gallery.number|add:'3' %}
+        <li>
+          <a class="page-numbers" href="?page={{ num }}">{{ num }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    <!-- Next Page -->
+    {% if gallery.has_next %}
+      <li>
+        <a class="next page-numbers" href="?page={{ gallery.next_page_number }}">
+          <i class="tji-arrow-right-long"></i>
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+</div>
+{% endif %}
+
+                <!-- Modal -->
+                <div
+                  class="gallerySection-modal"
+                  id="gallerySection-imageModal"
+                >
+                  <div class="gallerySection-modal-content">
+                    <span
+                      class="gallerySection-close"
+                      id="gallerySection-closeModal"
+                      >&times;</span
+                    >
+                    <img
+                      id="gallerySection-modalImage"
+                      src=""
+                      alt="Modal Image"
+                    />
                   </div>
+                </div>
 
                 <div class="tj-tags-post wow fadeInUp" data-wow-delay=".3s">
-            
                   <div class="post-share">
                     <ul>
                       <li>{% trans "Share" %}:</li>
@@ -206,15 +247,16 @@
                     </ul>
                   </div>
                 </div>
-            
               </div>
             </div>
-            {% endfor %}
-          <div class="col-lg-4">
+
+            <div class="col-lg-4">
               <div class="pin-spacer">
                 <div class="tj-main-sidebar slidebar-stickiy">
-                  
-                  <div class="tj-sidebar-widget widget-categories wow fadeInUp" data-wow-delay=".1s">
+                  <div
+                    class="tj-sidebar-widget widget-categories wow fadeInUp"
+                    data-wow-delay=".1s"
+                  >
                     <h4 class="widget-title">{% trans "Social Networks" %}</h4>
 
                     <div class="infos-item">
@@ -223,7 +265,13 @@
                       </div>
                       <div class="project-text">
                         <span>{% trans "Twitter" %}</span>
-                        <h6 class="title"><a href="https://twitter.com/yourprofile" target="_blank">@yourprofile</a></h6>
+                        <h6 class="title">
+                          <a
+                            href="https://twitter.com/yourprofile"
+                            target="_blank"
+                            >@yourprofile</a
+                          >
+                        </h6>
                       </div>
                     </div>
 
@@ -233,7 +281,13 @@
                       </div>
                       <div class="project-text">
                         <span>{% trans "LinkedIn" %}</span>
-                        <h6 class="title"><a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></h6>
+                        <h6 class="title">
+                          <a
+                            href="https://linkedin.com/in/yourprofile"
+                            target="_blank"
+                            >linkedin.com/in/yourprofile</a
+                          >
+                        </h6>
                       </div>
                     </div>
 
@@ -243,7 +297,11 @@
                       </div>
                       <div class="project-text">
                         <span>{% trans "WhatsApp" %}</span>
-                        <h6 class="title"><a href="https://wa.me/1234567890" target="_blank">+1 234 567 890</a></h6>
+                        <h6 class="title">
+                          <a href="https://wa.me/1234567890" target="_blank"
+                            >+1 234 567 890</a
+                          >
+                        </h6>
                       </div>
                     </div>
 
@@ -253,23 +311,21 @@
                       </div>
                       <div class="project-text">
                         <span>{% trans "Website" %}</span>
-                        <h6 class="title"><a href="https://www.yourwebsite.com" target="_blank">www.yourwebsite.com</a></h6>
+                        <h6 class="title">
+                          <a href="https://www.yourwebsite.com" target="_blank"
+                            >www.yourwebsite.com</a
+                          >
+                        </h6>
                       </div>
                     </div>
-
                   </div>
-
                 </div>
               </div>
             </div>
           </div>
-          </div>
+        </div>
       </section>
       <!-- end: Blog Section -->
-
-      <!-- start: Cta Section -->
-
-      <!-- end: Cta Section -->
     </main>
 
     <!-- start: Footer Section -->
@@ -293,8 +349,91 @@
     <script src="{% static 'assets/js/appear.min.js' %}"></script>
     <script src="{% static 'assets/js/wow.min.js' %}"></script>
     <script src="{% static 'assets/js/meanmenu.js' %}"></script>
-    <script src="{% static 'assets/js/main.js' %} "></script>
-
+    <script src="{% static 'assets/js/main.js' %}"></script>
     <script src="{% static 'assets/js/navbar.js' %}"></script>
+
+    <script>
+      // DOM yüklenene kadar bekle
+      document.addEventListener("DOMContentLoaded", function () {
+        const galleryItems = document.querySelectorAll(
+          ".gallerySection-gallery-item"
+        );
+
+        const modal = document.getElementById("gallerySection-imageModal");
+        const modalImage = document.getElementById("gallerySection-modalImage");
+        const closeModal = document.getElementById("gallerySection-closeModal");
+
+        // Resimlere tıklama olayı
+        galleryItems.forEach((card) => {
+          card.addEventListener("click", function (e) {
+            e.preventDefault();
+            const img = card.querySelector("img");
+            modalImage.src = img.src;
+            modalImage.alt = img.alt || "";
+            modal.classList.add("show");
+            document.body.style.overflow = "hidden";
+          });
+        });
+
+        // Modal'ı kapatma fonksiyonu
+        function closeModalFunction() {
+          modal.classList.remove("show");
+          document.body.style.overflow = "auto";
+          setTimeout(() => {
+            if (!modal.classList.contains("show")) {
+              modalImage.src = "";
+            }
+          }, 300);
+        }
+
+        // X butonuna tıklama
+        if (closeModal) {
+          closeModal.addEventListener("click", function (e) {
+            e.stopPropagation();
+            closeModalFunction();
+          });
+        }
+
+        // Modal arkaplanına tıklama
+        if (modal) {
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) {
+              closeModalFunction();
+            }
+          });
+        }
+
+        // Escape tuşu ile kapatma
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && modal.classList.contains("show")) {
+            closeModalFunction();
+          }
+        });
+
+        // Modal içeriğine tıklamayı engelle
+        if (modalImage) {
+          modalImage.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+        }
+
+        // Smooth scrolling for pagination
+        const pageLinks = document.querySelectorAll('.custom-pagination .page-link:not(.disabled)');
+        pageLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            // Scroll to top of gallery section
+            const gallerySection = document.querySelector('.gallerySection-gallery');
+            if (gallerySection) {
+              setTimeout(() => {
+                gallerySection.scrollIntoView({ 
+                  behavior: 'smooth', 
+                  block: 'start' 
+                });
+              }, 100);
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>
