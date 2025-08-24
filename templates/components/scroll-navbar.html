@@ -43,11 +43,14 @@
                     {% endfor %}
                   </ul>
                 </li>
-                <li>
-                  <a href="#">News</a>
+                 <li>
+                  <a href="{% url 'news' %}">News</a>
                 </li>
-                <li>
-                  <a href="#">Events</a>
+                <li class="has-dropdown">
+                  <a href="{% url 'events' %}">Events</a>
+                  <ul class="sub-menu">
+                    <li><a href="{% url 'events' %}">{% trans 'Events' %}</a></li>
+                  </ul>
                 </li>
                 <li><a href="{% url 'analytics' %}">Analytics</a></li>
                 <li><a href="#">E-Training</a></li>

@@ -51,3 +51,103 @@ def home(request):
     }
 
     return render(request, 'index.html', context)
+
+
+def news_page(request):
+    searchParam = request.GET.get("s")
+    tagParam = request.GET.get('t')
+    page_number = request.GET.get("page", 1)
+
+    news = News.objects.all()
+    tags = News.objects.values_list("tag", flat=True).distinct()
+
+    if searchParam:
+        news = news.filter(
+            Q(title__icontains=searchParam) | Q(tag__icontains=searchParam)
+        )
+
+    if tagParam: 
+        news = news.filter(tag=tagParam)
+
+    paginator = Paginator(news, 1)
+    page_obj = paginator.get_page(page_number)
+
+    others = News.objects.exclude(id__in=[n.id for n in page_obj]).order_by('-id')[:3]
+
+    context = {
+        "items": news,
+        "tags":tags,
+        "page_obj": page_obj,
+        "paginator": paginator,
+        "others":others
+    }
+
+    return render(request, 'news.html', context)
+
+def news_detail(request, slug):
+    item = News.objects.get(slug=slug)
+    items = News.objects.exclude(slug=slug)[0:3]
+
+    prev_item = News.objects.filter(id__lt=item.id).order_by('-id').first()
+    next_item = News.objects.filter(id__gt=item.id).order_by('id').first()
+
+    others = News.objects.exclude(slug=slug).order_by('-id')[0:4]
+
+    context = {
+        "item": item,
+        "items":items,
+        "prev_item":prev_item,
+        "next_item":next_item,
+        "others":others
+    }
+    return render(request, 'newsDetail.html', context)
+
+
+def events_page(request):
+    searchParam = request.GET.get("s")
+    tagParam = request.GET.get('t')
+    page_number = request.GET.get("page", 1)
+
+    events = Event.objects.all()
+    tags = Event.objects.values_list("tag", flat=True).distinct()
+
+    if searchParam:
+        events = events.filter(
+            Q(title__icontains=searchParam) | Q(tag__icontains=searchParam)
+        )
+
+    if tagParam: 
+        events = events.filter(tag=tagParam)
+
+    paginator = Paginator(events, 1)
+    page_obj = paginator.get_page(page_number)
+
+    others = Event.objects.exclude(id__in=[n.id for n in page_obj]).order_by('-id')[:3]
+
+    context = {
+        "items": events,
+        "tags":tags,
+        "page_obj": page_obj,
+        "paginator": paginator,
+        "others":others
+    }
+
+    return render(request, 'events.html', context)
+
+def events_detail(request, slug):
+    item = Event.objects.get(slug=slug)
+    items = Event.objects.exclude(slug=slug)[0:3]
+
+    prev_item = Event.objects.filter(id__lt=item.id).order_by('-id').first()
+    next_item = Event.objects.filter(id__gt=item.id).order_by('id').first()
+
+    others = Event.objects.exclude(slug=slug).order_by('-id')[0:4]
+
+    context = {
+        "item": item,
+        "items":items,
+        "prev_item":prev_item,
+        "next_item":next_item,
+        "others":others
+    }
+    return render(request, 'eventsDetail.html', context)
