@@ -1,6 +1,9 @@
 from django.contrib import admin
 from publicity.models.model_newsletter import Newsletter, NewsletterItems
 from publicity.models.model_outreach_materials import Outreach, OutreachEmbed
+from publicity.models.model_gallery import Gallery
+from publicity.models.model_cct_center import CCTCenter, CCT_Center_Image
+
 
 class NewsletterItemsInline(admin.TabularInline):
     model = NewsletterItems
@@ -18,8 +21,11 @@ class NewsletterItemsAdmin(admin.ModelAdmin):
     list_display = ("title", "newsletter", "order")
     list_editable = ("order",)
 
+
 admin.site.register(Outreach)
 admin.site.register(OutreachEmbed)
 
+admin.site.register(Gallery)
 
-
+admin.site.register(CCTCenter)
+admin.site.register(CCT_Center_Image)

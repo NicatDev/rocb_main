@@ -86,3 +86,153 @@
     .form-input.has-value label.cf-label {
     display: none;
 }
+/* Gallery Section Styles */
+.gallerySection-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .gallerySection-gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .gallerySection-gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallerySection-gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallerySection-gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallerySection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallerySection-gallery-item:hover .gallerySection-overlay {
+            opacity: 1;
+        }
+
+        .gallerySection-overlay i {
+            color: white;
+            font-size: 24px;
+        }
+
+        /* Modal Styles - Düzeltilmiş */
+        .gallerySection-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;               /* başlanğıc */
+  pointer-events: none;      /* bağlıyken kliklənməsin */
+  transition: opacity 0.4s ease;
+  z-index: 2000;
+}
+
+        .gallerySection-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+        /* Modal içeriği */
+        .gallerySection-modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.95);        /* kiçik başlayır */
+  transition: transform 0.4s ease;
+}
+
+.gallerySection-modal.show .gallerySection-modal-content {
+  transform: scale(1);           /* normal ölçüyə böyüyür */
+}
+
+
+        .gallerySection-modal img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            /* Animasyon ekleme */
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .gallerySection-modal.show img {
+            transform: scale(1);
+        }
+
+        .gallerySection-close {
+            position: absolute;
+            top: -50px;
+            right: -10px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 10000;
+            background: rgba(0,0,0,0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .gallerySection-close:hover {
+            color: #ff4444;
+            background: rgba(0,0,0,0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gallerySection-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 15px;
+            }
+
+            .gallerySection-close {
+                top: -40px;
+                right: -5px;
+                font-size: 30px;
+                width: 40px;
+                height: 40px;
+            }
+        }
