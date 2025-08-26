@@ -117,3 +117,37 @@ class EventSection(models.Model):
 
     def __str__(self):
         return f'-{self.title}'
+
+class MeetingDocuments(BaseMixin):
+    title = models.CharField(max_length=200)
+    date = models.DateField(null=True,blank=True)
+    location = models.CharField(max_length=200,null=True,blank=True)
+    
+    def __str__(self):
+        return f'-{self.title}'
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            new_slug = slugify(self.title)
+            self.slug = new_slug
+            if MeetingDocuments.objects.filter(slug=new_slug).exists():
+                count = 0
+                while MeetingDocuments.objects.filter(slug=new_slug).exists():
+                    new_slug = f"{slugify(self.title)}-{count}"
+                    count += 1
+        super(MeetingDocuments, self).save(*args, **kwargs)
+
+class DocumentExperts(models.Model):
+    document = models.ForeignKey(MeetingDocuments, on_delete=models.CASCADE,related_name="experts")
+    title = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f'-{self.title}'
+    
+class DocumentFiles(models.Model):
+    title = models.CharField(max_length=200)
+    file = models.FileField(null=True,blank=True)
+    document = models.ForeignKey(MeetingDocuments, on_delete=models.CASCADE,related_name="files")
+
+    def __str__(self):
+        return f'-{self.title}'
