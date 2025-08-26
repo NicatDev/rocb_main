@@ -16,7 +16,7 @@ import random
 from about.models import About
 from region.models import Region
 
-from .models import News, Event
+from .models import News, Event, MeetingDocuments
 
 
 def set_language(request, language):
@@ -151,3 +151,26 @@ def events_detail(request, slug):
         "others":others
     }
     return render(request, 'eventsDetail.html', context)
+
+
+def meeting_documents(request):
+    items = MeetingDocuments.objects.all()
+    page_number = request.GET.get("page", 1)
+    paginator = Paginator(items, 5)
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        "items": items,
+        "page_obj": page_obj,
+        "paginator": paginator
+    }
+    return render(request, 'meetingsDoc.html', context)
+
+
+def meeting_documents_single(request,slug):
+    item = MeetingDocuments.objects.get(slug=slug)
+
+    context = {
+        "item": item,
+    }
+    return render(request, 'meetingsDocDetail.html', context)

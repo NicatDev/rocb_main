@@ -71,3 +71,28 @@ class NewsAdmin(TranslationAdmin):
 
 admin.site.register(News,NewsAdmin)
 
+
+
+from .models import MeetingDocuments, DocumentExperts, DocumentFiles
+
+class DocumentExpertsInline(admin.TabularInline):
+    model = DocumentExperts
+    extra = 1  # əlavə boş sətir
+
+class DocumentFilesInline(admin.TabularInline):
+    model = DocumentFiles
+    extra = 1
+
+@admin.register(MeetingDocuments)
+class MeetingDocumentsAdmin(admin.ModelAdmin):
+    list_display = ("title", "date", "location")
+    inlines = [DocumentExpertsInline, DocumentFilesInline]
+
+# Əgər ayrıca admin-də də görünsün desən:
+@admin.register(DocumentExperts)
+class DocumentExpertsAdmin(admin.ModelAdmin):
+    list_display = ("title", "document")
+
+@admin.register(DocumentFiles)
+class DocumentFilesAdmin(admin.ModelAdmin):
+    list_display = ("title", "file")
