@@ -3,6 +3,7 @@ from publicity.models.model_newsletter import Newsletter, NewsletterItems
 from publicity.models.model_outreach_materials import Outreach, OutreachEmbed
 from publicity.models.model_gallery import Gallery
 from publicity.models.model_cct_center import CCTCenter, CCT_Center_Image
+from publicity.models.model_surveys import Survey
 
 
 class NewsletterItemsInline(admin.TabularInline):
@@ -29,3 +30,4 @@ admin.site.register(Gallery)
 
 admin.site.register(CCTCenter)
 admin.site.register(CCT_Center_Image)
+admin.site.register(Survey)
