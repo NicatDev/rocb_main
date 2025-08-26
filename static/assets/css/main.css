@@ -22499,3 +22499,15 @@ START: Hero CSS
   text-decoration: underline;
   scale: 1.01
 }
+.activeTag{
+  background-color: #003399 !important;
+  color:white !important; 
+}
+
+.post-details-wrapper .title {
+  font-size: 40px;
+}
+
+.margin-lit-top{
+  margin-top:15px;
+}

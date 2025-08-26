@@ -1,0 +1,295 @@
+{% load static %} {% load i18n %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+
+    <!-- Site Title -->
+    <title>Bexon - Corporate Business HTML Template</title>
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/fav.png' %}" />
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/font-awesome-pro.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/bexon-icons.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/swiper.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/venobox.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/odometer-theme-default.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+  </head>
+
+  <body>
+    <div class="body-overlay"></div>
+
+    <!-- Preloader Start -->
+    <div class="tj-preloader is-loading">
+      <div class="tj-preloader-inner">
+        <div class="tj-preloader-ball-wrap">
+          <div class="tj-preloader-ball-inner-wrap">
+            <div class="tj-preloader-ball-inner">
+              <div class="tj-preloader-ball"></div>
+            </div>
+            <div class="tj-preloader-ball-shadow"></div>
+          </div>
+          <div class="tj-preloader-text">
+            {% trans 'Loading' %}...
+          </div>
+        </div>
+      </div>
+      <div class="tj-preloader-overlay"></div>
+    </div>
+    <!-- Preloader end -->
+
+    <!-- back to top start -->
+    <div class="back-to-top-wrapper">
+      <button id="back_to_top" type="button" class="back-to-top-btn"><span><i class="tji-arrow-up-long"></i></span></button>
+    </div>
+    <!-- back to top end -->
+
+    <!-- start: Search Popup -->
+    <div class="search-popup-overlay"></div>
+    <!-- end: Search Popup -->
+
+    <!-- start: Offcanvas Menu -->
+    {% include 'components/hamburger-menu.html' %}
+    <!-- end: Hamburger Menu -->
+
+    <!-- start: Header Area -->
+    {% include 'components/navbar.html' %}
+    <!-- end: Header Area -->
+
+    <!-- start: Header Area -->
+    {% include 'components/scroll-navbar.html' %}
+    <!-- end: Header Area -->
+
+    <main id="primary" class="site-main">
+      <!-- start: Breadcrumb Section -->
+      <section class="tj-page-header section-gap-x">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="tj-page-header-content text-center">
+                <span id="tj-page-title" class="tj-page-title">{% trans 'News' %}</span>
+                <div class="tj-page-link">
+                  <span><i class="tji-home"></i></span>
+                  <span><a href="{% url 'news' %}">{% trans 'News' %}</a></span>
+                  <span><i class="tji-arrow-right"></i></span>
+                  <span>
+                    {% if item.title|length > 40 %}
+                      {{ item.title|slice:':40' }}...
+                    {% else %}
+                      {{ item.title }}
+                    {% endif %}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-header-overlay" data-bg-image="{% static 'assets/images/shape/pheader-overlay.webp' %}"></div>
+      </section>
+      <!-- end: Breadcrumb Section -->
+
+      <!-- start: Blog Section -->
+      <section class="tj-blog-section section-gap">
+        <div class="container">
+          <div class="row row-gap-5">
+            <div class="col-lg-8">
+              <div class="post-details-wrapper">
+                <h1 class="title title-anim">{{ item.title }}</h1>
+                {% if item.created_by %}
+                  <div class="blog-category-two wow fadeInUp" data-wow-delay=".3s">
+                    <div class="category-item">
+                      <div class="cate-images">
+                        {% if item.autorized_image %}
+                          <img src="{{ item.autorized_image.url }}" alt="{{ item.title }}" />
+                        {% else %}
+
+                        {% endif %}
+                      </div>
+                      <div class="cate-text">
+                        <span class="degination">{% trans 'Authored by' %}</span>
+                        <h6 class="title"><a href="blog-details.html">{{ item.created_by }}</a></h6>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+
+                <div class="blog-text">
+                  <p class="wow fadeInUp" data-wow-delay=".3s">{{ item.description }}</p>
+
+                  <div class="blog-images wow fadeInUp" data-wow-delay=".1s">
+                    {% if item.image %}
+                      <img src="{{ item.image.url }}" alt="{{ item.title }}" />
+                    {% endif %}
+                  </div>
+                  {% for section in item.news_sections.all %}
+                    <h3 class="wow fadeInUp" data-wow-delay=".3s">{{ section.title }}</h3>
+                    <p class="wow fadeInUp" data-wow-delay=".3s">{{ section.description }}</p>
+                    <div class="images-wrap">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="image-box wow fadeInUp" data-wow-delay=".3s">
+                            <img src="{{ item.image.url }}" alt="{{ image.alttag|default:'Image' }}" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--     <p class="wow fadeInUp" data-wow-delay=".3s">
+                    Lastly, effective leadership that inspires and motivates
+                    employees, customers, and stakeholders is essential in
+                    steering the business toward achieving its full potential.
+                    By applying these lessons, businesses can unlock new
+                    opportunities, overcome obstacles, and reach new levels of
+                    success.
+                  </p>     -->
+                    <ul class="wow fadeInUp" data-wow-delay=".3s">
+                      {% for mini_title in section.mini_titles.all %}
+                        <li>
+                          <span><i class="tji-check"></i></span>{{ mini_title.title }}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endfor %}
+                </div>
+
+                <div class="tj-post__navigation wow fadeInUp" data-wow-delay=".3s">
+                  <!-- previous tab -->
+                  <div class="tj-nav__post previous">
+                    <div class="tj-nav-post__nav prev_post">
+                      {% if prev_item %}
+                        <a href="{% url 'news_detail' slug=prev_item.slug %}"><span><i class="tji-arrow-left"></i></span>{% trans 'Previous' %}</a>
+                      {% else %}
+                        <a style="cursor: not-allowed;" class="disabled"><span><i class="tji-arrow-left"></i></span>{% trans 'Previous' %}</a>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="tj-nav-post__grid">
+                    <a href="{% url 'news' %}"><i class="tji-window"></i></a>
+                  </div>
+
+                  <!-- next tab -->
+                  <div class="tj-nav__post next">
+                    <div class="tj-nav-post__nav next_post">
+                      {% if next_item %}
+                        <a href="{% url 'news_detail' slug=next_item.slug %}">{% trans 'Next' %}<span><i class="tji-arrow-right"></i></span></a>
+                      {% else %}
+                        <a style="cursor: not-allowed;" class="disabled">{% trans 'Next' %}<span><i class="tji-arrow-right"></i></span></a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="pin-spacer">
+                <div class="tj-main-sidebar slidebar-stickiy">
+                  <div class="tj-sidebar-widget widget-categories wow fadeInUp" data-wow-delay=".1s">
+                    <h4 class="widget-title">{% trans 'Social Networks' %}</h4>
+
+                    <div class="infos-item">
+                      <div class="project-icons">
+                        <i class="fab fa-twitter"></i>
+                      </div>
+                      <div class="project-text">
+                        <span>{% trans 'Twitter' %}</span>
+                        <h6 class="title"><a href="https://twitter.com/yourprofile" target="_blank">@yourprofile</a></h6>
+                      </div>
+                    </div>
+
+                    <div class="infos-item">
+                      <div class="project-icons">
+                        <i class="fab fa-linkedin"></i>
+                      </div>
+                      <div class="project-text">
+                        <span>{% trans 'LinkedIn' %}</span>
+                        <h6 class="title"><a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></h6>
+                      </div>
+                    </div>
+
+                    <div class="infos-item">
+                      <div class="project-icons">
+                        <i class="fab fa-whatsapp"></i>
+                      </div>
+                      <div class="project-text">
+                        <span>{% trans 'WhatsApp' %}</span>
+                        <h6 class="title"><a href="https://wa.me/1234567890" target="_blank">+1 234 567 890</a></h6>
+                      </div>
+                    </div>
+
+                    <div class="infos-item">
+                      <div class="project-icons">
+                        <i class="fas fa-globe"></i>
+                      </div>
+                      <div class="project-text">
+                        <span>{% trans 'Website' %}</span>
+                        <h6 class="title"><a href="https://www.yourwebsite.com" target="_blank">www.yourwebsite.com</a></h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tj-main-sidebar slidebar-stickiy margin-lit-top">
+                  <div class="tj-sidebar-widget widget-categories wow fadeInUp" data-wow-delay=".1s">
+                    <h4 class="widget-title">{% trans 'More news' %}</h4>
+                    <ul>
+                      {% for other in others %}
+                        <li>
+                          <div class="post-content">
+                            <h6 class="post-title"><a href="{% url 'news_detail' other.slug %}">{{ other.title }}</a></h6>
+                          </div>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- end: Blog Section -->
+
+      <!-- start: Cta Section -->
+
+      <!-- end: Cta Section -->
+    </main>
+
+    <!-- start: Footer Section -->
+    {% include 'components/footer.html' %}
+    <!-- end: Footer Section -->
+
+    <!-- JS here -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/gsap.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-scroll-to-plugin.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-scroll-trigger.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-split-text.min.js' %}"></script>
+    <script src="{% static 'assets/js/smooth-scroll.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/swiper.min.js' %}"></script>
+    <script src="{% static 'assets/js/odometer.min.js' %}"></script>
+    <script src="{% static 'assets/js/venobox.min.js' %}"></script>
+    <script src="{% static 'assets/js/appear.min.js' %}"></script>
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/meanmenu.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %} "></script>
+
+    <script src="{% static 'assets/js/navbar.js' %}"></script>
+  </body>
+</html>

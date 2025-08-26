@@ -1,0 +1,275 @@
+{% load static %} {% load i18n %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+
+    <!-- Site Title -->
+    <title>Bexon - Corporate Business HTML Template</title>
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/fav.png' %}" />
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/font-awesome-pro.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/bexon-icons.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/swiper.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/venobox.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/odometer-theme-default.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+  </head>
+
+  <body>
+    <div class="body-overlay"></div>
+
+    <!-- Preloader Start -->
+    <div class="tj-preloader is-loading">
+      <div class="tj-preloader-inner">
+        <div class="tj-preloader-ball-wrap">
+          <div class="tj-preloader-ball-inner-wrap">
+            <div class="tj-preloader-ball-inner">
+              <div class="tj-preloader-ball"></div>
+            </div>
+            <div class="tj-preloader-ball-shadow"></div>
+          </div>
+          <div class="tj-preloader-text">
+            {% trans 'Loading' %}...
+          </div>
+        </div>
+      </div>
+      <div class="tj-preloader-overlay"></div>
+    </div>
+    <!-- Preloader end -->
+
+    <!-- back to top start -->
+    <div class="back-to-top-wrapper">
+      <button id="back_to_top" type="button" class="back-to-top-btn"><span><i class="tji-arrow-up-long"></i></span></button>
+    </div>
+    <!-- back to top end -->
+
+    <!-- start: Search Popup -->
+    <div class="search-popup-overlay"></div>
+    <!-- end: Search Popup -->
+
+    <!-- start: Offcanvas Menu -->
+    {% include 'components/hamburger-menu.html' %}
+    <!-- end: Hamburger Menu -->
+
+    <!-- start: Header Area -->
+    {% include 'components/navbar.html' %}
+    <!-- end: Header Area -->
+
+    <!-- start: Header Area -->
+    {% include 'components/scroll-navbar.html' %}
+    <!-- end: Header Area -->
+
+    <main id="primary" class="site-main">
+      <!-- start: Breadcrumb Section -->
+      <section class="tj-page-header section-gap-x">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="tj-page-header-content text-center">
+                <span id="tj-page-title" class="tj-page-title">{% trans 'News' %}</span>
+                <div class="tj-page-link">
+                  <span><i class="tji-home"></i></span>
+                  <span><a href="{% url 'home' %}">{% trans 'Home' %}</a></span>
+                  <span><i class="tji-arrow-right"></i></span>
+                  <span><span>{% trans 'News' %}</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-header-overlay" data-bg-image="{% static 'assets/images/shape/pheader-overlay.webp' %}"></div>
+      </section>
+      <!-- end: Breadcrumb Section -->
+
+      <!-- start: Blog Section -->
+      <section class="tj-blog-section section-gap">
+        <div class="container">
+          <div class="row row-gap-5">
+            <div class="col-lg-8">
+              <div class="blog-post-wrapper">
+                {% for item in page_obj %}
+                  <article class="blog-item wow fadeInUp" data-wow-delay=".1s">
+                    {% if item.image %}
+                      <div class="blog-thumb">
+                        <a href="{% url 'news_detail' item.slug %}"><img src="{{ item.image.url }}" alt="" /></a>
+                        <div class="blog-date">
+                          <span class="date">{{ item.date|date:'d' }}</span>
+                          <span class="month">{{ item.date|date:'M' }}</span>
+                        </div>
+                      </div>
+                    {% endif %}
+                    <div class="blog-content">
+                      {% if item.tag and item.image %}
+                        <div class="blog-meta">
+                          <span class="categories"><a>{{ item.tag }}</a></span>
+                        </div>
+                      {% endif %}
+                      <h3 class="title"><a href="{% url 'news_detail' item.slug %}">{{ item.title }}</a></h3>
+                      <p class="desc">In today’s fast-paced business environment, the key to staying ahead of the competition lies in embracing innovation. At [Company Name], we specialize in unlocking your business’s full potential by providing tailored, forward-thinking solutions that drive growth, efficiency, and lasting success.</p>
+                      <a class="text-btn" href="{% url 'news_detail' item.slug %}">
+                        <span class="btn-text"><span>Read More</span></span>
+                        <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                      </a>
+                    </div>
+                  </article>
+                {% endfor %}
+                <div class="tj-pagination d-flex">
+                  <ul>
+                    {# Previous button #} {% if page_obj.has_previous %}
+                      <li>
+                        <a class="prev page-numbers"
+                          href="?page={{ page_obj.previous_page_number }}{% if request.GET.s %}
+                            
+                            &s={{ request.GET.s }}
+                          {% endif %}{% if request.GET.t %}
+                            
+                            &t={{ request.GET.t }}
+                          {% endif %}">
+                          <i class="tji-arrow-left-long"></i>
+                        </a>
+                      </li>
+                    {% endif %} {# Page numbers #} {% for num in paginator.page_range %}
+                      {% if num == page_obj.number %}
+                        <li>
+                          <span aria-current="page" class="page-numbers current">{{ num }}</span>
+                        </li>
+                      {% else %}
+                        <li>
+                          <a class="page-numbers"
+                            href="?page={{ num }}{% if request.GET.s %}
+                              
+                              &s={{ request.GET.s }}
+                            {% endif %}{% if request.GET.t %}
+                              
+                              &t={{ request.GET.t }}
+                            {% endif %}">
+                            {{ num }}
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endfor %} {# Next button #} {% if page_obj.has_next %}
+                      <li>
+                        <a class="next page-numbers"
+                          href="?page={{ page_obj.next_page_number }}{% if request.GET.s %}
+                            
+                            &s={{ request.GET.s }}
+                          {% endif %}{% if request.GET.t %}
+                            
+                            &t={{ request.GET.t }}
+                          {% endif %}">
+                          <i class="tji-arrow-right-long"></i>
+                        </a>
+                      </li>
+                    {% endif %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="tj-main-sidebar sticky-lg-top">
+                <div class="tj-sidebar-widget widget-search wow fadeInUp" data-wow-delay=".1s">
+                  <h4 class="widget-title">Search</h4>
+                  <div class="search-box">
+                    <form method="get" action="{% url 'news' %}">
+                      <input type="search" name="s" id="searchTwo" placeholder="Search here" value="{{ request.GET.s|default:'' }}" />
+                      <button type="submit" value="search"><i class="tji-search"></i></button>
+                    </form>
+                  </div>
+                </div>
+                <div class="tj-sidebar-widget tj-recent-posts wow fadeInUp" data-wow-delay=".3s">
+                  <h4 class="widget-title">{% trans 'More news' %}</h4>
+                  <ul>
+                    {% for other in others %}
+                      <li>
+                        {% if other.image %}
+                          <div class="post-thumb">
+                            <a href="#"><img src="{{ other.image.url }}" alt="{{ other.title }}" /></a>
+                          </div>
+                        {% endif %}
+                        <div class="post-content">
+                          <h6 class="post-title"><a href="#">{{ other.title }}</a></h6>
+                          <div class="blog-meta">
+                            <ul>
+                              <li>{{ other.date|date:'M d, Y' }}</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+
+                <div class="tj-sidebar-widget widget-tag-cloud wow fadeInUp" data-wow-delay=".7s">
+                  <h4 class="widget-title">{% trans 'Tags' %}</h4>
+                  <nav>
+                    <div class="tagcloud">
+                      <div class="tagcloud">
+                        {% for tag in tags %}
+                        {% if tag %}
+                          {% if request.GET.t == tag %}
+                            {# Tag is active, clicking removes it #}
+                            <a href="?{% if request.GET.s %}
+                                s={{ request.GET.s }}
+                              {% endif %}"
+                              class="activeTag">
+                              {{ tag }}
+                            </a>
+                          {% else %}
+                            {# Tag is not active, clicking sets it #}
+                            <a href="?t={{ tag }}{% if request.GET.s %}
+                                &s={{ request.GET.s }}
+                              {% endif %}">
+                              {{ tag }}
+                            </a>
+                          {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- end: Blog Section -->
+
+    </main>
+
+    <!-- start: Footer Section -->
+    {% include 'components/footer.html' %}
+    <!-- end: Footer Section -->
+
+    <!-- JS here -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/gsap.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-scroll-to-plugin.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-scroll-trigger.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-split-text.min.js' %}"></script>
+    <script src="{% static 'assets/js/smooth-scroll.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/swiper.min.js' %}"></script>
+    <script src="{% static 'assets/js/odometer.min.js' %}"></script>
+    <script src="{% static 'assets/js/venobox.min.js' %}"></script>
+    <script src="{% static 'assets/js/appear.min.js' %}"></script>
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/meanmenu.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+  </body>
+</html>
