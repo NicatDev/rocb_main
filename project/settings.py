@@ -66,7 +66,8 @@ INSTALLED_APPS = [
     "region",
     "account",
     "analytics",
-    "publicity"
+    "publicity",
+    "etraining",
 ]
 
 
