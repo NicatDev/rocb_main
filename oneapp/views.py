@@ -1,6 +1,5 @@
-from django.core.mail import send_mail
 from django.conf import settings
-from django.shortcuts import HttpResponse, render, redirect
+from django.shortcuts import render
 from django.http import JsonResponse
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -9,14 +8,12 @@ from django.utils import translation
 from django.urls.exceptions import Resolver404
 from urllib.parse import urlparse
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404
 import json
-import random
-
+from django.views.decorators.csrf import csrf_exempt
 from about.models import About
 from region.models import Region
 
-from .models import News, Event, MeetingDocuments
+from .models import News, Event, MeetingDocuments, MeetingRegistrations, Registration, Faq
 
 
 def set_language(request, language):
@@ -43,11 +40,13 @@ def home(request):
     news = News.objects.filter(in_home=True)[0:8]
     tabs = About.objects.order_by('created_at')
     regiontabs = Region.objects.order_by('created_at')
+    faqs = Faq.objects.order_by('order')
     context = {
         "events": events,
         "news": news,
         "tabs": tabs,
         "regiontabs": regiontabs,
+        "faqs":faqs
     }
 
     return render(request, 'index.html', context)
@@ -174,3 +173,35 @@ def meeting_documents_single(request,slug):
         "item": item,
     }
     return render(request, 'meetingsDocDetail.html', context)
+
+def meeting_registrations(request):
+    items = MeetingRegistrations.objects.all()
+    page_number = request.GET.get("page", 1)
+    paginator = Paginator(items, 5)
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        "items": items,        
+        "page_obj": page_obj,
+        "paginator": paginator
+    }
+    return render(request, 'meetingsReg.html', context)
+
+
+@csrf_exempt
+def register_meeting(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        full_name = data.get("full_name")
+        phone_number = data.get("phone_number")
+        email = data.get("email")
+        subject = data.get("subject")
+
+        registration = Registration.objects.create(
+            full_name=full_name,
+            phone_number=phone_number,
+            email=email,
+            subject=subject
+        )
+        return JsonResponse({"status": "success", "id": registration.id})
+    return JsonResponse({"status": "error"}, status=400)

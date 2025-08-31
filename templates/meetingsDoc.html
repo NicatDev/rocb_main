@@ -118,11 +118,23 @@
       <section class="tj-blog-section section-gap">
         <div class="container">
           <div class="row row-gap-5">
+           
             <div class="col-lg-8">
+               <div class="post-details-wrapper">
+              <h1 class="title title-anim">{% trans 'Meeting documents' %}</h1>
+              <div
+                class="blog-category-two wow fadeInUp"
+                data-wow-delay=".3s"
+              ></div>
+            </div>
               <div class="meeting-docs">
                 {% for item in page_obj %}
                 <div class="meeting-card">
-                  <h3 class="meeting-title"><a href="{% url 'meeting_documents_single' item.slug %}">{{ item.title }}</a></h3>
+                  <h3 class="meeting-title">
+                    <a href="{% url 'meeting_documents_single' item.slug %}"
+                      >{{ item.title }}</a
+                    >
+                  </h3>
                   {% if item.date %}
                   <p class="meeting-date">
                     <i class="tji-calendar"></i> {{ item.date }}
@@ -136,7 +148,7 @@
                 {% endfor %}
               </div>
 
-              {# Pagination qalsın sənin verdiyin kimi #} {% if page_obj %}
+              {# Pagination qalsın sənin verdiyin kimi #} {% if page_obj.has_next %}
               <div class="tj-pagination d-flex">
                 <ul>
                   {% if page_obj.has_previous %}
@@ -148,7 +160,7 @@
                       <i class="tji-arrow-left-long"></i>
                     </a>
                   </li>
-                  {% endif %} {% for num in paginator.page_range %} {% if num ==  page_obj.number %}
+                  {% endif %} {% for num in paginator.page_range %} {% if num == page_obj.number %}
                   <li>
                     <span aria-current="page" class="page-numbers current"
                       >{{ num }}</span

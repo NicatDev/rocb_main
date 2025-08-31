@@ -1,5 +1,5 @@
 from modeltranslation.translator import TranslationOptions,register, translator
-from oneapp.models import News, NewsSection, Event, EventSection
+from oneapp.models import News, NewsSection, Event, EventSection, MeetingRegistrations, Faq
 
 # ------------------- News ------------------- #
 
@@ -25,4 +25,13 @@ class EventSectionTranslationOption(TranslationOptions):
 translator.register(Event, EventTranslationOption)
 translator.register(EventSection, EventSectionTranslationOption)
 
+class MeetingRegistrationsOption(TranslationOptions):
+    fields = ('title','timezone')
+
+translator.register(MeetingRegistrations,MeetingRegistrationsOption)
 # ------------------- Event ------------------- #
+
+class FaqOption(TranslationOptions):
+    fields = ('question','answer')
+
+translator.register(Faq, FaqOption)

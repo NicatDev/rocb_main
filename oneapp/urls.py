@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import set_language, home, news_page, events_detail, news_detail, events_page, meeting_documents, meeting_documents_single
+from .views import register_meeting, meeting_registrations, set_language, home, news_page, events_detail, news_detail, events_page, meeting_documents, meeting_documents_single
 
 urlpatterns = [
     path('set_language/<language>', set_language, name='set_language'),
@@ -10,5 +10,6 @@ urlpatterns = [
     path('events/<slug>', events_detail, name='events_detail'),
     path('meeting-documents/', meeting_documents, name='meeting_documents'),
     path('meeting-documents/<slug>', meeting_documents_single, name='meeting_documents_single'),
-    
+    path('meeting-registrations/', meeting_registrations, name='meeting_registrations'),
+    path('register-meeting/', register_meeting, name='register_meeting'),
 ]

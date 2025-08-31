@@ -5,16 +5,16 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
+    <meta name="description" content="Regional Office for Capacity Building for the World Customs Organization Europe Region" />
 
     <!-- Site Title -->
-    <title>Rocb Europe</title>
+    <title>ROCB Europe - WCO Regional Office for Capacity Building</title>
 
     <!-- Place favicon.ico in the root directory -->
     <link
       rel="shortcut icon"
       type="image/x-icon"
-      href="{% static 'assets/images/fav.png' %}"
+      href="{% static 'logo.png' %}"
     />
 
     <!-- CSS here -->
@@ -264,7 +264,7 @@
                 WCO <span>Europe</span> Regional Office for Capacity Building
               </h1>
               <div class="banner-desc-area wow fadeInUp" data-wow-delay=".7s">
-                <a class="banner-link" href="about.html">
+                <a class="banner-link" href="{% url 'about:about_default' %}">
                   <span><i class="tji-arrow-right-big"></i></span>
                 </a>
                 <div class="banner-desc">
@@ -348,7 +348,7 @@
             <div class="col-xl-4 col-md-6">
               <div class="blog-item wow fadeInUp" data-wow-delay=".4s">
                 <div class="blog-thumb">
-                  <a href="blog-details.html"
+                  <a href="{% url 'events_detail' event.slug %}"
                     ><img
                       src="{{event.image.url}}"
                       alt=""
@@ -363,17 +363,17 @@
                     {% if event.tag %}
                             <div class="blog-meta">
                     <span class="categories"
-                      ><a href="blog-details.html">{{ event.tag }}</a></span
+                      ><a>{{ event.tag }}</a></span
                     >
                     </div>
                     {% endif %}
                   
                   <h4 class="title">
-                    <a href="blog-details.html"
+                      <a href="{% url 'events_detail' event.slug %}"
                       >{{ event.title }}</a
                     >
                   </h4>
-                  <a class="text-btn" href="blog-details.html">
+                  <a class="text-btn" href="{% url 'events_detail' event.slug %}">
                     <span class="btn-text"><span>Read More</span></span>
                     <span class="btn-icon"
                       ><i class="tji-arrow-right-long"></i
@@ -425,14 +425,14 @@
                         </div>
                         <div class="service-content">
                           <h4 class="title">
-                            <a href="service-details.html"
+                            <a href="{% url 'news_detail' news.slug %}"
                               >{{ news.title }}</a
                             >
                           </h4>
                           <p class="desc">
                             {{ news.description }}
                           </p>
-                          <a class="text-btn" href="service-details.html">
+                          <a class="text-btn" href="{% url 'news_detail' news.slug %}">
                             <span class="btn-text"
                               ><span>Learn More</span></span
                             >
@@ -461,72 +461,6 @@
       <!-- end: Service Section -->
 
 
-      <!-- start: Countup Section -->
-      <div class="tj-countup-section section-gap ">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <div class="countup-wrap">
-                <div class="countup-item">
-                  <div class="inline-content">
-                    <span
-                      class="odometer countup-number"
-                      data-count="93"
-                    ></span>
-                    <span class="count-plus">%</span>
-                  </div>
-                  <span class="count-text">Projects Completed.</span>
-                  <span
-                    class="count-separator"
-                    data-bg-image="{% static 'assets/images/shape/separator.svg' %}"
-                  ></span>
-                </div>
-                <div class="countup-item">
-                  <div class="inline-content">
-                    <span
-                      class="odometer countup-number"
-                      data-count="20"
-                    ></span>
-                    <span class="count-plus">M</span>
-                  </div>
-                  <span class="count-text">Reach Worldwide</span>
-                  <span
-                    class="count-separator"
-                    data-bg-image="{% static 'assets/images/shape/separator.svg' %}"
-                  ></span>
-                </div>
-                <div class="countup-item">
-                  <div class="inline-content">
-                    <span
-                      class="odometer countup-number"
-                      data-count="8.5"
-                    ></span>
-                    <span class="count-plus">X</span>
-                  </div>
-                  <span class="count-text">Faster Growth</span>
-                  <span
-                    class="count-separator"
-                    data-bg-image="{% static 'assets/images/shape/separator.svg' %}"
-                  ></span>
-                </div>
-                <div class="countup-item">
-                  <div class="inline-content">
-                    <span
-                      class="odometer countup-number"
-                      data-count="100"
-                    ></span>
-                    <span class="count-plus">+</span>
-                  </div>
-                  <span class="count-text">Awards Archived</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- end: Countup Section -->
-
-
       <!-- start: Faq Section -->
       <section class="tj-faq-section section-gap">
         <div class="container">
@@ -534,15 +468,15 @@
             <div class="col-lg-6">
               <div class="faq-img-area wow fadeInLeft" data-wow-delay=".3s">
                 <div class="faq-img">
-                  <img src="{% static 'assets/images/faq/faq.webp' %}" alt="" />
-                  <h2 class="title title-anim">Need Help? Start Here...</h2>
+                  <img src="{% static 'rocb_build.jpg' %}" alt="" />
+                  <h2 class="title title-anim">{% trans 'Frequently Asked Questions' %}</h2>
                 </div>
                 <div class="box-area">
                   <div class="call-box wow fadeInUp" data-wow-delay=".4s">
-                    <h4 class="title">Get Started Free Call?</h4>
+                    <h4 class="title">{% trans 'Call us for more' %}</h4>
                     <span class="call-icon"><i class="tji-phone"></i></span>
                     <a class="number" href="tel:18884521505"
-                      ><span>1-888-452-1505</span></a
+                      ><span>12234</span></a
                     >
                   </div>
                 </div>
@@ -550,123 +484,26 @@
             </div>
             <div class="col-lg-6">
               <div class="accordion tj-faq" id="faqOne">
-                <div
-                  class="accordion-item active wow fadeInUp"
-                  data-wow-delay=".3s"
-                >
-                  <button
-                    class="faq-title"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#faq-1"
-                    aria-expanded="true"
-                  >
-                    What services does Bexon offer to clients?
-                  </button>
-                  <div
-                    id="faq-1"
-                    class="collapse show"
-                    data-bs-parent="#faqOne"
-                  >
-                    <div class="accordion-body faq-text">
-                      <p>
-                        Getting started is easy! Simply reach out to us through
-                        our contact form or give us a call, and we’ll schedule a
-                        consultation to discuss your project and how we can best
-                        assist you. Our team keeps you informed throughout the
-                        process, ensuring quality control and timely delivery.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                {% for faq in faqs %}
                 <div class="accordion-item wow fadeInUp" data-wow-delay=".3s">
                   <button
                     class="faq-title collapsed"
                     type="button"
                     data-bs-toggle="collapse"
-                    data-bs-target="#faq-2"
+                    data-bs-target="#faq-{{ forloop.counter }}"
                     aria-expanded="false"
                   >
-                    How do I get started with Corporate Business?
+                    {{ faq.question}}
                   </button>
-                  <div id="faq-2" class="collapse" data-bs-parent="#faqOne">
+                  <div id="faq-{{ forloop.counter }}" class="collapse" data-bs-parent="#faq-{{ forloop.counter }}-{{ forloop.counter }}">
                     <div class="accordion-body faq-text">
                       <p>
-                        Getting started is easy! Simply reach out to us through
-                        our contact form or give us a call, and we’ll schedule a
-                        consultation to discuss your project and how we can best
-                        assist you. Our team keeps you informed throughout the
-                        process, ensuring quality control and timely delivery.
+                        {{ faq.answer }}
                       </p>
                     </div>
                   </div>
                 </div>
-                <div class="accordion-item wow fadeInUp" data-wow-delay=".3s">
-                  <button
-                    class="faq-title collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#faq-3"
-                    aria-expanded="false"
-                  >
-                    How do you ensure the success of a project?
-                  </button>
-                  <div id="faq-3" class="collapse" data-bs-parent="#faqOne">
-                    <div class="accordion-body faq-text">
-                      <p>
-                        Getting started is easy! Simply reach out to us through
-                        our contact form or give us a call, and we’ll schedule a
-                        consultation to discuss your project and how we can best
-                        assist you. Our team keeps you informed throughout the
-                        process, ensuring quality control and timely delivery.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item wow fadeInUp" data-wow-delay=".3s">
-                  <button
-                    class="faq-title collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#faq-4"
-                    aria-expanded="false"
-                  >
-                    How long will it take to complete my project?
-                  </button>
-                  <div id="faq-4" class="collapse" data-bs-parent="#faqOne">
-                    <div class="accordion-body faq-text">
-                      <p>
-                        Getting started is easy! Simply reach out to us through
-                        our contact form or give us a call, and we’ll schedule a
-                        consultation to discuss your project and how we can best
-                        assist you. Our team keeps you informed throughout the
-                        process, ensuring quality control and timely delivery.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item wow fadeInUp" data-wow-delay=".3s">
-                  <button
-                    class="faq-title collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#faq-5"
-                    aria-expanded="false"
-                  >
-                    Can I track the progress of my project?
-                  </button>
-                  <div id="faq-5" class="collapse" data-bs-parent="#faqOne">
-                    <div class="accordion-body faq-text">
-                      <p>
-                        Getting started is easy! Simply reach out to us through
-                        our contact form or give us a call, and we’ll schedule a
-                        consultation to discuss your project and how we can best
-                        assist you. Our team keeps you informed throughout the
-                        process, ensuring quality control and timely delivery.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              {% endfor %}
               </div>
             </div>
           </div>
@@ -675,7 +512,7 @@
       <!-- end: Faq Section -->
 
       <!-- start: Contact Section -->
-      <section class="tj-contact-section section-gap section-gap-x">
+      <section class="tj-contact-section section-gap section-gap-x only-desktop">
         <div class="container">
           <div class="row">
             <div class="col-lg-6">
@@ -688,14 +525,14 @@
                   <div class="location-indicator loc-1">
                     <div class="location-tooltip">
                       <span>Head office:</span>
-                      <p>993 Renner Burg, West Rond, MT 94251-030, USA.</p>
-                      <a href="tel:10095447818">P: +1 (009) 544-7818</a>
-                      <a href="mailto:support@bexon.com"
-                        >M: support@bexon.com</a
+                      <p>Natig Aliyev str, 4-a AZ1025, Baku, Republic of Azerbaijan</p>
+                      <a href="tel:+994124643134">(+994 12) 464-31-34</a>
+                      <a href="info@rocb-europe.org"
+                        >M: info@rocb-europe.org</a
                       >
                     </div>
                   </div>
-                  <div class="location-indicator loc-2">
+                  {% comment %} <div class="location-indicator loc-2">
                     <div class="location-tooltip">
                       <span>Regional office:</span>
                       <p>Hessisch Lichtenau 37235, Kassel, Germany.</p>
@@ -715,91 +552,37 @@
                       >
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div
-                class="contact-form style-2 wow fadeInUp"
-                data-wow-delay=".4s"
-              >
-                <div class="sec-heading">
-                  <span class="sub-title text-white"
-                    ><i class="tji-box"></i>Get in Touch</span
-                  >
-                  <h2 class="sec-title title-anim">
-                    Drop Us a <span>Line.</span>
-                  </h2>
-                </div>
-                <form id="contact-form-2">
-                  <div class="row wow fadeInUp" data-wow-delay=".5s">
-                    <div class="col-sm-6">
-                      <div class="form-input">
-                        <input
-                          type="text"
-                          name="cfName2"
-                          placeholder="Full Name *"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-input">
-                        <input
-                          type="email"
-                          name="cfEmail2"
-                          placeholder="Email Address *"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-input">
-                        <input
-                          type="tel"
-                          name="cfPhone2"
-                          placeholder="Phone number *"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-input">
-                        <div class="tj-nice-select-box">
-                          <div class="tj-select">
-                            <select name="cfSubject2">
-                              <option value="0">Chose a option</option>
-                              <option value="1">Business Strategy</option>
-                              <option value="2">Customer Experience</option>
-                              <option value="3">Sustainability and ESG</option>
-                              <option value="4">
-                                Training and Development
-                              </option>
-                              <option value="5">
-                                IT Support & Maintenance
-                              </option>
-                              <option value="6">Marketing Strategy</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-12">
-                      <div class="form-input message-input">
-                        <textarea
-                          name="cfMessage2"
-                          id="message"
-                          placeholder="Type message *"
-                        ></textarea>
-                      </div>
-                    </div>
-                    <div class="submit-btn">
-                      <button class="main-color-rocb" type="submit">
-                        <span class="btn-text"><span>Send Message</span></span>
-                        <span class="btn-icon"
-                          ><i class="tji-arrow-right-long"></i
-                        ></span>
-                      </button>
+                  <div class="location-indicator loc-4">
+                    <div class="location-tooltip">
+                      <span>Regional office:</span>
+                      <p>32 Altamira, State of Pará, Brazil.</p>
+                      <a href="tel:10095447818">P: +1 (009) 544-7818</a>
+                      <a href="mailto:support@bexon.com"
+                        >M: support@bexon.com</a
+                      >
                     </div>
                   </div>
-                </form>
+                  <div class="location-indicator loc-5">
+                    <div class="location-tooltip">
+                      <span>Regional office:</span>
+                      <p>32 Altamira, State of Pará, Brazil.</p>
+                      <a href="tel:10095447818">P: +1 (009) 544-7818</a>
+                      <a href="mailto:support@bexon.com"
+                        >M: support@bexon.com</a
+                      >
+                    </div>
+                  </div>
+                  <div class="location-indicator loc-6">
+                    <div class="location-tooltip">
+                      <span>Regional office:</span>
+                      <p>32 Altamira, State of Pará, Brazil.</p>
+                      <a href="tel:10095447818">P: +1 (009) 544-7818</a>
+                      <a href="mailto:support@bexon.com"
+                        >M: support@bexon.com</a
+                      >
+                    </div>
+                  </div> {% endcomment %}
+                </div>
               </div>
             </div>
           </div>

@@ -9311,6 +9311,7 @@ START: Faq CSS
   (max-width: 575px) {
   .faq-img-area .faq-img .title {
     max-width: 280px;
+    font-size: 28px
   }
 }
 .faq-img-area .faq-img::after {
@@ -11143,8 +11144,8 @@ START: Contact CSS
   }
 }
 .location-indicator.loc-1 {
-  top: 38%;
-  left: 21%;
+  top: 41.5%;
+  left: 58%;
 }
 .location-indicator.loc-2 {
   top: 36%;
@@ -22519,6 +22520,9 @@ START: Hero CSS
 }
 
 .meeting-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background: #ffffff;
   border-radius: 12px;
   padding: 1.5rem 2rem;
@@ -22537,10 +22541,13 @@ START: Hero CSS
   font-weight: 600;
   color: #002b5c; /* korporativ tünd mavi */
   margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: left;
 }
 
 .meeting-date,
-.meeting-location {
+.meeting-location, .meeting-time {
   font-size: 0.95rem;
   color: #555;
   margin: 0.3rem 0;
@@ -22658,8 +22665,7 @@ START: Hero CSS
 .section-title {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #004aad;
-  margin-top: 1rem;
+  margin: 25px 0px;
 }
 
 .meeting-experts ul,
@@ -22719,13 +22725,25 @@ START: Hero CSS
   justify-content: space-between;
 }
 .file-cards-container {
-  display: flex;
-  flex-wrap: wrap;
+display: grid;
+  grid-template-columns: 1fr; /* mobil - 1 sütun */
   gap: 24px;
-  justify-content: space-between;
-  margin: 0 auto;
   max-width: 1200px;
-  padding: 20px 0px;
+  margin: 0 auto;
+  padding: 0 0 20px;
+}
+
+@media (min-width: 768px) {
+.file-cards-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 sütun */
+  }
+}
+
+/* Desktop (≥1024px) */
+@media (min-width: 1024px) {
+.file-cards-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 sütun */
+  }
 }
 
 /* Each card */
@@ -22789,4 +22807,263 @@ START: Hero CSS
   .file-card {
     flex: 1 1 100%;
   }
+}
+
+.meet-doc-detail-head{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap:10px;
+}
+
+.meet-doc-detail-item{
+  margin:0px !important;
+}
+
+.expert-li{
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.expert-parent{
+  display: grid;
+  grid-template-rows: repeat(2, auto); 
+  grid-auto-flow: column;      
+  gap: 12px 24px;   
+  align-items: center;
+  justify-content: left;
+}
+
+.mbn-title{
+  margin-bottom:8px !important;
+}
+
+.registrations-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.registration-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 4px solid #004aad; /* korporativ accent */
+}
+
+.registration-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+}
+
+.registration-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #002b5c;
+  margin-bottom: 0.75rem;
+}
+
+.registration-date,
+.registration-time,
+.registration-timezone,
+.registration-status {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0.3rem 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.registration-date i,
+.registration-time i,
+.registration-timezone i,
+.registration-status i {
+  color: #004aad;
+  font-size: 1rem;
+}
+
+.registration-status.open {
+  color: #008000;
+  font-weight: 600;
+}
+
+.registration-status.closed {
+  color: #b00020;
+  font-weight: 600;
+}
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.status-dot.active {
+  background-color: #10b981; /* yaşıl */
+}
+
+.status-dot.inactive {
+  background-color: #ef4444; /* qırmızı */
+}
+.flex-div{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap:18px;
+}
+.btn-register {
+  background-color: #12579e;
+  color: white;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  position: relative;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-register::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1rem;      /* bayraq ucu eni */
+  height: 100%;
+  background-color: inherit;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.btn-register {
+  background-color: #12579e;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  position: relative;
+  border: none;
+  cursor: pointer;
+  clip-path: polygon(
+    0 0,           /* sol yuxarı */
+    calc(100% - 0.5rem) 0,  /* sağ yuxarı bir qədər içəri */
+    100% 50%,      /* sağ ortası bayraq ucu */
+    calc(100% - 0.5rem) 100%, /* sağ aşağı bir qədər içəri */
+    0 100%         /* sol aşağı */
+  );
+}
+
+.btn-register:hover{
+    scale: 1.04;
+    background-color: #3e88d3;
+}
+.meeting-card-button{
+  display: flex;
+  overflow: visible;
+  padding: 10px;
+}
+
+/* Tabs */
+.etraining-tabs{
+  display:flex;
+  gap:14px;
+  border-bottom:2px solid #f0f2f5;
+  margin:18px 0 22px;
+}
+.tab-link{
+  display:inline-block;
+  padding:10px 14px;
+  font-weight:600;
+  color:#667085;
+  text-decoration:none;
+  border-bottom:3px solid transparent;
+  border-top-left-radius:10px;
+  border-top-right-radius:10px;
+  transition:color .2s ease, border-color .2s ease, background-color .2s ease;
+}
+.tab-link:hover{
+  color:#004aad;
+  background:#f7f9fc;
+}
+.tab-link.active{
+  color:#004aad;
+  border-color:#004aad;
+  background:#f6f9ff;
+}
+
+/* Category header chip */
+.category-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#f3f6fb;
+  border:1px solid #e5eefb;
+  color:#002b5c;
+  padding:8px 12px;
+  border-radius:999px;
+  font-weight:600;
+  margin:8px 0 14px;
+}
+.category-chip .chip-dot{
+  width:8px;height:8px;border-radius:50%;background:#004aad;display:inline-block;
+}
+.category-chip .chip-text{font-size:.95rem}
+
+/* Empty state text */
+.empty-text{
+  grid-column:1 / -1;
+  color:#6b7280;
+  background:#f9fafb;
+  border:1px dashed #e5e7eb;
+  padding:16px;
+  border-radius:10px;
+  text-align:center;
+}
+
+/* Space between categories */
+.etraining-category + .etraining-category{
+  margin-top:20px;
+}
+
+/* Optional polish for existing cards (respects sənin strukturun) */
+.file-icon-container{
+  font-size:28px;
+  line-height:1;
+  background:#eef4ff;
+  color:#004aad;
+  border-radius:12px;
+  padding:10px 12px;
+}
+.file-card{
+  background-color:#ffffff; /* mövcuddu: #f9fafb; istəsən qoru */
+  border:1px solid #eef2f7;
+}
+.file-card:hover{
+  box-shadow:0 10px 24px rgba(0,0,0,0.10);
+  transform:translateY(-4px);
+}
+.file-title{
+  margin-top:6px;
+}
+.file-btn{
+  font-weight:600;
+  letter-spacing:.2px;
+}
+
+@media (max-width: 1024px) {
+    /* tablet və mobil */
+    .only-desktop {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 575px) {
+    .banner-left-box {
+        width: 100%;
+    }
+    .banner-desc-area{
+      flex-direction: column;
+    }
 }

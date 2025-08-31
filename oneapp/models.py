@@ -151,3 +151,34 @@ class DocumentFiles(models.Model):
 
     def __str__(self):
         return f'-{self.title}'
+    
+class MeetingRegistrations(models.Model):
+    title = models.CharField(max_length=900)
+    date = models.DateField(null=True,blank=True)
+    start_hour = models.CharField(null=True,blank=True, help_text="10:00", max_length=20)
+    end_hour = models.CharField(null=True,blank=True, help_text="10:00", max_length=20)
+    timezone = models.CharField(null=True,blank=True, help_text="Brussels time", max_length=120)
+    is_open = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'-{self.title}'
+    
+
+class Registration(models.Model):
+    full_name = models.CharField(max_length=200)
+    phone_number = models.CharField(max_length=20)
+    email = models.EmailField()
+    subject = models.TextField(null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.full_name
+    
+
+class Faq(models.Model):
+    question = models.TextField()
+    answer = models.TextField()
+    order = models.SmallIntegerField()
+
+    def __str__(self):
+        return self.question

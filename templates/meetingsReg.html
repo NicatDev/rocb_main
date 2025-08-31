@@ -1,0 +1,357 @@
+{% load static %} {% load i18n %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+
+    <!-- Site Title -->
+    <title>Rocb Europe - Meeting Registrations</title>
+
+    <!-- Place favicon.ico in the root directory -->
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'assets/images/fav.png' %}"
+    />
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/font-awesome-pro.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/bexon-icons.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/swiper.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/venobox.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/odometer-theme-default.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+  </head>
+
+  <body>
+    <div class="body-overlay"></div>
+
+    <!-- Preloader Start -->
+    <div class="tj-preloader is-loading">
+      <div class="tj-preloader-inner">
+        <div class="tj-preloader-ball-wrap">
+          <div class="tj-preloader-ball-inner-wrap">
+            <div class="tj-preloader-ball-inner">
+              <div class="tj-preloader-ball"></div>
+            </div>
+            <div class="tj-preloader-ball-shadow"></div>
+          </div>
+          <div class="tj-preloader-text">{% trans "Loading" %} ...</div>
+        </div>
+      </div>
+      <div class="tj-preloader-overlay"></div>
+    </div>
+    <!-- Preloader end -->
+
+    <!-- back to top start -->
+    <div class="back-to-top-wrapper">
+      <button id="back_to_top" type="button" class="back-to-top-btn">
+        <span><i class="tji-arrow-up-long"></i></span>
+      </button>
+    </div>
+    <!-- back to top end -->
+
+    <!-- start: Search Popup -->
+    <div class="search-popup-overlay"></div>
+    <!-- end: Search Popup -->
+
+    <!-- start: Offcanvas Menu -->
+    {% include 'components/hamburger-menu.html' %}
+    <!-- end: Hamburger Menu -->
+
+    <!-- start: Header Area -->
+    {% include 'components/navbar.html' %}
+    <!-- end: Header Area -->
+
+    <!-- start: Header Area -->
+    {% include 'components/scroll-navbar.html' %}
+    <!-- end: Header Area -->
+
+    <main id="primary" class="site-main">
+      <!-- start: Breadcrumb Section -->
+      <section class="tj-page-header section-gap-x">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="tj-page-header-content text-center">
+                <span id="tj-page-title" class="tj-page-title"
+                  >{% trans "Meeting Registration" %}</span
+                >
+                <div class="tj-page-link">
+                  <span><i class="tji-home"></i></span>
+                  <span>
+                    <a href="{% url 'home' %}">{% trans "Home" %}</a>
+                  </span>
+                  <span><i class="tji-arrow-right"></i></span>
+                  <span>
+                    <span>{% trans "Meeting Registration" %}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="page-header-overlay"
+          data-bg-image="{% static 'assets/images/shape/pheader-overlay.webp' %}"
+        ></div>
+      </section>
+      <!-- end: Breadcrumb Section -->
+
+      <!-- start: Blog Section -->
+      <section class="tj-blog-section section-gap">
+        <div class="container">
+          <div class="row row-gap-5">
+            <div class="col-lg-8">
+              <div class="post-details-wrapper">
+                <h1 class="title title-anim">
+                  {% trans 'Meeting Registration' %}
+                </h1>
+                <div
+                  class="blog-category-two wow fadeInUp"
+                  data-wow-delay=".3s"
+                ></div>
+              </div>
+              <div class="meeting-docs">
+                {% for item in page_obj %}
+
+                <div class="meeting-card">
+                  <div class="meeting-card-info">
+                    <h3 class="meeting-title">
+                      <span
+                        class="status-dot {% if item.is_open %}active{% else %}inactive{% endif %}"
+                      ></span>
+                      <a>{{ item.title }}</a>
+                    </h3>
+                    <div class="flex-div">
+                      {% if item.date %}
+                      <p class="meeting-date">
+                        <i class="tji-calendar"></i> {{ item.date }}
+                      </p>
+                      {% endif %} {% if item.start_hour %}
+                      <p class="meeting-time">
+                        <i class="tji-clock"></i> {{ item.start_hour }} - {{ item.end_hour }}
+                      </p>
+                      {% endif %} {% if item.timezone %}
+                      <p class="meeting-location">
+                        <i class="tji-location"></i> {{ item.timezone }}
+                      </p>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="meeting-card-button">
+                    <button {% if not item.is_open %}disabled style="cursor:not-allowed; opacity:0.6;"{% endif %} data-value="{{ item.title }}" class="btn-register">{% trans 'Register' %}</button>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+
+              {% if page_obj.has_next %}
+              <div class="tj-pagination d-flex">
+                <ul>
+                  {% if page_obj.has_previous %}
+                  <li>
+                    <a
+                      class="prev page-numbers"
+                      href="?page={{ page_obj.previous_page_number }}"
+                    >
+                      <i class="tji-arrow-left-long"></i>
+                    </a>
+                  </li>
+                  {% endif %} {% for num in paginator.page_range %} {% if num == page_obj.number %}
+                  <li>
+                    <span aria-current="page" class="page-numbers current"
+                      >{{ num }}</span
+                    >
+                  </li>
+                  {% else %}
+                  <li>
+                    <a class="page-numbers" href="?page={{ num }}">{{ num }}</a>
+                  </li>
+                  {% endif %} {% endfor %} {% if page_obj.has_next %}
+                  <li>
+                    <a
+                      class="next page-numbers"
+                      href="?page={{ page_obj.next_page_number }}"
+                    >
+                      <i class="tji-arrow-right-long"></i>
+                    </a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+              {% endif %}
+            </div>
+
+            <div class="col-lg-4">
+              <div class="pin-spacer">
+                <div class="tj-main-sidebar slidebar-stickiy">
+                  <div
+                    class="tj-sidebar-widget widget-categories wow fadeInUp"
+                    data-wow-delay=".1s"
+                  >
+                    <h4 class="widget-title">{% trans "Social Networks" %}</h4>
+
+                    <div class="infos-item">
+                      <div class="project-icons">
+                        <i class="fab fa-twitter"></i>
+                      </div>
+                      <div class="project-text">
+                        <span>{% trans "Twitter" %}</span>
+                        <h6 class="title">
+                          <a
+                            href="https://twitter.com/yourprofile"
+                            target="_blank"
+                            >@yourprofile</a
+                          >
+                        </h6>
+                      </div>
+                    </div>
+
+                    <div class="infos-item">
+                      <div class="project-icons">
+                        <i class="fab fa-linkedin"></i>
+                      </div>
+                      <div class="project-text">
+                        <span>{% trans "LinkedIn" %}</span>
+                        <h6 class="title">
+                          <a
+                            href="https://linkedin.com/in/yourprofile"
+                            target="_blank"
+                            >linkedin.com/in/yourprofile</a
+                          >
+                        </h6>
+                      </div>
+                    </div>
+
+                    <div class="infos-item">
+                      <div class="project-icons">
+                        <i class="fab fa-whatsapp"></i>
+                      </div>
+                      <div class="project-text">
+                        <span>{% trans "WhatsApp" %}</span>
+                        <h6 class="title">
+                          <a href="https://wa.me/1234567890" target="_blank"
+                            >+1 234 567 890</a
+                          >
+                        </h6>
+                      </div>
+                    </div>
+
+                    <div class="infos-item">
+                      <div class="project-icons">
+                        <i class="fas fa-globe"></i>
+                      </div>
+                      <div class="project-text">
+                        <span>{% trans "Website" %}</span>
+                        <h6 class="title">
+                          <a href="https://www.yourwebsite.com" target="_blank"
+                            >www.yourwebsite.com</a
+                          >
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- end: Blog Section -->
+
+      <!-- start: Cta Section -->
+
+      <!-- end: Cta Section -->
+    </main>
+
+    <!-- start: Footer Section -->
+    {% include 'components/footer.html' %}
+    <!-- end: Footer Section -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.querySelectorAll('.btn-register').forEach(button => {
+    button.addEventListener('click', function() {
+        const subject = this.getAttribute('data-value');
+        Swal.fire({
+            title: '{% trans "Register" %}',
+            html: `
+            <div style="padding:10px;">
+                <input style="width:90%" type="text" id="full_name" class="swal2-input" placeholder="{% trans 'Full Name' %}">
+                <input style="width:90%" type="text" id="phone_number" class="swal2-input" placeholder="{% trans 'Phone Number' %}">
+                <input style="width:90%" type="email" id="email" class="swal2-input" placeholder="{% trans 'Email' %}">
+            </div>
+            `,
+             showCloseButton: true,
+            confirmButtonText: "{% trans 'Submit' %}",
+            preConfirm: () => {
+                const full_name = Swal.getPopup().querySelector('#full_name').value
+                const phone_number = Swal.getPopup().querySelector('#phone_number').value
+                const email = Swal.getPopup().querySelector('#email').value
+                if (!full_name || !phone_number || !email) {
+                    Swal.showValidationMessage(`Please enter all fields`)
+                }
+                return { full_name, phone_number, email, subject  }
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch("{% url 'register_meeting' %}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    body: JSON.stringify(result.value)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        Swal.fire('Success!', 'You have registered successfully.', 'success');
+                    } else {
+                        Swal.fire('Error', 'Something went wrong', 'error');
+                    }
+                })
+            }
+        })
+    });
+});
+
+</script>
+    <!-- JS here -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/gsap.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-scroll-to-plugin.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-scroll-trigger.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-split-text.min.js' %}"></script>
+    <script src="{% static 'assets/js/smooth-scroll.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/swiper.min.js' %}"></script>
+    <script src="{% static 'assets/js/odometer.min.js' %}"></script>
+    <script src="{% static 'assets/js/venobox.min.js' %}"></script>
+    <script src="{% static 'assets/js/appear.min.js' %}"></script>
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/meanmenu.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %} "></script>
+
+    <script src="{% static 'assets/js/navbar.js' %}"></script>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, EventSection, News, NewsSection
+from .models import Registration, Event, EventSection, News, NewsSection, MeetingRegistrations, Faq
 from modeltranslation.admin import TranslationAdmin,TranslationStackedInline
 
 class EventModelInline(TranslationStackedInline):  
@@ -71,7 +71,22 @@ class NewsAdmin(TranslationAdmin):
 
 admin.site.register(News,NewsAdmin)
 
+class MeetingRegisterAdmin(TranslationAdmin):
+    list_display = ("title", "timezone")
 
+    class Media:
+        group_fieldsets = True 
+
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
+admin.site.register(MeetingRegistrations,MeetingRegisterAdmin)
 
 from .models import MeetingDocuments, DocumentExperts, DocumentFiles
 
@@ -96,3 +111,22 @@ class DocumentExpertsAdmin(admin.ModelAdmin):
 @admin.register(DocumentFiles)
 class DocumentFilesAdmin(admin.ModelAdmin):
     list_display = ("title", "file")
+
+admin.site.register(Registration)
+
+class FaqAdmin(TranslationAdmin):
+    list_display = ("question", "answer")
+
+    class Media:
+        group_fieldsets = True 
+
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
+admin.site.register(Faq,FaqAdmin)

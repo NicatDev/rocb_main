@@ -120,36 +120,39 @@
           <div class="row row-gap-5">
             <div class="col-lg-8">
               <div class="post-details-wrapper">
-                <h1 class="title title-anim">{{ item.title }}</h1>
+                <h1 class="title title-anim mbn-title">{{ item.title }}</h1>
                 <div
                   class="blog-category-two wow fadeInUp"
                   data-wow-delay=".3s"
                 ></div>
-                <div class="meeting-detail-header">
+                <div class="meeting-detail-header meet-doc-detail-head">
                   {% if item.date %}
-                  <p class="meeting-detail-date">
+                  <p class="meeting-detail-date meet-doc-detail-item">
                     <i class="tji-calendar"></i> {{ item.date }}
                   </p>
                   {% endif %} {% if item.location %}
-                  <p class="meeting-detail-location">
+                  <p class="meeting-detail-location meet-doc-detail-item">
                     <i class="tji-location"></i> {{ item.location }}
                   </p>
                   {% endif %}
                 </div>
 
-                <h3 class="wow fadeInUp section-title" data-wow-delay=".3s">
+                <h3 class="wow fadeInUp section-title mbn-title" data-wow-delay=".3s">
                   {% trans 'Experts' %}
                 </h3>
-                <div class="blog-text">
+                <div class="blog-category-two wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;"></div>
+                <div class="blog-text expert-parent">
                   {% for exp in item.experts.all %}
-                  <li class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ exp.title }}
+                  <li class="wow fadeInUp expert-li" data-wow-delay=".3s">
+                    <i class="fa fa-user-circle" aria-hidden="true" style="color:#0073e6; font-size:18px;"></i>
+                    <span>{{ exp.title }}</span>
                   </li>
                   {% endfor %}
                 </div>
-                <h3 class="wow fadeInUp section-title" data-wow-delay=".3s">
+                <h3 class="wow fadeInUp section-title mbn-title" data-wow-delay=".3s">
                   {% trans 'Documents' %}
                 </h3>
+                <div class="blog-category-two wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;"></div>
                 <div class="file-cards-container">
                   {% for file in item.files.all %}
                        <a class="file-card" href="{% if file.file %}{{ file.file.url }}{% endif %}">
