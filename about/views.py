@@ -4,8 +4,7 @@ from region.models import Region
 
 
 def about_page(request, slug=None):
-    tabs = list(About.objects.order_by('created_at'))
-    regiontabs = list(Region.objects.order_by('created_at'))
+    tabs = list(About.objects.all())
     if not tabs:
         return render(request, "about.html", {
             "tabs": [],
@@ -23,7 +22,7 @@ def about_page(request, slug=None):
                     1] if current_index < len(tabs) - 1 else None
 
     sections = selected_tab.sections.prefetch_related(
-        'mini_titles', 'images', 'block_quotes'
+        'mini_titles', 'images'
     ).all()
     tags = selected_tab.tags.all()
     return render(request, "about.html", {
@@ -34,7 +33,6 @@ def about_page(request, slug=None):
         "tags": tags,
         "prev_tab": prev_tab,
         "next_tab": next_tab,
-        "regiontabs": regiontabs,
     })
 
 from django.http import JsonResponse

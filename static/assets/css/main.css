@@ -23083,3 +23083,16 @@ display: grid;
       flex-direction: column;
     }
 }
+@media only screen and (max-width: 575px){
+  .tj-page-title{
+    font-size:25px !important;
+
+  }
+  .tj-page-link span{
+    font-size:18px !important;
+  }
+  .tj-page-header{
+    padding-bottom: 45px;
+    padding-top: 45px;
+  }
+}

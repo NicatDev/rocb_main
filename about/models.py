@@ -8,13 +8,7 @@ class About(models.Model):
     description = models.TextField(verbose_name="Description")
     image = models.ImageField(
         upload_to='about_images/', verbose_name="Image", blank=True, null=True)
-    created_at = models.DateTimeField(
-        auto_now_add=True, verbose_name="Created At")
-    created_by = models.CharField(
-        max_length=100, verbose_name="Created By", blank=True, null=True)
 
-    autorized_image = models.ImageField(
-        upload_to='about_images/', verbose_name="Authorized Image", blank=True, null=True)
 
     class Meta:
         verbose_name = "About"
@@ -71,20 +65,6 @@ class Image(models.Model):
 
     def __str__(self):
         return f"Image for {self.aboutsection.title}"
-
-
-class BlockQuote(models.Model):
-    aboutsection = models.ForeignKey(
-        AboutSection, on_delete=models.CASCADE, related_name='block_quotes')
-    fullname = models.CharField(max_length=200, verbose_name="Full Name")
-    content = models.TextField(verbose_name="Content")
-
-    class Meta:
-        verbose_name = "Block Quote"
-        verbose_name_plural = "Block Quotes"
-
-    def __str__(self):
-        return f"{self.fullname} - {self.content[:50]}..."
 
 
 class Tag(models.Model):

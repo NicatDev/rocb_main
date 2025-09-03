@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import About, AboutSection, MiniTitle, Image, BlockQuote, Tag
+from .models import About, AboutSection, MiniTitle, Image, Tag
 
 
 class AboutSectionInline(admin.TabularInline):
@@ -9,7 +9,7 @@ class AboutSectionInline(admin.TabularInline):
 
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
-    list_display = ("title", "created_at", "created_by")
+    list_display = ("title",)
     inlines = [AboutSectionInline]
 
 
@@ -27,11 +27,6 @@ class MiniTitleAdmin(admin.ModelAdmin):
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     list_display = ("alttag", "aboutsection")
-
-
-@admin.register(BlockQuote)
-class BlockQuoteAdmin(admin.ModelAdmin):
-    list_display = ("fullname", "aboutsection")
 
 
 @admin.register(Tag)
