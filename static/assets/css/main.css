@@ -11146,9 +11146,10 @@ START: Contact CSS
   height: 19px;
   background-color: var(--tj-color-common-white);
   border-radius: 50%;
-  position: absolute;
   cursor: pointer;
   z-index: 1;
+  position:absolute;
+  
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px),
   only screen and (min-width: 768px) and (max-width: 991px),
@@ -11185,7 +11186,7 @@ START: Contact CSS
   width: 100%;
   height: 100%;
   z-index: -2;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   border-radius: 50%;
@@ -11214,6 +11215,7 @@ START: Contact CSS
   visibility: hidden;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  z-index: 3;
 }
 .location-tooltip::after {
   content: "";
