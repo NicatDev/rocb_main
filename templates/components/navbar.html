@@ -237,10 +237,10 @@
 </header>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const authBtn = document.getElementById("auth-btn-logout");
-
-    authBtn.addEventListener("click", function () {
+document.addEventListener("DOMContentLoaded", function() {
+  const authBtn = document.getElementById("auth-btn-logout");
+  if(!authBtn){return;}
+  authBtn.addEventListener("click", function() {
       fetch("{% url 'logout' %}", {
         method: "POST",
         headers: {
@@ -252,7 +252,6 @@
         .then((response) => response.json())
         .then((data) => {
           if (data.success) {
-            // Refresh page or redirect after logout
             window.location.reload();
           } else {
             alert("Logout failed");

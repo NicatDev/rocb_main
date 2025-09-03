@@ -23081,7 +23081,7 @@ display: grid;
 .faq-img{
     height: 500px !important;
   }
-  
+
 @media only screen and (max-width: 575px){
   .tj-page-title{
     font-size:25px !important;
@@ -23101,4 +23101,28 @@ display: grid;
   .faq-img{
     height: 400px !important;
   }
+  .banner-title{
+    font-size: 25px !important;
+  }
+  .banner-link{
+    padding: 20px !important;
+    border: none !important;
+  }
+  .banner-desc{
+    font-size: 14px !important
+  }
+  .customers-box{
+    padding: 7px !important;
+    white-space: nowrap !important;
+  }
+  .link-hero{
+    font-size: 15px !important;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .customers-box .banner-link{
+    padding: 8px 10px !important;
+  }
 }
+

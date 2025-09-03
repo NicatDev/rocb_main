@@ -15,7 +15,6 @@ from about.models import About
 @require_http_methods(["GET", "POST"])
 def contact_view(request):
     contact_info = ContactInfo.objects.first()
-    tabs = About.objects.order_by('created_at')
 
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -162,7 +161,6 @@ def contact_view(request):
     context = {
         'form': form,
         'contact_info': contact_info,
-        'tabs': tabs
     }
 
     return render(request, 'contact.html', context)
