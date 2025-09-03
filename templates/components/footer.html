@@ -17,24 +17,10 @@
             </div>
             <div class="footer-text">
               <p>
-                Developing personalze our customer journeys to increase
-                satisfaction & loyalty of our expansion.
+                {% trans 'WCO Europe Regional Office for Capacity Building' %}
               </p>
             </div>
-            <div class="award-logo-area">
-              <div class="award-logo">
-                <img
-                  src="{% static 'assets/images/footer/award-logo-1.webp' %}"
-                  alt=""
-                />
-              </div>
-              <div class="award-logo">
-                <img
-                  src="{% static 'assets/images/footer/award-logo-2.webp' %}"
-                  alt=""
-                />
-              </div>
-            </div>
+ 
           </div>
         </div>
         <div class="col-xl-3 col-lg-4 col-md-6">
@@ -42,14 +28,12 @@
             class="footer-widget widget-nav-menu wow fadeInUp"
             data-wow-delay=".3s"
           >
-            <h5 class="title">Services</h5>
+            <h5 class="title">{% trans 'Links' %}</h5>
             <ul>
-              <li><a href="#">Customer Experience</a></li>
-              <li><a href="#">Training Programs</a></li>
-              <li><a href="#">Business Strategy</a></li>
-              <li><a href="#">Training Program</a></li>
-              <li><a href="#">ESG Consulting</a></li>
-              <li><a href="#">Development Hub</a></li>
+              <li><a href="{% url 'home' %}">{% trans 'Homepage' %}</a></li>
+              <li><a href="{% url 'contact:contact' %}">{% trans 'Contact' %}</a></li>
+              <li><a href="{% url 'news' %}">{% trans 'News' %}</a></li>
+              <li><a href="{% trans 'analytics' %}">{% trans 'Analytics' %}</a></li>
             </ul>
           </div>
         </div>
@@ -58,7 +42,7 @@
             class="footer-widget widget-nav-menu wow fadeInUp"
             data-wow-delay=".5s"
           >
-            <h5 class="title">Resources</h5>
+            <h5 class="title">{% trans 'About us' %}</h5>
             <ul>
               <li><a href="#">Contact us</a></li>
               <li><a href="#">Team Member</a></li>

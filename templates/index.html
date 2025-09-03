@@ -300,8 +300,9 @@
                     animation-delay: 0.5s;
                     animation-name: fadeInUp;
                   "
+                  href="{% url 'contact:contact' %}"
                 >
-                  Contact us
+                  {% trans 'Contact us' %} 
                   <div class="banner-link ">
                   <span><i class="fa-solid fa-arrow-right"></i></span>
                 </div>
@@ -320,16 +321,16 @@
             animation-name: fadeInDown;
           "
         >
-          <a href="#choose" class="scroll-down">
+          <a href="#scollto" class="scroll-down">
             <span><i class="tji-arrow-down-long"></i></span>
-            Scroll Down
+            {% trans 'Scroll Down' %}
           </a>
         </div>
       </section>
       <!-- end: Banner Section -->
 
       <!-- start: Blog Section -->
-      <section class="tj-blog-section section-gap">
+      <section id="scollto" class="tj-blog-section section-gap">
         <div class="container">
           <div class="row">
             <div class="col-12">

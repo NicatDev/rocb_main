@@ -27,16 +27,7 @@
           Customs Organization Europe Region{% endblocktrans %}
         </p>
       </div>
-      <div class="hamburger-search-area">
-        <h5 class="hamburger-title">{% trans "Search Now!" %}</h5>
-        <div class="hamburger_search">
-          <form method="get" action="index.html">
-            <button type="submit"><i class="tji-search"></i></button>
-            <input type="search" autocomplete="off" name="s" value=""
-            placeholder="{% trans "Search here..." %}" />
-          </form>
-        </div>
-      </div>
+      
       <div class="hamburger-infos">
         <h5 class="hamburger-title">{% trans "Contact Info" %}</h5>
         <div class="contact-info">
@@ -60,7 +51,7 @@
       </div>
     </div>
     <div class="hamburger-socials">
-      <h5 class="hamburger-title">Follow Us</h5>
+      <h5 class="hamburger-title">{% trans 'Follow Us' %}</h5>
       <div class="social-links style-3">
         <ul>
           <li>
@@ -101,7 +92,8 @@
         <div class="hamburger_logo">
           <a href="{% url 'home' %}" class="mobile_logo">
             <img
-              src="{% static 'assets/images/logos/logo-2.webp' %}"
+              style="height:80px"
+              src="{% static 'logo.png' %}"
               alt="Logo"
             />
           </a>

@@ -1,5 +1,37 @@
 {% load static %} {% load i18n %}
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch("{% url 'about_region_list' %}")   // JSON view-in URL-i
+      .then(response => response.json())
+      .then(data => {
+        const aboutList = document.getElementById("about-list");
+        const regionList = document.getElementById("region-list");
+
+        // About list
+        data.about.forEach(item => {
+          console.log(item.title)
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="/about/${item.slug}"
+                        >${item.title}</a
+                      >`;
+          aboutList.appendChild(li);
+        });
+
+        // Region list
+        data.region.forEach(item => {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="/region_detail/${item.slug}/">${item.title}</a>`;
+          regionList.appendChild(li);
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
+  });
+</script>
+
+
 <header class="header-area header-1 section-gap-x">
   <div class="container-fluid">
     <div class="row">
@@ -18,26 +50,14 @@
               <ul>
                 <li class="has-dropdown">
                   <a href="{% url 'about:about_default' %}">About Us</a>
-                  <ul class="sub-menu">
-                    {% for tab in tabs %}
-                    <li>
-                      <a href="{% url 'about:about_tab' tab.slug %}"
-                        >{{ tab.title }}</a
-                      >
-                    </li>
-                    {% endfor %}
+                  <ul id="about-list" class="sub-menu">
+                    
                   </ul>
                 </li>
                 <li class="has-dropdown">
                   <a href="{% url 'region:region_default' %}">Region</a>
-                  <ul class="sub-menu">
-                    {% for tab in regiontabs %}
-                    <li>
-                      <a href="{% url 'region:region_tab' tab.slug %}"
-                        >{{ tab.title }}</a
-                      >
-                    </li>
-                    {% endfor %}
+                  <ul id="region-list" class="sub-menu">
+                    
                   </ul>
                 </li>
                 <li>

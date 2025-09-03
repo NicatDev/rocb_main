@@ -36,3 +36,8 @@ def about_page(request, slug=None):
         "next_tab": next_tab,
         "regiontabs": regiontabs,
     })
+
+from django.http import JsonResponse
+def about_list(request):
+    items = About.objects.all().values('id', 'title', 'slug')
+    return JsonResponse(list(items), safe=False)

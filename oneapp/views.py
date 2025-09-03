@@ -205,3 +205,16 @@ def register_meeting(request):
         )
         return JsonResponse({"status": "success", "id": registration.id})
     return JsonResponse({"status": "error"}, status=400)
+
+
+
+
+def about_region_list(request):
+    about_items = list(About.objects.all().values('id', 'title', 'slug'))
+    region_items = list(Region.objects.all().values('id', 'title', 'slug'))
+
+    data = {
+        "about": about_items,
+        "region": region_items
+    }
+    return JsonResponse(data, safe=False)

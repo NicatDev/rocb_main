@@ -9351,6 +9351,22 @@ START: Faq CSS
   .faq-img-area .box-area {
     max-width: 215px;
   }
+  .banner-left-box{
+    display: flex;
+    align-items: center;
+    padding: 10px !important;
+  }
+  .banner-left-box .banner-title{
+    width: 100%;
+    text-align: center;
+  }
+  .banner-left-box .sub-title{
+ text-align: center;
+      display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+ 
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .faq-img-area {
