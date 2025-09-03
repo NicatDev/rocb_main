@@ -226,7 +226,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   const authBtn = document.getElementById("auth-btn-logout");
-
+  if(!authBtn){return;}
   authBtn.addEventListener("click", function() {
 
       fetch("{% url 'logout' %}", {
