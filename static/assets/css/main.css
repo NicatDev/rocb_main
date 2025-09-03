@@ -23095,4 +23095,11 @@ display: grid;
     padding-bottom: 45px;
     padding-top: 45px;
   }
+  .banner-left-box{
+    margin-right: 0px !important;
+    padding: 40px 14px !important;
+  }
+  .faq-img{
+    height: 400px !important;
+  }
 }
