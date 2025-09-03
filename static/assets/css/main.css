@@ -11168,8 +11168,16 @@ START: Contact CSS
     left: 73%;
 }
 .location-indicator.loc-3 {
-  top: 73%;
-  left: 30%;
+  top: 67%;
+  left: 55%;
+}
+.location-indicator.loc-4 {
+  top: 54%;
+  left: 60%;
+}
+.location-indicator.loc-5 {
+  top: 59%;
+  left: 46%;
 }
 .location-indicator::after {
   content: "";
