@@ -5,10 +5,10 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Regional Office for Capacity Building for the World Customs Organization Europe Region" />
+    <meta name="description" content="{% blocktrans %}Regional Office for Capacity Building for the World Customs Organization Europe Region{% endblocktrans %}" />
 
     <!-- Site Title -->
-    <title>ROCB Europe - WCO Regional Office for Capacity Building</title>
+    <title>{% blocktrans %}ROCB Europe - WCO Regional Office for Capacity Building{% endblocktrans %}</title>
 
     <!-- Place favicon.ico in the root directory -->
     <link
@@ -89,9 +89,9 @@
           </div>
           <div class="offcanvas-text">
             <p>
-              Developing personalize our customer journeys to increase
+              {% blocktrans %} Developing personalize our customer journeys to increase
               satisfaction & loyalty of our expansion recognized by industry
-              leaders.
+              leaders. {% endblocktrans %}
             </p>
           </div>
           <div class="hamburger-search-area">
@@ -110,10 +110,10 @@
             </div>
           </div>
           <div class="hamburger-infos">
-            <h5 class="hamburger-title">Contact Info</h5>
+            <h5 class="hamburger-title">{% trans 'Contact Info' %}</h5>
             <div class="contact-info">
               <div class="contact-item">
-                <span class="subtitle">Phone</span>
+                <span class="subtitle">{% trans 'Phone' %}</span>
                 <a class="contact-link" href="tel:10095447818"
                   >+1 (009) 544-7818</a
                 >
@@ -134,7 +134,7 @@
           </div>
         </div>
         <div class="hamburger-socials">
-          <h5 class="hamburger-title">Follow Us</h5>
+          <h5 class="hamburger-title">{% trans 'Follow Us' %}</h5>
           <div class="social-links style-3">
             <ul>
               <li>
@@ -191,22 +191,22 @@
             <div class="mobile_menu"></div>
           </div>
           <div class="hamburger-infos">
-            <h5 class="hamburger-title">Contact Info</h5>
+            <h5 class="hamburger-title">{% trans 'Contact Info' %} </h5>
             <div class="contact-info">
               <div class="contact-item">
-                <span class="subtitle">Phone</span>
+                <span class="subtitle">{% trans 'Phone' %}</span>
                 <a class="contact-link" href="tel:8089091313">808-909-1313</a>
               </div>
               <div class="contact-item">
-                <span class="subtitle">Email</span>
+                <span class="subtitle">{% trans 'Email' %}</span>
                 <a class="contact-link" href="mailto:info@bexon.com"
-                  >info@bexon.com</a
+                  >{% trans 'info@bexon.com' %}</a
                 >
               </div>
               <div class="contact-item">
-                <span class="subtitle">Location</span>
+                <span class="subtitle">{% trans 'Location' %}</span>
                 <span class="contact-link"
-                  >993 Renner Burg, West Rond, MT 94251-030</span
+                  >{% trans '993 Renner Burg, West Rond, MT 94251-030' %}</span
                 >
               </div>
             </div>
@@ -258,19 +258,19 @@
           <div class="banner-left-box">
             <div class="banner-content">
               <span class="sub-title wow fadeInDown" data-wow-delay=".2s">
-                <i class="tji-excellence"></i> Rocb Europe
+                <i class="tji-excellence"></i> {% trans 'Rocb Europe' %}
               </span>
               <h1 class="banner-title title-anim">
-                WCO <span>Europe</span> Regional Office for Capacity Building
+                {% trans 'WCO' %} <span>{% trans 'Europe' %}</span> {% trans 'Regional Office for Capacity Building' %}
               </h1>
               <div class="banner-desc-area wow fadeInUp" data-wow-delay=".7s">
                 <a class="banner-link" href="{% url 'about:about_default' %}">
                   <span><i class="tji-arrow-right-big"></i></span>
                 </a>
                 <div class="banner-desc">
-                  ROCB Europe supports member states in modernizing Customs
+                  {% blocktrans %} 'ROCB Europe supports member states in modernizing Customs
                   Services by addressing regional needs and international
-                  standards.
+                  standards. {% endblocktrans %}
                 </div>
               </div>
             </div>
@@ -336,10 +336,10 @@
             <div class="col-12">
               <div class="sec-heading text-center">
                 <span class="sub-title wow fadeInUp" data-wow-delay=".3s"
-                  ><i class="tji-box"></i>Events</span
+                  ><i class="tji-box"></i>{% trans 'Events' %}</span
                 >
                 <h2 class="sec-title title-anim">
-                 Last events</span>
+                {% trans 'Last events' %}</span>
                 </h2>
               </div>
             </div>
@@ -349,11 +349,16 @@
             <div class="col-xl-4 col-md-6">
               <div class="blog-item wow fadeInUp" data-wow-delay=".4s">
                 <div class="blog-thumb">
+            
                   <a href="{% url 'events_detail' event.slug %}"
-                    ><img
+                    >
+                          {% if event.image %}
+                    <img
                       src="{{event.image.url}}"
                       alt=""
-                  /></a>
+                  />
+                    {% endif %}
+                </a>
                   <div class="blog-date">
                     <span class="date">{{ event.date|date:"j" }}</span>  
                     <span class="month">{{ event.date|date:"M" }}</span> 
@@ -375,7 +380,7 @@
                     >
                   </h4>
                   <a class="text-btn" href="{% url 'events_detail' event.slug %}">
-                    <span class="btn-text"><span>Read More</span></span>
+                    <span class="btn-text"><span>{% trans 'Read More' %}</span></span>
                     <span class="btn-icon"
                       ><i class="tji-arrow-right-long"></i
                     ></span>
@@ -400,10 +405,10 @@
                 <span
                   class="sub-title text-white wow fadeInUp"
                   data-wow-delay=".3s"
-                  ><i class="tji-box"></i>News</span
+                  ><i class="tji-box"></i>{% trans 'News' %}</span
                 >
                 <h2 class="sec-title text-white title-anim">
-                  Last news
+                  {% trans 'Last news' %}
                 </h2>
               </div>
             </div>
