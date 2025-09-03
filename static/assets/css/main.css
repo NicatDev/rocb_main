@@ -11137,7 +11137,7 @@ START: Contact CSS
 @media (max-width: 575px) {
   .global-map {
     width: 580px;
-    left: -20px;
+    left: 4px;
   }
 }
 
@@ -11164,8 +11164,8 @@ START: Contact CSS
   left: 58%;
 }
 .location-indicator.loc-2 {
-  top: 36%;
-  left: 46%;
+  top: 56%;
+    left: 73%;
 }
 .location-indicator.loc-3 {
   top: 73%;
@@ -23068,12 +23068,7 @@ display: grid;
   letter-spacing:.2px;
 }
 
-@media (max-width: 1024px) {
-    /* tablet və mobil */
-    .only-desktop {
-        display: none;
-    }
-}
+
 
 @media only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 575px) {
     .banner-left-box {
