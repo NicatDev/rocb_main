@@ -23132,5 +23132,11 @@ display: grid;
   .customers-box .banner-link{
     padding: 8px 10px !important;
   }
+  .blog-category-two{
+    padding: 0px !important;
+  }
+ .tj-page-link{
+  margin-top:45px !important
+ }
 }
 

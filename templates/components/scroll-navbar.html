@@ -5,8 +5,8 @@
     fetch("{% url 'about_region_list' %}")   // JSON view-in URL-i
       .then(response => response.json())
       .then(data => {
-        const aboutList = document.getElementById("about-list");
-        const regionList = document.getElementById("region-list");
+        const aboutList = document.getElementById("about-list2");
+        const regionList = document.getElementById("region-list2");
 
         // About list
         data.about.forEach(item => {
@@ -52,13 +52,13 @@
               <ul>
                 <li class="has-dropdown">
                   <a href="{% url 'about:about_default' %}">About Us</a>
-                  <ul id="about-list" class="sub-menu">
+                  <ul id="about-list2" class="sub-menu">
                     
                   </ul>
                 </li>
                 <li class="has-dropdown">
                   <a href="{% url 'region:region_default' %}">Region</a>
-                  <ul id="region-list" class="sub-menu">
+                  <ul id="region-list2" class="sub-menu">
                    
                   </ul>
                 </li>
