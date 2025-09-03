@@ -2,15 +2,15 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    fetch("{% url 'about_region_list' %}")   // JSON view-in URL-i
-      .then(response => response.json())
-      .then(data => {
+    fetch("{% url 'about_region_list' %}") // JSON view-in URL-i
+      .then((response) => response.json())
+      .then((data) => {
         const aboutList = document.getElementById("about-list");
         const regionList = document.getElementById("region-list");
 
         // About list
-        data.about.forEach(item => {
-          console.log(item.title)
+        data.about.forEach((item) => {
+          console.log(item.title);
           const li = document.createElement("li");
           li.innerHTML = `<a href="/about/${item.slug}"
                         >${item.title}</a
@@ -19,18 +19,17 @@
         });
 
         // Region list
-        data.region.forEach(item => {
+        data.region.forEach((item) => {
           const li = document.createElement("li");
-          li.innerHTML = `<a href="/region_detail/${item.slug}/">${item.title}</a>`;
+          li.innerHTML = `<a href="/region/${item.slug}/">${item.title}</a>`;
           regionList.appendChild(li);
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching data:", error);
       });
   });
 </script>
-
 
 <header class="header-area header-1 section-gap-x">
   <div class="container-fluid">
@@ -50,15 +49,11 @@
               <ul>
                 <li class="has-dropdown">
                   <a href="{% url 'about:about_default' %}">About Us</a>
-                  <ul id="about-list" class="sub-menu">
-                    
-                  </ul>
+                  <ul id="about-list" class="sub-menu"></ul>
                 </li>
                 <li class="has-dropdown">
                   <a href="{% url 'region:region_default' %}">Region</a>
-                  <ul id="region-list" class="sub-menu">
-                    
-                  </ul>
+                  <ul id="region-list" class="sub-menu"></ul>
                 </li>
                 <li>
                   <a href="{% url 'news' %}">News</a>
@@ -66,22 +61,38 @@
                 <li class="has-dropdown">
                   <a href="{% url 'events' %}">Events</a>
                   <ul class="sub-menu">
-                    <li><a href="{% url 'events' %}">{% trans 'Events' %}</a></li>
-                    <li><a href="{% url 'meeting_documents' %}">{% trans 'Meeting documents' %}</a></li>
-                    <li><a href="{% url 'meeting_registrations' %}">{% trans 'Meeting registration' %}</a></li>
+                    <li>
+                      <a href="{% url 'events' %}">{% trans 'Events' %}</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'meeting_documents' %}"
+                        >{% trans 'Meeting documents' %}</a
+                      >
+                    </li>
+                    <li>
+                      <a href="{% url 'meeting_registrations' %}"
+                        >{% trans 'Meeting registration' %}</a
+                      >
+                    </li>
                   </ul>
                 </li>
                 <li><a href="{% url 'analytics' %}">Analytics</a></li>
-                <li><a >E-Training</a></li>
+                <li><a>E-Training</a></li>
                 <li class="has-dropdown">
                   <a href="#">Publicity</a>
                   <ul class="sub-menu">
                     <li><a href="{% url 'newsletters' %}">Newsletters</a></li>
-                    <li><a href="{% url 'outreach' %}">Outreach Materials</a></li>
+                    <li>
+                      <a href="{% url 'outreach' %}">Outreach Materials</a>
+                    </li>
                     <li><a href="{% url 'gallery' %}">Visual Gallery</a></li>
                     <li><a href="{% url 'cct_centers' %}">CCT Center</a></li>
                     <li><a href="{% url 'survey' %}">Surveys</a></li>
-                    <li><a href="{% url 'utilize_our_premises' %}">Utilize Our Premises</a></li>
+                    <li>
+                      <a href="{% url 'utilize_our_premises' %}"
+                        >Utilize Our Premises</a
+                      >
+                    </li>
                   </ul>
                 </li>
                 <li><a href="{% url 'contact:contact' %}">Contact </a></li>
@@ -93,7 +104,7 @@
           <div class="header-right-item d-none d-lg-inline-flex">
             <div class="header-flag">
               <button class="flag" id="flagButton1">
-               <img
+                <img
                   id="currentFlag"
                   src="{% if LANGUAGE_CODE == 'en' %}
                     {% static 'assets/images/united-kingdom (1).png' %}
@@ -169,9 +180,11 @@
                 {% if not user.is_authenticated %}
                 <span class="btn-text"><span>Login</span></span>
                 {% else %}
-                <span class="btn-text" id="auth-btn-logout"><span>Log out</span></span>
+                <span class="btn-text" id="auth-btn-logout"
+                  ><span>Log out</span></span
+                >
                 {% endif %}
-                
+
                 <span class="btn-icon"><i class="fa-solid fa-user"></i></span>
               </a>
             </div>
@@ -224,29 +237,27 @@
 </header>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const authBtn = document.getElementById("auth-btn-logout");
+  document.addEventListener("DOMContentLoaded", function () {
+    const authBtn = document.getElementById("auth-btn-logout");
 
-  authBtn.addEventListener("click", function() {
-
+    authBtn.addEventListener("click", function () {
       fetch("{% url 'logout' %}", {
         method: "POST",
         headers: {
           "X-CSRFToken": "{{ csrf_token }}",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        credentials: "same-origin"
+        credentials: "same-origin",
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          // Refresh page or redirect after logout
-          window.location.reload();
-        } else {
-          alert("Logout failed");
-        }
-      });
-
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            // Refresh page or redirect after logout
+            window.location.reload();
+          } else {
+            alert("Logout failed");
+          }
+        });
+    });
   });
-});
 </script>
