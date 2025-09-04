@@ -64,7 +64,7 @@ def news_page(request):
     if tagParam: 
         news = news.filter(tag=tagParam)
 
-    paginator = Paginator(news, 1)
+    paginator = Paginator(news, 3)
     page_obj = paginator.get_page(page_number)
 
     others = News.objects.exclude(id__in=[n.id for n in page_obj]).order_by('-id')[:3]
@@ -114,7 +114,7 @@ def events_page(request):
     if tagParam: 
         events = events.filter(tag=tagParam)
 
-    paginator = Paginator(events, 1)
+    paginator = Paginator(events, 3)
     page_obj = paginator.get_page(page_number)
 
     others = Event.objects.exclude(id__in=[n.id for n in page_obj]).order_by('-id')[:3]
