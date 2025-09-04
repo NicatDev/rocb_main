@@ -86,8 +86,8 @@
                   <span><a href="{% url 'news' %}">{% trans 'News' %}</a></span>
                   <span><i class="tji-arrow-right"></i></span>
                   <span>
-                    {% if item.title|length > 26 %}
-                      {{ item.title|slice:':26' }}...
+                    {% if item.title|length > 18 %}
+                      {{ item.title|slice:':18' }}...
                     {% else %}
                       {{ item.title }}
                     {% endif %}
