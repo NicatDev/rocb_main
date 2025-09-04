@@ -125,6 +125,7 @@
                     </div>
                   </article>
                 {% endfor %}
+                {% if paginator.num_pages > 1 %}
                 <div class="tj-pagination d-flex">
                   <ul>
                     {# Previous button #} {% if page_obj.has_previous %}
@@ -175,6 +176,7 @@
                     {% endif %}
                   </ul>
                 </div>
+                {% endif %}
               </div>
             </div>
             <div class="col-lg-4">

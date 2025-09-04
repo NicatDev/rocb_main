@@ -46,7 +46,7 @@ class BaseMixin(models.Model):
 
 
 class News(BaseMixin):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=2000)
     description = models.TextField()
     image = models.ImageField(null=True, blank=True)
     in_home = models.BooleanField(default=False)
@@ -74,7 +74,7 @@ class News(BaseMixin):
 class NewsSection(models.Model):
     parent = models.ForeignKey(
         News, on_delete=models.CASCADE, related_name='news_sections')
-    title = models.CharField(max_length=500)
+    title = models.CharField(max_length=5000)
     description = models.TextField()
     image = models.ImageField(null=True, blank=True)
 
