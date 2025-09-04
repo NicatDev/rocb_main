@@ -23078,7 +23078,9 @@ display: grid;
   letter-spacing:.2px;
 }
 
-
+.tj-post__navigation{
+  margin-top:50px !important;
+}
 
 @media only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 575px) {
     .banner-left-box {
@@ -23140,5 +23142,8 @@ display: grid;
  .tj-page-link{
   margin-top:45px !important
  }
+ .tj-post__navigation{
+  margin-top:20px !important;
+}
 }
 
