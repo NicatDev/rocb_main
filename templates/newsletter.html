@@ -139,7 +139,7 @@
                       📄 {{ news.title }} 
                     </a>
                   </h3>
-                  <p class="newsletter-description">{{ news.description }}</p>
+                  {% if news.description %}<p class="newsletter-description">{{ news.description }}</p>{% endif %}
 
                   {% if news.items.all %}
                   <ul class="newsletter-items">
@@ -154,34 +154,7 @@
                 {% endfor %}
               </div>
                  
-                <div class="tj-tags-post wow fadeInUp" data-wow-delay=".3s">
-            
-                  <div class="post-share">
-                    <ul>
-                      <li>{% trans "Share" %}:</li>
-                      <li>
-                        <a href="https://www.facebook.com/" target="_blank"
-                          ><i class="fa-brands fa-facebook-f"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a href="https://x.com/" target="_blank"
-                          ><i class="fa-brands fa-x-twitter"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a href="https://www.instagram.com/" target="_blank"
-                          ><i class="fa-brands fa-instagram"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a href="https://www.linkedin.com/" target="_blank"
-                          ><i class="fa-brands fa-linkedin-in"></i
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+        
             
               </div>
             </div>

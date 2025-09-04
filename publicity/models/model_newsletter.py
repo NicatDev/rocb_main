@@ -2,7 +2,7 @@ from django.db import models
 
 class Newsletter(models.Model):
     title = models.CharField(max_length=200, verbose_name="Title")
-    description = models.TextField(verbose_name="Description")
+    description = models.TextField(verbose_name="Description", null=True,blank=True)
     file = models.FileField(null=True,blank=True)
     class Meta:
         verbose_name = "Newsletter"
