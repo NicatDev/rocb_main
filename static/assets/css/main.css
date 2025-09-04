@@ -23149,5 +23149,11 @@ display: grid;
 .post-details-wrapper .title {
     font-size: 20px;
 }
+.meeting-card{
+  flex-direction: column;
+}
 }
 
+.meeting-location{
+  white-space: nowrap ;
+}
