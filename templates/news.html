@@ -117,7 +117,7 @@
                         </div>
                       {% endif %}
                       <h3 class="title"><a href="{% url 'news_detail' item.slug %}">{{ item.title }}</a></h3>
-                      <p class="desc">In today’s fast-paced business environment, the key to staying ahead of the competition lies in embracing innovation. At [Company Name], we specialize in unlocking your business’s full potential by providing tailored, forward-thinking solutions that drive growth, efficiency, and lasting success.</p>
+                      <p class="desc">{{ item.description|slice:200 }}</p>
                       <a class="text-btn" href="{% url 'news_detail' item.slug %}">
                         <span class="btn-text"><span>Read More</span></span>
                         <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
