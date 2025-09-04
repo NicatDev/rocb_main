@@ -127,7 +127,7 @@
                 {% endif %}
 
                 <div class="blog-text">
-                  <p class="wow fadeInUp" data-wow-delay=".3s">{{ item.description }}</p>
+                  <p class="wow fadeInUp" data-wow-delay=".3s">{{ item.description|linebreaks }}</p>
 
                   <div class="blog-images wow fadeInUp" data-wow-delay=".1s">
                     {% if item.image %}
@@ -136,7 +136,7 @@
                   </div>
                   {% for section in item.news_sections.all %}
                     <h3 class="wow fadeInUp" data-wow-delay=".3s">{{ section.title }}</h3>
-                    <p class="wow fadeInUp" data-wow-delay=".3s">{{ section.description }}</p>
+                    <p class="wow fadeInUp" data-wow-delay=".3s">{{ section.description|linebreaks }}</p>
                     {% if section.image %}
                     <div class="images-wrap">
                       <div class="row">
