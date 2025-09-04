@@ -6,16 +6,18 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
+<!-- Meta Title -->
+<title>{% trans "ROCB Europe - Newsletters" %}</title>
 
-    <!-- Site Title -->
-    <title>Bexon - Corporate Business HTML Template</title>
+<!-- Meta Description -->
+<meta name="description" content="{% trans 'Read the latest newsletters from ROCB Europe, featuring updates, reports, and correspondence with customs administrations and WCO initiatives.' %}" />
+
 
     <!-- Place favicon.ico in the root directory -->
     <link
       rel="shortcut icon"
       type="image/x-icon"
-      href="{% static 'assets/images/fav.png' %}"
+      href="{% static 'logo.png' %}"
     />
 
     <!-- CSS here -->
@@ -96,7 +98,7 @@
                 <div class="tj-page-link">
                   <span><i class="tji-home"></i></span>
                   <span>
-                    <a href="index.html">{% trans "Home" %}</a>
+                    <a href="{% url 'home' %}">{% trans "Home" %}</a>
                   </span>
                   <span><i class="tji-arrow-right"></i></span>
                   <span>
