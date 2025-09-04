@@ -167,6 +167,7 @@
                       opportunities, overcome obstacles, and reach new levels of
                       success.
                     </p> -->
+                  {% if section.mini_titles.all %}
                   <ul class="wow fadeInUp" data-wow-delay=".3s">
                     {% for mini_title in section.mini_titles.all %}
                     <li>
@@ -174,6 +175,7 @@
                     </li>
                     {% endfor %}
                   </ul>
+                  {% endif %}
                 </div>
                  {% if tags %}
                 <div class="tj-tags-post wow fadeInUp" data-wow-delay=".3s">
