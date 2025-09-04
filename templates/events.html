@@ -111,12 +111,13 @@
                       </div>
                     {% endif %}
                     <div class="blog-content">
-                      {% if item.tag and item.image %}
+                     
+                      <h3 class="title"><a href="{% url 'events_detail' item.slug %}">{{ item.title }}</a></h3>
+                       {% if item.tag and item.image %}
                         <div class="blog-meta">
                           <span class="categories"><a>{{ item.tag }}</a></span>
                         </div>
                       {% endif %}
-                      <h3 class="title"><a href="{% url 'events_detail' item.slug %}">{{ item.title }}</a></h3>
                    {% if item.description %}
                         {% if item.description|length > 200 %}
                             <p class="desc">{{ item.description|slice:":200" }}...</p>
