@@ -117,222 +117,181 @@
       <!-- start: Blog Section -->
       <section class="tj-blog-section section-gap">
         <div class="container">
-          <div class="row row-gap-5">
-            <div class="col-lg-8">
-              <div class="post-details-wrapper">
-                <h1 class="title title-anim">{{ about.title }}</h1>
-                <div
-                  class="blog-category-two wow fadeInUp"
-                  data-wow-delay=".3s"
-                ></div>
-                <div class="blog-images wow fadeInUp" data-wow-delay=".1s">
-                  {% if about.image %}
-                  <img src="{{ about.image.url }}" alt="{{ about.title }}" />
-                  {% endif %}
-                </div>
-                <div class="blog-text">
-                  <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ about.description }}
-                  </p>
-                  {% if sections %} {% for section in sections %}
-                  <h3 class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ section.title }}
-                  </h3>
-                  <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ section.description }}
-                  </p>
-                  <div class="images-wrap">
-                    <div class="row">
-                      {% for image in section.images.all %}
-                      <div class="col-sm-6">
-                        <div
-                          class="image-box wow fadeInUp"
-                          data-wow-delay=".3s"
-                        >
-                          <img
-                            src="{{ image.image.url }}"
-                            alt="{{ image.alttag|default:'Image' }}"
-                          />
-                        </div>
+  <div class="row row-gap-5">
+    <div class="col-lg-8">
+      <div class="post-details-wrapper">
+        <h1 class="title title-anim">{{ about.title }}</h1>
+        <div class="blog-category-two wow fadeInUp" data-wow-delay=".3s"></div>
+        
+        <div class="blog-images wow fadeInUp" data-wow-delay=".1s">
+          {% if about.image %}
+            <img src="{{ about.image.url }}" alt="{{ about.title }}" />
+          {% endif %}
+        </div>
+
+        <div class="blog-text">
+          <p class="wow fadeInUp" data-wow-delay=".3s">
+            {{ about.description }}
+          </p>
+
+          {% if sections %}
+            {% for section in sections %}
+              <h3 class="wow fadeInUp" data-wow-delay=".3s">
+                {{ section.title }}
+              </h3>
+              <p class="wow fadeInUp" data-wow-delay=".3s">
+                {{ section.description }}
+              </p>
+
+              <div class="images-wrap">
+                <div class="row">
+                  {% for image in section.images.all %}
+                    <div class="col-sm-6">
+                      <div class="image-box wow fadeInUp" data-wow-delay=".3s">
+                        <img src="{{ image.image.url }}" alt="{{ image.alttag|default:'Image' }}" />
                       </div>
-                      {% endfor %}
                     </div>
-                  </div>
-                  <!-- <p class="wow fadeInUp" data-wow-delay=".3s">
-                      Lastly, effective leadership that inspires and motivates
-                      employees, customers, and stakeholders is essential in
-                      steering the business toward achieving its full potential.
-                      By applying these lessons, businesses can unlock new
-                      opportunities, overcome obstacles, and reach new levels of
-                      success.
-                    </p> -->
-                  {% if section.mini_titles.all %}
-                  <ul class="wow fadeInUp" data-wow-delay=".3s">
-                    {% for mini_title in section.mini_titles.all %}
+                  {% endfor %}
+                </div>
+              </div>
+
+              {% if section.mini_titles.all %}
+                <ul class="wow fadeInUp" data-wow-delay=".3s">
+                  {% for mini_title in section.mini_titles.all %}
                     <li>
                       <span><i class="tji-check"></i></span>{{ mini_title.title }}
                     </li>
-                    {% endfor %}
-                  </ul>
-                  {% else %}
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
 
-                  {% endif %}
-
-                  {% else %}
-                  
-                  {% endif %}
-                </div>
-                 {% if tags %}
-                <div class="tj-tags-post wow fadeInUp" data-wow-delay=".3s">
-                 
-                  <div class="tagcloud">
-                    <span>{% trans 'Tags' %}:</span>
-                    {% for tag in tags %}
-                    <a href="#">{{ tag.title }}</a>
-                    {% endfor %}
-                  </div>
-                  
-                 </div>
-                {% endif %}
-                <div
-                  class="tj-post__navigation wow fadeInUp"
-                  data-wow-delay=".3s"
-                >
-                  <!-- previous tab -->
-                  <div class="tj-nav__post previous">
-                    <div class="tj-nav-post__nav prev_post">
-                      {% if prev_tab %}
-                      <a href="{% url 'about:about_tab' slug=prev_tab.slug %}">
-                        <span><i class="tji-arrow-left"></i></span>{% trans "Previous" %}
-                      </a>
-                      {% else %}
-                      <a class="disabled"
-                        ><span><i class="tji-arrow-left"></i></span>{% trans "Previous" %}</a
-                      >
-                      {% endif %}
-                    </div>
-                  </div>
-
-                  <div class="tj-nav-post__grid">
-                    <a href="{% url 'about:about_default' %}"
-                      ><i class="tji-window"></i
-                    ></a>
-                  </div>
-
-                  <!-- next tab -->
-                  <div class="tj-nav__post next">
-                    <div class="tj-nav-post__nav next_post">
-                      {% if next_tab %}
-                      <a href="{% url 'about:about_tab' slug=next_tab.slug %}">
-                        {% trans "Next" %}<span
-                          ><i class="tji-arrow-right"></i
-                        ></span>
-                      </a>
-                      {% else %}
-                      <a class="disabled"
-                        >{% trans "Next" %}<span
-                          ><i class="tji-arrow-right"></i></span
-                      ></a>
-                      {% endif %}
-                    </div>
-                  </div>
-                </div>
-              </div>
+        {% if tags %}
+          <div class="tj-tags-post wow fadeInUp" data-wow-delay=".3s">
+            <div class="tagcloud">
+              <span>{% trans 'Tags' %}:</span>
+              {% for tag in tags %}
+                <a href="#">{{ tag.title }}</a>
+              {% endfor %}
             </div>
-            
-            <div class="col-lg-4">
-              <div class="tj-main-sidebar sticky-lg-top">
-                <div
-                  class="tj-sidebar-widget widget-categories wow fadeInUp"
-                  data-wow-delay=".1s"
-                >
-                  <h4 class="widget-title">{% trans "Social Networks" %}</h4>
+          </div>
+        {% endif %}
 
-                  <div class="infos-item">
-                    <div class="project-icons">
-                      <i class="fab fa-twitter"></i>
-                    </div>
-                    <div class="project-text">
-                      <span>{% trans "Twitter" %}</span>
-                      <h6 class="title">
-                        <a
-                          href="https://twitter.com/yourprofile"
-                          target="_blank"
-                          >@yourprofile</a
-                        >
-                      </h6>
-                    </div>
-                  </div>
+        <div class="tj-post__navigation wow fadeInUp" data-wow-delay=".3s">
+          <!-- previous tab -->
+          <div class="tj-nav__post previous">
+            <div class="tj-nav-post__nav prev_post">
+              {% if prev_tab %}
+                <a href="{% url 'about:about_tab' slug=prev_tab.slug %}">
+                  <span><i class="tji-arrow-left"></i></span>{% trans "Previous" %}
+                </a>
+              {% else %}
+                <a class="disabled">
+                  <span><i class="tji-arrow-left"></i></span>{% trans "Previous" %}
+                </a>
+              {% endif %}
+            </div>
+          </div>
 
-                  <div class="infos-item">
-                    <div class="project-icons">
-                      <i class="fab fa-linkedin"></i>
-                    </div>
-                    <div class="project-text">
-                      <span>{% trans "LinkedIn" %}</span>
-                      <h6 class="title">
-                        <a
-                          href="https://linkedin.com/in/yourprofile"
-                          target="_blank"
-                          >linkedin.com/in/yourprofile</a
-                        >
-                      </h6>
-                    </div>
-                  </div>
+          <div class="tj-nav-post__grid">
+            <a href="{% url 'about:about_default' %}">
+              <i class="tji-window"></i>
+            </a>
+          </div>
 
-                  <div class="infos-item">
-                    <div class="project-icons">
-                      <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <div class="project-text">
-                      <span>{% trans "WhatsApp" %}</span>
-                      <h6 class="title">
-                        <a href="https://wa.me/1234567890" target="_blank"
-                          >+1 234 567 890</a
-                        >
-                      </h6>
-                    </div>
-                  </div>
-
-                  <div class="infos-item">
-                    <div class="project-icons">
-                      <i class="fas fa-globe"></i>
-                    </div>
-                    <div class="project-text">
-                      <span>{% trans "Website" %}</span>
-                      <h6 class="title">
-                        <a href="https://www.yourwebsite.com" target="_blank"
-                          >www.yourwebsite.com</a
-                        >
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="tj-sidebar-widget service-categories wow fadeInUp"
-                  data-wow-delay=".1s"
-                >
-                  <h4 class="widget-title">{% trans "Discover More" %}</h4>
-                  <ul>
-                    {% for tab in tabs %}
-                    <li>
-                      <a
-                        href="{% url 'about:about_tab' tab.slug %}"
-                        class="{% if tab == selected_tab %}active{% endif %}"
-                      >
-                        {{ tab.title }}
-                        <span class="icon"
-                          ><i class="tji-arrow-right"></i
-                        ></span>
-                      </a>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
+          <!-- next tab -->
+          <div class="tj-nav__post next">
+            <div class="tj-nav-post__nav next_post">
+              {% if next_tab %}
+                <a href="{% url 'about:about_tab' slug=next_tab.slug %}">
+                  {% trans "Next" %}<span><i class="tji-arrow-right"></i></span>
+                </a>
+              {% else %}
+                <a class="disabled">
+                  {% trans "Next" %}<span><i class="tji-arrow-right"></i></span>
+                </a>
+              {% endif %}
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+      <div class="tj-main-sidebar sticky-lg-top">
+        <div class="tj-sidebar-widget widget-categories wow fadeInUp" data-wow-delay=".1s">
+          <h4 class="widget-title">{% trans "Social Networks" %}</h4>
+
+          <div class="infos-item">
+            <div class="project-icons">
+              <i class="fab fa-twitter"></i>
+            </div>
+            <div class="project-text">
+              <span>{% trans "Twitter" %}</span>
+              <h6 class="title">
+                <a href="https://twitter.com/yourprofile" target="_blank">@yourprofile</a>
+              </h6>
+            </div>
+          </div>
+
+          <div class="infos-item">
+            <div class="project-icons">
+              <i class="fab fa-linkedin"></i>
+            </div>
+            <div class="project-text">
+              <span>{% trans "LinkedIn" %}</span>
+              <h6 class="title">
+                <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a>
+              </h6>
+            </div>
+          </div>
+
+          <div class="infos-item">
+            <div class="project-icons">
+              <i class="fab fa-whatsapp"></i>
+            </div>
+            <div class="project-text">
+              <span>{% trans "WhatsApp" %}</span>
+              <h6 class="title">
+                <a href="https://wa.me/1234567890" target="_blank">+1 234 567 890</a>
+              </h6>
+            </div>
+          </div>
+
+          <div class="infos-item">
+            <div class="project-icons">
+              <i class="fas fa-globe"></i>
+            </div>
+            <div class="project-text">
+              <span>{% trans "Website" %}</span>
+              <h6 class="title">
+                <a href="https://www.yourwebsite.com" target="_blank">www.yourwebsite.com</a>
+              </h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="tj-sidebar-widget service-categories wow fadeInUp" data-wow-delay=".1s">
+          <h4 class="widget-title">{% trans "Discover More" %}</h4>
+          <ul>
+            {% for tab in tabs %}
+              <li>
+                <a href="{% url 'about:about_tab' tab.slug %}" class="{% if tab == selected_tab %}active{% endif %}">
+                  {{ tab.title }}
+                  <span class="icon"><i class="tji-arrow-right"></i></span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
       </section>
       <!-- end: Blog Section -->
 
