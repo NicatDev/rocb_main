@@ -30,7 +30,8 @@ def region_page(request, slug=None):
     list_sections = selected_tab.list_sections.prefetch_related(
         'list_items').all()
 
-    countries = Country.objects.all().order_by('title')
+    countries = Country.objects.filter(region=selected_tab).order_by('title')
+
 
     return render(request, "region.html", {
         "regiontabs": regiontabs,
