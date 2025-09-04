@@ -442,16 +442,16 @@ img {
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .section-gap {
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 80px;
+    padding-bottom: 80px;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px),
   only screen and (min-width: 576px) and (max-width: 767px),
   (max-width: 575px) {
   .section-gap {
-    padding-top: 70px;
-    padding-bottom: 70px;
+    padding-top: 42px;
+    padding-bottom: 42px;
   }
 }
 
@@ -23104,8 +23104,8 @@ display: grid;
     font-size:18px !important;
   }
   .tj-page-header{
-    padding-bottom: 45px;
-    padding-top: 45px;
+    padding-bottom: 65px;
+    padding-top: 65px;
   }
   .banner-left-box{
     margin-right: 0px !important;
