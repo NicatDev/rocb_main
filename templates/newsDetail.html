@@ -137,15 +137,17 @@
                   {% for section in item.news_sections.all %}
                     <h3 class="wow fadeInUp" data-wow-delay=".3s">{{ section.title }}</h3>
                     <p class="wow fadeInUp" data-wow-delay=".3s">{{ section.description }}</p>
+                    {% if section.image %}
                     <div class="images-wrap">
                       <div class="row">
                         <div class="col-sm-6">
                           <div class="image-box wow fadeInUp" data-wow-delay=".3s">
-                            <img src="{{ item.image.url }}" alt="{{ image.alttag|default:'Image' }}" />
+                            <img src="{{ section.image.url }}" alt="{{ section.title }}" />
                           </div>
                         </div>
                       </div>
                     </div>
+                    {% endif %}
                     <!--     <p class="wow fadeInUp" data-wow-delay=".3s">
                     Lastly, effective leadership that inspires and motivates
                     employees, customers, and stakeholders is essential in
