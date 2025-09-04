@@ -84,7 +84,7 @@ class NewsSection(models.Model):
 
 class Event(BaseMixin):
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(null=True,blank=True)
     image = models.ImageField(null=True, blank=True)
     in_home = models.BooleanField(default=False)
     date = models.DateTimeField(null=True, blank=True)
