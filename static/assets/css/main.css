@@ -23157,3 +23157,7 @@ display: grid;
 .meeting-location{
   white-space: nowrap ;
 }
+.status-dot{
+  width: 15px;
+  height: 10px;
+}
