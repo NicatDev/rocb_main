@@ -6,16 +6,16 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
+<meta name="description" content="{% trans 'Access ROCB Europe e-training programs and resources for World Customs Organization Europe Region. Enhance your skills and knowledge online.' %}" />
 
-    <!-- Site Title -->
-    <title>Bexon - Corporate Business HTML Template</title>
+<!-- Site Title -->
+<title>{% trans 'ROCB Europe - E-Training' %}</title>
 
     <!-- Place favicon.ico in the root directory -->
     <link
       rel="shortcut icon"
       type="image/x-icon"
-      href="{% static 'assets/images/fav.png' %}"
+      href="{% static 'logo.png' %}"
     />
 
     <!-- CSS here -->
@@ -96,7 +96,7 @@
                 <div class="tj-page-link">
                   <span><i class="tji-home"></i></span>
                   <span>
-                    <a href="index.html">{% trans "Home" %}</a>
+                    <a href="{% url 'home' %}">{% trans "Home" %}</a>
                   </span>
                   <span><i class="tji-arrow-right"></i></span>
                   <span>
@@ -127,17 +127,18 @@
                   data-wow-delay=".3s"
                 ></div>
                <div class="etraining-tabs">
-    <a href="{% url 'e_training_docs' %}"
-       class="tab-link {% if request.resolver_match.url_name == 'e_training_docs' %}active{% endif %}">
-      {% trans "Documents" %}
-    </a>
-    <a href="{% url 'e_training_videos' %}"
-       class="tab-link {% if request.resolver_match.url_name == 'e_training_videos' %}active{% endif %}">
-      {% trans "Video Trainings" %}
-    </a>
-  </div>
+                <a href="{% url 'e_training_docs' %}"
+                  class="tab-link {% if request.resolver_match.url_name == 'e_training_docs' %}active{% endif %}">
+                  {% trans "Documents" %}
+                </a>
+                <a href="{% url 'e_training_videos' %}"
+                  class="tab-link {% if request.resolver_match.url_name == 'e_training_videos' %}active{% endif %}">
+                  {% trans "Video Trainings" %}
+                </a>
+              </div>
 
   <!-- Content by Categories -->
+  
   {% for category in categories %}
     <div class="etraining-category">
       <div class="meet-doc-detail-head">
@@ -176,6 +177,7 @@
       </div>
     </div>
   {% endfor %}
+ 
               </div>
               <!-- post-details-wrapper -->
             </div>
