@@ -117,7 +117,11 @@
                         </div>
                       {% endif %}
                       <h3 class="title"><a href="{% url 'news_detail' item.slug %}">{{ item.title }}</a></h3>
-                      <p class="desc">{{ item.description|slice:200 }}</p>
+                          {% if item.description|length > 200 %}
+                              <p class="desc">{{ item.description|slice:":200" }}...</p>
+                          {% else %}
+                              <p class="desc">{{ item.description }}</p>
+                          {% endif %}
                       <a class="text-btn" href="{% url 'news_detail' item.slug %}">
                         <span class="btn-text"><span>Read More</span></span>
                         <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
