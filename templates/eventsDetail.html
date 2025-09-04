@@ -6,13 +6,13 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
+    <meta name="description" content="{% if item.description|length > 200 %}{{ item.description|slice:':200' }}...{% else %}{{ item.description }}{% endif %}" />
 
     <!-- Site Title -->
-    <title>Bexon - Corporate Business HTML Template</title>
+    <title>{{ item.title }}</title>
 
     <!-- Place favicon.ico in the root directory -->
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/fav.png' %}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo.png' %}" />
 
     <!-- CSS here -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
@@ -120,14 +120,16 @@
                       </div>
                       <div class="cate-text">
                         <span class="degination">{% trans 'Authored by' %}</span>
-                        <h6 class="title"><a href="blog-details.html">{{ item.created_by }}</a></h6>
+                        <h6 class="title"><a>{{ item.created_by }}</a></h6>
                       </div>
                     </div>
                   </div>
                 {% endif %}
 
                 <div class="blog-text">
-                  <p class="wow fadeInUp" data-wow-delay=".3s">{{ item.description }}</p>
+                  {% if item.description %}<p class="wow fadeInUp" data-wow-delay=".3s">{{ item.description }}</p>
+                  
+                  {% endif %}
 
                   <div class="blog-images wow fadeInUp" data-wow-delay=".1s">
                     {% if item.image %}

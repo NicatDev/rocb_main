@@ -6,13 +6,14 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
+<meta name="description" content="{% trans 'Stay informed about the latest events, workshops, and capacity building initiatives organized by ROCB Europe in collaboration with the WCO.' %}" />
+
 
     <!-- Site Title -->
-    <title>Bexon - Corporate Business HTML Template</title>
+   <title>{% trans 'ROCB Europe - Events and Workshops' %}</title>
 
     <!-- Place favicon.ico in the root directory -->
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/fav.png' %}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo.png' %}" />
 
     <!-- CSS here -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
@@ -198,6 +199,7 @@
                     </form>
                   </div>
                 </div>
+                {% if others|length > 1 %}
                 <div class="tj-sidebar-widget tj-recent-posts wow fadeInUp" data-wow-delay=".3s">
                   <h4 class="widget-title">{% trans 'More events' %}</h4>
                   <ul>
@@ -220,7 +222,7 @@
                     {% endfor %}
                   </ul>
                 </div>
-
+                {% endif %}
                 <div class="tj-sidebar-widget widget-tag-cloud wow fadeInUp" data-wow-delay=".7s">
                   <h4 class="widget-title">{% trans 'Tags' %}</h4>
                   <nav>
