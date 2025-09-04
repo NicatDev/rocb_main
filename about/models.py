@@ -27,7 +27,7 @@ class AboutSection(models.Model):
     about = models.ForeignKey(
         About, on_delete=models.CASCADE, related_name='sections')
     title = models.CharField(max_length=200, verbose_name="Section Title")
-    description = models.TextField(verbose_name="Section Description")
+    description = models.TextField(verbose_name="Section Description", blank=True, null=True)
     order = models.PositiveIntegerField(default=0, verbose_name="Order")
 
     class Meta:
