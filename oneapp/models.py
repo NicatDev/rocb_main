@@ -31,7 +31,7 @@ class MetaInfo(models.Model):
 
 
 class BaseMixin(models.Model):
-    slug = models.SlugField(unique=True, editable=False, blank=True, null=True)
+    slug = models.SlugField(unique=True, editable=False, blank=True, null=True, max_length=5000)
     created_at = models.DateField(auto_now=True, blank=True, null=True,)
     meta_title = models.CharField(
         max_length=60, null=True, blank=True, verbose_name='title for seo')
