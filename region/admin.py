@@ -3,55 +3,53 @@ from .models import (
     Region, RegionSection, MiniTitle, Image, BlockQuote, Tag,
     ListSection, ListItem, Country
 )
+from modeltranslation.admin import (
+    TabbedTranslationAdmin, TranslationTabularInline, TranslationStackedInline
+) 
 
-
-class MiniTitleInline(admin.TabularInline):
+class MiniTitleInline(TranslationTabularInline):
     model = MiniTitle
     extra = 1
 
-
-class ImageInline(admin.TabularInline):
+class ImageInline(TranslationTabularInline):
     model = Image
     extra = 1
 
-
-class BlockQuoteInline(admin.TabularInline):
+class BlockQuoteInline(TranslationTabularInline):
     model = BlockQuote
     extra = 1
 
-
-class RegionSectionInline(admin.StackedInline):
+class RegionSectionInline(TranslationStackedInline):
     model = RegionSection
     extra = 1
     show_change_link = True
 
-
-class ListItemInline(admin.TabularInline):
+class ListItemInline(TranslationTabularInline):
     model = ListItem
     extra = 1
 
-
-class ListSectionInline(admin.StackedInline):
+class ListSectionInline(TranslationStackedInline):
     model = ListSection
     extra = 1
     show_change_link = True
 
-
-class TagInline(admin.TabularInline):
+class TagInline(TranslationTabularInline):
     model = Tag
     extra = 1
 
 
+# --- Main Admin classes updated for modeltranslation ---
+
 @admin.register(Region)
-class RegionAdmin(admin.ModelAdmin):
-    list_display = ("title",  "created_at", "created_by")
+class RegionAdmin(TabbedTranslationAdmin):
+    list_display = ("title", "created_at", "created_by")
     search_fields = ("title", "description")
     list_filter = ("created_at",)
     inlines = [TagInline, RegionSectionInline, ListSectionInline]
 
 
 @admin.register(RegionSection)
-class RegionSectionAdmin(admin.ModelAdmin):
+class RegionSectionAdmin(TabbedTranslationAdmin):
     list_display = ("title", "region", "order")
     list_filter = ("region",)
     search_fields = ("title", "description")
@@ -60,22 +58,36 @@ class RegionSectionAdmin(admin.ModelAdmin):
 
 
 @admin.register(ListSection)
-class ListSectionAdmin(admin.ModelAdmin):
+class ListSectionAdmin(TabbedTranslationAdmin):
     list_display = ("title", "region")
     search_fields = ("title", "description")
     list_filter = ("region",)
     inlines = [ListItemInline]
 
 
-admin.site.register(MiniTitle)
-admin.site.register(Image)
-admin.site.register(BlockQuote)
-admin.site.register(Tag)
-admin.site.register(ListItem)
+@admin.register(MiniTitle)
+class MiniTitleAdmin(TabbedTranslationAdmin):
+    list_display = ('title', 'regionsection')
+
+@admin.register(Image)
+class ImageAdmin(TabbedTranslationAdmin):
+    list_display = ('alttag', 'regionsection')
+
+@admin.register(BlockQuote)
+class BlockQuoteAdmin(TabbedTranslationAdmin):
+    list_display = ('fullname', 'regionsection')
+
+@admin.register(Tag)
+class TagAdmin(TabbedTranslationAdmin):
+    list_display = ('title', 'region')
+
+@admin.register(ListItem)
+class ListItemAdmin(TabbedTranslationAdmin):
+    list_display = ('title', 'list_section')
 
 
 @admin.register(Country)
-class CountryAdmin(admin.ModelAdmin):
+class CountryAdmin(TabbedTranslationAdmin):
     list_display = ("title", "region")
     search_fields = ("title", "description")
     list_filter = ("region",)

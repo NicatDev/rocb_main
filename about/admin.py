@@ -1,34 +1,34 @@
 from django.contrib import admin
 from .models import About, AboutSection, MiniTitle, Image, Tag
+from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline
 
-
-class AboutSectionInline(admin.TabularInline):
+class AboutSectionInline(TranslationTabularInline):
     model = AboutSection
     extra = 1
 
 
 @admin.register(About)
-class AboutAdmin(admin.ModelAdmin):
+class AboutAdmin(TabbedTranslationAdmin):
     list_display = ("title",)
     inlines = [AboutSectionInline]
 
 
 @admin.register(AboutSection)
-class AboutSectionAdmin(admin.ModelAdmin):
+class AboutSectionAdmin(TabbedTranslationAdmin):
     list_display = ("title", "about", "order")
     list_editable = ("order",)
 
 
 @admin.register(MiniTitle)
-class MiniTitleAdmin(admin.ModelAdmin):
+class MiniTitleAdmin(TabbedTranslationAdmin):
     list_display = ("title", "aboutsection")
 
 
 @admin.register(Image)
-class ImageAdmin(admin.ModelAdmin):
+class ImageAdmin(TabbedTranslationAdmin):
     list_display = ("alttag", "aboutsection")
 
 
 @admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
+class TagAdmin(TabbedTranslationAdmin):
     list_display = ("title", "about")

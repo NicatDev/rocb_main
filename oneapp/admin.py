@@ -1,132 +1,60 @@
 from django.contrib import admin
-from .models import Registration, Event, EventSection, News, NewsSection, MeetingRegistrations, Faq
-from modeltranslation.admin import TranslationAdmin,TranslationStackedInline
+from .models import (
+    Registration, Event, EventSection, News, NewsSection,
+    MeetingRegistrations, Faq, MeetingDocuments, DocumentExperts, DocumentFiles
+)
+from modeltranslation.admin import (
+    TabbedTranslationAdmin, TranslationStackedInline, TranslationTabularInline
+)
 
-class EventModelInline(TranslationStackedInline):  
+class EventModelInline(TranslationStackedInline):
     model = EventSection
     extra = 0
 
-    class Media:
-        group_fieldsets = True 
-
-        js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-            'modeltranslation/js/tabbed_translation_fields.js',
-        )
-        css = {
-            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
-        }
-
-class EventAdmin(TranslationAdmin):
-    list_display = ("title",)
-    inlines = [EventModelInline]
-
-    class Media:
-        group_fieldsets = True 
-
-        js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-            'modeltranslation/js/tabbed_translation_fields.js',
-        )
-        css = {
-            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
-        }
-
-admin.site.register(Event,EventAdmin)
-
-
-class NewsModelInline(TranslationStackedInline):  
+class NewsModelInline(TranslationStackedInline):
     model = NewsSection
     extra = 0
 
-    class Media:
-        group_fieldsets = True 
-
-        js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-            'modeltranslation/js/tabbed_translation_fields.js',
-        )
-        css = {
-            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
-        }
-
-class NewsAdmin(TranslationAdmin):
-    list_display = ("title",)
-    inlines = [NewsModelInline]
-
-    class Media:
-        group_fieldsets = True 
-
-        js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-            'modeltranslation/js/tabbed_translation_fields.js',
-        )
-        css = {
-            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
-        }
-
-admin.site.register(News,NewsAdmin)
-
-class MeetingRegisterAdmin(TranslationAdmin):
-    list_display = ("title", "timezone")
-
-    class Media:
-        group_fieldsets = True 
-
-        js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-            'modeltranslation/js/tabbed_translation_fields.js',
-        )
-        css = {
-            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
-        }
-
-admin.site.register(MeetingRegistrations,MeetingRegisterAdmin)
-
-from .models import MeetingDocuments, DocumentExperts, DocumentFiles
-
-class DocumentExpertsInline(admin.TabularInline):
+class DocumentExpertsInline(TranslationTabularInline):
     model = DocumentExperts
-    extra = 1  # əlavə boş sətir
+    extra = 1
 
-class DocumentFilesInline(admin.TabularInline):
+class DocumentFilesInline(TranslationTabularInline):
     model = DocumentFiles
     extra = 1
 
+@admin.register(Event)
+class EventAdmin(TabbedTranslationAdmin):
+    list_display = ("title",)
+    inlines = [EventModelInline]
+
+@admin.register(News)
+class NewsAdmin(TabbedTranslationAdmin): 
+    list_display = ("title",)
+    inlines = [NewsModelInline]
+
+@admin.register(MeetingRegistrations)
+class MeetingRegisterAdmin(TabbedTranslationAdmin):
+    list_display = ("title", "timezone")
+
 @admin.register(MeetingDocuments)
-class MeetingDocumentsAdmin(admin.ModelAdmin):
+class MeetingDocumentsAdmin(TabbedTranslationAdmin): 
     list_display = ("title", "date", "location")
     inlines = [DocumentExpertsInline, DocumentFilesInline]
 
-# Əgər ayrıca admin-də də görünsün desən:
 @admin.register(DocumentExperts)
-class DocumentExpertsAdmin(admin.ModelAdmin):
+class DocumentExpertsAdmin(TabbedTranslationAdmin): 
     list_display = ("title", "document")
 
 @admin.register(DocumentFiles)
-class DocumentFilesAdmin(admin.ModelAdmin):
+class DocumentFilesAdmin(TabbedTranslationAdmin): 
     list_display = ("title", "file")
 
-admin.site.register(Registration)
+@admin.register(Faq)
+class FaqAdmin(TabbedTranslationAdmin): 
+    list_display = ("question",) 
 
-class FaqAdmin(TranslationAdmin):
-    list_display = ("question", "answer")
-
-    class Media:
-        group_fieldsets = True 
-
-        js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-            'modeltranslation/js/tabbed_translation_fields.js',
-        )
-        css = {
-            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
-        }
-
-admin.site.register(Faq,FaqAdmin)
+@admin.register(Registration)
+class RegistrationAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'email', 'created_at')
+    readonly_fields = ('full_name', 'phone_number', 'email', 'subject', 'created_at')

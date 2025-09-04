@@ -1,37 +1,50 @@
-from modeltranslation.translator import TranslationOptions,register, translator
-from oneapp.models import News, NewsSection, Event, EventSection, MeetingRegistrations, Faq
+from modeltranslation.translator import register, TranslationOptions
+from .models import (
+    MetaInfo, BaseMixin, News, NewsSection, Event, EventSection,
+    MeetingDocuments, DocumentExperts, DocumentFiles,
+    MeetingRegistrations, Faq
+)
 
-# ------------------- News ------------------- #
+@register(MetaInfo)
+class MetaInfoTranslationOptions(TranslationOptions):
+    fields = ('meta_title', 'meta_description', 'meta_keyword', 'image_alt')
 
-class NewsTranslationOption(TranslationOptions):
-    fields = ('title','description','meta_title','meta_description')
+@register(BaseMixin)
+class BaseMixinTranslationOptions(TranslationOptions):
+    fields = ('meta_title', 'meta_description', 'meta_keyword', 'image_alt')
 
-class NewsSectionTranslationOption(TranslationOptions):
-    fields = ('title','description')
+@register(News)
+class NewsTranslationOptions(TranslationOptions):
+    fields = ('title', 'description', 'tag')
 
-translator.register(News, NewsTranslationOption)
-translator.register(NewsSection, NewsSectionTranslationOption)
+@register(NewsSection)
+class NewsSectionTranslationOptions(TranslationOptions):
+    fields = ('title', 'description')
 
-# ------------------- News ------------------- #
+@register(Event)
+class EventTranslationOptions(TranslationOptions):
+    fields = ('title', 'description', 'tag')
 
-# ------------------- Event ------------------- #
+@register(EventSection)
+class EventSectionTranslationOptions(TranslationOptions):
+    fields = ('title', 'description')
 
-class EventTranslationOption(TranslationOptions):
-    fields = ('title','description','meta_title','meta_description')
+@register(MeetingDocuments)
+class MeetingDocumentsTranslationOptions(TranslationOptions):
+    fields = ('title', 'location')
 
-class EventSectionTranslationOption(TranslationOptions):
-    fields = ('title','description')
+@register(DocumentExperts)
+class DocumentExpertsTranslationOptions(TranslationOptions):
+    fields = ('title',)
 
-translator.register(Event, EventTranslationOption)
-translator.register(EventSection, EventSectionTranslationOption)
+@register(DocumentFiles)
+class DocumentFilesTranslationOptions(TranslationOptions):
+    fields = ('title',)
 
-class MeetingRegistrationsOption(TranslationOptions):
-    fields = ('title','timezone')
+@register(MeetingRegistrations)
+class MeetingRegistrationsTranslationOptions(TranslationOptions):
+    fields = ('title', )
 
-translator.register(MeetingRegistrations,MeetingRegistrationsOption)
-# ------------------- Event ------------------- #
-
-class FaqOption(TranslationOptions):
-    fields = ('question','answer')
-
-translator.register(Faq, FaqOption)
+@register(Faq)
+class FaqTranslationOptions(TranslationOptions):
+    fields = ('question', 'answer')
