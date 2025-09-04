@@ -130,18 +130,22 @@
         </div>
 
         <div class="blog-text">
+          {% if about.description %}
           <p class="wow fadeInUp" data-wow-delay=".3s">
             {{ about.description }}
           </p>
+          {% endif %}
 
           {% if sections %}
             {% for section in sections %}
               <h3 class="wow fadeInUp" data-wow-delay=".3s">
                 {{ section.title }}
               </h3>
+              {% if about.description %}
               <p class="wow fadeInUp" data-wow-delay=".3s">
                 {{ section.description }}
               </p>
+              {% endif %}
 
               <div class="images-wrap">
                 <div class="row">
