@@ -250,78 +250,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4">
-              <div class="pin-spacer">
-                <div class="tj-main-sidebar slidebar-stickiy">
-                  <div
-                    class="tj-sidebar-widget widget-categories wow fadeInUp"
-                    data-wow-delay=".1s"
-                  >
-                    <h4 class="widget-title">{% trans "Social Networks" %}</h4>
-
-                    <div class="infos-item">
-                      <div class="project-icons">
-                        <i class="fab fa-twitter"></i>
-                      </div>
-                      <div class="project-text">
-                        <span>{% trans "Twitter" %}</span>
-                        <h6 class="title">
-                          <a
-                            href="https://twitter.com/yourprofile"
-                            target="_blank"
-                            >@yourprofile</a
-                          >
-                        </h6>
-                      </div>
-                    </div>
-
-                    <div class="infos-item">
-                      <div class="project-icons">
-                        <i class="fab fa-linkedin"></i>
-                      </div>
-                      <div class="project-text">
-                        <span>{% trans "LinkedIn" %}</span>
-                        <h6 class="title">
-                          <a
-                            href="https://linkedin.com/in/yourprofile"
-                            target="_blank"
-                            >linkedin.com/in/yourprofile</a
-                          >
-                        </h6>
-                      </div>
-                    </div>
-
-                    <div class="infos-item">
-                      <div class="project-icons">
-                        <i class="fab fa-whatsapp"></i>
-                      </div>
-                      <div class="project-text">
-                        <span>{% trans "WhatsApp" %}</span>
-                        <h6 class="title">
-                          <a href="https://wa.me/1234567890" target="_blank"
-                            >+1 234 567 890</a
-                          >
-                        </h6>
-                      </div>
-                    </div>
-
-                    <div class="infos-item">
-                      <div class="project-icons">
-                        <i class="fas fa-globe"></i>
-                      </div>
-                      <div class="project-text">
-                        <span>{% trans "Website" %}</span>
-                        <h6 class="title">
-                          <a href="https://www.yourwebsite.com" target="_blank"
-                            >www.yourwebsite.com</a
-                          >
-                        </h6>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+           {% include 'components/sidebar.html' %}
           </div>
         </div>
       </section>

@@ -13789,6 +13789,12 @@ blockquote cite::before {
   column-gap: 8px;
   padding: 20px 0;
 }
+
+.infos-item-phone{
+  display:flex;
+  align-items:center;
+}
+
 .infos-item:last-child {
   border-bottom: none;
   padding-bottom: 0;
