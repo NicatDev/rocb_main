@@ -7,7 +7,7 @@
     <meta name="description" content="" />
 
     <!-- Site Title -->
-    <title>Bexon - Corporate Business HTML Template</title>
+    <title>{% trans "ROCB Europe - Analytics and Insights" %}</title>
 
     <!-- Place favicon.ico in the root directory -->
     <link
@@ -42,7 +42,7 @@
             </div>
             <div class="tj-preloader-ball-shadow"></div>
           </div>
-          <div class="tj-preloader-text">Loading...</div>
+          <div class="tj-preloader-text">{% trans 'Loading' %}...</div>
         </div>
       </div>
       <div class="tj-preloader-overlay"></div>
@@ -82,9 +82,13 @@
           </div>
           <div class="offcanvas-text">
             <p>
-              Developing personalize our customer journeys to increase
+              
+              {% blocktrans %}
+                Developing personalize our customer journeys to increase
               satisfaction & loyalty of our expansion recognized by industry
               leaders.
+              {% endblocktrans %}
+              
             </p>
           </div>
           <div class="hamburger-search-area">
