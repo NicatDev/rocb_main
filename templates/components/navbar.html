@@ -2,135 +2,35 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // Function to populate dropdowns
-    function populateDropdowns() {
-      fetch("{% url 'about_region_list' %}") // JSON view-in URL-i
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          const aboutList = document.getElementById("about-list");
-          const regionList = document.getElementById("region-list");
-
-          // Mobile menu lists
-          const mobileAboutList = document.getElementById("mobile-about-list");
-          const mobileRegionList = document.getElementById("mobile-region-list");
-
-          // Clear existing content
-          if (aboutList) aboutList.innerHTML = '';
-          if (regionList) regionList.innerHTML = '';
-          if (mobileAboutList) mobileAboutList.innerHTML = '';
-          if (mobileRegionList) mobileRegionList.innerHTML = '';
-
-          // About list - Desktop
-          if (data.about && aboutList) {
-            data.about.forEach((item) => {
-              console.log(item.title);
-              const li = document.createElement("li");
-              li.innerHTML = `<a href="/about/${item.slug}">${item.title}</a>`;
-              aboutList.appendChild(li);
-            });
-          }
-
-          // Region list - Desktop
-          if (data.region && regionList) {
-            data.region.forEach((item) => {
-              const li = document.createElement("li");
-              li.innerHTML = `<a href="/region/${item.slug}/">${item.title}</a>`;
-              regionList.appendChild(li);
-            });
-          }
-
-          // About list - Mobile
-          if (data.about && mobileAboutList) {
-            data.about.forEach((item) => {
-              const li = document.createElement("li");
-              li.innerHTML = `<a href="/about/${item.slug}">${item.title}</a>`;
-              mobileAboutList.appendChild(li);
-            });
-          }
-
-          // Region list - Mobile
-          if (data.region && mobileRegionList) {
-            data.region.forEach((item) => {
-              const li = document.createElement("li");
-              li.innerHTML = `<a href="/region/${item.slug}/">${item.title}</a>`;
-              mobileRegionList.appendChild(li);
-            });
-          }
-
-          // Initialize dropdown functionality after content is loaded
-          initializeDropdowns();
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-          // Initialize dropdowns even if fetch fails
-          initializeDropdowns();
+    const aboutList4 = document.getElementById("about-list4");
+    const regionList4 = document.getElementById("region-list4");
+   
+    fetch("{% url 'about_region_list' %}") // JSON view-in URL-i
+      .then((response) => response.json())
+      .then((data) => {
+        if (!aboutList4 || !regionList4) return;
+        aboutList4.innerHTML = "";
+        regionList4.innerHTML = "";
+        // About list
+        data.about.forEach((item) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="/about/${item.slug}"
+                        >${item.title}</a
+                      >`;
+          aboutList4.appendChild(li);
         });
-    }
 
-    // Function to initialize dropdown functionality
-    function initializeDropdowns() {
-      // Desktop dropdowns
-      const desktopDropdowns = document.querySelectorAll('.menu-area .has-dropdown');
-      desktopDropdowns.forEach(dropdown => {
-        const link = dropdown.querySelector('a');
-        const submenu = dropdown.querySelector('.sub-menu');
-        
-        if (link && submenu) {
-          // Hover events for desktop
-          dropdown.addEventListener('mouseenter', function() {
-            submenu.style.display = 'block';
-            submenu.style.opacity = '1';
-            submenu.style.visibility = 'visible';
-          });
-          
-          dropdown.addEventListener('mouseleave', function() {
-            submenu.style.display = 'none';
-            submenu.style.opacity = '0';
-            submenu.style.visibility = 'hidden';
-          });
-        }
+        data.region.forEach((reg) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="/region/${reg.slug}/">${
+            reg.title ? reg.title : reg.slug
+          }</a>`;
+          regionList4.appendChild(li);
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
       });
-
-      // Mobile dropdowns
-      const mobileDropdowns = document.querySelectorAll('.mobile_menu .has-dropdown');
-      mobileDropdowns.forEach(dropdown => {
-        const link = dropdown.querySelector('a');
-        const submenu = dropdown.querySelector('.sub-menu');
-        
-        if (link && submenu) {
-          link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Toggle current dropdown
-            if (submenu.style.display === 'block') {
-              submenu.style.display = 'none';
-              dropdown.classList.remove('active');
-            } else {
-              // Close all other dropdowns first
-              mobileDropdowns.forEach(otherDropdown => {
-                const otherSubmenu = otherDropdown.querySelector('.sub-menu');
-                if (otherSubmenu && otherDropdown !== dropdown) {
-                  otherSubmenu.style.display = 'none';
-                  otherDropdown.classList.remove('active');
-                }
-              });
-              
-              // Open current dropdown
-              submenu.style.display = 'block';
-              dropdown.classList.add('active');
-            }
-          });
-        }
-      });
-    }
-
-    // Call the function to populate dropdowns
-    populateDropdowns();
   });
 </script>
 
@@ -152,14 +52,18 @@
               <ul>
                 <li class="has-dropdown">
                   <a href="{% url 'about:about_default' %}">About Us</a>
-                  <ul id="about-list" class="sub-menu">
-                    <!-- Content will be populated by JavaScript -->
+                  <ul id="about-list4" class="sub-menu">
+                    <li>
+                      <a href=""></a>
+                    </li>
                   </ul>
                 </li>
                 <li class="has-dropdown">
                   <a href="{% url 'region:region_default' %}">Region</a>
-                  <ul id="region-list" class="sub-menu">
-                    <!-- Content will be populated by JavaScript -->
+                  <ul id="region-list4" class="sub-menu">
+                    <li>
+                      <a href=""></a>
+                    </li>
                   </ul>
                 </li>
                 <li>
@@ -184,7 +88,7 @@
                   </ul>
                 </li>
                 <li><a href="{% url 'analytics' %}">Analytics</a></li>
-                <li><a>E-Training</a></li>
+                <li><a href="{% url 'e_training_docs' %}">E-Training</a></li>
                 <li class="has-dropdown">
                   <a href="#">Publicity</a>
                   <ul class="sub-menu">
@@ -243,7 +147,7 @@
                   data-country="ru"
                   data-lang="ru"
                   data-flag="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkZGRkYiLz4KPG1hc2sgaWQ9Im1hc2swXzEyMl8yNzQiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjE2IiBmaWxsPSIjRkZGRkZGIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMjJfMjc0KSI+CjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iI0ZGRkZGRiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgMTAuNjY2N0gzMlYyMS4zMzMzSDBWMTAuNjY2N1oiIGZpbGw9IiMwMDUyQjQiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDIxLjMzMzNIMzJWMzJIMFYyMS4zMzMzWiIgZmlsbD0iI0REMDAzNyIvPgo8L2c+Cjwvc3ZnPgo="
-                  id="lang-ru-button"
+                  id="lang-en-button"
                 >
                   <img
                     src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkZGRkYiLz4KPG1hc2sgaWQ9Im1hc2swXzEyMl8yNzQiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjE2IiBmaWxsPSIjRkZGRkZGIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMjJfMjc0KSI+CjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iI0ZGRkZGRiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgMTAuNjY2N0gzMlYyMS4zMzMzSDBWMTAuNjY2N1oiIGZpbGw9IiMwMDUyQjQiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDIxLjMzMzNIMzJWMzJIMFYyMS4zMzMzWiIgZmlsbD0iI0REMDAzNyIvPgo8L2c+Cjwvc3ZnPgo="
@@ -349,8 +253,7 @@
     if (!authBtn) {
       return;
     }
-    authBtn.addEventListener("click", function (e) {
-      e.preventDefault();
+    authBtn.addEventListener("click", function () {
       fetch("{% url 'logout' %}", {
         method: "POST",
         headers: {
@@ -370,220 +273,3 @@
     });
   });
 </script>
-
-<!-- start: Offcanvas Menu -->
-{% load static %} {% load i18n %}
-
-<div class="tj-offcanvas-area d-none d-lg-block">
-  <div class="hamburger_bg"></div>
-  <div class="hamburger_wrapper">
-    <div class="hamburger_inner">
-      <div
-        class="hamburger_top d-flex align-items-center justify-content-between"
-      >
-        <div class="hamburger_logo">
-          <a href="{% url 'home' %}" class="mobile_logo">
-            <img src="{% static 'logo.png' %}" alt="Logo" />
-          </a>
-        </div>
-        <div class="hamburger_close">
-          <button class="hamburger_close_btn">
-            <i class="fa-thin fa-times"></i>
-          </button>
-        </div>
-      </div>
-      <div class="offcanvas-text">
-        <p>
-          {% blocktrans %}Regional Office for Capacity Building for the World
-          Customs Organization Europe Region{% endblocktrans %}
-        </p>
-      </div>
-
-      <div class="hamburger-infos">
-        <h5 class="hamburger-title">{% trans "Contact Info" %}</h5>
-        <div class="contact-info">
-          <div class="contact-item">
-            <span class="subtitle">{% trans "Phone" %}</span>
-            <a class="contact-link" href="tel:10095447818">+1 (009) 544-7818</a>
-          </div>
-          <div class="contact-item">
-            <span class="subtitle">{% trans "Email" %}</span>
-            <a class="contact-link" href="mailto:info@rocb.com"
-              >info@rocb.com</a
-            >
-          </div>
-          <div class="contact-item">
-            <span class="subtitle">{% trans "Location" %}</span>
-            <span class="contact-link"
-              >{% trans "993 Renner Burg, West Rond, MT 94251-030" %}</span
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="hamburger-socials">
-      <h5 class="hamburger-title">{% trans 'Follow Us' %}</h5>
-      <div class="social-links style-3">
-        <ul>
-          <li>
-            <a href="https://www.facebook.com/" target="_blank"
-              ><i class="fa-brands fa-facebook-f"></i
-            ></a>
-          </li>
-          <li>
-            <a href="https://www.instagram.com/" target="_blank"
-              ><i class="fa-brands fa-instagram"></i
-            ></a>
-          </li>
-          <li>
-            <a href="https://x.com/" target="_blank"
-              ><i class="fa-brands fa-x-twitter"></i
-            ></a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/" target="_blank"
-              ><i class="fa-brands fa-linkedin-in"></i
-            ></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end: Offcanvas Menu -->
-
-<!-- start: Hamburger Menu -->
-<div class="hamburger-area d-lg-none">
-  <div class="hamburger_bg"></div>
-  <div class="hamburger_wrapper">
-    <div class="hamburger_inner">
-      <div
-        class="hamburger_top d-flex align-items-center justify-content-between"
-      >
-        <div class="hamburger_logo">
-          <a href="{% url 'home' %}" class="mobile_logo">
-            <img
-              style="height: 80px"
-              src="{% static 'logo.png' %}"
-              alt="Logo"
-            />
-          </a>
-        </div>
-        <div class="hamburger_close">
-          <button class="hamburger_close_btn">
-            <i class="fa-thin fa-times"></i>
-          </button>
-        </div>
-      </div>
-      <div class="hamburger_menu">
-        <div class="mobile_menu">
-          <nav class="mainmenu">
-            <ul>
-              <li class="has-dropdown">
-                <a href="{% url 'about:about_default' %}">About Us</a>
-                <ul id="mobile-about-list" class="sub-menu">
-                  <!-- Content will be populated by JavaScript -->
-                </ul>
-              </li>
-              <li class="has-dropdown">
-                <a href="{% url 'region:region_default' %}">Region</a>
-                <ul id="mobile-region-list" class="sub-menu">
-                  <!-- Content will be populated by JavaScript -->
-                </ul>
-              </li>
-              <li>
-                <a href="{% url 'news' %}">News</a>
-              </li>
-              <li class="has-dropdown">
-                <a href="{% url 'events' %}">Events</a>
-                <ul class="sub-menu">
-                  <li>
-                    <a href="{% url 'events' %}">{% trans 'Events' %}</a>
-                  </li>
-                  <li>
-                    <a href="{% url 'meeting_documents' %}"
-                      >{% trans 'Meeting documents' %}</a
-                    >
-                  </li>
-                  <li>
-                    <a href="{% url 'meeting_registrations' %}"
-                      >{% trans 'Meeting registration' %}</a
-                    >
-                  </li>
-                </ul>
-              </li>
-              <li><a href="{% url 'analytics' %}">Analytics</a></li>
-              <li><a>E-Training</a></li>
-              <li class="has-dropdown">
-                <a href="#">Publicity</a>
-                <ul class="sub-menu">
-                  <li><a href="{% url 'newsletters' %}">Newsletters</a></li>
-                  <li>
-                    <a href="{% url 'outreach' %}">Outreach Materials</a>
-                  </li>
-                  <li><a href="{% url 'gallery' %}">Visual Gallery</a></li>
-                  <li><a href="{% url 'cct_centers' %}">CCT Center</a></li>
-                  <li><a href="{% url 'survey' %}">Surveys</a></li>
-                  <li>
-                    <a href="{% url 'utilize_our_premises' %}"
-                      >Utilize Our Premises</a
-                    >
-                  </li>
-                </ul>
-              </li>
-              <li><a href="{% url 'contact:contact' %}">Contact </a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-      <div class="hamburger-infos">
-        <h5 class="hamburger-title">{% trans "Contact Info" %}</h5>
-        <div class="contact-info">
-          <div class="contact-item">
-            <span class="subtitle">{% trans "Phone" %}</span>
-            <a class="contact-link" href="tel:8089091313">808-909-1313</a>
-          </div>
-          <div class="contact-item">
-            <span class="subtitle">{% trans "Email" %}</span>
-            <a class="contact-link" href="mailto:info@bexon.com"
-              >info@bexon.com</a
-            >
-          </div>
-          <div class="contact-item">
-            <span class="subtitle">{% trans "Location" %}</span>
-            <span class="contact-link"
-              >{% trans "993 Renner Burg, West Rond, MT 94251-030" %}</span
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="hamburger-socials">
-      <h5 class="hamburger-title">{% trans "Follow Us" %}</h5>
-      <div class="social-links style-3">
-        <ul>
-          <li>
-            <a href="https://www.facebook.com/" target="_blank"
-              ><i class="fa-brands fa-facebook-f"></i
-            ></a>
-          </li>
-          <li>
-            <a href="https://www.instagram.com/" target="_blank"
-              ><i class="fa-brands fa-instagram"></i
-            ></a>
-          </li>
-          <li>
-            <a href="https://x.com/" target="_blank"
-              ><i class="fa-brands fa-x-twitter"></i
-            ></a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/" target="_blank"
-              ><i class="fa-brands fa-linkedin-in"></i
-            ></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>

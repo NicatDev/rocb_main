@@ -1,0 +1,254 @@
+{% load static %} {% load i18n %}
+
+<div class="hamburger-area d-lg-none">
+  <div class="hamburger_bg"></div>
+  <div class="hamburger_wrapper">
+    <div class="hamburger_inner">
+      <div
+        class="hamburger_top d-flex align-items-center justify-content-between"
+      >
+        <div class="hamburger_logo">
+          <a href="{% url 'home' %}" class="mobile_logo">
+            <img
+              style="height: 80px"
+              src="{% static 'logo.png' %}"
+              alt="Logo"
+            />
+          </a>
+        </div>
+        <div class="hamburger_close">
+          <button class="hamburger_close_btn">
+            <i class="fa-thin fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="hamburger_menu">
+        <div class="mobile_menu">
+          <nav class="mainmenu">
+            <ul>
+              <li class="has-dropdown">
+                <a href="{% url 'about:about_default' %}">About Us</a>
+                <ul id="about-list1" class="sub-menu">
+                  <li>
+                    <a href="">1</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-dropdown">
+                <a href="{% url 'region:region_default' %}">Region</a>
+                <ul id="region-list1" class="sub-menu"></ul>
+              </li>
+              <li>
+                <a href="{% url 'news' %}">News</a>
+              </li>
+              <li class="has-dropdown">
+                <a href="{% url 'events' %}">Events</a>
+                <ul class="sub-menu">
+                  <li>
+                    <a href="{% url 'events' %}">{% trans 'Events' %}</a>
+                  </li>
+                  <li>
+                    <a href="{% url 'meeting_documents' %}"
+                      >{% trans 'Meeting documents' %}</a
+                    >
+                  </li>
+                  <li>
+                    <a href="{% url 'meeting_registrations' %}"
+                      >{% trans 'Meeting registration' %}</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li><a href="{% url 'analytics' %}">Analytics</a></li>
+              <li><a href="{% url 'e_training_docs' %}">E-Training</a></li>
+              <li class="has-dropdown">
+                <a href="#">Publicity</a>
+                <ul class="sub-menu">
+                  <li><a href="{% url 'newsletters' %}">Newsletters</a></li>
+                  <li>
+                    <a href="{% url 'outreach' %}">Outreach Materials</a>
+                  </li>
+                  <li><a href="{% url 'gallery' %}">Visual Gallery</a></li>
+                  <li><a href="{% url 'cct_centers' %}">CCT Center</a></li>
+                  <li><a href="{% url 'survey' %}">Surveys</a></li>
+                  <li>
+                    <a href="{% url 'utilize_our_premises' %}"
+                      >Utilize Our Premises</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li><a href="{% url 'contact:contact' %}">Contact </a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div class="hamburger-infos">
+        <h5 class="hamburger-title">{% trans "Language" %}</h5>
+        <div class="header-flag mobile-flag">
+          <button class="flag" id="mobileFlagButton">
+            <img
+              id="mobileCurrentFlag"
+              src="{% if LANGUAGE_CODE == 'en' %}
+                       {% static 'assets/images/united-kingdom (1).png' %}
+                     {% elif LANGUAGE_CODE == 'ru' %}
+                       data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkZGRkYiLz4KPG1hc2sgaWQ9Im1hc2swXzEyMl8yNzQiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMiIgaGVpZgh0PSIzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjE2IiBmaWxsPSIjRkZGRkZGIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMjJfMjc0KSI+CjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iI0ZGRkZGRiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgMTAuNjY2N0gzMlYyMS4zMzMzSDBWMTAuNjY2N1oiIGZpbGw9IiMwMDUyQjQiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDIxLjMzMzNIMzJWMzJIMFYyMS4zMzMzWiIgZmlsbD0iI0REMDAzNyIvPgo8L2c+Cjwvc3ZnPgo=
+                     {% else %}
+                       {% static 'assets/images/united-kingdom (1).png' %}
+                     {% endif %}"
+              alt="language"
+            />
+            <i class="fa-solid fa-caret-down"></i>
+          </button>
+          <div class="dropdown" id="mobileDropdown">
+            <button
+              class="dropdown-item"
+              data-lang="en"
+              data-flag="{% static 'assets/images/united-kingdom (1).png' %}"
+            >
+              <img
+                src="{% static 'assets/images/united-kingdom (1).png' %}"
+                alt="UK Flag"
+              />
+              <span>English</span>
+            </button>
+            <button
+              class="dropdown-item"
+              data-lang="ru"
+              data-flag="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkZGRkYiLz4KPG1hc2sgaWQ9Im1hc2swXzEyMl8yNzQiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjE2IiBmaWxsPSIjRkZGRkZGIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMjJfMjc0KSI+CjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iI0ZGRkZGRiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgMTAuNjY2N0gzMlYyMS4zMzMzSDBWMTAuNjY2N1oiIGZpbGw9IiMwMDUyQjQiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDIxLjMzMzNIMzJWMzJIMFYyMS4zMzMzWiIgZmlsbD0iI0REMDAzNyIvPgo8L2c+Cjwvc3ZnPgo="
+            >
+              <img
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkZGRkYiLz4KPG1hc2sgaWQ9Im1hc2swXzEyMl8yNzQiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjE2IiBmaWxsPSIjRkZGRkZGIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMjJfMjc0KSI+CjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iI0ZGRkZGRiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgMTAuNjY2N0gzMlYyMS4zMzMzSDBWMTAuNjY2N1oiIGZpbGw9IiMwMDUyQjQiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDIxLjMzMzNIMzJWMzJIMFYyMS4zMzMzWiIgZmlsbD0iI0REMDAzNyIvPgo8L2c+Cjwvc3ZnPgo="
+                alt="Russian Flag"
+              />
+              <span>Русский</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hamburger-infos">
+        <h5 class="hamburger-title">{% trans "Contact Info" %}</h5>
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="subtitle">{% trans "Phone" %}</span>
+            <a class="contact-link" href="tel:8089091313">808-909-1313</a>
+          </div>
+          <div class="contact-item">
+            <span class="subtitle">{% trans "Email" %}</span>
+            <a class="contact-link" href="mailto:info@bexon.com"
+              >info@bexon.com</a
+            >
+          </div>
+          <div class="contact-item">
+            <span class="subtitle">{% trans "Location" %}</span>
+            <span class="contact-link"
+              >{% trans "993 Renner Burg, West Rond, MT 94251-030" %}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hamburger-socials">
+      <h5 class="hamburger-title">{% trans "Follow Us" %}</h5>
+      <div class="social-links style-3">
+        <ul>
+          <li>
+            <a href="https://www.facebook.com/" target="_blank"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/" target="_blank"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+          </li>
+          <li>
+            <a href="https://x.com/" target="_blank"
+              ><i class="fa-brands fa-x-twitter"></i
+            ></a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/" target="_blank"
+              ><i class="fa-brands fa-linkedin-in"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const aboutList1 = document.getElementById("about-list1");
+    const regionList1 = document.getElementById("region-list1");
+  
+
+    fetch("{% url 'about_region_list' %}")
+      .then((response) => response.json())
+      .then((data) => {
+         if (!aboutList1 || !regionList1) return;
+        data.about.forEach((item) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="/about/${item.slug}"
+                        >${item.title}</a
+                      >`;
+          aboutList1.appendChild(li);
+        });
+
+        data.region.forEach((item) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="/region/${item.slug}/">${item.title}</a>`;
+          regionList1.appendChild(li);
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching data for mobile menu:", error);
+      });
+
+    const mobileFlagButton = document.getElementById("mobileFlagButton");
+    const mobileDropdown = document.getElementById("mobileDropdown");
+
+    if (mobileFlagButton && mobileDropdown) {
+      mobileFlagButton.addEventListener("click", () => {
+        mobileDropdown.classList.toggle("show");
+      });
+
+      document.addEventListener("click", function (event) {
+        if (
+          !mobileFlagButton.contains(event.target) &&
+          !mobileDropdown.contains(event.target)
+        ) {
+          mobileDropdown.classList.remove("show");
+        }
+      });
+
+      mobileDropdown.querySelectorAll(".dropdown-item").forEach((button) => {
+        button.addEventListener("click", function () {
+          const lang = this.getAttribute("data-lang");
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = '{% url "set_language" %}';
+
+          const csrfInput = document.createElement("input");
+          csrfInput.type = "hidden";
+          csrfInput.name = "csrfmiddlewaretoken";
+          csrfInput.value = "{{ csrf_token }}";
+          form.appendChild(csrfInput);
+
+          const langInput = document.createElement("input");
+          langInput.type = "hidden";
+          langInput.name = "language";
+          langInput.value = lang;
+          form.appendChild(langInput);
+
+          document.body.appendChild(form);
+          form.submit();
+        });
+      });
+    }
+  });
+</script>
