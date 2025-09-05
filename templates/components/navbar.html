@@ -2,27 +2,30 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    const aboutList4 = document.getElementById("about-list4");
+    const regionList4 = document.getElementById("region-list4");
+   
     fetch("{% url 'about_region_list' %}") // JSON view-in URL-i
       .then((response) => response.json())
       .then((data) => {
-        const aboutList = document.getElementById("about-list");
-        const regionList = document.getElementById("region-list");
-
+        if (!aboutList4 || !regionList4) return;
+        aboutList4.innerHTML = "";
+        regionList4.innerHTML = "";
         // About list
         data.about.forEach((item) => {
-          console.log(item.title);
           const li = document.createElement("li");
           li.innerHTML = `<a href="/about/${item.slug}"
                         >${item.title}</a
                       >`;
-          aboutList.appendChild(li);
+          aboutList4.appendChild(li);
         });
 
-        // Region list
-        data.region.forEach((item) => {
+        data.region.forEach((reg) => {
           const li = document.createElement("li");
-          li.innerHTML = `<a href="/region/${item.slug}/">${item.title}</a>`;
-          regionList.appendChild(li);
+          li.innerHTML = `<a href="/region/${reg.slug}/">${
+            reg.title ? reg.title : reg.slug
+          }</a>`;
+          regionList4.appendChild(li);
         });
       })
       .catch((error) => {
@@ -49,11 +52,19 @@
               <ul>
                 <li class="has-dropdown">
                   <a href="{% url 'about:about_default' %}">About Us</a>
-                  <ul id="about-list" class="sub-menu"></ul>
+                  <ul id="about-list4" class="sub-menu">
+                    <li>
+                      <a href=""></a>
+                    </li>
+                  </ul>
                 </li>
                 <li class="has-dropdown">
                   <a href="{% url 'region:region_default' %}">Region</a>
-                  <ul id="region-list" class="sub-menu"></ul>
+                  <ul id="region-list4" class="sub-menu">
+                    <li>
+                      <a href=""></a>
+                    </li>
+                  </ul>
                 </li>
                 <li>
                   <a href="{% url 'news' %}">News</a>
@@ -77,7 +88,7 @@
                   </ul>
                 </li>
                 <li><a href="{% url 'analytics' %}">Analytics</a></li>
-                <li><a>E-Training</a></li>
+                <li><a href="{% url 'e_training_docs' %}">E-Training</a></li>
                 <li class="has-dropdown">
                   <a href="#">Publicity</a>
                   <ul class="sub-menu">
@@ -237,10 +248,12 @@
 </header>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const authBtn = document.getElementById("auth-btn-logout");
-  if(!authBtn){return;}
-  authBtn.addEventListener("click", function() {
+  document.addEventListener("DOMContentLoaded", function () {
+    const authBtn = document.getElementById("auth-btn-logout");
+    if (!authBtn) {
+      return;
+    }
+    authBtn.addEventListener("click", function () {
       fetch("{% url 'logout' %}", {
         method: "POST",
         headers: {

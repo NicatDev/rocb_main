@@ -2,30 +2,34 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    fetch("{% url 'about_region_list' %}")   // JSON view-in URL-i
-      .then(response => response.json())
-      .then(data => {
-        const aboutList = document.getElementById("about-list2");
-        const regionList = document.getElementById("region-list2");
+    const aboutList5 = document.getElementById("about-list5");
+    const regionList5 = document.getElementById("region-list5");
+
+    fetch("{% url 'about_region_list' %}") // JSON view-in URL-i
+      .then((response) => response.json())
+      .then((data) => {
+       if (!aboutList5 || !regionList5) return;
+        aboutList5.innerHTML = "";
+        regionList5.innerHTML = "";
 
         // About list
-        data.about.forEach(item => {
-          console.log(item.title)
+        data.about.forEach((item) => {
+          console.log(item.title);
           const li = document.createElement("li");
           li.innerHTML = `<a href="/about/${item.slug}"
                         >${item.title}</a
                       >`;
-          aboutList.appendChild(li);
+          aboutList5.appendChild(li);
         });
 
         // Region list
-        data.region.forEach(item => {
+        data.region.forEach((item) => {
           const li = document.createElement("li");
           li.innerHTML = `<a href="/region_detail/${item.slug}/">${item.title}</a>`;
-          regionList.appendChild(li);
+          regionList5.appendChild(li);
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching data:", error);
       });
   });
@@ -45,49 +49,67 @@
             /></a>
           </div>
 
-
           <!-- navigation -->
           <div class="menu-area d-none d-lg-inline-flex align-items-center">
             <nav class="mainmenu">
               <ul>
                 <li class="has-dropdown">
                   <a href="{% url 'about:about_default' %}">About Us</a>
-                  <ul id="about-list2" class="sub-menu">
-                    
+                  <ul id="about-list5" class="sub-menu">
+                    <li>
+                      <a href=""></a>
+                    </li>
                   </ul>
                 </li>
                 <li class="has-dropdown">
                   <a href="{% url 'region:region_default' %}">Region</a>
-                  <ul id="region-list2" class="sub-menu">
-                   
+                  <ul id="region-list5" class="sub-menu">
+                    <li>
+                      <a href=""></a>
+                    </li>
                   </ul>
                 </li>
-                 <li>
+                <li>
                   <a href="{% url 'news' %}">News</a>
                 </li>
                 <li class="has-dropdown">
                   <a href="{% url 'events' %}">Events</a>
                   <ul class="sub-menu">
-                    <li><a href="{% url 'events' %}">{% trans 'Events' %}</a></li>
-                    <li><a href="{% url 'meeting_documents' %}">{% trans 'Meeting documents' %}</a></li>
-                    <li><a href="{% url 'meeting_registrations' %}">{% trans 'Meeting registration' %}</a></li>
-                  
+                    <li>
+                      <a href="{% url 'events' %}">{% trans 'Events' %}</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'meeting_documents' %}"
+                        >{% trans 'Meeting documents' %}</a
+                      >
+                    </li>
+                    <li>
+                      <a href="{% url 'meeting_registrations' %}"
+                        >{% trans 'Meeting registration' %}</a
+                      >
+                    </li>
                   </ul>
                 </li>
                 <li><a href="{% url 'analytics' %}">Analytics</a></li>
-                <li><a href="#">E-Training</a></li>
+                <li><a href="{% url 'e_training_docs' %}">E-Training</a></li>
                 <li class="has-dropdown">
                   <a href="#">Publicity</a>
                   <ul class="sub-menu">
-                    <li><a href="#">Newsletters</a></li>
-                    <li><a href="#">Outreach Materials</a></li>
-                    <li><a href="#">Visual Gallery</a></li>
-                    <li><a href="#">CCT Center</a></li>
-                    <li><a href="#">Surveys</a></li>
-                    <li><a href="#">Utilize Our Premises</a></li>
+                    <li><a href="{% url 'newsletters' %}">Newsletters</a></li>
+                    <li>
+                      <a href="{% url 'outreach' %}">Outreach Materials</a>
+                    </li>
+                    <li><a href="{% url 'gallery' %}">Visual Gallery</a></li>
+                    <li><a href="{% url 'cct_centers' %}">CCT Center</a></li>
+                    <li><a href="{% url 'survey' %}">Surveys</a></li>
+                    <li>
+                      <a href="{% url 'utilize_our_premises' %}"
+                        >Utilize Our Premises</a
+                      >
+                    </li>
                   </ul>
                 </li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="{% url 'contact:contact' %}">Contact</a></li>
               </ul>
             </nav>
           </div>
@@ -169,10 +191,12 @@
             </div>
             <div class="header-button">
               <a class="main-color-rocb" href="{% url 'login' %}">
-                  {% if not user.is_authenticated %}
+                {% if not user.is_authenticated %}
                 <span class="btn-text"><span>Login</span></span>
                 {% else %}
-                <span class="btn-text" id="auth-btn-logout"><span>Log out</span></span>
+                <span class="btn-text" id="auth-btn-logout"
+                  ><span>Log out</span></span
+                >
                 {% endif %}
                 <span class="btn-icon"><i class="fa-solid fa-user"></i></span>
               </a>
@@ -226,29 +250,29 @@
 </header>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const authBtn = document.getElementById("auth-btn-logout");
-if(!authBtn){return;}
-  authBtn.addEventListener("click", function() {
-
+  document.addEventListener("DOMContentLoaded", function () {
+    const authBtn = document.getElementById("auth-btn-logout");
+    if (!authBtn) {
+      return;
+    }
+    authBtn.addEventListener("click", function () {
       fetch("{% url 'logout' %}", {
         method: "POST",
         headers: {
           "X-CSRFToken": "{{ csrf_token }}",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        credentials: "same-origin"
+        credentials: "same-origin",
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          // Refresh page or redirect after logout
-          window.location.reload();
-        } else {
-          alert("Logout failed");
-        }
-      });
-
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            // Refresh page or redirect after logout
+            window.location.reload();
+          } else {
+            alert("Logout failed");
+          }
+        });
+    });
   });
-});
 </script>
