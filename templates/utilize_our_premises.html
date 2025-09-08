@@ -117,98 +117,81 @@
       </section>
       <!-- end: Breadcrumb Section -->
 
-      <!-- start: Blog Section -->
       <section class="tj-blog-section section-gap">
-        <div class="container">
-          <div class="row row-gap-5">
-            <div class="col-lg-8">
-              <div class="post-details-wrapper">
-                <h1 class="title title-anim">Utilize Our Premises</h1>
-              </div>
-              <!-- Content -->
-              <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-                <p class="text-gray-700 mb-4">
-                  Looking for a place to hold your meetings, trainings,
-                  workshops or conferences?
-                </p>
-
-                <p class="text-gray-700 mb-6">
-                  It is possible to use our premises for your events which
-                  includes the following:
-                </p>
-
-                <ul class="space-y-2 text-gray-700 mb-6">
-                  <li class="flex items-start">
-                    <span class="text-blue-500 mr-2">•</span>
-                    <span
-                      >Fully equipped conference hall (50 seats with
-                      mics);</span
-                    >
-                  </li>
-                  <li class="flex items-start">
-                    <span class="text-blue-500 mr-2">•</span>
-                    <span>Computer lab with 20 working stations;</span>
-                  </li>
-                  <li class="flex items-start">
-                    <span class="text-blue-500 mr-2">•</span>
-                    <span
-                      >2 well-equipped training classes (30 seats each);</span
-                    >
-                  </li>
-                  <li class="flex items-start">
-                    <span class="text-blue-500 mr-2">•</span>
-                    <span>Cafeteria as well as equipped kitchen;</span>
-                  </li>
-                  <li class="flex items-start">
-                    <span class="text-blue-500 mr-2">•</span>
-                    <span>Parking garage.</span>
-                  </li>
-                </ul>
-
-                <p class="text-gray-700 mb-4">
-                  Please visit our
-                  <a href="{% url 'gallery' %}" class="text-blue-600 hover:underline"
-                    >visual gallery</a
-                  >
-                  to review the facilities.
-                </p>
-
-                <p class="text-gray-700 mb-4">
-                  These facilities are to be rented by organizations and
-                  companies for a variety of conferences, business meetings and
-                  training activities.
-                </p>
-
-                <p class="text-gray-700 mb-6">
-                  World Customs Organization, WCO member customs administrations
-                  as well as the State Customs Committee and other government
-                  agencies of the Republic of Azerbaijan use the premises of the
-                  Regional Office at no charge.
-                </p>
-
-                <p class="text-gray-700">
-                  <a href="{% url 'contact:contact' %}" class="text-blue-600 hover:underline"
-                    >Click here to contact us</a
-                  >
-                  for reservation.
-                </p>
-              </div>
-              <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
-                  alt="Office Building"
-                  class="w-full h-64 object-cover"
-                />
-              </div>
+      <div class="container">
+        <div class="row row-gap-5">
+          <div class="col-lg-8">
+            <div class="post-details-wrapper">
+              <h1 class="title title-anim">{% trans "Utilize Our Premises" %}</h1>
             </div>
-           {% include 'components/sidebar.html' %}
+            <!-- Content -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+              <p class="text-gray-700 mb-4">
+                {% trans "Looking for a place to hold your meetings, trainings, workshops or conferences?" %}
+              </p>
+
+              <p class="text-gray-700 mb-6">
+                {% trans "It is possible to use our premises for your events which includes the following:" %}
+              </p>
+
+              <ul class="space-y-2 text-gray-700 mb-6">
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2">•</span>
+                  <span>{% trans "Fully equipped conference hall (50 seats with mics);" %}</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2">•</span>
+                  <span>{% trans "Computer lab with 20 working stations;" %}</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2">•</span>
+                  <span>{% trans "2 well-equipped training classes (30 seats each);" %}</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2">•</span>
+                  <span>{% trans "Cafeteria as well as equipped kitchen;" %}</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2">•</span>
+                  <span>{% trans "Parking garage." %}</span>
+                </li>
+              </ul>
+
+              <p class="text-gray-700 mb-4">
+                {% trans "Please visit our" %}
+                <a href="{% url 'gallery' %}" class="text-blue-600 hover:underline">
+                  {% trans "visual gallery" %}
+                </a>
+                {% trans "to review the facilities." %}
+              </p>
+
+              <p class="text-gray-700 mb-4">
+                {% trans "These facilities are to be rented by organizations and companies for a variety of conferences, business meetings and training activities." %}
+              </p>
+
+              <p class="text-gray-700 mb-6">
+                {% trans "World Customs Organization, WCO member customs administrations as well as the State Customs Committee and other government agencies of the Republic of Azerbaijan use the premises of the Regional Office at no charge." %}
+              </p>
+
+              <p class="text-gray-700">
+                <a href="{% url 'contact:contact' %}" class="text-blue-600 hover:underline">
+                  {% trans "Click here to contact us" %}
+                </a>
+                {% trans "for reservation." %}
+              </p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+              <img
+                src="{% static 'rocb_building_2.jpg' %}"
+                alt="{% trans 'ROCB Office Building' %}"
+                class="w-full h-64 object-cover"
+              />
+            </div>
           </div>
+          {% include 'components/sidebar.html' %}
         </div>
-      </section>
-      <!-- end: Blog Section -->
-
-      <!-- start: Cta Section -->
-
+      </div>
+    </section>
       <!-- end: Cta Section -->
     </main>
 
