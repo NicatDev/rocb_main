@@ -6,10 +6,11 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
+    <meta name="description" content="{% trans 'Explore ROCB Europe surveys designed to gather insights, support research, and strengthen Customs capacity building across the Europe region.' %}" />
+
 
     <!-- Site Title -->
-    <title>Bexon - Corporate Business HTML Template</title>
+    <title>{% trans 'ROCB Europe - Surveys' %}</title>
 
     <!-- Place favicon.ico in the root directory -->
     <link
@@ -97,7 +98,7 @@
                 <div class="tj-page-link">
                   <span><i class="tji-home"></i></span>
                   <span>
-                    <a href="index.html">{% trans "Home" %}</a>
+                    <a href="{% url 'home' %}">{% trans "Home" %}</a>
                   </span>
                   <span><i class="tji-arrow-right"></i></span>
                   <span>
