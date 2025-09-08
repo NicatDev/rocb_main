@@ -4,7 +4,7 @@ from django.utils import timezone
 
 class ContactInfo(models.Model):
     location = models.CharField(max_length=255, verbose_name="Location")
-    phone_number = models.CharField(max_length=20, verbose_name="Phone Number")
+    phone_number = models.CharField(max_length=50, verbose_name="Phone Number")
     fax = models.CharField(
         max_length=20, verbose_name="Fax", blank=True, null=True)
     email = models.EmailField(verbose_name="Email")
