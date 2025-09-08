@@ -6,16 +6,15 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
+   <title>{% trans "ROCB Europe - Outreach materials" %}</title>
 
-    <!-- Site Title -->
-    <title>Bexon - Corporate Business HTML Template</title>
-
+      <!-- Meta Description -->
+    <meta name="description" content="{% trans 'Explore ROCB Europe outreach materials, including publications, reports, and resources supporting customs capacity building across the Europe region.' %}">
     <!-- Place favicon.ico in the root directory -->
     <link
       rel="shortcut icon"
       type="image/x-icon"
-      href="{% static 'assets/images/fav.png' %}"
+      href="{% static 'logo.png' %}"
     />
 
     <!-- CSS here -->
@@ -143,49 +142,21 @@
                             <h3 class="outreach-title">{{ material.title }}</h3>
                 
                             {% if material.file %}
-                            📑 <a href="{{ material.file.url }}" target="_blank" class="outreach-btn">View</a>
+                            📑 <a href="{{ material.file.url }}" target="_blank" class="outreach-btn">{% trans 'View' %}</a>
                             {% endif %}
                           </div>
                         </div>
                         {% endfor %}
                             <div class="outreach-content">
                               <h3 class="outreach-title">{% trans 'Presentation' %}</h3>
-                              <iframe src="https://prezi.com/view/qBX5hEuWuQ8URdUVdK3j/embed" width="98%" height="300" frameborder="0" scrolling="no"></iframe>
+                              <iframe src="https://prezi.com/view/qBX5hEuWuQ8URdUVdK3j/embed" width="98%" height="400" frameborder="0" scrolling="no"></iframe>
                           </div>
                       </div>
                     </div>
                   </section>
 
                  
-                <div class="tj-tags-post wow fadeInUp" data-wow-delay=".3s">
-            
-                  <div class="post-share">
-                    <ul>
-                      <li>{% trans "Share" %}:</li>
-                      <li>
-                        <a href="https://www.facebook.com/" target="_blank"
-                          ><i class="fa-brands fa-facebook-f"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a href="https://x.com/" target="_blank"
-                          ><i class="fa-brands fa-x-twitter"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a href="https://www.instagram.com/" target="_blank"
-                          ><i class="fa-brands fa-instagram"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a href="https://www.linkedin.com/" target="_blank"
-                          ><i class="fa-brands fa-linkedin-in"></i
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-            
+              
               </div>
             </div>
             
