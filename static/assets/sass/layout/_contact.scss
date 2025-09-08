@@ -395,16 +395,24 @@ START: Contact CSS
 			height: 12px;
 		}
 		&.loc-1 {
-			top: 38%;
-			left: 21%;
+			top: 41.5%;
+  left: 58%;
 		}
 		&.loc-2 {
-			top: 36%;
-			left: 46%;
+			top: 56%;
+    left: 73%;
 		}
 		&.loc-3 {
-			top: 73%;
-			left: 30%;
+			top: 67%;
+  left: 55%;
+		}
+		&.loc-4 {
+			top: 54%;
+  left: 60%;
+		}
+		&.loc-5 {
+			top: 59%;
+  left: 46%;
 		}
 		&::after {
 			content: "";
