@@ -23164,6 +23164,13 @@ display: grid;
 .blog-category-two {
   padding: 0px !important;
 }
+.logo-height-80{
+  height: 58px !important;
+}
+}
+
+.logo-height-80{
+  height: 75px;
 }
 
 .meeting-location{
