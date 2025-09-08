@@ -200,13 +200,15 @@
                     opportunities, overcome obstacles, and reach new levels of
                     success.
                   </p> -->
-                  <ul class="wow fadeInUp" data-wow-delay=".3s">
-                    {% for mini_title in section.mini_titles.all %}
+                  {% if section.mini_titles.all %}
+                <ul class="wow fadeInUp" data-wow-delay=".3s">
+                  {% for mini_title in section.mini_titles.all %}
                     <li>
                       <span><i class="tji-check"></i></span>{{ mini_title.title }}
                     </li>
-                    {% endfor %}
-                  </ul>
+                  {% endfor %}
+                </ul>
+              {% endif %}
                   
                 
                  {% endfor %}
