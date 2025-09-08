@@ -47,7 +47,7 @@ class CCT_Center_ImageAdmin(TabbedTranslationAdmin):
 
 @admin.register(Survey)
 class SurveyAdmin(TabbedTranslationAdmin):
-    list_display = ('title', 'start_date', 'end_date')
+    list_display = ('title',)
 
 
 @admin.register(Gallery)
