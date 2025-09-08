@@ -23158,6 +23158,9 @@ display: grid;
 .meeting-card{
   flex-direction: column;
 }
+.outreach-image {
+  width: 50%;
+}
 }
 
 .meeting-location{
