@@ -193,7 +193,7 @@
                   <li>
                     <a
                       href="tel:{{ contact_info.phone_number|cut:' '|cut:'-'|cut:'('|cut:')' }}"
-                      >{{ contact_info.phone_number }}</a
+                      >{{ contact_info.phone_number|safe }}</a
                     >
                   </li>
                   {% if contact_info.fax %}
@@ -259,11 +259,7 @@
                       >{{ contact_info.email }}</a
                     >
                   </li>
-                  <li>
-                    <a href="mailto:{{ contact_info.email }}"
-                      >{{ contact_info.email }}</a
-                    >
-                  </li>
+                  
                 </ul>
               </div>
             </div>
