@@ -6,10 +6,10 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
+    <meta name="description" content="{% trans 'Browse the ROCB Europe gallery featuring images of events, activities, and interior views.' %}" />
 
     <!-- Site Title -->
-    <title>{% trans "ROCB Europe - Virtual Gallery" %}</title>
+    <title>{% trans "ROCB Europe - Gallery - Interior Images" %}</title>
 
     <!-- Place favicon.ico in the root directory -->
     <link
@@ -96,7 +96,7 @@
                 <div class="tj-page-link">
                   <span><i class="tji-home"></i></span>
                   <span>
-                    <a href="index.html">{% trans "Home" %}</a>
+                    <a href="{% url 'home' %}">{% trans "Home" %}</a>
                   </span>
                   <span><i class="tji-arrow-right"></i></span>
                   <span>
@@ -220,33 +220,7 @@
                   </div>
                 </div>
 
-                <div class="tj-tags-post wow fadeInUp" data-wow-delay=".3s">
-                  <div class="post-share">
-                    <ul>
-                      <li>{% trans "Share" %}:</li>
-                      <li>
-                        <a href="https://www.facebook.com/" target="_blank"
-                          ><i class="fa-brands fa-facebook-f"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a href="https://x.com/" target="_blank"
-                          ><i class="fa-brands fa-x-twitter"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a href="https://www.instagram.com/" target="_blank"
-                          ><i class="fa-brands fa-instagram"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a href="https://www.linkedin.com/" target="_blank"
-                          ><i class="fa-brands fa-linkedin-in"></i
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+               
               </div>
             </div>
 
