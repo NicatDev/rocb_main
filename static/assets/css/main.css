@@ -23161,6 +23161,9 @@ display: grid;
 .outreach-image {
   width: 50%;
 }
+.blog-category-two {
+  padding: 0px !important;
+}
 }
 
 .meeting-location{
