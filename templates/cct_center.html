@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
+    <meta name="description" content="{% trans 'ROCB Europe Cargo and Container Training Center provides specialized training facilities for Customs administrations to enhance cargo and container control capacities.' %}" />
 
     <!-- Site Title -->
     <title>{% trans "ROCB Europe - Cargo and Container Training Center" %}</title>
@@ -15,7 +15,7 @@
     <link
       rel="shortcut icon"
       type="image/x-icon"
-      href="{% static 'assets/images/fav.png' %}"
+      href="{% static 'logo.png' %}"
     />
 
     <!-- CSS here -->
@@ -135,7 +135,7 @@
                   </p>
                   <div class="images-wrap">
                     <div class="row">
-                      {% for image in cct_centers.images.all %}
+                      {% for image in cct_centers.cct_center_images.all %}
                       <div class="col-sm-6">
                         <div
                           class="image-box wow fadeInUp"
