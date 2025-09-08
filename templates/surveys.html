@@ -122,7 +122,7 @@
           <div class="row row-gap-5">
             <div class="col-lg-8">
               <div class="post-details-wrapper">
-                <h1 class="title title-anim">Surveys</h1>
+                <h1 class="title title-anim">{% trans 'Surveys' %}</h1>
               </div>
               <!-- Content -->
               <div class="bg-white rounded-lg shadow-md p-6 mb-6">
@@ -145,7 +145,7 @@
                             class="text-blue-600 hover:text-blue-800 hover:underline font-medium"
                             title="View PDF in new tab"
                           >
-                            {{ survey.title }} ({{ survey.get_date_range_display }})
+                            {{ survey.title }}
                           </a>
                         </div>
                       </div>
@@ -155,7 +155,7 @@
                   <div class="text-center py-8">
                     <i class="fas fa-file-pdf text-gray-300 text-6xl mb-4"></i>
                     <p class="text-gray-500 text-lg">
-                      No surveys available yet.
+                      {% trans 'No surveys available yet' %}.
                     </p>
                   </div>
                   {% endif %}
