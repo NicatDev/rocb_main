@@ -65,7 +65,7 @@
         </div>
       </div>
     </div>
-
+    {% if tabs|length>1 %}
     <div
       class="tj-sidebar-widget service-categories wow fadeInUp"
       data-wow-delay=".1s"
@@ -85,5 +85,6 @@
         {% endfor %}
       </ul>
     </div>
+    {% endif %}
   </div>
 </div>

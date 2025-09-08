@@ -194,6 +194,7 @@
                     </form>
                   </div>
                 </div>
+                {% if others|length > 1 %}
                 <div class="tj-sidebar-widget tj-recent-posts wow fadeInUp" data-wow-delay=".3s">
                   <h4 class="widget-title">{% trans 'More news' %}</h4>
                   <ul>
@@ -216,7 +217,8 @@
                     {% endfor %}
                   </ul>
                 </div>
-
+                {% endif %}
+                {% if tags|length > 1 %}
                 <div class="tj-sidebar-widget widget-tag-cloud wow fadeInUp" data-wow-delay=".7s">
                   <h4 class="widget-title">{% trans 'Tags' %}</h4>
                   <nav>
@@ -246,6 +248,7 @@
                     </div>
                   </nav>
                 </div>
+                {% endif %}
               </div>
             </div>
           </div>

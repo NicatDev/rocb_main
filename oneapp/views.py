@@ -86,14 +86,14 @@ def news_detail(request, slug):
     prev_item = News.objects.filter(id__lt=item.id).order_by('-id').first()
     next_item = News.objects.filter(id__gt=item.id).order_by('id').first()
 
-    others = News.objects.exclude(slug=slug).order_by('-id')[0:4]
+    tabs = News.objects.exclude(slug=slug).order_by('-id')[0:4]
 
     context = {
         "item": item,
         "items":items,
         "prev_item":prev_item,
         "next_item":next_item,
-        "others":others
+        "tabs":tabs
     }
     return render(request, 'newsDetail.html', context)
 
@@ -117,14 +117,14 @@ def events_page(request):
     paginator = Paginator(events, 3)
     page_obj = paginator.get_page(page_number)
 
-    others = Event.objects.exclude(id__in=[n.id for n in page_obj]).order_by('-id')[:3]
+    tabs = Event.objects.exclude(id__in=[n.id for n in page_obj]).order_by('-id')[:3]
 
     context = {
         "items": events,
         "tags":tags,
         "page_obj": page_obj,
         "paginator": paginator,
-        "others":others
+        "tabs":tabs
     }
 
     return render(request, 'events.html', context)
@@ -136,14 +136,14 @@ def events_detail(request, slug):
     prev_item = Event.objects.filter(id__lt=item.id).order_by('-id').first()
     next_item = Event.objects.filter(id__gt=item.id).order_by('id').first()
 
-    others = Event.objects.exclude(slug=slug).order_by('-id')[0:4]
+    tabs = Event.objects.exclude(slug=slug).order_by('-id')[0:4]
 
     context = {
         "item": item,
         "items":items,
         "prev_item":prev_item,
         "next_item":next_item,
-        "others":others
+        "tabs":tabs
     }
     return render(request, 'eventsDetail.html', context)
 
