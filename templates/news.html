@@ -183,74 +183,7 @@
                 {% endif %}
               </div>
             </div>
-            <div class="col-lg-4">
-              <div class="tj-main-sidebar sticky-lg-top">
-                <div class="tj-sidebar-widget widget-search wow fadeInUp" data-wow-delay=".1s">
-                  <h4 class="widget-title">Search</h4>
-                  <div class="search-box">
-                    <form method="get" action="{% url 'news' %}">
-                      <input type="search" name="s" id="searchTwo" placeholder="Search here" value="{{ request.GET.s|default:'' }}" />
-                      <button type="submit" value="search"><i class="tji-search"></i></button>
-                    </form>
-                  </div>
-                </div>
-                {% if others|length > 1 %}
-                <div class="tj-sidebar-widget tj-recent-posts wow fadeInUp" data-wow-delay=".3s">
-                  <h4 class="widget-title">{% trans 'More news' %}</h4>
-                  <ul>
-                    {% for other in others %}
-                      <li>
-                        {% if other.image %}
-                          <div class="post-thumb">
-                            <a href="#"><img src="{{ other.image.url }}" alt="{{ other.title }}" /></a>
-                          </div>
-                        {% endif %}
-                        <div class="post-content">
-                          <h6 class="post-title"><a href="#">{{ other.title }}</a></h6>
-                          <div class="blog-meta">
-                            <ul>
-                              <li>{{ other.date|date:'M d, Y' }}</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-                {% endif %}
-                {% if tags|length > 1 %}
-                <div class="tj-sidebar-widget widget-tag-cloud wow fadeInUp" data-wow-delay=".7s">
-                  <h4 class="widget-title">{% trans 'Tags' %}</h4>
-                  <nav>
-                    <div class="tagcloud">
-                      <div class="tagcloud">
-                        {% for tag in tags %}
-                        {% if tag %}
-                          {% if request.GET.t == tag %}
-                            {# Tag is active, clicking removes it #}
-                            <a href="?{% if request.GET.s %}
-                                s={{ request.GET.s }}
-                              {% endif %}"
-                              class="activeTag">
-                              {{ tag }}
-                            </a>
-                          {% else %}
-                            {# Tag is not active, clicking sets it #}
-                            <a href="?t={{ tag }}{% if request.GET.s %}
-                                &s={{ request.GET.s }}
-                              {% endif %}">
-                              {{ tag }}
-                            </a>
-                          {% endif %}
-                          {% endif %}
-                        {% endfor %}
-                      </div>
-                    </div>
-                  </nav>
-                </div>
-                {% endif %}
-              </div>
-            </div>
+            {% include 'components/sidebar.html' %}
           </div>
         </div>
       </section>

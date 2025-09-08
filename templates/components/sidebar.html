@@ -86,5 +86,34 @@
       </ul>
     </div>
     {% endif %}
+    {% if tags|length > 1 %}
+      <div class="tj-sidebar-widget widget-tag-cloud wow fadeInUp" data-wow-delay=".7s">
+        <h4 class="widget-title">{% trans 'Tags' %}</h4>
+        <nav>
+          <div class="tagcloud">
+            <div class="tagcloud">
+              {% for tag in tags %}
+              {% if tag %}
+                {% if request.GET.t == tag %}
+                  {# Tag is active, clicking removes it #}
+                  <a href="?{% if request.GET.s %}s={{ request.GET.s }}{% endif %}"
+                    class="activeTag">
+                    {{ tag }}
+                  </a>
+                {% else %}
+                  {# Tag is not active, clicking sets it #}
+                  <a href="?t={{ tag }}{% if request.GET.s %}
+                      &s={{ request.GET.s }}
+                    {% endif %}">
+                    {{ tag }}
+                  </a>
+                {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </nav>
+      </div>
+    {% endif %}
   </div>
 </div>

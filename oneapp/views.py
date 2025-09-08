@@ -67,14 +67,14 @@ def news_page(request):
     paginator = Paginator(news, 3)
     page_obj = paginator.get_page(page_number)
 
-    others = News.objects.exclude(id__in=[n.id for n in page_obj]).order_by('-id')[:3]
+    tabs = News.objects.exclude(id__in=[n.id for n in page_obj]).order_by('-id')[:3]
 
     context = {
         "items": news,
         "tags":tags,
         "page_obj": page_obj,
         "paginator": paginator,
-        "others":others
+        "tabs":tabs
     }
 
     return render(request, 'news.html', context)
