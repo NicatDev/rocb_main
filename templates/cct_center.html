@@ -96,7 +96,7 @@
                 <div class="tj-page-link">
                   <span><i class="tji-home"></i></span>
                   <span>
-                    <a href="index.html">{% trans "Home" %}</a>
+                    <a href="{% url 'home' %}">{% trans "Home" %}</a>
                   </span>
                   <span><i class="tji-arrow-right"></i></span>
                   <span>
@@ -151,7 +151,7 @@
                     </div>
                   </div>
                   <p class="wow fadeInUp" data-wow-delay=".3s">
-                    <a href="">{% trans "Click here" %}</a> {% trans "to review other ROCB Europe facilities." %}
+                    <a href="{% url 'utilize_our_premises' %}">{% trans "Click here" %}</a> {% trans "to review other ROCB Europe facilities." %}
                   </p>
                   
                 </div>
