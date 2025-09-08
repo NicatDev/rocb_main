@@ -123,12 +123,12 @@
         <h1 class="title title-anim">{{ about.title }}</h1>
         <div class="blog-category-two wow fadeInUp" data-wow-delay=".3s"></div>
         
-        <div class="blog-images wow fadeInUp" data-wow-delay=".1s">
-          {% if about.image %}
+       {% if about.image %} <div class="blog-images wow fadeInUp" data-wow-delay=".1s">
+          
             <img src="{{ about.image.url }}" alt="{{ about.title }}" />
-          {% endif %}
+          
         </div>
-
+{% endif %}
         <div class="blog-text">
           {% if about.description %}
           <p class="wow fadeInUp" data-wow-delay=".3s">
