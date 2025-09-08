@@ -248,3 +248,25 @@
         .hamburger_menu #menu-pc {
             display: none;
         }
+
+        .about-author {
+            display: flex
+;
+    width: 30%;
+    align-items: center;
+    padding: 20px;
+        }
+
+         .about-author h6 {
+            margin: 0 !important;
+         }
+         .about-author i {
+            margin-right: 5px;
+         }
+
+         .about-author:hover {
+            background-color: #fff;
+         }
+         .about-author:hover p {
+            color: black;
+         }

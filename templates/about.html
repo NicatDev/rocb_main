@@ -149,6 +149,16 @@
               </p>
               {% endif %}
 
+              {% if about.author %}
+
+              <div class="list-section-title about-author">
+                <i class="fa-regular fa-pen"></i>
+                <h6>{{ about.author }}</h6>
+                <p>{{ about.position }}</p>
+              </div>
+
+              {% endif %}
+
               <div class="images-wrap">
                 <div class="row">
                   {% for image in section.images.all %}
@@ -185,7 +195,9 @@
           </div>
         {% endif %}
 
-        <section class="tj-contact-section section-gap section-gap-x only-desktop map-section-home">
+        {% if about.map %}
+
+        <section style="margin:20px 0px 0px;" class="tj-contact-section section-gap section-gap-x only-desktop map-section-home">
         <div class="container">
           <div class="row">
             <div class="col-lg-6">
@@ -240,6 +252,7 @@
           <img src="{% static 'assets/images/shape/pattern-3.svg' %}" alt="" />
         </div>
       </section>
+      {% endif %}
 
         <div class="tj-post__navigation wow fadeInUp" data-wow-delay=".3s">
           <!-- previous tab -->

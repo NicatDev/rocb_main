@@ -10,6 +10,8 @@ class About(models.Model):
         verbose_name="Description", blank=True, null=True)
     image = models.ImageField(
         upload_to='about_images/', verbose_name="Image", blank=True, null=True)
+    author = models.CharField(max_length=255, blank=True, null=True)
+    position = models.TextField(blank=True, null=True)
 
     class Meta:
         verbose_name = "About"
