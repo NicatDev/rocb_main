@@ -3,7 +3,7 @@ from .models import About, AboutSection, MiniTitle, Image, Tag
 
 @register(About)
 class AboutTranslationOptions(TranslationOptions):
-    fields = ('title', 'description')
+    fields = ('title', 'description','author', 'position')
 
 @register(AboutSection)
 class AboutSectionTranslationOptions(TranslationOptions):
