@@ -86,6 +86,7 @@
       </ul>
     </div>
     {% endif %}
+    {{ tags|length }}
     {% if tags|length > 1 %}
       <div class="tj-sidebar-widget widget-tag-cloud wow fadeInUp" data-wow-delay=".7s">
         <h4 class="widget-title">{% trans 'Tags' %}</h4>
