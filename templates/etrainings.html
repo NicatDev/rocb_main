@@ -140,6 +140,7 @@
   <!-- Content by Categories -->
   
   {% for category in categories %}
+  {% if is_video and category.videos.all|length > 0 %}
     <div class="etraining-category">
       <div class="meet-doc-detail-head">
         <div class="category-chip">
@@ -149,34 +150,42 @@
       </div>
 
       <div class="file-cards-container">
-        {% if is_video %}
-          {% for video in category.videos.all %}
-            <div class="file-card">
-              <div class="file-icon-container">🎬</div>
-              <div class="file-title">{{ video.title }}</div>
-              <a href="{{ video.video.url }}" class="file-btn" target="_blank">
-                {% trans "Watch" %}
-              </a>
-            </div>
-          {% empty %}
-            <p class="empty-text">{% trans "No videos found in this category." %}</p>
-          {% endfor %}
-        {% else %}
-          {% for doc in category.docs.all %}
-            <div class="file-card">
-              <div class="file-icon-container">📄</div>
-              <div class="file-title">{{ doc.title }}</div>
-              <a href="{{ doc.file.url }}" class="file-btn" target="_blank">
-                {% trans "Read" %}
-              </a>
-            </div>
-          {% empty %}
-            <p class="empty-text">{% trans "No documents found in this category." %}</p>
-          {% endfor %}
-        {% endif %}
+        {% for video in category.videos.all %}
+          <div class="file-card">
+            <div class="file-icon-container">🎬</div>
+            <div class="file-title">{{ video.title }}</div>
+            <a href="{{ video.video.url }}" class="file-btn" target="_blank">
+              {% trans "Watch" %}
+            </a>
+          </div>
+        {% endfor %}
       </div>
     </div>
-  {% endfor %}
+
+  {% elif not is_video and category.docs.all|length > 0 %}
+    <div class="etraining-category">
+      <div class="meet-doc-detail-head">
+        <div class="category-chip">
+          <span class="chip-dot"></span>
+          <span class="chip-text">{{ category.title }}</span>
+        </div>
+      </div>
+
+      <div class="file-cards-container">
+        {% for doc in category.docs.all %}
+          <div class="file-card">
+            <div class="file-icon-container">📄</div>
+            <div class="file-title">{{ doc.title }}</div>
+            <a href="{{ doc.file.url }}" class="file-btn" target="_blank">
+              {% trans "Read" %}
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+{% endfor %}
+
  
               </div>
               <!-- post-details-wrapper -->
