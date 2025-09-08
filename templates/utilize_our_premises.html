@@ -97,7 +97,7 @@
                 <div class="tj-page-link">
                   <span><i class="tji-home"></i></span>
                   <span>
-                    <a href="index.html">{% trans "Home" %}</a>
+                    <a href="{% url 'home' %}">{% trans "Home" %}</a>
                   </span>
                   <span><i class="tji-arrow-right"></i></span>
                   <span>
@@ -123,6 +123,10 @@
           <div class="col-lg-8">
             <div class="post-details-wrapper">
               <h1 class="title title-anim">{% trans "Utilize Our Premises" %}</h1>
+              <div
+                  class="blog-category-two wow fadeInUp"
+                  data-wow-delay=".3s"
+                ></div>
             </div>
             <!-- Content -->
             <div class="bg-white rounded-lg shadow-md p-6 mb-6">
