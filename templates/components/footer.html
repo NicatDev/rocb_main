@@ -2,7 +2,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    fetch("{% url 'about_region_list' %}") 
+    fetch("{% url 'about_region_list' %}")
       .then((response) => response.json())
       .then((data) => {
         const aboutList = document.getElementById("about-list3");
@@ -33,7 +33,7 @@
   <div class="footer-main-area">
     <div class="container">
       <div class="row justify-content-between">
-        <div class="col-xl-3 col-lg-4 col-md-6">
+        <div class="col-xl-3 col-lg-6 col-md-6">
           <div class="footer-widget wow fadeInUp" data-wow-delay=".1s">
             <div class="footer-logo">
               <a href="{% url 'home' %}">
@@ -49,10 +49,9 @@
                 {% trans 'WCO Europe Regional Office for Capacity Building' %}
               </p>
             </div>
- 
           </div>
         </div>
-        <div class="col-xl-3 col-lg-4 col-md-6">
+        <div class="col-xl-3 col-lg-6 col-md-6">
           <div
             class="footer-widget widget-nav-menu wow fadeInUp"
             data-wow-delay=".3s"
@@ -60,13 +59,17 @@
             <h5 class="title">{% trans 'Links' %}</h5>
             <ul>
               <li><a href="{% url 'home' %}">{% trans 'Homepage' %}</a></li>
-              <li><a href="{% url 'contact:contact' %}">{% trans 'Contact' %}</a></li>
+              <li>
+                <a href="{% url 'contact:contact' %}">{% trans 'Contact' %}</a>
+              </li>
               <li><a href="{% url 'news' %}">{% trans 'News' %}</a></li>
-              <li><a href="{% trans 'analytics' %}">{% trans 'Analytics' %}</a></li>
+              <li>
+                <a href="{% trans 'analytics' %}">{% trans 'Analytics' %}</a>
+              </li>
             </ul>
           </div>
         </div>
-        <div class="col-xl-2 col-lg-4 col-md-6">
+        <div class="col-xl-3 col-lg-6 col-md-6">
           <div
             class="footer-widget widget-nav-menu wow fadeInUp"
             data-wow-delay=".5s"
@@ -75,21 +78,25 @@
             <ul id="about-list3"></ul>
           </div>
         </div>
-        
-       <div class="col-xl-4 col-lg-5 col-md-6">
+
+        <div class="col-xl-3 col-lg-6 col-md-6">
           <div
             class="footer-widget widget-nav-menu wow fadeInUp"
             data-wow-delay=".5s"
           >
             <h5 class="title">{% trans 'My account' %}</h5>
             <ul id="account-list">
-{% if user.is_authenticated %}
-    <li><a href="{% url 'profile_view' %}">{% trans 'Profile' %}</a></li>
-    <li><a href="{% url 'logout_url_view' %}">{% trans 'Logout' %}</a></li>
-{% else %}
-    <li><a href="{% url 'login' %}">{% trans 'Login' %}</a></li>
-    <li><a href="{% url 'register' %}">{% trans 'Register' %}</a></li>
-{% endif %}
+              {% if user.is_authenticated %}
+              <li>
+                <a href="{% url 'profile_view' %}">{% trans 'Profile' %}</a>
+              </li>
+              <li>
+                <a href="{% url 'logout_url_view' %}">{% trans 'Logout' %}</a>
+              </li>
+              {% else %}
+              <li><a href="{% url 'login' %}">{% trans 'Login' %}</a></li>
+              <li><a href="{% url 'register' %}">{% trans 'Register' %}</a></li>
+              {% endif %}
             </ul>
           </div>
         </div>
@@ -106,7 +113,9 @@
                 <li>
                   <a href="tel:10095447818">
                     <span class="icon"><i class="tji-phone-2"></i></span>
-                    <span class="text">(+994 12) 464-31-34; (+994 12) 464-31-35</span>
+                    <span class="text"
+                      >(+994 12) 464-31-34; (+994 12) 464-31-35</span
+                    >
                   </a>
                 </li>
                 <li>
@@ -143,11 +152,7 @@
             </div>
             <div class="copyright-text">
               <p>
-                &copy; 2025 <a
-
-                  target="_blank"
-                  >{% trans 'Rocb Europe' %}</a
-                >
+                &copy; 2025 <a target="_blank">{% trans 'Rocb Europe' %}</a>
                 {% trans 'All right reserved' %}
               </p>
             </div>
