@@ -14,13 +14,13 @@
           li.innerHTML = `<a href="/about/${item.slug}"
                         >${item.title}</a
                       >`;
-          if(aboutList.length)aboutList.appendChild(li);
+          if(aboutList)aboutList.appendChild(li);
         });
 
         data.region.forEach((item) => {
           const li = document.createElement("li");
           li.innerHTML = `<a href="/region/${item.slug}/">${item.title}</a>`;
-          if(regionList.length)regionList.appendChild(li);
+          if(regionList)regionList.appendChild(li);
         });
       })
       .catch((error) => {
