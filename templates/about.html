@@ -132,7 +132,7 @@
         <div class="blog-text">
           {% if about.description %}
           <p class="wow fadeInUp" data-wow-delay=".3s">
-            {{ about.description|linebreaks }}
+            {{ about.description|safe }}
           </p>
           {% endif %}
 
@@ -145,7 +145,7 @@
               {% endif %}
               {% if section.description %}
               <p class="wow fadeInUp" data-wow-delay=".3s">
-                {{ section.description|linebreaks }}
+                {{ section.description|safe }}
               </p>
               {% endif %}
 
