@@ -149,15 +149,7 @@
               </p>
               {% endif %}
 
-              {% if about.author %}
-
-              <div class="list-section-title about-author">
-                <i class="fa-regular fa-pen"></i>
-                <h6>{{ about.author }}</h6>
-                <p>{{ about.position }}</p>
-              </div>
-
-              {% endif %}
+              
 
               <div class="images-wrap">
                 <div class="row">
@@ -182,6 +174,14 @@
               {% endif %}
             {% endfor %}
           {% endif %}
+          {% if about.author %}
+              <div class="about-author">
+                <i class="fa-regular fa-pen"></i>
+                <h6>{{ about.author }}</h6>
+                <p>{{ about.position }}</p>
+              </div>
+
+              {% endif %}
         </div>
 
         {% if tags %}
