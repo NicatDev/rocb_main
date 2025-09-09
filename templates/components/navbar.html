@@ -54,7 +54,9 @@
             <nav id="mobile-menu" class="mainmenu">
               <ul>
                 <li class="has-dropdown">
-                  <a href="{% url 'about:about_default' %}">{% trans 'About Us' %}</a>
+                  <a href="{% url 'about:about_default' %}"
+                    >{% trans 'About Us' %}</a
+                  >
                   <ul id="about-list4" class="sub-menu">
                     <li>
                       <a href=""></a>
@@ -62,7 +64,9 @@
                   </ul>
                 </li>
                 <li class="has-dropdown">
-                  <a href="{% url 'region:region_default' %}">{% trans 'Region' %}</a>
+                  <a href="{% url 'region:region_default' %}"
+                    >{% trans 'Region' %}</a
+                  >
                   <ul id="region-list4" class="sub-menu">
                     <li>
                       <a href=""></a>
@@ -90,18 +94,40 @@
                     </li>
                   </ul>
                 </li>
-                <li><a href="{% url 'analytics' %}">{% trans 'Analytics' %}</a></li>
-                <li><a href="{% url 'e_training_docs' %}">{% trans 'E-Training' %}</a></li>
+                <li>
+                  <a href="{% url 'analytics' %}">{% trans 'Analytics' %}</a>
+                </li>
+                <li>
+                  <a href="{% url 'e_training_docs' %}"
+                    >{% trans 'E-Training' %}</a
+                  >
+                </li>
                 <li class="has-dropdown">
                   <a href="#">{% trans 'Publicity' %}</a>
                   <ul class="sub-menu">
-                    <li><a href="{% url 'newsletters' %}">{% trans 'Newsletters' %}</a></li>
                     <li>
-                      <a href="{% url 'outreach' %}">{% trans 'Outreach Materials' %}</a>
+                      <a href="{% url 'newsletters' %}"
+                        >{% trans 'Newsletters' %}</a
+                      >
                     </li>
-                    <li><a href="{% url 'gallery' %}">{% trans 'Visual Gallery' %}</a></li>
-                    <li><a href="{% url 'cct_centers' %}">{% trans 'CCT Center' %}</a></li>
-                    <li><a href="{% url 'survey' %}">{% trans 'Surveys' %}</a></li>
+                    <li>
+                      <a href="{% url 'outreach' %}"
+                        >{% trans 'Outreach Materials' %}</a
+                      >
+                    </li>
+                    <li>
+                      <a href="{% url 'gallery' %}"
+                        >{% trans 'Visual Gallery' %}</a
+                      >
+                    </li>
+                    <li>
+                      <a href="{% url 'cct_centers' %}"
+                        >{% trans 'CCT Center' %}</a
+                      >
+                    </li>
+                    <li>
+                      <a href="{% url 'survey' %}">{% trans 'Surveys' %}</a>
+                    </li>
                     <li>
                       <a href="{% url 'utilize_our_premises' %}"
                         >{% trans 'Utilize Our Premises' %}</a
@@ -109,7 +135,11 @@
                     </li>
                   </ul>
                 </li>
-                <li><a href="{% url 'contact:contact' %}">{% trans 'Contact' %} </a></li>
+                <li>
+                  <a href="{% url 'contact:contact' %}"
+                    >{% trans 'Contact' %}
+                  </a>
+                </li>
                 <li class="has-dropdown">
                   <a href="#">{% trans "My Account" %}</a>
                   <ul class="sub-menu">
@@ -227,7 +257,12 @@
                 href="{% url 'logout_url_view' %}"
               >
                 <span class="btn-text"><span>{% trans 'Log out' %}</span></span>
-                <span class="btn-icon btn-image">{% if request.user.profile.profile_picture %}<img class="btn-image-img" src="{{ request.user.profile.profile_picture.url }}" />{% else %}<i class="fa-solid fa-user"></i>{% endif %}</span>
+                <span class="btn-icon btn-image"
+                  >{% if request.user.profile.profile_picture %}<img
+                    class="btn-image-img"
+                    src="{{ request.user.profile.profile_picture.url }}"
+                  />{% else %}<i class="fa-solid fa-user"></i>{% endif %}</span
+                >
               </a>
 
               {% endif %}
@@ -259,15 +294,15 @@
         <div class="col-8">
           <div class="tj_search_wrapper">
             <div class="search_form">
-              <form action="#">
+              <form method="get" action="{% url 'search' %}">
                 <div class="search_input">
                   <div class="search-box">
-                    <input
-                      class="search-form-input"
-                      type="text"
-                      placeholder="{% trans 'Type Words and Hit Enter' %}"
-                      required
-                    />
+                    <input class="search-form-input" type="text" name="q"
+                    <!-- important: Django gets request.GET['q'] -->
+                    placeholder="{% trans 'Type Words and Hit Enter' %}"
+                    value="{{ query }}"
+                    <!-- keeps previous search term if any -->
+                    required />
                     <button type="submit">
                       <i class="tji-search"></i>
                     </button>
