@@ -222,23 +222,51 @@ def search(request):
     results = []
 
     if query:
-        news_results = News.objects.filter(title__icontains=query).values('title', 'description', 'image', 'date', 'slug')
-        event_results = Event.objects.filter(title__icontains=query).values('title', 'description', 'image', 'date', 'slug')
+        # Get model instances, not .values(), so ImageField works
+        news_results = News.objects.filter(title__icontains=query)
+        event_results = Event.objects.filter(title__icontains=query)
 
-        news_list = [dict(item, type='News') for item in news_results]
-        event_list = [dict(item, type='Event') for item in event_results]
+        # Convert to dict with type
+        news_list = [
+            {
+                'title': n.title,
+                'description': n.description,
+                'image': n.image,
+                'date': n.date,
+                'slug': n.slug,
+                'type': 'News'
+            }
+            for n in news_results
+        ]
+
+        event_list = [
+            {
+                'title': e.title,
+                'description': e.description,
+                'image': e.image,
+                'date': e.date,
+                'slug': e.slug,
+                'type': 'Event'
+            }
+            for e in event_results
+        ]
 
         combined = news_list + event_list
-        results = sorted(
-            combined,
-            key=lambda x: (x['date'].astimezone(datetime.timezone.utc).replace(tzinfo=None)
-                        if x['date'] is not None else datetime.datetime.min),
-            reverse=True
-        )
+
+        # Sort by date descending, handle None and naive/aware datetimes
+        def sort_key(x):
+            if x['date'] is None:
+                return datetime.datetime.min
+            dt = x['date']
+            if dt.tzinfo is None:  # naive -> make aware in UTC
+                dt = dt.replace(tzinfo=datetime.timezone.utc)
+            return dt
+
+        results = sorted(combined, key=sort_key, reverse=True)
 
     # Pagination
     page_number = request.GET.get('page', 1)
-    paginator = Paginator(results, 5)  # 5 items per page
+    paginator = Paginator(results, 5)
     page_obj = paginator.get_page(page_number)
 
     context = {
