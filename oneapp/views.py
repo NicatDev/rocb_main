@@ -214,3 +214,29 @@ def about_region_list(request):
         "region": region_items
     }
     return JsonResponse(data, safe=False)
+
+
+def search(request):
+    query = request.GET.get('q', '')
+    results = []
+
+    if query:
+        news_results = News.objects.filter(title__icontains=query).values('title', 'description', 'image', 'date')
+        event_results = Event.objects.filter(title__icontains=query).values('title', 'description', 'image', 'date')
+
+        news_list = [dict(item, type='News') for item in news_results]
+        event_list = [dict(item, type='Event') for item in event_results]
+
+        combined = news_list + event_list
+        results = sorted(combined, key=lambda x: x['date'], reverse=True)
+
+    # Pagination
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(results, 5)  # 5 items per page
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'query': query,
+        'page_obj': page_obj,
+    }
+    return render(request, 'search_results.html', context)
