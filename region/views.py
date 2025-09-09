@@ -28,7 +28,8 @@ def region_page(request, slug=None):
     tags = selected_tab.tags.all()
 
     list_sections = selected_tab.list_sections.prefetch_related(
-        'list_items').all()
+        'list_items'
+    ).order_by('order')
 
     countries = Country.objects.filter(region=selected_tab).order_by('title')
 
@@ -50,7 +51,7 @@ def listsection_detail(request, slug):
     list_section = get_object_or_404(ListSection, slug=slug)
     list_sections_tabs = list(ListSection.objects.all())
 
-    list_items = list_section.list_items.all()
+    list_items = list_section.list_items.order_by('order')
     mini_titles = MiniTitle.objects.filter(
         regionsection__region=list_section.region)
     images = Image.objects.filter(regionsection__region=list_section.region)

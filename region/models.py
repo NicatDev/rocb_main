@@ -107,6 +107,7 @@ class ListSection(models.Model):
     image = models.ImageField(
         upload_to='region_images/', verbose_name="List Section Image", blank=True, null=True)
     slug = models.SlugField(unique=True, editable=False, blank=True, null=True)
+    order = models.BooleanField(default=0)
 
     class Meta:
         verbose_name = "List Section"
@@ -127,6 +128,7 @@ class ListItem(models.Model):
         ListSection, on_delete=models.CASCADE, related_name='list_items')
     title = models.CharField(max_length=200, verbose_name="List Item Title")
     description = models.TextField(verbose_name="List Item Description")
+    order = models.BooleanField(default=0)
 
     class Meta:
         verbose_name = "List Item"
