@@ -152,52 +152,49 @@
           <!-- Profile Details -->
           <div class="details">
             {% if profile %}
-         <h4 style="color: #12579e; margin-bottom: 5px;">{% trans "Username" %}</h4>
-<div class="field-box">
-    <p>{{ user.username }}</p>
-</div>
+            <div class="field-container">
+              <label>{% trans "Username" %}</label>
+              <div class="field-box">{{ user.username }}</div>
+            </div>
 
-<!-- First Name -->
-<h4 style="color: #12579e; margin-bottom: 5px;">{% trans "First Name" %}</h4>
-<div class="field-box">
-    <p>{{ user.first_name }}</p>
-</div>
+            <div class="field-container">
+              <label>{% trans "First Name" %}</label>
+              <div class="field-box">{{ user.first_name }}</div>
+            </div>
 
-<!-- Last Name -->
-<h4 style="color: #12579e; margin-bottom: 5px;">{% trans "Last Name" %}</h4>
-<div class="field-box">
-    <p>{{ user.last_name }}</p>
-</div>
+            <div class="field-container">
+              <label>{% trans "Last Name" %}</label>
+              <div class="field-box">{{ user.last_name }}</div>
+            </div>
 
-<!-- Email -->
-<h4 style="color: #12579e; margin-bottom: 5px;">{% trans "Email" %}</h4>
-<div class="field-box">
-    <p>{{ user.email }}</p>
-</div>
+            <div class="field-container">
+              <label>{% trans "Email" %}</label>
+              <div class="field-box">{{ user.email }}</div>
+            </div>
 
-<!-- Password -->
-<h4 style="color: #12579e; margin-bottom: 5px;">{% trans "Password" %}</h4>
-<div class="field-box">
-    <p>********</p>
-</div>
+            <div class="field-container">
+              <label>{% trans "Password" %}</label>
+              <div class="field-box">********</div>
+            </div>
 
-<!-- Phone Number -->
-<h4 style="color: #12579e; margin-bottom: 5px;">{% trans "Phone Number" %}</h4>
-<div class="field-box">
-    <p>{{ profile.phone_number|default:"-" }}</p>
-</div>
+            <div class="field-container">
+              <label>{% trans "Phone Number" %}</label>
+              <div class="field-box">
+                {{ profile.phone_number|default:"-" }}
+              </div>
+            </div>
 
-<!-- Organization -->
-<h4 style="color: #12579e; margin-bottom: 5px;">{% trans "Organization" %}</h4>
-<div class="field-box">
-    <p>{{ profile.organization|default:"-" }}</p>
-</div>
+            <div class="field-container">
+              <label>{% trans "Organization" %}</label>
+              <div class="field-box">
+                {{ profile.organization|default:"-" }}
+              </div>
+            </div>
 
-<!-- Position -->
-<h4 style="color: #12579e; margin-bottom: 5px;">{% trans "Position" %}</h4>
-<div class="field-box">
-    <p>{{ profile.position|default:"-" }}</p>
-</div>
+            <div class="field-container">
+              <label>{% trans "Position" %}</label>
+              <div class="field-box">{{ profile.position|default:"-" }}</div>
+            </div>
             {% else %}
             <p class="inactive">
               {% trans "No profile information available." %}
