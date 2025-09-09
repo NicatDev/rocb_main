@@ -23251,7 +23251,7 @@ display: grid;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
-    background-color: #e8f0ff; /* açıq corporate blue */
+    background-color: #ffffff; /* açıq corporate blue */
     padding: 25px;
     border-radius: 10px;
 }
@@ -23269,7 +23269,7 @@ display: grid;
 }
 
 .field-box {
-    background-color: #ffffff; /* details açıq olduğu üçün box soft görünür */
+    background-color: #c3c3c3; /* details açıq olduğu üçün box soft görünür */
     border-radius: 8px;
     padding: 12px 15px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
