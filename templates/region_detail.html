@@ -184,11 +184,10 @@
                   {% endif %}
                  {% for file in files %}
                     <a class="wow fadeInUp" data-wow-delay=".3s" href="{{ file.file.url }}" target="_blank">
-                        {{ file.file_name|linebreaks }}
+                        {{ file.file_name|linebreaks }} - {{ file.file_created_date|date:"d-m-Y" }}
                     </a>
-                {% empty %}
-                    <p>No files available.</p>
                 {% endfor %}
+
 
                 </div>
                 <div
