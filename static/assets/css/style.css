@@ -293,3 +293,13 @@
 .region-author {
   margin-top: 20px;
 }
+
+
+.file-country {
+  display: flex;
+  gap: 7px;
+}
+
+.file-country span{
+  color: #364e52;
+}
