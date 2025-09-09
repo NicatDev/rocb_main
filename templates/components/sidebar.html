@@ -73,6 +73,7 @@
       <h4 class="widget-title">{% trans "Discover More" %}</h4>
       <ul>
     {% for tab in tabs %}
+    <li>
     {% if request.resolver_match.url_name == "about_tab" %}
         <a href="{% url 'about:about_tab' tab.slug %}"
            class="{% if tab == selected_tab %}active{% endif %}">
@@ -99,6 +100,7 @@
             {{ tab.title }}
         </a>
     {% endif %}
+      </li>
 {% endfor %}
       </ul>
     </div>
