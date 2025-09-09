@@ -189,14 +189,6 @@
                 </ul>
               {% endif %}
                  {% endfor %}
- {% if about.author %}
-              <div class="about-author">
-                <i class="fa-regular fa-pen"></i>
-                <h6>{{ about.author }}</h6>
-                <p>{{ about.position }}</p>
-              </div>
-
-              {% endif %}
                 </div>
                
                 <div class="tj-tags-list wow fadeInUp" data-wow-delay=".3s">
@@ -209,7 +201,14 @@
 
                         </a>
                     {% endfor %}
+ {% if region.author %}
+              <div class="about-author">
+                <i class="fa-regular fa-pen"></i>
+                <h6>{{ region.author }}</h6>
+                <p>{{ region.position }}</p>
+              </div>
 
+              {% endif %}
                 </div>
                  {% if tags %}
                 <div class="tj-tags-post wow fadeInUp" data-wow-delay=".3s">
