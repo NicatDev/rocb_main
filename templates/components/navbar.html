@@ -294,15 +294,16 @@
         <div class="col-8">
           <div class="tj_search_wrapper">
             <div class="search_form">
-              <form method="get" action="{% url 'search' %}">
+                <form method="get" action="{% url 'search' %}">
                 <div class="search_input">
                   <div class="search-box">
-                    <input class="search-form-input" type="text" name="q"
-                    <!-- important: Django gets request.GET['q'] -->
-                    placeholder="{% trans 'Type Words and Hit Enter' %}"
-                    value="{{ query }}"
-                    <!-- keeps previous search term if any -->
-                    required />
+                    <input
+                      class="search-form-input"
+                      type="text"
+                      name="q"
+                      placeholder="{% trans 'Type Words and Hit Enter' %}"
+                      value="{{ query }}"
+                    />
                     <button type="submit">
                       <i class="tji-search"></i>
                     </button>
