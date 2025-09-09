@@ -171,7 +171,7 @@
                   <i class="tji-envelop"></i>
                 </div>
                 <h3 class="contact-title">{% trans "Email us" %}</h3>
-                <ul class="contact-list contact-item-p">
+                <ul class="contact-list contact-item-ul">
                   <li>
                     <a href="mailto:{{ contact_info.email }}"
                       >{{ contact_info.email }}</a
@@ -189,7 +189,7 @@
                   <i class="tji-phone"></i>
                 </div>
                 <h3 class="contact-title">{% trans "Call us" %}</h3>
-                <ul class="contact-list contact-item-p">
+                <ul class="contact-list contact-item-ul">
                   <li>
                     <a
                       href="tel:{{ contact_info.phone_number|cut:' '|cut:'-'|cut:'('|cut:')' }}"
@@ -216,7 +216,7 @@
                   <i class="tji-chat"></i>
                 </div>
                 <h3 class="contact-title">{% trans "Live chat" %}</h3>
-                <ul class="contact-list contact-item-p">
+                <ul class="contact-list contact-item-ul">
                   <li>
                     <a href="mailto:{{ contact_info.email }}"
                       >{{ contact_info.email }}</a
@@ -240,8 +240,8 @@
                 <div class="contact-icon">
                   <i class="tji-location-3"></i>
                 </div>
-                <h3 class="contact-title contact-item-p">{% trans "Our Location" %}</h3>
-                <p>{{ contact_info.location }}</p>
+                <h3 class="contact-title ">{% trans "Our Location" %}</h3>
+                <p class="contact-item-p">{{ contact_info.location }}</p>
               </div>
             </div>
             <div class="col-xl-3 col-lg-6 col-sm-6">
@@ -253,7 +253,7 @@
                   <i class="tji-envelop"></i>
                 </div>
                 <h3 class="contact-title">{% trans "Email us" %}</h3>
-                <ul class="contact-list contact-item-p">
+                <ul class="contact-list contact-item-ul">
                   <li>
                     <a href="mailto:{{ contact_info.email }}"
                       >{{ contact_info.email }}</a
@@ -272,7 +272,7 @@
                   <i class="tji-phone"></i>
                 </div>
                 <h3 class="contact-title">{% trans "Call us" %}</h3>
-                <ul class="contact-list contact-item-p">
+                <ul class="contact-list contact-item-ul">
                   <li>
                     <a href="tel:{{ contact_info.phone_number }}"
                       >{{ contact_info.phone_number|safe }}</a
@@ -290,7 +290,7 @@
                   <i class="tji-phone"></i>
                 </div>
                 <h3 class="contact-title">{% trans "Fax" %}</h3>
-                <ul class="contact-list contact-item-p">
+                <ul class="contact-list contact-item-ul">
                   <li>
                     <a href="tel:{{ contact_info.fax }}"
                       >{{ contact_info.fax }}</a
