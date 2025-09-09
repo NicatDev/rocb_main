@@ -655,7 +655,7 @@ body:has(.sticky) .sticky-lg-top {
   border-radius: 50%;
 }
 .main-color-rocb .btn-icon i {
-  color: var(--tj-color-common-white);
+  color: black;
 }
 .main-color-rocb.btn-dark {
   background-color: transparent;
