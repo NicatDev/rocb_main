@@ -130,16 +130,13 @@
                 </div>
                 <h1 class="title title-anim">{{ list_section.title }}</h1>
                 <div class="blog-text">
+                  {% if list_section.description %}
                   <p class="wow fadeInUp" data-wow-delay=".3s">
                     {{ list_section.description|linebreaks }}
                   </p>
-                  {% for section in list_items %} 
-                  {% for quote in section.block_quotes.all %}
-                  <blockquote class="wow fadeInUp" data-wow-delay=".3s">
-                    <p>{{ quote.content }}</p>
-                    <cite>{{ quote.fullname }}</cite>
-                  </blockquote>
-                  {% endfor %}
+                  {% endif %}
+                   {% if list_items %}
+                {% for section in list_items %} 
                   <h3 class="wow fadeInUp" data-wow-delay=".3s">
                     {{ section.title }}
                   </h3>
@@ -171,6 +168,7 @@
                     opportunities, overcome obstacles, and reach new levels of
                     success.
                   </p> -->
+                  {% if section.mini_titles.all %}
                   <ul class="wow fadeInUp" data-wow-delay=".3s">
                     {% for mini_title in section.mini_titles.all %}
                     <li>
@@ -179,46 +177,10 @@
                     </li>
                     {% endfor %}
                   </ul>
-
-                  {% endfor %}
-                </div>
-
-                <div class="tj-tags-post wow fadeInUp" data-wow-delay=".3s">
-                  {% if tags %}
-                  <div class="tagcloud">
-                    <span>Tags:</span>
-                    {% for tag in tags %}
-                    <a href="#">{{ tag.title }}</a>
-                    {% endfor %}
-                  </div>
                   {% endif %}
-                  <div class="post-share">
-                    <ul>
-                      <li>{% trans "Share" %}:</li>
-                      <li>
-                        <a href="https://www.facebook.com/" target="_blank"
-                          ><i class="fa-brands fa-facebook-f"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a href="https://x.com/" target="_blank"
-                          ><i class="fa-brands fa-x-twitter"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a href="https://www.instagram.com/" target="_blank"
-                          ><i class="fa-brands fa-instagram"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a href="https://www.linkedin.com/" target="_blank"
-                          ><i class="fa-brands fa-linkedin-in"></i
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
+                  {% endfor %}
+                  {% endif %}
                 </div>
-
                 <div
                   class="tj-post__navigation wow fadeInUp"
                   data-wow-delay=".3s"
