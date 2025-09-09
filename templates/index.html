@@ -385,7 +385,11 @@
                             >
                           </h4>
                           <p class="desc">
-                            {{ news.description }}
+                      {% if news.description|length > 240 %}
+                          {{ news.description|slice:":240" }}...
+                      {% else %}
+                          {{ news.description }}
+                      {% endif %}
                           </p>
                           <a class="text-btn" href="{% url 'news_detail' news.slug %}">
                             <span class="btn-text"
