@@ -14,7 +14,7 @@ from about.models import About
 from region.models import Region
 from django.contrib.auth.decorators import login_required
 from .models import News, Event, MeetingDocuments, MeetingRegistrations, Registration, Faq
-
+import datetime
 
 def set_language(request, language):
     for lang, _ in settings.LANGUAGES:
@@ -228,7 +228,11 @@ def search(request):
         event_list = [dict(item, type='Event') for item in event_results]
 
         combined = news_list + event_list
-        results = sorted(combined, key=lambda x: x['date'], reverse=True)
+        results = sorted(
+            combined, 
+            key=lambda x: x['date'] if x['date'] is not None else datetime.datetime.min, 
+            reverse=True
+        )
 
     # Pagination
     page_number = request.GET.get('page', 1)
