@@ -3,8 +3,17 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-from .models import Profile
-from django.views.decorators.csrf import csrf_exempt
+from .models import Profile 
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def profile_view(request):
+    user = request.user
+    try:
+        profile = user.profile
+    except Profile.DoesNotExist:
+        profile = None
+    return render(request, "profile.html", {"user": user, "profile": profile})
 
 def logout_view(request):
     if request.method == "POST":
