@@ -54,7 +54,7 @@
             <nav id="mobile-menu" class="mainmenu">
               <ul>
                 <li class="has-dropdown">
-                  <a href="{% url 'about:about_default' %}">About Us</a>
+                  <a href="{% url 'about:about_default' %}">{% trans 'About Us' %}</a>
                   <ul id="about-list4" class="sub-menu">
                     <li>
                       <a href=""></a>
@@ -62,7 +62,7 @@
                   </ul>
                 </li>
                 <li class="has-dropdown">
-                  <a href="{% url 'region:region_default' %}">Region</a>
+                  <a href="{% url 'region:region_default' %}">{% trans 'Region' %}</a>
                   <ul id="region-list4" class="sub-menu">
                     <li>
                       <a href=""></a>
@@ -70,10 +70,10 @@
                   </ul>
                 </li>
                 <li>
-                  <a href="{% url 'news' %}">News</a>
+                  <a href="{% url 'news' %}">{% trans 'News' %}</a>
                 </li>
                 <li class="has-dropdown">
-                  <a href="{% url 'events' %}">Events</a>
+                  <a href="{% url 'events' %}">{% trans 'Events' %}</a>
                   <ul class="sub-menu">
                     <li>
                       <a href="{% url 'events' %}">{% trans 'Events' %}</a>
@@ -90,26 +90,26 @@
                     </li>
                   </ul>
                 </li>
-                <li><a href="{% url 'analytics' %}">Analytics</a></li>
-                <li><a href="{% url 'e_training_docs' %}">E-Training</a></li>
+                <li><a href="{% url 'analytics' %}">{% trans 'Analytics' %}</a></li>
+                <li><a href="{% url 'e_training_docs' %}">{% trans 'E-Training' %}</a></li>
                 <li class="has-dropdown">
-                  <a href="#">Publicity</a>
+                  <a href="#">{% trans 'Publicity' %}</a>
                   <ul class="sub-menu">
-                    <li><a href="{% url 'newsletters' %}">Newsletters</a></li>
+                    <li><a href="{% url 'newsletters' %}">{% trans 'Newsletters' %}</a></li>
                     <li>
-                      <a href="{% url 'outreach' %}">Outreach Materials</a>
+                      <a href="{% url 'outreach' %}">{% trans 'Outreach Materials' %}</a>
                     </li>
-                    <li><a href="{% url 'gallery' %}">Visual Gallery</a></li>
-                    <li><a href="{% url 'cct_centers' %}">CCT Center</a></li>
-                    <li><a href="{% url 'survey' %}">Surveys</a></li>
+                    <li><a href="{% url 'gallery' %}">{% trans 'Visual Gallery' %}</a></li>
+                    <li><a href="{% url 'cct_centers' %}">{% trans 'CCT Center' %}</a></li>
+                    <li><a href="{% url 'survey' %}">{% trans 'Surveys' %}</a></li>
                     <li>
                       <a href="{% url 'utilize_our_premises' %}"
-                        >Utilize Our Premises</a
+                        >{% trans 'Utilize Our Premises' %}</a
                       >
                     </li>
                   </ul>
                 </li>
-                <li><a href="{% url 'contact:contact' %}">Contact </a></li>
+                <li><a href="{% url 'contact:contact' %}">{% trans 'Contact' %} </a></li>
                 <li class="has-dropdown">
                   <a href="#">{% trans "My Account" %}</a>
                   <ul class="sub-menu">
@@ -227,7 +227,7 @@
                 href="{% url 'logout_url_view' %}"
               >
                 <span class="btn-text"><span>{% trans 'Log out' %}</span></span>
-                <span class="btn-icon"><i class="fa-solid fa-user"></i></span>
+                <span class="btn-icon">{% if request.user.profile.profile_picture %}<img src="{{ request.user.profile.profile_picture.url }}" />{% else %}<i class="fa-solid fa-user"></i>{% endif %}</span>
               </a>
 
               {% endif %}
