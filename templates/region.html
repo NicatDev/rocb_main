@@ -130,7 +130,7 @@
                 <div class="blog-text">
                     {% if region.description %}
                   <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ region.description }}
+                    {{ region.description|safe|linebreaks }}
                   </p>
                     {% endif %}
 
@@ -155,7 +155,7 @@
                     {{ section.title }}
                   </h3>
                   <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ section.description }}
+                    {{ section.description|safe|linebreaks }}
                   </p>
                   <div class="images-wrap">
                     <div class="row">
