@@ -194,8 +194,8 @@
           
             {% else %}
             <div class="main-color-rocb main-color-rocb-only-icon" >
-                <a href="{% url 'logout_url_view' %}"><span class="btn-text"><span>{% trans 'Log out' %}</span></span></a>
-                 <a href="{% url 'logout_url_view' %}"><span class="btn-icon"><i class="fa-solid fa-user"></i></span></a>
+                <span class="btn-text"><span><a href="{% url 'logout_url_view' %}">{% trans 'Log out' %}</span></a></span>
+                 <span class="btn-icon"><a href="{% url 'logout_url_view' %}"><i class="fa-solid fa-user"></i></a></span>
             </div>
             {% endif %}
             </div>
