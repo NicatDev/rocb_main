@@ -258,32 +258,7 @@
               </div>
             </div>
             
-            <div class="col-lg-4">
-              <div class="tj-main-sidebar sticky-lg-top">
-                <div
-                  class="tj-sidebar-widget service-categories wow fadeInUp"
-                  data-wow-delay=".1s"
-                >
-                  <h4 class="widget-title">{% trans "Discover More" %}</h4>
-                  <ul>
-                    {% for tab in regiontabs %}
-                    <li>
-                      <a
-                        href="{% url 'region:region_tab' tab.slug %}"
-                        class="{% if tab == selected_tab %}active{% endif %}"
-                      >
-                        {{ tab.title }}
-                        <span class="icon"
-                          ><i class="tji-arrow-right"></i
-                        ></span>
-                      </a>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-               
-              </div>
-            </div>
+            {% include 'components/sidebar.html' %}
           </div>
         </div>
       </section>

@@ -36,6 +36,7 @@ def region_page(request, slug=None):
 
     return render(request, "region.html", {
         "regiontabs": regiontabs,
+        "tabs": regiontabs,
         "selected_tab": selected_tab,
         "region": selected_tab,
         "sections": sections,
