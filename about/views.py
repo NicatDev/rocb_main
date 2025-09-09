@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from .models import About, ContactPoint
-from region.models import Region
 from django.http import JsonResponse, FileResponse, Http404
 
 
@@ -19,14 +18,14 @@ def about_page(request, slug=None):
         selected_tab = tabs[0]
     current_index = tabs.index(selected_tab)
     prev_tab = tabs[current_index - 1] if current_index > 0 else None
-    next_tab = tabs[current_index +
-                    1] if current_index < len(tabs) - 1 else None
+    next_tab = tabs[current_index + 1] if current_index < len(tabs) - 1 else None
 
     sections = selected_tab.sections.prefetch_related(
-        'mini_titles', 'images'
-    ).all()
-    tags = selected_tab.tags.all()
+        'mini_titles',
+        'images'
+    ).order_by('order') 
 
+    tags = selected_tab.tags.all()
     contact_points = ContactPoint.objects.all()
 
     return render(request, "about.html", {
