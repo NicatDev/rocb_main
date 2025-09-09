@@ -72,17 +72,24 @@
     >
       <h4 class="widget-title">{% trans "Discover More" %}</h4>
       <ul>
-        {% for tab in tabs %}
-        <li>
-          <a
-            href="{% url 'about:about_tab' tab.slug %}"
-            class="{% if tab == selected_tab %}active{% endif %}"
-          >
+    {% for tab in tabs %}
+    {% if request.resolver_match.url_name == "about_tab" %}
+        <a href="{% url 'about:about_tab' tab.slug %}"
+           class="{% if tab == selected_tab %}active{% endif %}">
             {{ tab.title }}
-            <span class="icon"><i class="tji-arrow-right"></i></span>
-          </a>
-        </li>
-        {% endfor %}
+        </a>
+    {% elif request.resolver_match.url_name in "events_detail events" %}
+        <a href="{% url 'events_detail' tab.slug %}"
+           class="{% if tab == selected_tab %}active{% endif %}">
+            {{ tab.title }}
+        </a>
+    {% elif request.resolver_match.url_name in "news_detail news" %}
+        <a href="{% url 'news_detail' tab.slug %}"
+           class="{% if tab == selected_tab %}active{% endif %}">
+            {{ tab.title }}
+        </a>
+    {% endif %}
+{% endfor %}
       </ul>
     </div>
     {% endif %}
