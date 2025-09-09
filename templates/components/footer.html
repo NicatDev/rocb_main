@@ -83,9 +83,9 @@
           >
             <h5 class="title">{% trans 'My account' %}</h5>
             <ul id="account-list">
-              <li>Login</li>
-              <li>Logout</li>
-              <li>Profile</li>
+              <li><a href="{% url 'login' %}">{% trans 'Login' %}</a></li>
+              <li><a href="{% url 'logout_url_view' %}">{% trans 'Logout' %}</a></li>
+              <li><a href="{% url 'login' %}">{% trans 'Profile' %}</a></li>
             </ul>
           </div>
         </div>

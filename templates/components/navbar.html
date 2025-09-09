@@ -187,15 +187,14 @@
               </button>
             </div>
             <div class="header-button">
-              <a class="main-color-rocb" href="{% url 'login' %}">
+               <a class="main-color-rocb"  >
                 {% if not user.is_authenticated %}
-                <span class="btn-text"><span>Login</span></span>
+                <a href="{% url 'login' %}"><span class="btn-text"><span>{% trans 'Login' %}</span></span></a>
                 {% else %}
-                <span class="btn-text" id="auth-btn-logout"
-                  ><span>Log out</span></span
-                >
+                <a href="{% url 'logout_url_view' %}"><span class="btn-text"
+                  ><span>{% trans 'Log out' %}</span></span
+                ></a>
                 {% endif %}
-
                 <span class="btn-icon"><i class="fa-solid fa-user"></i></span>
               </a>
             </div>

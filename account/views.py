@@ -12,6 +12,10 @@ def logout_view(request):
         return JsonResponse({"success": True})
     return JsonResponse({"success": False}, status=400)
 
+def logout_url_view(request):
+    logout(request)
+    return redirect("home")
+
 def login_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
