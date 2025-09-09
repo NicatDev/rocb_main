@@ -33,19 +33,13 @@
     <div class="body-overlay"></div>
 
     <!-- Preloader Start -->
-    <div class="tj-preloader is-loading">
-      <div class="tj-preloader-inner">
-        <div class="tj-preloader-ball-wrap">
-          <div class="tj-preloader-ball-inner-wrap">
-            <div class="tj-preloader-ball-inner">
-              <div class="tj-preloader-ball"></div>
-            </div>
-            <div class="tj-preloader-ball-shadow"></div>
-          </div>
-          <div class="tj-preloader-text">{% trans 'Loading' %}...</div>
+    <div class="preloader">
+      <div class="loading-container">
+        <div class="loading"></div>
+        <div id="loading-icon">
+          <img src="{% static 'logo.png' %}" alt="" />
         </div>
       </div>
-      <div class="tj-preloader-overlay"></div>
     </div>
     <!-- Preloader end -->
 
