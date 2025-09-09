@@ -207,7 +207,9 @@
               <div class="about-author region-author">
                 <i class="fa-regular fa-pen"></i>
                 <h6>{{ region.author }}</h6>
+                {% if region.position %}
                 <p>{{ region.position }}</p>
+                {% endif %}
               </div>
 
               {% endif %}
