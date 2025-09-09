@@ -41,12 +41,16 @@ def login_view(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
         remember = request.POST.get("rememberme")
-
+        next_url = request.POST.get("next")
+        
         user = authenticate(request, username=username, password=password)
+        
         if user is not None:
             login(request, user)
             if not remember:
                 request.session.set_expiry(0)
+            if next_url:
+                return redirect(next_url)
             return redirect("home")
         else:
             messages.error(request, "Invalid username or password")
