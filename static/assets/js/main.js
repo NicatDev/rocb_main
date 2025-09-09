@@ -28,6 +28,9 @@ Progressbar js
 
 (function ($) {
 	"use strict";
+  $(window).on("load", function () {
+    $(".preloader").fadeOut(600);
+  });
 
 	// Preloader js
 	$(window).on("load", function () {
