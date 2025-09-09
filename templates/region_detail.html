@@ -131,7 +131,7 @@
                 <h1 class="title title-anim">{{ list_section.title }}</h1>
                 <div class="blog-text">
                   <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ list_section.description|safe|linebreaks }}
+                    {{ list_section.description|linebreaks }}
                   </p>
                   {% for section in sections %} {% for quote in section.block_quotes.all %}
                   <blockquote class="wow fadeInUp" data-wow-delay=".3s">
@@ -143,7 +143,7 @@
                     {{ section.title }}
                   </h3>
                   <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ section.description|safe|linebreaks }}
+                    {{ section.description|linebreaks }}
                   </p>
                   <div class="images-wrap">
                     <div class="row">
