@@ -38,4 +38,4 @@ class ListItemTranslationOptions(TranslationOptions):
 
 @register(Country)
 class CountryTranslationOptions(TranslationOptions):
-    fields = ('title', 'description')
+    fields = ('title', 'description', 'code')
