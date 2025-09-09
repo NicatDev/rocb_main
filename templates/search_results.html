@@ -101,9 +101,9 @@
             <div class="col-lg-8">
               <div class="blog-post-wrapper">
                 {% for item in page_obj %}
-                  <article class="blog-item wow fadeInUp" data-wow-delay=".1s">
+                  <article class="blog-item blog-item-wrap wow fadeInUp" data-wow-delay=".1s">
                     {% if item.image %}
-                      <div class="blog-thumb">
+                      <div class="blog-thumb blog-item-wrap-left">
                         <a href="{% if item.type == 'News' %}{% url 'news_detail' item.slug %}{% else %}{% url 'events_detail' item.slug %}{% endif %}"><img src="{{ item.image.url }}" alt="" /></a>
                         <div class="blog-date">
                           <span class="date">{{ item.date|date:'d' }}</span>
@@ -111,7 +111,7 @@
                         </div>
                       </div>
                     {% endif %}
-                    <div class="blog-content">
+                    <div class="blog-content blog-item-wrap-right">
                      
                       <h3 class="title"><a href="{% if item.type == 'News' %}{% url 'news_detail' item.slug %}{% else %}{% url 'events_detail' item.slug %}{% endif %}">{{ item.title }}</a></h3>
                         <div class="blog-meta">
