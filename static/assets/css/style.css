@@ -276,6 +276,7 @@
   background: var(--tj-color-common-white);
   border-radius: 10px;
   gap: 5px;
+  max-width: 100%;
 }
 
 .about-author h6 {
