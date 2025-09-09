@@ -91,3 +91,4 @@ class CountryAdmin(TabbedTranslationAdmin):
     list_display = ("title", "region")
     search_fields = ("title", "description")
     list_filter = ("region",)
+    list_editable = ("region",)
