@@ -130,19 +130,19 @@
           <div class="sidebar">
             {% if profile %}
             <div class="profile-pic-wrapper">
-              {% if profile.profile_picture %}
-              <img
-                src="{{ profile.profile_picture.url }}"
-                alt="Profile Picture"
-              />
-              {% else %}
-              <img
-                src="https://via.placeholder.com/140?text=No+Image"
-                alt="No Image"
-              />
-              {% endif %}
-              <div class="hover-edit" onclick="openModal()">&#9998;</div>
-            </div>
+    <form method="POST" enctype="multipart/form-data" id="profile-pic-form">
+        {% csrf_token %}
+        <label for="profile-picture-input" style="cursor: pointer; display: inline-block; position: relative;">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+            {% else %}
+                <img src="https://via.placeholder.com/140?text=No+Image" alt="No Image">
+            {% endif %}
+            <div class="hover-edit">&#9998;</div>
+        </label>
+        <input type="file" id="profile-picture-input" name="profile_picture" style="display: none;" onchange="document.getElementById('profile-pic-form').submit()">
+    </form>
+</div>
             <h2>{{ user.first_name }} {{ user.last_name }}</h2>
             {% else %}
             <p class="inactive">{% trans "Profile inactive" %}</p>

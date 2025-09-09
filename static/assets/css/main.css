@@ -23230,28 +23230,39 @@ START: Hero CSS
   object-fit: cover;
 }
 
+.profile-pic-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.profile-pic-wrapper img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .hover-edit {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 24px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  cursor: pointer;
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 24px;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .profile-pic-wrapper:hover .hover-edit {
-  opacity: 1;
+    opacity: 1;
 }
+
 
 .sidebar h2 {
   font-size: 22px;
