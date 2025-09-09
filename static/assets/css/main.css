@@ -23368,3 +23368,9 @@ START: Hero CSS
   }
 }
 
+.btn-image-img{
+  padding: 5px;
+}
+.btn-image{
+  border: 3px solid white;
+}

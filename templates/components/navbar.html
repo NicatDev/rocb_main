@@ -227,7 +227,7 @@
                 href="{% url 'logout_url_view' %}"
               >
                 <span class="btn-text"><span>{% trans 'Log out' %}</span></span>
-                <span class="btn-icon">{% if request.user.profile.profile_picture %}<img src="{{ request.user.profile.profile_picture.url }}" />{% else %}<i class="fa-solid fa-user"></i>{% endif %}</span>
+                <span class="btn-icon btn-image">{% if request.user.profile.profile_picture %}<img class="btn-image-img" src="{{ request.user.profile.profile_picture.url }}" />{% else %}<i class="fa-solid fa-user"></i>{% endif %}</span>
               </a>
 
               {% endif %}
