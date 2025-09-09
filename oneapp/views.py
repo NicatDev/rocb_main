@@ -222,8 +222,8 @@ def search(request):
     results = []
 
     if query:
-        news_results = News.objects.filter(title__icontains=query).values('title', 'description', 'image', 'date')
-        event_results = Event.objects.filter(title__icontains=query).values('title', 'description', 'image', 'date')
+        news_results = News.objects.filter(title__icontains=query).values('title', 'description', 'image', 'date', 'slug')
+        event_results = Event.objects.filter(title__icontains=query).values('title', 'description', 'image', 'date', 'slug')
 
         news_list = [dict(item, type='News') for item in news_results]
         event_list = [dict(item, type='Event') for item in event_results]
