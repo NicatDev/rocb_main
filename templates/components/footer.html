@@ -83,10 +83,13 @@
           >
             <h5 class="title">{% trans 'My account' %}</h5>
             <ul id="account-list">
-              <li><a href="{% url 'login' %}">{% trans 'Login' %}</a></li>
-              <li><a href="{% url 'logout_url_view' %}">{% trans 'Logout' %}</a></li>
-              <li><a href="{% url 'profile_view' %}">{% trans 'Profile' %}</a></li>
-              <li><a href="{% url 'register' %}">{% trans 'Register' %}</a></li>
+{% if user.is_authenticated %}
+    <li><a href="{% url 'profile_view' %}">{% trans 'Profile' %}</a></li>
+    <li><a href="{% url 'logout_url_view' %}">{% trans 'Logout' %}</a></li>
+{% else %}
+    <li><a href="{% url 'login' %}">{% trans 'Login' %}</a></li>
+    <li><a href="{% url 'register' %}">{% trans 'Register' %}</a></li>
+{% endif %}
             </ul>
           </div>
         </div>
