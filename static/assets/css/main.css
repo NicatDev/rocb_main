@@ -614,6 +614,7 @@ body:has(.sticky) .sticky-lg-top {
   
 .main-color-rocb-only-icon{
  padding: 5px 5px 5px 5px !important; 
+ background-color: #ecf0f0;
 }
 
 .main-color-rocb .btn-text {
@@ -656,13 +657,13 @@ body:has(.sticky) .sticky-lg-top {
   color: var(--tj-color-common-white);
 }
 .main-color-rocb.btn-dark {
-  background-color: var(--tj-color-theme-dark);
+  background-color: transparent;
 }
 .main-color-rocb.btn-dark .btn-icon {
-  background-color: var(--tj-color-common-white);
+  background-color: transparent;
 }
 .main-color-rocb.btn-dark .btn-icon i {
-  color: var(--tj-color-theme-dark);
+  color: black;
 }
 .main-color-rocb.transparent-btn {
   background-color: transparent;
