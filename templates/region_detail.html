@@ -140,9 +140,11 @@
                   <h3 class="wow fadeInUp" data-wow-delay=".3s">
                     {{ section.title|safe }}
                   </h3>
+                  {% if section.description %}
                   <p class="wow fadeInUp" data-wow-delay=".3s">
                     {{ section.description|linebreaks }}
                   </p>
+                  {% endif %}
                 {% if section.image %}
                   <div class="images-wrap">
                     <div class="row">
