@@ -5,15 +5,26 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from .models import Profile 
 from django.contrib.auth.decorators import login_required
+from .forms import ProfilePictureForm
 
 @login_required
 def profile_view(request):
     user = request.user
-    try:
-        profile = user.profile
-    except Profile.DoesNotExist:
-        profile = None
-    return render(request, "profile.html", {"user": user, "profile": profile})
+    profile, created = Profile.objects.get_or_create(user=user)
+
+    if request.method == "POST":
+        form = ProfilePictureForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect("profile")
+    else:
+        form = ProfilePictureForm(instance=profile)
+
+    return render(request, "profile.html", {
+        "user": user,
+        "profile": profile,
+        "form": form
+    })
 
 def logout_view(request):
     if request.method == "POST":

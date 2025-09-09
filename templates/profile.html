@@ -118,43 +118,67 @@
     <section class="full-width tj-page__area section-gap-3">
       <div class="container-profile">
         <!-- Sidebar -->
-        <div class="sidebar">
-            {% if profile %}
-            <div class="profile-pic-wrapper">
-                {% if profile.profile_picture %}
-                    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
-                {% else %}
-                    <img src="https://via.placeholder.com/120?text=No+Image" alt="No Image">
-                {% endif %}
-                <div class="hover-edit" onclick="alert('Open gallery to change picture')">
-                    &#9998;
-                </div>
-            </div>
-            <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+         <div class="sidebar">
+        {% if profile %}
+        <div class="profile-pic-wrapper">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
             {% else %}
+                <img src="https://via.placeholder.com/140?text=No+Image" alt="No Image">
+            {% endif %}
+            <div class="hover-edit" onclick="openModal()">&#9998;</div>
+        </div>
+        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+        {% else %}
             <p class="inactive">{% trans "Profile inactive" %}</p>
-            {% endif %}
-        </div>
+        {% endif %}
+    </div>
 
-        <!-- Profile Details -->
-        <div class="details">
-            {% if profile %}
-                <h3>{% trans "Profile Information" %}</h3>
-                <p><span class="label">{% trans "Username" %}:</span> {{ user.username }}</p>
-                <p><span class="label">{% trans "First Name" %}:</span> {{ user.first_name }}</p>
-                <p><span class="label">{% trans "Last Name" %}:</span> {{ user.last_name }}</p>
-                <p><span class="label">{% trans "Email" %}:</span> {{ user.email }}</p>
-                <p><span class="label">{% trans "Phone Number" %}:</span> {{ profile.phone_number|default:"-" }}</p>
-                <p><span class="label">{% trans "Organization" %}:</span> {{ profile.organization|default:"-" }}</p>
-                <p><span class="label">{% trans "Position" %}:</span> {{ profile.position|default:"-" }}</p>
-            {% else %}
-                <p class="inactive">{% trans "No profile information available." %}</p>
-            {% endif %}
-        </div>
+    <!-- Details -->
+    <div class="details">
+        {% if profile %}
+            <h2>{% trans "Profile Information" %}</h2>
+            <p><span class="label">{% trans "Username" %}:</span> {{ user.username }}</p>
+            <p><span class="label">{% trans "First Name" %}:</span> {{ user.first_name }}</p>
+            <p><span class="label">{% trans "Last Name" %}:</span> {{ user.last_name }}</p>
+            <p><span class="label">{% trans "Email" %}:</span> {{ user.email }}</p>
+            <p><span class="label">{% trans "Password" %}:</span> ********</p>
+            <p><span class="label">{% trans "Phone Number" %}:</span> {{ profile.phone_number|default:"-" }}</p>
+            <p><span class="label">{% trans "Organization" %}:</span> {{ profile.organization|default:"-" }}</p>
+            <p><span class="label">{% trans "Position" %}:</span> {{ profile.position|default:"-" }}</p>
+        {% else %}
+            <p class="inactive">{% trans "No profile information available." %}</p>
+        {% endif %}
+    </div>
     </div>
     </section>
-    </main>
 
+    <div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h3>{% trans "Change Profile Picture" %}</h3>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.profile_picture }}
+            <br><br>
+            <button type="submit" class="btn-primary">{% trans "Upload" %}</button>
+        </form>
+    </div>
+</div>
+    </main>
+<script>
+function openModal() {
+    document.getElementById('modal').style.display = 'block';
+}
+function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+}
+// Close modal on outside click
+window.onclick = function(event) {
+    let modal = document.getElementById('modal');
+    if(event.target == modal) modal.style.display = "none";
+}
+</script>
     <!-- start: Footer Section -->
     {% include 'components/footer.html' %}
     <!-- end: Footer Section -->
