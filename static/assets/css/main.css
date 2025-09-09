@@ -23348,8 +23348,8 @@ START: Hero CSS
   margin-top: 10px;
 }
 
-@media (max-width: 768px) {
-  .container {
+@media (max-width: 998px) {
+  .container-profile {
     flex-direction: column;
   }
   .details {
