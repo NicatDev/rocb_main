@@ -137,7 +137,7 @@ class ListItem(models.Model):
     list_section = models.ForeignKey(
         ListSection, on_delete=models.CASCADE, related_name='list_items')
     title = models.CharField(max_length=200, verbose_name="List Item Title")
-    description = models.TextField(verbose_name="List Item Description")
+    description = models.TextField(verbose_name="List Item Description",null=True,blank=True)
     order =models.PositiveIntegerField(default=0, verbose_name="Order")
     image = models.ImageField(upload_to='listsectionfile/', blank=True, null=True)
 
