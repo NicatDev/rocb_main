@@ -216,17 +216,14 @@ def about_region_list(request):
     }
     return JsonResponse(data, safe=False)
 
-
 def search(request):
     query = request.GET.get('q', '')
     results = []
 
     if query:
-        # Get model instances, not .values(), so ImageField works
         news_results = News.objects.filter(title__icontains=query)
         event_results = Event.objects.filter(title__icontains=query)
 
-        # Convert to dict with type
         news_list = [
             {
                 'title': n.title,
@@ -253,18 +250,19 @@ def search(request):
 
         combined = news_list + event_list
 
-        # Sort by date descending, handle None and naive/aware datetimes
+        # Normalize all dates for sorting
         def sort_key(x):
-            if x['date'] is None:
-                return datetime.datetime.min
             dt = x['date']
-            if dt.tzinfo is None:  # naive -> make aware in UTC
+            if dt is None:
+                return datetime.datetime.min.replace(tzinfo=datetime.timezone.utc)
+            if dt.tzinfo is None:
                 dt = dt.replace(tzinfo=datetime.timezone.utc)
+            else:
+                dt = dt.astimezone(datetime.timezone.utc)
             return dt
 
         results = sorted(combined, key=sort_key, reverse=True)
 
-    # Pagination
     page_number = request.GET.get('page', 1)
     paginator = Paginator(results, 5)
     page_obj = paginator.get_page(page_number)
