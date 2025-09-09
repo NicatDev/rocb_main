@@ -36,7 +36,7 @@ class TagAdmin(TabbedTranslationAdmin):
 from .models import ContactPoint
 
 @admin.register(ContactPoint)
-class ContactPointAdmin(admin.ModelAdmin):
+class ContactPointAdmin(TabbedTranslationAdmin):
     def has_add_permission(self, request):
         if ContactPoint.objects.exists():
             return False

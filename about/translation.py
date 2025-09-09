@@ -1,5 +1,5 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import About, AboutSection, MiniTitle, Image, Tag
+from .models import About, AboutSection, MiniTitle, Image, Tag, ContactPoint
 
 @register(About)
 class AboutTranslationOptions(TranslationOptions):
@@ -19,4 +19,8 @@ class ImageTranslationOptions(TranslationOptions):
 
 @register(Tag)
 class TagTranslationOptions(TranslationOptions):
+    fields = ('title',)
+
+@register(ContactPoint)
+class ContactPointTranslationOptions(TranslationOptions):
     fields = ('title',)

@@ -152,9 +152,12 @@
                 </div>
                     {% endif %}
                 <div class="blog-text">
+                    {% if region.description %}
                   <p class="wow fadeInUp" data-wow-delay=".3s">
                     {{ region.description }}
                   </p>
+                    {% endif %}
+
                    {% if countries %}
                     <div class="country-grid">
                     {% for country in countries %}
