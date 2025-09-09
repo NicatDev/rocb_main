@@ -43,7 +43,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # Application definition
-LOGIN_URL = '/login/'
+LOGIN_URL = '/login'
 
 INSTALLED_APPS = [
     'modeltranslation',
