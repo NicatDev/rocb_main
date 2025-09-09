@@ -32,3 +32,12 @@ class ImageAdmin(TabbedTranslationAdmin):
 @admin.register(Tag)
 class TagAdmin(TabbedTranslationAdmin):
     list_display = ("title", "about")
+
+from .models import ContactPoint
+
+@admin.register(ContactPoint)
+class ContactPointAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        if ContactPoint.objects.exists():
+            return False
+        return True

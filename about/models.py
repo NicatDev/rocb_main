@@ -83,3 +83,17 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.title
+
+from django.core.exceptions import ValidationError
+
+class ContactPoint(models.Model):
+    title = models.CharField(max_length=255, blank=True, null=True)
+    file = models.FileField(upload_to='contact_point/')
+
+    def save(self, *args, **kwargs):
+        if not self.pk and ContactPoint.objects.exists():
+            raise ValidationError("Sadece bir ContactPoint kaydı eklenebilir.")
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title or "Contact Point"

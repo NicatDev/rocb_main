@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from .models import About
+from .models import About, ContactPoint
 from region.models import Region
+from django.http import JsonResponse, FileResponse, Http404
 
 
 def about_page(request, slug=None):
@@ -25,6 +26,9 @@ def about_page(request, slug=None):
         'mini_titles', 'images'
     ).all()
     tags = selected_tab.tags.all()
+
+    contact_points = ContactPoint.objects.all()
+
     return render(request, "about.html", {
         "tabs": tabs,
         "selected_tab": selected_tab,
@@ -33,9 +37,15 @@ def about_page(request, slug=None):
         "tags": tags,
         "prev_tab": prev_tab,
         "next_tab": next_tab,
+        "contact_points": contact_points,
     })
 
-from django.http import JsonResponse
 def about_list(request):
     items = About.objects.all().values('id', 'title', 'slug')
     return JsonResponse(list(items), safe=False)
+
+def contact_point_view(request):
+    cp = get_object_or_404(ContactPoint)
+    if not cp.file:
+        raise Http404("File not found")
+    return FileResponse(cp.file.open('rb'), as_attachment=False, filename=cp.file.name)
