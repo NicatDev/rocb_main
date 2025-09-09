@@ -139,6 +139,7 @@ class ListItem(models.Model):
     title = models.CharField(max_length=200, verbose_name="List Item Title")
     description = models.TextField(verbose_name="List Item Description")
     order =models.PositiveIntegerField(default=0, verbose_name="Order")
+    image = models.ImageField(upload_to='listsectionfile/', blank=True, null=True)
 
     class Meta:
         verbose_name = "List Item"
