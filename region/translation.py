@@ -6,7 +6,7 @@ from .models import (
 
 @register(Region)
 class RegionTranslationOptions(TranslationOptions):
-    fields = ('title', 'description', 'created_by')
+    fields = ('title', 'description', 'author', 'position')
 
 @register(RegionSection)
 class RegionSectionTranslationOptions(TranslationOptions):

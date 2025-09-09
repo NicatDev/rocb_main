@@ -126,31 +126,7 @@
                   {% endif %}
                 </div>
                 <h1 class="title title-anim">{{ region.title }}</h1>
-                    {% if region.created_by %}
-
-                <div
-                  class="blog-category-two wow fadeInUp"
-                  data-wow-delay=".3s"
-                >
-                  <div class="category-item">
-                    <div class="cate-images">
-                      {% if region.autorized_image %}
-                      <img
-                        src="{{ region.autorized_image.url }}"
-                        alt="{{ region.title }}"
-                      />
-                      {% else %}
-                      {% endif %}
-                    </div>
-                    <div class="cate-text">
-                      <span class="degination">{% trans "Authored by" %}</span>
-                      <h6 class="title">
-                        <a href="blog-details.html">{{ region.created_by }}</a>
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                    {% endif %}
+                 
                 <div class="blog-text">
                     {% if region.description %}
                   <p class="wow fadeInUp" data-wow-delay=".3s">

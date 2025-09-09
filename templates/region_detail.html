@@ -129,32 +129,6 @@
                   {% endif %}
                 </div>
                 <h1 class="title title-anim">{{ list_section.title }}</h1>
-                {% if list_section.created_by %}
-
-                <div
-                  class="blog-category-two wow fadeInUp"
-                  data-wow-delay=".3s"
-                >
-                  <div class="category-item">
-                    <div class="cate-images">
-                      {% if list_section.autorized_image %}
-                      <img
-                        src="{{ list_section.autorized_image.url }}"
-                        alt="{{ list_section.title }}"
-                      />
-                      {% else %} {% endif %}
-                    </div>
-                    <div class="cate-text">
-                      <span class="degination">{% trans "Authored by" %}</span>
-                      <h6 class="title">
-                        <a href="blog-details.html"
-                          >{{ list_section.created_by }}</a
-                        >
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                {% endif %}
                 <div class="blog-text">
                   <p class="wow fadeInUp" data-wow-delay=".3s">
                     {{ list_section.description }}

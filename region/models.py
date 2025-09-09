@@ -11,11 +11,9 @@ class Region(models.Model):
         upload_to='region_images/', verbose_name="Image", blank=True, null=True)
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name="Created At")
-    created_by = models.CharField(
-        max_length=100, verbose_name="Created By", blank=True, null=True)
 
-    autorized_image = models.ImageField(
-        upload_to='region_images/', verbose_name="Authorized Image", blank=True, null=True)
+    author = models.CharField(max_length=255, blank=True, null=True)
+    position = models.TextField(blank=True, null=True)
 
     class Meta:
         verbose_name = "Region"

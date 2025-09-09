@@ -42,7 +42,7 @@ class TagInline(TranslationTabularInline):
 
 @admin.register(Region)
 class RegionAdmin(TabbedTranslationAdmin):
-    list_display = ("title", "created_at", "created_by")
+    list_display = ("title", "created_at")
     search_fields = ("title", "description")
     list_filter = ("created_at",)
     inlines = [TagInline, RegionSectionInline, ListSectionInline]
