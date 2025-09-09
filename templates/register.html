@@ -96,7 +96,7 @@
                 <div class="tj-page-link">
                   <span><i class="tji-home"></i></span>
                   <span>
-                    <a href="index.html">{% trans "Account" %}</a>
+                    <a href="{% url 'home' %}" >{% trans "Home" %}</a>
                   </span>
                   <span><i class="tji-arrow-right"></i></span>
                   <span>
@@ -115,92 +115,82 @@
       <!-- end: Breadcrumb Section -->
 
       <!-- start: Blog Section -->
-      <section class="full-width tj-page__area section-gap-3">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <div class="tj-page__container">
-                <div class="tj-entry__content">
-                  <div class="woocommerce">
-                    <div class="woo-login-form">
-                      <h3>Register</h3>
+    <section class="full-width tj-page__area section-gap-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="tj-page__container">
+          <div class="tj-entry__content">
+            <div class="woocommerce">
+              <div class="woo-login-form">
+                <h3>{% trans "Register" %}</h3>
 
-                      {% if messages %}
-                      <ul class="error-messages">
-                        {% for message in messages %}
-                        <li>{{ message }}</li>
-                        {% endfor %}
-                      </ul>
-                      {% endif %}
+                {% if messages %}
+                <ul class="error-messages">
+                  {% for message in messages %}
+                  <li>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
 
-                      <form id="registerForm" method="POST">
-                        {% csrf_token %}
+                <form id="registerForm" method="POST">
+                  {% csrf_token %}
 
-                        <p>
-                          <label>Username</label>
-                          <input type="text" name="username" required />
-                        </p>
+                  <p>
+                    <label>{% trans "Username" %}</label>
+                    <input type="text" name="username" required />
+                  </p>
 
-                        <div style="display: flex; gap: 10px">
-                          <p style="flex: 1">
-                            <label>First Name</label>
-                            <input type="text" name="first_name" required />
-                          </p>
-                          <p style="flex: 1">
-                            <label>Last Name</label>
-                            <input type="text" name="last_name" required />
-                          </p>
-                        </div>
-
-                        <p>
-                          <label>Email</label>
-                          <input type="email" name="email" required />
-                        </p>
-
-                        <div style="display: flex; gap: 10px">
-                          <p style="flex: 1">
-                            <label>Password</label>
-                            <input type="password" name="password1" required />
-                          </p>
-                          <p style="flex: 1">
-                            <label>Confirm Password</label>
-                            <input type="password" name="password2" required />
-                          </p>
-                        </div>
-
-                        <div style="display: flex; gap: 10px">
-                          <p style="flex: 1">
-                            <label>Phone Number</label>
-                            <input type="text" name="phone_number" />
-                          </p>
-                          <p style="flex: 1">
-                            <label>Organization</label>
-                            <input type="text" name="organization" />
-                          </p>
-                        </div>
-
-                        <p>
-                          <label>Position</label>
-                          <input type="text" name="position" />
-                        </p>
-
-                        
-                        <button
-                          type="submit"
-                          class="woocommerce-button button woocommerce-form-login__submit"
-                          name="login"
-                        >
-                          <span class="btn-text"><span>Register</span></span>
-                        </button>
-                      </form>
-                    </div>
+                  <div style="display: flex; gap: 10px">
+                    <p style="flex: 1">
+                      <label>{% trans "First Name" %}</label>
+                      <input type="text" name="first_name" required />
+                    </p>
+                    <p style="flex: 1">
+                      <label>{% trans "Last Name" %}</label>
+                      <input type="text" name="last_name" required />
+                    </p>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
+                  <p>
+                    <label>{% trans "Email" %}</label>
+                    <input type="email" name="email" required />
+                  </p>
+
+                  <div style="display: flex; gap: 10px">
+                    <p style="flex: 1">
+                      <label>{% trans "Password" %}</label>
+                      <input type="password" name="password1" required />
+                    </p>
+                    <p style="flex: 1">
+                      <label>{% trans "Confirm Password" %}</label>
+                      <input type="password" name="password2" required />
+                    </p>
+                  </div>
+
+                  <div style="display: flex; gap: 10px">
+                    <p style="flex: 1">
+                      <label>{% trans "Phone Number" %}</label>
+                      <input type="text" name="phone_number" />
+                    </p>
+                    <p style="flex: 1">
+                      <label>{% trans "Organization" %}</label>
+                      <input type="text" name="organization" />
+                    </p>
+                  </div>
+
+                  <p>
+                    <label>{% trans "Position" %}</label>
+                    <input type="text" name="position" />
+                  </p>
+
+                  <button
+                    type="submit"
+                    class="woocommerce-button button woocommerce-form-login__submit"
+                    name="login"
+                  >
+                    <span class="btn-text"><span>{% trans "Register" %}</span></sp
+
 
       <!-- end: Blog Section -->
 
