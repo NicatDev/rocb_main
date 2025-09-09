@@ -650,7 +650,7 @@ body:has(.sticky) .sticky-lg-top {
   width: 42px;
   height: 42px;
   overflow: hidden;
-  background-color: var(--tj-color-theme-dark);
+  background-color: transparent;
   border-radius: 50%;
 }
 .main-color-rocb .btn-icon i {
