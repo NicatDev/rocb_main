@@ -113,19 +113,19 @@
         ></div>
       </section>
       <!-- end: Breadcrumb Section -->
-          
+
       <!-- start: Blog Section -->
       <section class="full-width tj-page__area section-gap-3">
-             <div class="container">
-              <div class="post-details-wrapper">        
-                <h1 class="title title-anim">{% trans 'Register' %}</h1>
-                <div
-                  class="blog-category-two wow fadeInUp"
-                  data-wow-delay=".3s"
-                ></div>
-              </div>
-             </div>
-        <div class=" container container-profile">
+        <div class="container">
+          <div class="post-details-wrapper">
+            <h1 class="title title-anim">{% trans 'Register' %}</h1>
+            <div
+              class="blog-category-two wow fadeInUp"
+              data-wow-delay=".3s"
+            ></div>
+          </div>
+        </div>
+        <div class="container container-profile">
           <!-- Sidebar -->
           <div class="sidebar">
             {% if profile %}
@@ -156,34 +156,42 @@
               <h4>{% trans "Username" %}</h4>
               <p>{{ user.username }}</p>
             </div>
+
             <div class="field-box">
               <h4>{% trans "First Name" %}</h4>
               <p>{{ user.first_name }}</p>
             </div>
+
             <div class="field-box">
               <h4>{% trans "Last Name" %}</h4>
               <p>{{ user.last_name }}</p>
             </div>
+
             <div class="field-box">
               <h4>{% trans "Email" %}</h4>
               <p>{{ user.email }}</p>
             </div>
+
             <div class="field-box">
               <h4>{% trans "Password" %}</h4>
               <p>********</p>
             </div>
+
             <div class="field-box">
               <h4>{% trans "Phone Number" %}</h4>
               <p>{{ profile.phone_number|default:"-" }}</p>
             </div>
+
             <div class="field-box">
               <h4>{% trans "Organization" %}</h4>
               <p>{{ profile.organization|default:"-" }}</p>
             </div>
+
             <div class="field-box">
               <h4>{% trans "Position" %}</h4>
               <p>{{ profile.position|default:"-" }}</p>
             </div>
+
             {% else %}
             <p class="inactive">
               {% trans "No profile information available." %}
@@ -194,16 +202,17 @@
       </section>
 
       <div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h3>{% trans "Change Profile Picture" %}</h3>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.profile_picture }}
-            <button type="submit" class="btn-primary">{% trans "Upload" %}</button>
-        </form>
-    </div>
-</div>
+        <div class="modal-content">
+          <span class="close-modal" onclick="closeModal()">&times;</span>
+          <h3>{% trans "Change Profile Picture" %}</h3>
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %} {{ form.profile_picture }}
+            <button type="submit" class="btn-primary">
+              {% trans "Upload" %}
+            </button>
+          </form>
+        </div>
+      </div>
     </main>
     <script>
       function openModal() {
