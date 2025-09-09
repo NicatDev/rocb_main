@@ -190,17 +190,19 @@
               </button>
             </div>
             <div class="header-button">
-             {% if not user.is_authenticated %}
-              <a class="main-color-rocb" href="{% url 'login' %}">
-                  <span class="btn-text"><span>{% trans 'Login' %}</span></span>
-                  <span class="btn-icon"><i class="fa-solid fa-user"></i></span>
-              </a>
-              {% else %}
-              <a class="main-color-rocb" href="{% url 'logout_url_view' %}">
-                  <span class="btn-text"><span>{% trans 'Log out' %}</span></span>
-                  <span class="btn-icon"><i class="fa-solid fa-user"></i></span>
-              </a>
-              {% endif %}
+              {% if not user.is_authenticated %}
+            <a class="main-color-rocb" href="{% url 'login' %}">
+                <span class="btn-text"><span>{% trans 'Login' %}</span></span>
+            </a>
+          
+            {% else %}
+            <a class="main-color-rocb" href="{% url 'logout_url_view' %}">
+                <span class="btn-text"><span>{% trans 'Log out' %}</span></span>
+            </a>
+            <a class="main-color-rocb main-color-rocb-only-icon" href="{% url 'logout_url_view' %}">
+                <span class="btn-icon"><i class="fa-solid fa-user"></i></span>
+            </a>
+            {% endif %}
             </div>
             {% comment %} <div class="menu_bar menu_offcanvas d-none d-lg-inline-flex">
               <span></span>
