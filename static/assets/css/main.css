@@ -599,7 +599,7 @@ body:has(.sticky) .sticky-lg-top {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  gap: 10px;
+  gap: 14px;
   position: relative;
   background-color: var(--tj-color-theme-primary);
   font-size: 16px;
@@ -613,7 +613,7 @@ body:has(.sticky) .sticky-lg-top {
 }
   
 .main-color-rocb-only-icon{
- padding: 5px 5px 5px 5px !important; 
+ padding: 5px 5px 5px 25px !important; 
 }
 
 .main-color-rocb .btn-text {
