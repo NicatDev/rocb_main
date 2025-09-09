@@ -12,7 +12,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from about.models import About
 from region.models import Region
-
+from django.contrib.auth.decorators import login_required
 from .models import News, Event, MeetingDocuments, MeetingRegistrations, Registration, Faq
 
 
@@ -147,7 +147,7 @@ def events_detail(request, slug):
     }
     return render(request, 'eventsDetail.html', context)
 
-
+@login_required
 def meeting_documents(request):
     items = MeetingDocuments.objects.all()
     page_number = request.GET.get("page", 1)

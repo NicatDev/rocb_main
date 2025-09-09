@@ -9,7 +9,7 @@ from django.shortcuts import render
 from .models.model_newsletter import Newsletter
 from .models.model_gallery import Gallery
 from .models.model_outreach_materials import Outreach, OutreachEmbed
-
+from django.contrib.auth.decorators import login_required
 
 def newsletter_page(request, slug=None):
     newsletters = Newsletter.objects.all()
@@ -60,7 +60,7 @@ def cct_center_page(request):
 def utilize_our_premises_page(request):
     return render(request, "utilize_our_premises.html", {})
 
-
+@login_required
 def survey_page(request):
     surveys = Survey.objects.all()
     context = {
@@ -68,7 +68,7 @@ def survey_page(request):
     }
     return render(request, "surveys.html", context)
 
-
+@login_required
 def survey_pdf_view(request, survey_id):
     survey = get_object_or_404(Survey, id=survey_id)
 

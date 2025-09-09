@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from .models import ETrainingDocs, ETrainingVideo, ECategory
+from .models import  ECategory
 from django.utils.translation import get_language
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def etraining(request, is_video):
     lang = get_language()
     categories = ECategory.objects.filter(lang_code=lang)
