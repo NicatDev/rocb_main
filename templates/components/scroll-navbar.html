@@ -110,6 +110,18 @@
                   </ul>
                 </li>
                 <li><a href="{% url 'contact:contact' %}">Contact</a></li>
+                <li class="has-dropdown">
+    <a href="#">{% trans "My Account" %}</a>
+    <ul class="sub-menu">
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'profile_view' %}">{% trans "Profile" %}</a></li>
+            <li><a href="{% url 'logout_url_view' %}">{% trans "Logout" %}</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}">{% trans "Login" %}</a></li>
+            <li><a href="{% url 'register' %}">{% trans "Register" %}</a></li>
+        {% endif %}
+    </ul>
+</li>
               </ul>
             </nav>
           </div>

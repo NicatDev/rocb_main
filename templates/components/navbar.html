@@ -4,7 +4,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     const aboutList4 = document.getElementById("about-list4");
     const regionList4 = document.getElementById("region-list4");
-   
+
     fetch("{% url 'about_region_list' %}") // JSON view-in URL-i
       .then((response) => response.json())
       .then((data) => {
@@ -42,7 +42,10 @@
           <!-- site logo -->
           <div class="site_logo">
             <a class="logo" href="{% url 'home' %}"
-              ><img class="logo-height-80" src="{% static 'logo.png' %}" alt="ROCB Europe"
+              ><img
+                class="logo-height-80"
+                src="{% static 'logo.png' %}"
+                alt="ROCB Europe"
             /></a>
           </div>
 
@@ -107,6 +110,28 @@
                   </ul>
                 </li>
                 <li><a href="{% url 'contact:contact' %}">Contact </a></li>
+                <li class="has-dropdown">
+                  <a >{% trans "My Account" %}</a>
+                  <ul class="sub-menu">
+                    {% if user.is_authenticated %}
+                    <li>
+                      <a href="{% url 'profile_view' %}"
+                        >{% trans "Profile" %}</a
+                      >
+                    </li>
+                    <li>
+                      <a href="{% url 'logout_url_view' %}"
+                        >{% trans "Logout" %}</a
+                      >
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">{% trans "Login" %}</a></li>
+                    <li>
+                      <a href="{% url 'register' %}">{% trans "Register" %}</a>
+                    </li>
+                    {% endif %}
+                  </ul>
+                </li>
               </ul>
             </nav>
           </div>
@@ -187,25 +212,33 @@
               </button>
             </div>
             <div class="header-button">
-            {% if not user.is_authenticated %}
-            <a class="main-color-rocb main-color-rocb-only-icon" href="{% url 'login' %}">
+              {% if not user.is_authenticated %}
+              <a
+                class="main-color-rocb main-color-rocb-only-icon"
+                href="{% url 'login' %}"
+              >
                 <span class="btn-text"><span>{% trans 'Login' %}</span></span>
                 <span class="btn-icon"><i class="fa-solid fa-user"></i></span>
-            </a>
-          
-            {% else %}
-            <a class="main-color-rocb main-color-rocb-only-icon" href="{% url 'logout_url_view' %}">
-                <span class="btn-text"><span>{% trans 'Log out' %}</span></span>
-                 <span class="btn-icon"><i class="fa-solid fa-user"></i></span>
-            </a>
+              </a>
 
-            {% endif %}
+              {% else %}
+              <a
+                class="main-color-rocb main-color-rocb-only-icon"
+                href="{% url 'logout_url_view' %}"
+              >
+                <span class="btn-text"><span>{% trans 'Log out' %}</span></span>
+                <span class="btn-icon"><i class="fa-solid fa-user"></i></span>
+              </a>
+
+              {% endif %}
             </div>
-            {% comment %} <div class="menu_bar menu_offcanvas d-none d-lg-inline-flex">
+            {% comment %}
+            <div class="menu_bar menu_offcanvas d-none d-lg-inline-flex">
               <span></span>
               <span></span>
               <span></span>
-            </div> {% endcomment %}
+            </div>
+            {% endcomment %}
           </div>
 
           <!-- menu bar -->
