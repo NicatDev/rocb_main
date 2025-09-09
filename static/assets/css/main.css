@@ -614,7 +614,6 @@ body:has(.sticky) .sticky-lg-top {
   
 .main-color-rocb-only-icon{
  padding: 5px 5px 5px 5px !important; 
- background-color: #ecf0f0;
 }
 
 .main-color-rocb .btn-text {
@@ -650,21 +649,20 @@ body:has(.sticky) .sticky-lg-top {
   width: 42px;
   height: 42px;
   overflow: hidden;
-  background-color: transparent;
-  color:#000000;
+  background-color: var(--tj-color-theme-dark);
   border-radius: 50%;
 }
 .main-color-rocb .btn-icon i {
-  color: black;
+  color: var(--tj-color-common-white);
 }
 .main-color-rocb.btn-dark {
-  background-color: transparent;
+  background-color: var(--tj-color-theme-dark);
 }
 .main-color-rocb.btn-dark .btn-icon {
-  background-color: transparent;
+  background-color: var(--tj-color-common-white);
 }
 .main-color-rocb.btn-dark .btn-icon i {
-  color: black;
+  color: var(--tj-color-theme-dark);
 }
 .main-color-rocb.transparent-btn {
   background-color: transparent;
