@@ -15,6 +15,7 @@ from region.models import Region
 from django.contrib.auth.decorators import login_required
 from .models import News, Event, MeetingDocuments, MeetingRegistrations, Registration, Faq
 import datetime
+import pytz 
 
 def set_language(request, language):
     for lang, _ in settings.LANGUAGES:
@@ -229,8 +230,9 @@ def search(request):
 
         combined = news_list + event_list
         results = sorted(
-            combined, 
-            key=lambda x: x['date'] if x['date'] is not None else datetime.datetime.min, 
+            combined,
+            key=lambda x: (x['date'].astimezone(datetime.timezone.utc).replace(tzinfo=None)
+                        if x['date'] is not None else datetime.datetime.min),
             reverse=True
         )
 
