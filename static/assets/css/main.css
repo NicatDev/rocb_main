@@ -23403,3 +23403,6 @@ START: Hero CSS
         display: none;
     }
 }
+.dropdown {
+  min-width: 140px !important;
+}
