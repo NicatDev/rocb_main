@@ -23240,7 +23240,7 @@ START: Hero CSS
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .hover-edit {
@@ -23368,6 +23368,3 @@ START: Hero CSS
   }
 }
 
-.image-profile{
-  object-fit: contain;
-}
