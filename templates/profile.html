@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="{% trans 'Profile.' %}" />
 
-<!-- Site Title -->
+    <!-- Site Title -->
     <title>{% trans 'ROCB Europe - Profile' %}</title>
 
     <!-- Place favicon.ico in the root directory -->
@@ -96,7 +96,7 @@
                 <div class="tj-page-link">
                   <span><i class="tji-home"></i></span>
                   <span>
-                    <a href="{% url 'home' %}" >{% trans "Home" %}</a>
+                    <a href="{% url 'home' %}">{% trans "Home" %}</a>
                   </span>
                   <span><i class="tji-arrow-right"></i></span>
                   <span>
@@ -115,124 +115,112 @@
       <!-- end: Breadcrumb Section -->
 
       <!-- start: Blog Section -->
-    <section class="full-width tj-page__area section-gap-3">
-      <div class="container-profile">
-        <!-- Sidebar -->
-         <div class="sidebar">
-        {% if profile %}
-        <div class="profile-pic-wrapper">
-            {% if profile.profile_picture %}
-                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+      <section class="full-width tj-page__area section-gap-3">
+        <div class="container-profile">
+          <!-- Sidebar -->
+          <div class="sidebar">
+            {% if profile %}
+            <div class="profile-pic-wrapper">
+              {% if profile.profile_picture %}
+              <img
+                src="{{ profile.profile_picture.url }}"
+                alt="Profile Picture"
+              />
+              {% else %}
+              <img
+                src="https://via.placeholder.com/140?text=No+Image"
+                alt="No Image"
+              />
+              {% endif %}
+              <div class="hover-edit" onclick="openModal()">&#9998;</div>
+            </div>
+            <h2>{{ user.first_name }} {{ user.last_name }}</h2>
             {% else %}
-                <img src="https://via.placeholder.com/140?text=No+Image" alt="No Image">
-            {% endif %}
-            <div class="hover-edit" onclick="openModal()">&#9998;</div>
-        </div>
-        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
-        {% else %}
             <p class="inactive">{% trans "Profile inactive" %}</p>
-        {% endif %}
-    </div>
+            {% endif %}
+          </div>
 
-    <!-- Details -->
-    <div class="details">
-        {% if profile %}
-            <h2>{% trans "Profile Information" %}</h2>
-            <p><span class="label">{% trans "Username" %}:</span> {{ user.username }}</p>
-            <p><span class="label">{% trans "First Name" %}:</span> {{ user.first_name }}</p>
-            <p><span class="label">{% trans "Last Name" %}:</span> {{ user.last_name }}</p>
-            <p><span class="label">{% trans "Email" %}:</span> {{ user.email }}</p>
-            <p><span class="label">{% trans "Password" %}:</span> ********</p>
-            <p><span class="label">{% trans "Phone Number" %}:</span> {{ profile.phone_number|default:"-" }}</p>
-            <p><span class="label">{% trans "Organization" %}:</span> {{ profile.organization|default:"-" }}</p>
-            <p><span class="label">{% trans "Position" %}:</span> {{ profile.position|default:"-" }}</p>
-        {% else %}
-            <p class="inactive">{% trans "No profile information available." %}</p>
-        {% endif %}
-    </div>
-    </div>
-    </section>
+          <!-- Profile Details -->
+          <div class="details">
+            {% if profile %}
+            <div class="field-box">
+              <h4>{% trans "Username" %}</h4>
+              <p>{{ user.username }}</p>
+            </div>
+            <div class="field-box">
+              <h4>{% trans "First Name" %}</h4>
+              <p>{{ user.first_name }}</p>
+            </div>
+            <div class="field-box">
+              <h4>{% trans "Last Name" %}</h4>
+              <p>{{ user.last_name }}</p>
+            </div>
+            <div class="field-box">
+              <h4>{% trans "Email" %}</h4>
+              <p>{{ user.email }}</p>
+            </div>
+            <div class="field-box">
+              <h4>{% trans "Password" %}</h4>
+              <p>********</p>
+            </div>
+            <div class="field-box">
+              <h4>{% trans "Phone Number" %}</h4>
+              <p>{{ profile.phone_number|default:"-" }}</p>
+            </div>
+            <div class="field-box">
+              <h4>{% trans "Organization" %}</h4>
+              <p>{{ profile.organization|default:"-" }}</p>
+            </div>
+            <div class="field-box">
+              <h4>{% trans "Position" %}</h4>
+              <p>{{ profile.position|default:"-" }}</p>
+            </div>
+            {% else %}
+            <p class="inactive">
+              {% trans "No profile information available." %}
+            </p>
+            {% endif %}
+          </div>
+        </div>
+      </section>
 
-    <div id="modal" class="modal">
+      <div id="modal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeModal()">&times;</span>
         <h3>{% trans "Change Profile Picture" %}</h3>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.profile_picture }}
-            <br><br>
             <button type="submit" class="btn-primary">{% trans "Upload" %}</button>
         </form>
     </div>
 </div>
     </main>
-<script>
-function openModal() {
-    document.getElementById('modal').style.display = 'block';
-}
-function closeModal() {
-    document.getElementById('modal').style.display = 'none';
-}
-// Close modal on outside click
-window.onclick = function(event) {
-    let modal = document.getElementById('modal');
-    if(event.target == modal) modal.style.display = "none";
-}
-</script>
+    <script>
+      function openModal() {
+        document.getElementById("modal").style.display = "block";
+      }
+      function closeModal() {
+        document.getElementById("modal").style.display = "none";
+      }
+      // Close modal on outside click
+      window.onclick = function (event) {
+        let modal = document.getElementById("modal");
+        if (event.target == modal) modal.style.display = "none";
+      };
+    </script>
     <!-- start: Footer Section -->
     {% include 'components/footer.html' %}
     <!-- end: Footer Section -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-      document
-        .getElementById("registerForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault(); // Prevent normal form submit
-
-          let formData = new FormData(this);
-
-          fetch("{% url 'register' %}", {
-            method: "POST",
-            headers: {
-              "X-Requested-With": "XMLHttpRequest",
-            },
-            body: formData,
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              console.log(data,'-----')
-              if (data.status === "success") {
-                Swal.fire({
-                  icon: "success",
-                  title: "Success",
-                  text: data.message,
-                }).then(() => {
-                  window.location.href = "{% url 'login' %}"; // redirect after success
-                });
-              } else {
-                Swal.fire({
-                  icon: "error",
-                  title: "Register failed",
-                  text: data.message,
-                });
-              }
-            })
-            .catch((err) => {
-              console.log(err,'------------------------------')
-              Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "Something went wrong!",
-              });
-            });
-        });
-    </script>
 
     <!-- JS here -->
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
-    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}">
+      </>
 
-    <script src="{% static 'assets/js/gsap.min.js' %}"></script>
+          <script src="{% static 'assets/js/gsap.min.js' %}">
+    </script>
     <script src="{% static 'assets/js/gsap-scroll-to-plugin.min.js' %}"></script>
     <script src="{% static 'assets/js/gsap-scroll-trigger.min.js' %}"></script>
     <script src="{% static 'assets/js/gsap-split-text.min.js' %}"></script>
