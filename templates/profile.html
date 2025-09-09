@@ -134,9 +134,9 @@
         {% csrf_token %}
         <label for="profile-picture-input" style="cursor: pointer; display: inline-block; position: relative;">
             {% if profile.profile_picture %}
-                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+                <img class="image-profile" src="{{ profile.profile_picture.url }}" alt="Profile Picture">
             {% else %}
-                <img src="https://via.placeholder.com/140?text=No+Image" alt="No Image">
+                <img class="image-profile" src="https://via.placeholder.com/140?text=No+Image" alt="No Image">
             {% endif %}
             <div class="hover-edit">&#9998;</div>
         </label>
