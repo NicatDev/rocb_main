@@ -23192,9 +23192,8 @@ display: grid;
   height: 76px;
 }
 .container-profile {
-            width: 90%;
+
             max-width: 1200px;
-            margin: 10px auto;
             display: flex;
             gap: 20px;
         }
