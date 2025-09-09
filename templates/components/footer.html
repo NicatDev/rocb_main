@@ -86,6 +86,7 @@
               <li><a href="{% url 'login' %}">{% trans 'Login' %}</a></li>
               <li><a href="{% url 'logout_url_view' %}">{% trans 'Logout' %}</a></li>
               <li><a href="{% url 'login' %}">{% trans 'Profile' %}</a></li>
+              <li><a href="{% url 'register' %}">{% trans 'Register' %}</a></li>
             </ul>
           </div>
         </div>
@@ -140,11 +141,11 @@
             <div class="copyright-text">
               <p>
                 &copy; 2025 <a
-                  href="https://themeforest.net/user/theme-junction/portfolio"
+
                   target="_blank"
-                  >Rocb</a
+                  >{% tranns 'Rocb Europe' %}</a
                 >
-                All right reserved
+                {% trans 'All right reserved' %}
               </p>
             </div>
           </div>
