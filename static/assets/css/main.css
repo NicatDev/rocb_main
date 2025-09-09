@@ -23397,3 +23397,9 @@ START: Hero CSS
         flex: 1 1 100%; /* full width */
     }
 }
+
+@media (max-width: 1279px) {
+    .main-color-rocb {
+        display: none;
+    }
+}
