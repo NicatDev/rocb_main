@@ -100,6 +100,7 @@
           <div class="row row-gap-5">
             <div class="col-lg-8">
               <div class="blog-post-wrapper">
+                {% if page_obj %}
                 {% for item in page_obj %}
                   <article class="blog-item blog-item-wrap wow fadeInUp" data-wow-delay=".1s">
                     {% if item.image %}
@@ -132,6 +133,10 @@
                     </div>
                   </article>
                 {% endfor %}
+                {% else %}
+                  <p>{% trans "No search results found" %}</p>
+              {% endif %}
+                {% endif %}
                   {% if paginator.num_pages > 1 %}
                 <div class="tj-pagination d-flex">
                   <ul>
