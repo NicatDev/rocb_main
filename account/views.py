@@ -16,7 +16,7 @@ def profile_view(request):
         form = ProfilePictureForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect("profile")
+            return redirect("profile_view")
     else:
         form = ProfilePictureForm(instance=profile)
 
