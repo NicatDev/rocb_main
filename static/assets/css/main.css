@@ -23035,12 +23035,12 @@ display: grid;
   border:1px solid #e5eefb;
   color:#002b5c;
   padding:8px 12px;
-  border-radius:999px;
+  border-radius:50px;
   font-weight:600;
   margin:8px 0 14px;
 }
 .category-chip .chip-dot{
-  width:8px;height:8px;border-radius:50%;background:#004aad;display:inline-block;
+  width:8px;height:8px;border-radius:50%;background:#004aad;display:inline-block;padding: 5px;
 }
 .category-chip .chip-text{font-size:.95rem}
 
