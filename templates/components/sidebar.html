@@ -89,6 +89,12 @@
             {{ tab.title }}
         </a>
     {% endif %}
+    {% elif request.resolver_match.url_name == "region" %}
+        <a href="{% url 'region_default' tab.slug %}"
+           class="{% if tab == selected_tab %}active{% endif %}">
+            {{ tab.title }}
+        </a>
+    {% endif %}
 {% endfor %}
       </ul>
     </div>
