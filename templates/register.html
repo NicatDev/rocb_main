@@ -232,7 +232,7 @@
               } else {
                 Swal.fire({
                   icon: "error",
-                  title: "Register failed",
+                  title: "{% trans 'Register failed' %}",
                   text: data.message,
                 });
               }
@@ -242,7 +242,7 @@
               Swal.fire({
                 icon: "error",
                 title: "Error",
-                text: "Something went wrong!",
+                text: "{% trans 'Something went wrong' %}!",
               });
             });
         });
