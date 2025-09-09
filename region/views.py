@@ -58,12 +58,11 @@ def listsection_detail(request, slug):
     blockquotes = BlockQuote.objects.filter(
         regionsection__region=list_section.region)
     tags = Tag.objects.filter(region=list_section.region)
+    files = list_section.files.all() 
 
     current_index = list_sections_tabs.index(list_section)
-    prev_tab = list_sections_tabs[current_index -
-                                  1] if current_index > 0 else None
-    next_tab = list_sections_tabs[current_index +
-                                  1] if current_index < len(list_sections_tabs) - 1 else None
+    prev_tab = list_sections_tabs[current_index - 1] if current_index > 0 else None
+    next_tab = list_sections_tabs[current_index + 1] if current_index < len(list_sections_tabs) - 1 else None
 
     return render(request, "region_detail.html", {
         "list_section": list_section,
@@ -72,6 +71,7 @@ def listsection_detail(request, slug):
         "images": images,
         "blockquotes": blockquotes,
         "tags": tags,
+        "files": files, 
         "prev_tab": prev_tab,
         "next_tab": next_tab,
     })

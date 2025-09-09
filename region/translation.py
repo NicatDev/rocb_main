@@ -1,7 +1,7 @@
 from modeltranslation.translator import register, TranslationOptions
 from .models import (
     Region, RegionSection, MiniTitle, Image, BlockQuote, Tag,
-    ListSection, ListItem, Country
+    ListSection, ListItem, Country, ListSectionFile
 )
 
 @register(Region)
@@ -39,3 +39,7 @@ class ListItemTranslationOptions(TranslationOptions):
 @register(Country)
 class CountryTranslationOptions(TranslationOptions):
     fields = ('title', 'description', 'code')
+
+@register(ListSectionFile)
+class ListSectionFileTranslationOptions(TranslationOptions):
+    fields = ('file_name',)

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     Region, RegionSection, MiniTitle, Image, BlockQuote, Tag,
-    ListSection, ListItem, Country
+    ListSection, ListItem, Country, ListSectionFile
 )
 from modeltranslation.admin import (
     TabbedTranslationAdmin, TranslationTabularInline, TranslationStackedInline
@@ -38,8 +38,6 @@ class TagInline(TranslationTabularInline):
     extra = 1
 
 
-# --- Main Admin classes updated for modeltranslation ---
-
 @admin.register(Region)
 class RegionAdmin(TabbedTranslationAdmin):
     list_display = ("title", "created_at")
@@ -56,13 +54,16 @@ class RegionSectionAdmin(TabbedTranslationAdmin):
     ordering = ("order",)
     inlines = [MiniTitleInline, ImageInline, BlockQuoteInline]
 
+class ListSectionFileInline(TranslationTabularInline):
+    model = ListSectionFile
+    extra = 1
 
 @admin.register(ListSection)
 class ListSectionAdmin(TabbedTranslationAdmin):
     list_display = ("title", "region")
     search_fields = ("title", "description")
     list_filter = ("region",)
-    inlines = [ListItemInline]
+    inlines = [ListItemInline, ListSectionFileInline]
 
 
 @admin.register(MiniTitle)

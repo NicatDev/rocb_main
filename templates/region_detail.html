@@ -143,6 +143,8 @@
                   <p class="wow fadeInUp" data-wow-delay=".3s">
                     {{ section.description|linebreaks }}
                   </p>
+                
+
                   <div class="images-wrap">
                     <div class="row">
                       {% for image in section.images.all %}
@@ -180,6 +182,14 @@
                   {% endif %}
                   {% endfor %}
                   {% endif %}
+                 {% for file in files %}
+                    <a class="wow fadeInUp" data-wow-delay=".3s" href="{{ file.file.url }}" target="_blank">
+                        {{ file.file_name|linebreaks }}
+                    </a>
+                {% empty %}
+                    <p>No files available.</p>
+                {% endfor %}
+
                 </div>
                 <div
                   class="tj-post__navigation wow fadeInUp"

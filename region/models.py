@@ -107,7 +107,7 @@ class ListSection(models.Model):
     image = models.ImageField(
         upload_to='region_images/', verbose_name="List Section Image", blank=True, null=True)
     slug = models.SlugField(unique=True, editable=False, blank=True, null=True)
-    order = models.BooleanField(default=0)
+    order = models.PositiveIntegerField(default=0, verbose_name="Order")
 
     class Meta:
         verbose_name = "List Section"
@@ -122,13 +122,23 @@ class ListSection(models.Model):
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
+class ListSectionFile(models.Model):
+    list_section = models.ForeignKey(
+        ListSection, on_delete=models.CASCADE, related_name='files')
+    file_name = models.CharField(max_length=255, blank=True, null=True)
+    file = models.FileField(upload_to='region_country/')
+    file_created_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.file_name or self.file.name
+
 
 class ListItem(models.Model):
     list_section = models.ForeignKey(
         ListSection, on_delete=models.CASCADE, related_name='list_items')
     title = models.CharField(max_length=200, verbose_name="List Item Title")
     description = models.TextField(verbose_name="List Item Description")
-    order = models.BooleanField(default=0)
+    order =models.PositiveIntegerField(default=0, verbose_name="Order")
 
     class Meta:
         verbose_name = "List Item"
