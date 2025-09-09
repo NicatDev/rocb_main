@@ -133,7 +133,8 @@
                   <p class="wow fadeInUp" data-wow-delay=".3s">
                     {{ list_section.description|linebreaks }}
                   </p>
-                  {% for section in sections %} {% for quote in section.block_quotes.all %}
+                  {% for section in list_items %} 
+                  {% for quote in section.block_quotes.all %}
                   <blockquote class="wow fadeInUp" data-wow-delay=".3s">
                     <p>{{ quote.content }}</p>
                     <cite>{{ quote.fullname }}</cite>
