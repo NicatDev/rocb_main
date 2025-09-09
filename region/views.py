@@ -49,7 +49,7 @@ def region_page(request, slug=None):
 
 def listsection_detail(request, slug):
     list_section = get_object_or_404(ListSection, slug=slug)
-    list_sections_tabs = list(ListSection.objects.all())
+    list_sections_tabs = list(ListSection.objects.order_by('order'))
 
     list_items = list_section.list_items.order_by('order')
     mini_titles = MiniTitle.objects.filter(
