@@ -23369,8 +23369,9 @@ START: Hero CSS
 }
 
 .btn-image-img{
-  padding: 5px;
+  padding: 4px;
 }
 .btn-image{
-  border: 3px solid white;
+  background-color:white !important;
+  border: 2px solid white;
 }
