@@ -23194,8 +23194,8 @@ START: Hero CSS
   white-space: nowrap;
 }
 .status-dot {
-  width: 15px;
-  height: 10px;
+  width: 13px;
+  height: 13px;
 }
 .contact-item-p {
   height: 76px;
@@ -23486,4 +23486,8 @@ START: Hero CSS
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+.meeting-card-info a:not([href]):not([class]), a:not([href]):not([class]):hover {
+  max-width: 93%;
 }
