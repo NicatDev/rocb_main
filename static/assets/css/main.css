@@ -22831,8 +22831,9 @@ START: Hero CSS
 }
 
 .file-btn:hover {
-  background-color: #ffffff;
+  color: white;
   scale: 1.05;
+  cursor: pointer;
 }
 
 /* Responsive */
