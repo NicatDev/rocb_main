@@ -379,8 +379,8 @@
                             >
                           </h4>
                           <p class="desc">
-                      {% if news.description|length > 240 %}
-                          {{ news.description|slice:":240" }}...
+                      {% if news.description|length > 200 %}
+                          {{ news.description|slice:":200" }}...
                       {% else %}
                           {{ news.description }}
                       {% endif %}
