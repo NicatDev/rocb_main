@@ -125,9 +125,9 @@
                 {% for item in page_obj %}
                 <div class="meeting-card">
                   <h3 class="meeting-title">
-                    <a href="{% url 'meeting_documents_single' item.slug %}"
-                      >{{ item.title }}</a
-                    >
+                    <a href="{% url 'meeting_documents_single' item.slug %}">
+                        {{ item.title|truncatechars:50 }}
+                    </a>
                   </h3>
                   {% if item.date %}
                   <p class="meeting-date">
@@ -135,7 +135,7 @@
                   </p>
                   {% endif %} {% if item.location %}
                   <p class="meeting-location">
-                    <i class="tji-location"></i> {{ item.location }}
+                    <i class="tji-location"></i> {{ item.location|truncatechars:20 }}
                   </p>
                   {% endif %}
                 </div>
