@@ -11191,8 +11191,8 @@ START: Contact CSS
   height: 100%;
   z-index: -2;
   position: relative;
-  top: 0;
-  left: 0;
+  top: 6px;
+  left: 6px;
   border-radius: 50%;
   -webkit-animation: pulse4 1.6s linear infinite;
   animation: pulse4 1.6s linear infinite;
@@ -11244,6 +11244,7 @@ START: Contact CSS
 .location-tooltip p {
   color: var(--tj-color-common-white);
   margin-bottom: 5px;
+  font-size: 12px;
 }
 .location-tooltip a {
   color: var(--tj-color-common-white);
@@ -11251,6 +11252,7 @@ START: Contact CSS
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  font-size: 14px;
 }
 .location-tooltip a:hover {
   color: var(--tj-color-theme-bg);
