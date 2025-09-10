@@ -22832,7 +22832,8 @@ START: Hero CSS
 
 .file-btn:hover {
   color: white;
-  scale: 1.05;
+  scale: 1.02;
+  transition: transform 0.2s ease;
   cursor: pointer;
 }
 
