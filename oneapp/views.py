@@ -269,6 +269,6 @@ def search(request):
 
     context = {
         'query': query,
-        'page_obj': page_obj,
+        'page_obj': results,
     }
     return render(request, 'search_results.html', context)
