@@ -23411,7 +23411,10 @@ START: Hero CSS
 @media (max-width: 1279px) {
     .main-color-rocb {
         display: none;
-    }
+    }  
+   .submit-btn-display{
+ display:flex !important;
+}
 }
 .preloader {
   position: fixed;
