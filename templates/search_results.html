@@ -130,50 +130,7 @@
               {% endif %}
              
               
-                <div class="tj-pagination d-flex">
-                  <ul>
-                    {# Previous button #} {% if page_obj.has_previous %}
-                      <li>
-                        <a class="prev page-numbers"
-                          href="?page={{ page_obj.previous_page_number }}{% if request.GET.s %}&s={{ request.GET.s }}{% endif %}{% if request.GET.t %}&t={{ request.GET.t }}{% endif %}">
-                          <i class="tji-arrow-left-long"></i>
-                        </a>
-                      </li>
-                    {% endif %} {# Page numbers #} {% for num in paginator.page_range %}
-                      {% if num == page_obj.number %}
-                        <li>
-                          <span aria-current="page" class="page-numbers current">{{ num }}</span>
-                        </li>
-                      {% else %}
-                        <li>
-                          <a class="page-numbers"
-                            href="?page={{ num }}{% if request.GET.s %}
-                              
-                              &s={{ request.GET.s }}
-                            {% endif %}{% if request.GET.t %}
-                              
-                              &t={{ request.GET.t }}
-                            {% endif %}">
-                            {{ num }}
-                          </a>
-                        </li>
-                      {% endif %}
-                    {% endfor %} {# Next button #} {% if page_obj.has_next %}
-                      <li>
-                        <a class="next page-numbers"
-                          href="?page={{ page_obj.next_page_number }}{% if request.GET.s %}
-                            
-                            &s={{ request.GET.s }}
-                          {% endif %}{% if request.GET.t %}
-                            
-                            &t={{ request.GET.t }}
-                          {% endif %}">
-                          <i class="tji-arrow-right-long"></i>
-                        </a>
-                      </li>
-                    {% endif %}
-                  </ul>
-                </div>
+               
             
               </div>
             </div>
