@@ -60,17 +60,22 @@ class Command(BaseCommand):
         {"title_en": "Uzbekistan", "title_ru": "Узбекистан", "code": "UZ", "code_ru": "УZ"}
     ]
 
+    FLAG_TEMPLATE = "https://flagcdn.com/64x48/{code_lower}.png"
+
     def handle(self, *args, **kwargs):
-        for country in self.countries:
+        for data in self.countries:
+            code = data["code"].lower()
+            flag_url = self.FLAG_TEMPLATE.format(code_lower=code)
             obj, created = Country.objects.update_or_create(
-                code=country["code"],
+                code=data["code"],
                 defaults={
-                    "title_en": country["title_en"],
-                    "title_ru": country["title_ru"],
-                    "code_ru": country["code_ru"]
+                    "title_en": data["title_en"],
+                    "title_ru": data["title_ru"],
+                    "code_ru": data["code_ru"],
+                    "flag_url": flag_url,
                 }
             )
             if created:
-                self.stdout.write(self.style.SUCCESS(f'Added {country["title_en"]}'))
+                self.stdout.write(self.style.SUCCESS(f'Added {data["title_en"]}'))
             else:
-                self.stdout.write(self.style.WARNING(f'Updated {country["title_en"]}'))
+                self.stdout.write(self.style.WARNING(f'Updated {data["title_en"]}'))

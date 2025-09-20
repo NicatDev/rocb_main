@@ -129,15 +129,22 @@
                     {% endif %}
 
                    {% if countries %}
-                    <div class="country-grid">
-                    {% for country in countries %}
-                      <a class="country-card">
-                        <div class="flag">{{ country.code }}</div>
-                        <div class="country-name">{{ country.title }}</div>
-                      </a>
-                      {% endfor %}
-                    </div>
-                  {% endif %}
+  <div class="country-grid">
+    {% for country in countries %}
+      <a class="country-card">
+        <div>
+          {% if country.flag_url %}
+            <img class="country-flag-img" src="{{ country.flag_url }}" alt="{{ country.title }} flag" width="64" height="48">
+          {% else %}
+            {{ country.code }}
+          {% endif %}
+        </div>
+        <div class="country-name">{{ country.title }}</div>
+      </a>
+    {% endfor %}
+  </div>
+{% endif %}
+
                 {% for section in sections %} 
                   {% for quote in section.block_quotes.all %}
                   <blockquote class="wow fadeInUp" data-wow-delay=".3s">

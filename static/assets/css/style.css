@@ -303,3 +303,9 @@
 .file-country span{
   color: #364e52;
 }
+
+.country-flag-img {
+  width: 40px;
+  height: 45px;
+  object-fit: contain;
+}

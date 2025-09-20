@@ -160,6 +160,8 @@ class Country(models.Model):
         Region, on_delete=models.CASCADE, related_name='countries', blank=True, null=True)
     href = models.URLField(
         max_length=200, verbose_name="Country Link", blank=True, null=True)
+    flag_url = models.URLField(
+        max_length=300, verbose_name="Flag Image URL", blank=True, null=True)
 
     class Meta:
         verbose_name = "Country"
