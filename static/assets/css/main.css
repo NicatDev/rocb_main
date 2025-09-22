@@ -6550,7 +6550,7 @@ START: About CSS
   left: 0;
   max-width: 241px;
   width: 100%;
-  padding: 15px 15px 0 0;
+  padding: 15px 15px 0 8px;
   border-top-right-radius: 12px;
 }
 .box-area::after,
@@ -11326,22 +11326,30 @@ START: Theme Slider CSS
     linear,
     left top,
     right top,
-    color-stop(20%, rgb(12, 30, 33)),
-    color-stop(60%, rgba(12, 30, 33, 0.4)),
+    color-stop(20%, rgb(12, 30, 33, 0.9)),
+    color-stop(70%, rgba(12, 30, 33, 0.6)),
     to(rgba(12, 30, 33, 0.1))
   );
   background: linear-gradient(
     90deg,
-    rgb(12, 30, 33) 20%,
-    rgba(12, 30, 33, 0.4) 60%,
+    rgb(12, 30, 33, 0.9) 20%,
+    rgba(12, 30, 33, 0.6) 70%,
     rgba(12, 30, 33, 0.1) 100%
-  );
+  )
 }
 .tj-slider-item .slider-wrapper {
   padding: 195px 0 347px;
   position: relative;
   z-index: 3;
 }
+
+@media only screen and (min-width: 1601px) {
+  .tj-slider-item .slider-wrapper {
+    padding-left: 80px;
+    padding-top: 200px;
+  }
+}
+
 @media only screen and (min-width: 1400px) and (max-width: 1600px) {
   .tj-slider-item .slider-wrapper {
     padding-left: 50px;
@@ -22250,7 +22258,6 @@ START: Hero CSS
   color: #12579e;
 }
 .banner-left-box {
-  background-color: var(--tj-color-theme-dark);
   border-radius: 12px;
   padding: 70px;
   width: calc(50% - 15px);
@@ -22261,9 +22268,6 @@ START: Hero CSS
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
   overflow: hidden;
 }
 .link-hero {
