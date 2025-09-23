@@ -192,13 +192,19 @@ def register_meeting(request):
         full_name = data.get("full_name")
         phone_number = data.get("phone_number")
         email = data.get("email")
-        subject = data.get("subject")
+        subject = data.get("subject"),
+        position = data.get("position"),
+        organization = data.get("organization"),
+        note = data.get("note"),
 
         registration = Registration.objects.create(
             full_name=full_name,
             phone_number=phone_number,
             email=email,
-            subject=subject
+            subject=subject,
+            position=position,
+            organization=organization,
+            note=note
         )
         return JsonResponse({"status": "success", "id": registration.id})
     return JsonResponse({"status": "error"}, status=400)

@@ -168,8 +168,11 @@ class Registration(models.Model):
     full_name = models.CharField(max_length=200)
     phone_number = models.CharField(max_length=20)
     email = models.EmailField()
+    note = models.TextField(null=True,blank=True)
     subject = models.TextField(null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    organization = models.CharField(max_length=300,null=True,blank=True)
+    position = models.CharField(max_length=300,null=True,blank=True)
 
     def __str__(self):
         return self.full_name

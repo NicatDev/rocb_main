@@ -57,4 +57,5 @@ class FaqAdmin(TabbedTranslationAdmin):
 @admin.register(Registration)
 class RegistrationAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'email', 'created_at')
-    readonly_fields = ('full_name', 'phone_number', 'email', 'subject', 'created_at')
+    readonly_fields = ('full_name', 'phone_number', 'email', 'subject', 'created_at',
+                       'organization', 'position', 'note')
