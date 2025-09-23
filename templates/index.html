@@ -174,19 +174,10 @@
 
     <main id="primary" class="site-main">
       <!-- start: Banner Section -->
-
-       <section class="tj-slider-section">
-        <div class="swiper hero-slider">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide tj-slider-item">
-              <video class="slider-bg-video" autoplay muted loop playsinline>
-                <source src="{% static 'assets/videos/homevideo.mp4' %}" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
-              <div class="container">
-                <div class="slider-wrapper">
-                  <div class="slider-content">
-                    <div class="banner-content">
+      <section class="tj-banner-section section-gap-x">
+        <div class="banner-area">
+          <div class="banner-left-box">
+            <div class="banner-content">
               <span class="sub-title wow fadeInDown" data-wow-delay=".2s">
                 <i class="tji-excellence"></i> {% trans 'Rocb Europe' %}
               </span>
@@ -204,35 +195,59 @@
                 </div>
               </div>
             </div>
-                    <div class="slider-btn">
-                      <a class="main-color-rocb"
-                  href="{% url 'contact:contact' %}">
-                        <span class="btn-text"><span>Contact us</span></span>
-                        <span class="btn-icon"
-                          ><i class="tji-arrow-right-long"></i
-                        ></span>
-                      </a>
-                    </div>
-                  </div>
+            <div class="banner-shape">
+              <img
+                src="{% static 'assets/images/shape/pattern-bg.webp' %}"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="banner-right-box">
+            <div class="banner-img">
+              <img
+                data-speed="0.8"
+                src="{% static 'assets/images/hero.jpg' %}"
+                alt=""
+                data-lag="0"
+              />
+            </div>
+            <div class="box-area">
+              <div class="customers-box">
+                <a
+                  class="customers-number link-hero wow fadeInUp"
+                  data-wow-delay=".5s"
+                  style="
+                    visibility: visible;
+                    animation-delay: 0.5s;
+                    animation-name: fadeInUp;
+                  "
+                  href="{% url 'contact:contact' %}"
+                >
+                  {% trans 'Contact us' %} 
+                  <div class="banner-link ">
+                  <span><i class="fa-solid fa-arrow-right"></i></span>
                 </div>
+                </a>
+                
               </div>
             </div>
           </div>
         </div>
-        
-        <div class="circle-text-wrap wow fadeInUp" data-wow-delay="2.2s">
-          <span
-            class="circle-text"
-            data-bg-image="{% static 'assets/images/hero/circle-text.webp' %}"
-          >
-        </span>
-          <a class="circle-icon" href="{url 'contact' %}"
-            >
-            <i class="tji-arrow-down-big"></i
-          ></a>
+        <div
+          class="banner-scroll wow fadeInDown"
+          data-wow-delay="2s"
+          style="
+            visibility: visible;
+            animation-delay: 2s;
+            animation-name: fadeInDown;
+          "
+        >
+          <a href="#scollto" class="scroll-down">
+            <span><i class="tji-arrow-down-long"></i></span>
+            {% trans 'Scroll Down' %}
+          </a>
         </div>
       </section>
-
       <!-- end: Banner Section -->
 
       <!-- start: Blog Section -->
