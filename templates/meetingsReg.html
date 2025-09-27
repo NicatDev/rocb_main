@@ -138,7 +138,8 @@
                       <p class="meeting-date">
                         <i class="tji-calendar"></i> {{ item.date }}
                       </p>
-                      {% endif %} {% if item.start_hour %}
+                      {% endif %}
+                       {% if item.start_hour %}
                       <p class="meeting-time">
                         <i class="tji-clock"></i> {{ item.start_hour }} - {{ item.end_hour }}
                       </p>
@@ -219,6 +220,9 @@ document.querySelectorAll('.btn-register').forEach(button => {
                 <input style="width:90%" type="text" id="full_name" class="swal2-input" placeholder="{% trans 'Full Name' %}">
                 <input style="width:90%" type="text" id="phone_number" class="swal2-input" placeholder="{% trans 'Phone Number' %}">
                 <input style="width:90%" type="email" id="email" class="swal2-input" placeholder="{% trans 'Email' %}">
+                <input style="width:90%" type="text" id="note" class="swal2-input" placeholder="{% trans 'Note' %}">
+                <input style="width:90%" type="text" id="organization" class="swal2-input" placeholder="{% trans 'Organization' %}">
+                <input style="width:90%" type="text" id="position" class="swal2-input" placeholder="{% trans 'Position' %}">
             </div>
             `,
              showCloseButton: true,
@@ -227,7 +231,11 @@ document.querySelectorAll('.btn-register').forEach(button => {
                 const full_name = Swal.getPopup().querySelector('#full_name').value
                 const phone_number = Swal.getPopup().querySelector('#phone_number').value
                 const email = Swal.getPopup().querySelector('#email').value
-                if (!full_name || !phone_number || !email) {
+                const note = Swal.getPopup().querySelector('#note').value
+                const organization = Swal.getPopup().querySelector('#organization').value
+                const position = Swal.getPopup().querySelector('#position').value
+
+                if (!full_name || !phone_number || !email || !note || !organization || !position) {
                     Swal.showValidationMessage(`Please enter all fields`)
                 }
                 return { full_name, phone_number, email, subject  }
