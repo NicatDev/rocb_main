@@ -23581,7 +23581,7 @@ START: Hero CSS
   border-right: 1px dashed rgba(255, 255, 255, 0.4);
 }
 .banner-mid-box {
-  display: block; /* default görünsün */
+  display: flex; /* default görünsün */
 }
 
 .banner-left-box,
@@ -23597,7 +23597,7 @@ START: Hero CSS
 
   .banner-left-box,
   .banner-right-box {
-    display: block; /* görünsün */
+    display: flex; /* görünsün */
   }
 }
 .banner-right-box {
