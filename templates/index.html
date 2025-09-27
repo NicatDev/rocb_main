@@ -5,10 +5,15 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="{% blocktrans %}Regional Office for Capacity Building for the World Customs Organization Europe Region{% endblocktrans %}" />
+    <meta
+      name="description"
+      content="{% blocktrans %}Regional Office for Capacity Building for the World Customs Organization Europe Region{% endblocktrans %}"
+    />
 
     <!-- Site Title -->
-    <title>{% blocktrans %}ROCB Europe - WCO Regional Office for Capacity Building{% endblocktrans %}</title>
+    <title>
+      {% blocktrans %}ROCB Europe - WCO Regional Office for Capacity Building{% endblocktrans %}
+    </title>
 
     <!-- Place favicon.ico in the root directory -->
     <link
@@ -35,7 +40,6 @@
     <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
-    
   </head>
 
   <body>
@@ -85,9 +89,9 @@
           </div>
           <div class="offcanvas-text">
             <p>
-              {% blocktrans %} Developing personalize our customer journeys to increase
-              satisfaction & loyalty of our expansion recognized by industry
-              leaders. {% endblocktrans %}
+              {% blocktrans %} Developing personalize our customer journeys to
+              increase satisfaction & loyalty of our expansion recognized by
+              industry leaders. {% endblocktrans %}
             </p>
           </div>
           <div class="hamburger-search-area">
@@ -176,7 +180,33 @@
       <!-- start: Banner Section -->
       <section class="tj-banner-section section-gap-x">
         <div class="banner-area">
-          <div class="banner-left-box">
+          <div class="banner-mid-box">
+            <div
+              class="circle-text-wrap wow fadeInUp"
+              data-wow-delay="1s"
+              style="
+                visibility: visible;
+                animation-delay: 1s;
+                animation-name: fadeInUp;
+              "
+            >
+              <span
+                class="circle-text"
+                data-bg-image="{% static 'assets/images/hero/circle-text.webp' %}"
+                style="
+                  background-image: url('assets/images/hero/circle-text.webp');
+                "
+              ></span>
+              <a class="circle-icon" href="#scollto"
+                ><i class="tji-arrow-down-big"></i
+              ></a>
+            </div>
+            <div class="banner-overlay"></div>
+            <video autoplay muted loop class="bg-video">
+              <source src="{% static 'video.mp4' %}" type="video/mp4" />
+              Sənin browserin videonu dəstəkləmir.
+            </video>
+
             <div class="banner-content">
               <span class="sub-title wow fadeInDown" data-wow-delay=".2s">
                 <i class="tji-excellence"></i> {% trans 'Rocb Europe' %}
@@ -189,9 +219,36 @@
                   <span><i class="tji-arrow-right-big"></i></span>
                 </a>
                 <div class="banner-desc">
-                  {% blocktrans %} ROCB Europe supports member states in modernizing Customs
-                  Services by addressing regional needs and international
-                  standards. {% endblocktrans %}
+                  {% blocktrans %} ROCB Europe supports member states in
+                  modernizing Customs Services by addressing regional needs and
+                  international standards. {% endblocktrans %}
+                </div>
+              </div>
+            </div>
+            <div class="banner-shape">
+              <img
+                src="{% static 'assets/images/shape/pattern-bg.webp' %}"
+                alt=""
+              />
+            </div>
+          </div>
+          
+          <div class="banner-left-box">
+            <div class="banner-content">
+              <span class="sub-title wow fadeInDown" data-wow-delay=".2s">
+                <i class="tji-excellence"></i> {% trans 'Rocb Europe' %}
+              </span>
+              <h1 class="banner-title title-anim">
+                {% trans 'WCO' %} <span>{% trans 'Europe' %}</span> {% trans  'Regional Office for Capacity Building' %}
+              </h1>
+              <div class="banner-desc-area wow fadeInUp" data-wow-delay=".7s">
+                <a class="banner-link" href="{% url 'about:about_default' %}">
+                  <span><i class="tji-arrow-right-big"></i></span>
+                </a>
+                <div class="banner-desc">
+                  {% blocktrans %} ROCB Europe supports member states in
+                  modernizing Customs Services by addressing regional needs and
+                  international standards. {% endblocktrans %}
                 </div>
               </div>
             </div>
@@ -203,15 +260,15 @@
             </div>
           </div>
           <div class="banner-right-box">
+                  <div class="banner-overlay-right"></div>
             <div class="banner-img">
-              <img
-                data-speed="0.8"
-                src="{% static 'assets/images/hero.jpg' %}"
-                alt=""
-                data-lag="0"
-              />
+              <video autoplay muted loop class="bg-video">
+              <source src="{% static 'video.mp4' %}" type="video/mp4" />
+              Sənin browserin videonu dəstəkləmir.
+            </video>
+
             </div>
-            <div class="box-area">
+            {% comment %} <div class="box-area">
               <div class="customers-box">
                 <a
                   class="customers-number link-hero wow fadeInUp"
@@ -223,15 +280,15 @@
                   "
                   href="{% url 'contact:contact' %}"
                 >
-                  {% trans 'Contact us' %} 
-                  <div class="banner-link ">
-                  <span><i class="fa-solid fa-arrow-right"></i></span>
-                </div>
+                  {% trans 'Contact us' %}
+                  <div class="banner-link">
+                    <span><i class="fa-solid fa-arrow-right"></i></span>
+                  </div>
                 </a>
-                
               </div>
-            </div>
+            </div> {% endcomment %}
           </div>
+          
         </div>
         <div
           class="banner-scroll wow fadeInDown"
@@ -260,7 +317,7 @@
                   ><i class="tji-box"></i>{% trans 'Events' %}</span
                 >
                 <h2 class="sec-title title-anim">
-                {% trans 'Last events' %}</span>
+                  <span>{% trans 'Last events' %}</span>
                 </h2>
               </div>
             </div>
@@ -270,38 +327,35 @@
             <div class="col-xl-4 col-md-6">
               <div class="blog-item wow fadeInUp" data-wow-delay=".4s">
                 <div class="blog-thumb">
-            
-                  <a href="{% url 'events_detail' event.slug %}"
-                    >
-                          {% if event.image %}
-                    <img
-                      src="{{event.image.url}}"
-                      alt=""
-                  />
+                  <a href="{% url 'events_detail' event.slug %}">
+                    {% if event.image %}
+                    <img src="{{event.image.url}}" alt="" />
                     {% endif %}
-                </a>
+                  </a>
                   <div class="blog-date">
-                    <span class="date">{{ event.date|date:"j" }}</span>  
-                    <span class="month">{{ event.date|date:"M" }}</span> 
+                    <span class="date">{{ event.date|date:"j" }}</span>
+                    <span class="month">{{ event.date|date:"M" }}</span>
                   </div>
                 </div>
                 <div class="blog-content">
-          
-                    {% if event.tag %}
-                            <div class="blog-meta">
-                    <span class="categories"
-                      ><a>{{ event.tag }}</a></span
-                    >
-                    </div>
-                    {% endif %}
-                  
+                  {% if event.tag %}
+                  <div class="blog-meta">
+                    <span class="categories"><a>{{ event.tag }}</a></span>
+                  </div>
+                  {% endif %}
+
                   <h4 class="title">
-                      <a href="{% url 'events_detail' event.slug %}"
+                    <a href="{% url 'events_detail' event.slug %}"
                       >{{ event.title }}</a
                     >
                   </h4>
-                  <a class="text-btn" href="{% url 'events_detail' event.slug %}">
-                    <span class="btn-text"><span>{% trans 'Read More' %}</span></span>
+                  <a
+                    class="text-btn"
+                    href="{% url 'events_detail' event.slug %}"
+                  >
+                    <span class="btn-text"
+                      ><span>{% trans 'Read More' %}</span></span
+                    >
                     <span class="btn-icon"
                       ><i class="tji-arrow-right-long"></i
                     ></span>
@@ -315,27 +369,35 @@
       </section>
       <!-- end: Blog Section -->
 
-
- {% comment %} <section class="tj-faq-section section-gap" style="display:flex;align-items:center;justify-content:center;padding-top:0px;">
-  <div class="blog-video wow fadeInUp" data-wow-delay=".2s">
-    <div class="container">
-      <img
-        src="{% static 'assets/images/blog/blog-video.webp' %}"
-        alt="Video"
-      />
-      <a
-        class="video-btn video-popup"
-        data-autoplay="true"
-        data-vbtype="video"
-        data-maxwidth="1200px"
-        href="https://www.youtube.com/watch?v=MLpWrANjFbI&ab_channel=eidelchteinadvogados"
+      {% comment %}
+      <section
+        class="tj-faq-section section-gap"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding-top: 0px;
+        "
       >
-        <span><i class="tji-play"></i></span>
-      </a>
-    </div>
-  </div>
-</section> {% endcomment %}
-
+        <div class="blog-video wow fadeInUp" data-wow-delay=".2s">
+          <div class="container">
+            <img
+              src="{% static 'assets/images/blog/blog-video.webp' %}"
+              alt="Video"
+            />
+            <a
+              class="video-btn video-popup"
+              data-autoplay="true"
+              data-vbtype="video"
+              data-maxwidth="1200px"
+              href="https://www.youtube.com/watch?v=MLpWrANjFbI&ab_channel=eidelchteinadvogados"
+            >
+              <span><i class="tji-play"></i></span>
+            </a>
+          </div>
+        </div>
+      </section>
+      {% endcomment %}
 
       <!-- start: Service Section -->
       <section
@@ -367,10 +429,7 @@
                     <div class="swiper-slide">
                       <div class="service-item style-1">
                         <div class="service-img">
-                          <img
-                            src="{{news.image.url}}"
-                            alt=""
-                          />
+                          <img src="{{news.image.url}}" alt="" />
                         </div>
                         <div class="service-content">
                           <h4 class="title">
@@ -379,13 +438,14 @@
                             >
                           </h4>
                           <p class="desc">
-                      {% if news.description|length > 200 %}
-                          {{ news.description|slice:":200" }}...
-                      {% else %}
-                          {{ news.description }}
-                      {% endif %}
+                            {% if news.description|length > 200 %} {{
+                            news.description|slice:":200" }}... {% else %} {{
+                            news.description }} {% endif %}
                           </p>
-                          <a class="text-btn" href="{% url 'news_detail' news.slug %}">
+                          <a
+                            class="text-btn"
+                            href="{% url 'news_detail' news.slug %}"
+                          >
                             <span class="btn-text"
                               ><span>{% trans 'Learn More' %}</span></span
                             >
@@ -412,8 +472,6 @@
         </div>
       </section>
       <!-- end: Service Section -->
-     
-
 
       <!-- start: Faq Section -->
       <section class="tj-faq-section section-gap">
@@ -423,9 +481,11 @@
               <div class="faq-img-area wow fadeInLeft" data-wow-delay=".3s">
                 <div class="faq-img">
                   <img src="{% static 'rocb_build.jpg' %}" alt="" />
-                  <h2 class="title title-anim">{% trans 'Frequently Asked Questions' %}</h2>
+                  <h2 class="title title-anim">
+                    {% trans 'Frequently Asked Questions' %}
+                  </h2>
                 </div>
-                <div style="max-width:300px" class="box-area">
+                <div style="max-width: 300px" class="box-area">
                   <div class="call-box wow fadeInUp" data-wow-delay=".4s">
                     <h4 class="title">{% trans 'Call us for more' %}</h4>
                     <span class="call-icon"><i class="tji-phone"></i></span>
@@ -449,15 +509,17 @@
                   >
                     {{ faq.question}}
                   </button>
-                  <div id="faq-{{ forloop.counter }}" class="collapse" data-bs-parent="#faq-{{ forloop.counter }}-{{ forloop.counter }}">
+                  <div
+                    id="faq-{{ forloop.counter }}"
+                    class="collapse"
+                    data-bs-parent="#faq-{{ forloop.counter }}-{{ forloop.counter }}"
+                  >
                     <div class="accordion-body faq-text">
-                      <p>
-                        {{ faq.answer }}
-                      </p>
+                      <p>{{ faq.answer }}</p>
                     </div>
                   </div>
                 </div>
-              {% endfor %}
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -468,8 +530,10 @@
       <!-- start: Contact Section -->
       <!-- end: Contact Section -->
 
-
-        <section style="margin:20px 0px 0px;" class="tj-contact-section section-gap section-gap-x only-desktop map-section-home">
+      <section
+        style="margin: 20px 0px 0px"
+        class="tj-contact-section section-gap section-gap-x only-desktop map-section-home"
+      >
         <div class="container">
           <div class="row">
             <div class="col-lg-6">
@@ -482,37 +546,52 @@
                   <div class="location-indicator loc-1">
                     <div class="location-tooltip">
                       <span>{% trans "Head office" %}:</span>
-                      <p>{% trans "Natig Aliyev str, 4-a AZ1025, Baku, Republic of Azerbaijan" %}</p>
+                      <p>
+                        {% trans "Natig Aliyev str, 4-a AZ1025, Baku, Republic
+                        of Azerbaijan" %}
+                      </p>
                       <a href="tel:+994124643134">(+994 12) 464-31-34</a>
-                      <a href="info@rocb-europe.org"
-                        >M: info@rocb-europe.org</a >
+                      <a href="info@rocb-europe.org">M: info@rocb-europe.org</a>
                     </div>
                   </div>
-                   <div class="location-indicator loc-2">
+                  <div class="location-indicator loc-2">
                     <div class="location-tooltip">
                       <span>{% trans "Head office" %}:</span>
-                      <p>{% trans "Thai Customs Department, Sunthornkosa Road, Klongtoey, Bangkok 10110, Thailand" %}</p>
+                      <p>
+                        {% trans "Thai Customs Department, Sunthornkosa Road,
+                        Klongtoey, Bangkok 10110, Thailand" %}
+                      </p>
                     </div>
                   </div>
-                   <div class="location-indicator loc-4">
+                  <div class="location-indicator loc-4">
                     <div class="location-tooltip">
                       <span>{% trans "Head office" %}:</span>
-                      <p>{% trans "Al Bustan Office Tower, 29 Street, Abu Dhabi, United Arab Emirates" %}</p>
+                      <p>
+                        {% trans "Al Bustan Office Tower, 29 Street, Abu Dhabi,
+                        United Arab Emirates" %}
+                      </p>
                     </div>
                   </div>
                   <div class="location-indicator loc-3">
                     <div class="location-tooltip">
                       <span>{% trans "Head office" %}:</span>
-                      <p>{% trans "Corporate Business Center, Upper Hill, Elgon Road, Nairobi, Kenya; P.O. Box 50581–00200 Nairobi, Kenya" %}</p>
+                      <p>
+                        {% trans "Corporate Business Center, Upper Hill, Elgon
+                        Road, Nairobi, Kenya; P.O. Box 50581–00200 Nairobi,
+                        Kenya" %}
+                      </p>
                     </div>
                   </div>
-                 
+
                   <div class="location-indicator loc-5">
                     <div class="location-tooltip">
                       <span>{% trans "Head office" %}:</span>
-                      <p>{% trans "Vice-Chair Office in Mali (Samanko II, Kati); Nigeria Customs HQ in Abuja" %}</p>
+                      <p>
+                        {% trans "Vice-Chair Office in Mali (Samanko II, Kati);
+                        Nigeria Customs HQ in Abuja" %}
+                      </p>
                     </div>
-                  </div> 
+                  </div>
                 </div>
               </div>
             </div>
@@ -525,9 +604,9 @@
           <img src="{% static 'assets/images/shape/pattern-3.svg' %}" alt="" />
         </div>
       </section>
-      
+
       <!-- start: Cta Section -->
-   
+
       <!-- end: Cta Section -->
     </main>
 

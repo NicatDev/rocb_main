@@ -5039,7 +5039,7 @@ START: Hero CSS
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  min-height: 792px;
+  min-height: 775px;
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px),
   only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -5383,7 +5383,7 @@ START: Hero CSS
   }
 }
 .banner-right-box .box-area {
-  max-width: 261px;
+  max-width: 281px;
 }
 @media (max-width: 575px) {
   .banner-right-box .box-area {
@@ -22249,6 +22249,23 @@ START: Hero CSS
 .main-color-rocb {
   color: #12579e;
 }
+
+.banner-mid-box {
+  background-color: var(--tj-color-theme-dark);
+  border-radius: 12px;
+  padding: 70px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: hidden;
+}
+
 .banner-left-box {
   background-color: var(--tj-color-theme-dark);
   border-radius: 12px;
@@ -23498,4 +23515,162 @@ START: Hero CSS
 
 .meeting-card-info a:not([href]):not([class]), a:not([href]):not([class]):hover {
   max-width: 93%;
+}
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Videonu div-in içinə oturtsun */
+  z-index: -1; /* Arxa planda qalsın */
+}
+.banner-overlay-right{
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.1)
+  );
+    position: absolute;
+  inset: 0;
+  border-radius: 15px;
+}
+.banner-overlay {
+  border-radius: 15px;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.82),
+    rgba(0, 0, 0, 0.77),
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.65),
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.05)
+  );
+  z-index: 5; /* videonun üstündə, kontentin altında */
+}
+.banner-mid-box .banner-desc,
+.banner-mid-box .banner-desc-area,
+.banner-mid-box span,
+.banner-mid-box p,
+.banner-mid-box h1,
+.banner-mid-box h2,
+.banner-mid-box h3 {
+  color: rgba(255, 255, 255, 0.8) !important;
+  position: relative; /* əgər z-index işləməsə */
+  z-index: 10;
+}
+.circle-text-wrap, .circle-text, .circle-icon{
+  color: rgba(255, 255, 255, 0.8) !important;
+  z-index: 11 !important; 
+}
+.banner-mid-box .banner-desc-area{
+  border-top: 1px dashed rgba(255, 255, 255, 0.4);
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.4);
+}
+.banner-mid-box .banner-link{
+  border-right: 1px dashed rgba(255, 255, 255, 0.4);
+}
+.banner-mid-box {
+  display: block; /* default görünsün */
+}
+
+.banner-left-box,
+.banner-right-box {
+  display: none; /* gizli olsun */
+}
+
+/* Tablet/Mobile (<992px) */
+@media (max-width: 991px) {
+  .banner-mid-box {
+    display: none; /* gizli olsun */
+  }
+
+  .banner-left-box,
+  .banner-right-box {
+    display: block; /* görünsün */
+  }
+}
+.banner-right-box {
+  min-height: 500px; /* default desktop ≥1000px */
+}
+
+@media (max-width: 999px) and (min-width: 200px) {
+  .banner-left-box{
+    margin-right: 0px !important;
+  }
+}
+
+/* 900-999px */
+@media (max-width: 999px) and (min-width: 900px) {
+  .banner-right-box {
+    min-height: 500px;
+  }
+}
+
+/* 800-899px */
+@media (max-width: 899px) and (min-width: 800px) {
+  .banner-right-box {
+    min-height: 450px;
+  }
+}
+
+/* 700-799px */
+@media (max-width: 799px) and (min-width: 700px) {
+  .banner-right-box {
+    min-height: 400px;
+  }
+}
+
+/* 600-699px */
+@media (max-width: 699px) and (min-width: 600px) {
+  .banner-right-box {
+    min-height: 350px;
+  }
+}
+
+/* <600px */
+@media (max-width: 600px) {
+  .banner-right-box {
+    min-height: 280px;
+  }
+}
+@media (max-width: 549px) {
+  .banner-right-box {
+    min-height: 240px;
+  }
+}
+@media (max-width: 499px) {
+  .banner-right-box {
+    min-height: 200px;
+  }
+}
+@media (max-width: 449px) {
+  .banner-right-box {
+    min-height: 125px;
+  }
+}
+@media (max-width: 399px) {
+  .banner-right-box {
+    min-height: 120px;
+  }
+}
+@media (min-width: 1050px) and (max-width: 1100px) {
+  .banner-area {
+    min-height: 650px;
+  }
+}
+@media (min-width: 1000px) and (max-width: 1050px) {
+  .banner-area {
+    min-height: 610px;
+  }
 }
