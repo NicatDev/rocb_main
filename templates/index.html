@@ -625,6 +625,24 @@
 
     <script src="{% static 'assets/js/navbar.js' %}"></script>
 
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var video = document.querySelector('.bg-video');
+    if (video) {
+      var promise = video.play();
+      if (promise !== undefined) {
+        promise.catch(function(error) {
+          // Avtomatik oynatma bloklandı, heç bir şey etmə.
+          // Konsolda xəta mesajının görünməməsi üçün bu vacibdir.
+          console.log("Autoplay was prevented.", error);
+        }).then(function() {
+          // Avtomatik oynatma başladı.
+        });
+      }
+    }
+  });
+</script>
+
     
   </body>
 </html>
