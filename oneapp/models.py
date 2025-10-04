@@ -158,7 +158,7 @@ class MeetingRegistrations(models.Model):
     start_hour = models.CharField(null=True,blank=True, help_text="10:00", max_length=20)
     end_hour = models.CharField(null=True,blank=True, help_text="10:00", max_length=20)
     timezone = models.CharField(null=True,blank=True, help_text="Brussels time", max_length=120)
-    is_open = models.BooleanField(default=False)
+    is_open = models.BooleanField(default=True)
 
     def __str__(self):
         return f'-{self.title}'

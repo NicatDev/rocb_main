@@ -8714,8 +8714,8 @@ START: Contact CSS
 }
 @media (max-width: 575px) {
   .global-map {
-    width: 580px;
-    left: -20px;
+    width: 100%; /* GENİŞLİĞİ DÜZELT */
+    left: 0;     /* POZİSYONU SIFIRLA */
   }
 }
 

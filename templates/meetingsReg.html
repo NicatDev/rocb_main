@@ -114,18 +114,28 @@
           <div class="row row-gap-5">
             <div class="col-lg-8">
               <div class="post-details-wrapper">
-                <h1 class="title title-anim">
+                <h1 class="title title-anim meeting-title">
                   {% trans 'Meeting Registration' %}
+                  <div class="meeting-filter-toggle-container">
+    <span id="meeting-toggle-status"></span>
+    <label class="meeting-filter-switch">
+      <input type="checkbox" id="meeting-toggle" checked>
+      <span class="meeting-filter-slider"></span>
+    </label>
+</div>
                 </h1>
                 <div
                   class="blog-category-two wow fadeInUp"
                   data-wow-delay=".3s"
                 ></div>
               </div>
+
+               
+
               <div class="meeting-docs">
                 {% for item in page_obj %}
 
-                <div class="meeting-card">
+                <div class="meeting-card" data-is-open="{{ item.is_open|lower }}">
                   <div class="meeting-card-info">
                     <h3 class="meeting-title">
                       <span
@@ -284,5 +294,49 @@ document.querySelectorAll('.btn-register').forEach(button => {
     <script src="{% static 'assets/js/main.js' %} "></script>
 
     <script src="{% static 'assets/js/navbar.js' %}"></script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toggle = document.getElementById('meeting-toggle');
+    const statusText = document.getElementById('meeting-toggle-status');
+    const meetingCards = document.querySelectorAll('.meeting-card');
+
+    // Çeviriler için metinleri tanımla
+    const textActive = "{% trans 'Active' %}";
+    const textInactive = "{% trans 'Inactive' %}";
+
+    function filterMeetings() {
+        // Toggle'un durumunu kontrol et (true/false)
+        const showActive = toggle.checked;
+
+        // Durum metnini güncelle
+        if (showActive) {
+            statusText.textContent = textActive;
+            statusText.style.color = '#4CAF50'; // Yeşil
+        } else {
+            statusText.textContent = textInactive;
+            statusText.style.color = '#f44336'; // Kırmızı
+        }
+
+        // Tüm toplantı kartlarını döngüye al
+        meetingCards.forEach(card => {
+            const isOpen = card.getAttribute('data-is-open') === 'true';
+
+            // Kartın durumu toggle'un durumuyla eşleşiyorsa göster, değilse gizle
+            if (showActive === isOpen) {
+                card.style.display = ''; // CSS'deki varsayılan haline döner
+            } else {
+                card.style.display = 'none'; // Kartı gizle
+            }
+        });
+    }
+
+    // Toggle değiştiğinde filtreleme fonksiyonunu çalıştır
+    toggle.addEventListener('change', filterMeetings);
+
+    // Sayfa ilk yüklendiğinde filtrelemeyi başlat
+    filterMeetings();
+});
+</script>
   </body>
 </html>

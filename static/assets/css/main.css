@@ -11146,6 +11146,78 @@ START: Contact CSS
   }
 }
 
+/* ==========================================================================
+   Ülke Arama ve Grid Stilleri
+   ========================================================================== */
+
+/* Arama Kutusu Konteyneri */
+.country-search-container {
+  margin-bottom: 30px; /* Arama kutusu ile ülke listesi arasına boşluk bırakır */
+  position: relative;
+}
+
+/* Arama Kutusu */
+.country-search-input {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 16px;
+  color: #333;
+  background-color: #f7f7f7;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px; /* Kenarları yuvarlak yapar */
+  outline: none; /* Tıklandığında çıkan çerçeveyi kaldırır */
+  transition: all 0.3s ease-in-out; /* Animasyon efekti */
+}
+
+/* Arama kutusuna tıklandığında (focus) stil */
+.country-search-input:focus {
+  border-color: #0056b3; /* Projenizin ana rengiyle değiştirebilirsiniz */
+  box-shadow: 0 4px 12px rgba(0, 86, 179, 0.1);
+}
+
+/* Ülke Grid'i */
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Duyarlı grid yapısı */
+  gap: 20px; /* Kartlar arası boşluk */
+}
+
+/* Ülke Kartı */
+.country-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none; /* Link alt çizgisini kaldırır */
+  color: inherit;
+}
+
+.country-card:hover {
+  transform: translateY(-5px); /* Kartın yukarı kalkma efekti */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Bayrak Resmi */
+.country-flag-img {
+  width: 64px;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 15px; /* Bayrak ile isim arasına boşluk */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Ülke Adı */
+.country-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
 .location-indicator {
   width: 19px;
   height: 19px;
@@ -13050,7 +13122,7 @@ START: Blog Details CSS
 @media only screen and (min-width: 576px) and (max-width: 767px),
   (max-width: 575px) {
   .blog-category-two {
-    padding: 20px;
+    /* padding: 20px; */
     gap: 20px;
   }
 }
@@ -23674,3 +23746,108 @@ START: Hero CSS
     min-height: 610px;
   }
 }
+
+ .meeting-filter-toggle-container {
+      display: flex;
+      flex-direction: row; /* Dikey (column) yerine yatay (row) dizilim */
+      align-items: center;   /* Öğeleri dikeyde ortala */
+    }
+
+    .meeting-filter-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .meeting-filter-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .meeting-filter-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #f44336;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+
+    .meeting-filter-slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .meeting-filter-slider {
+      background-color: #4CAF50;
+    }
+
+    input:checked + .meeting-filter-slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+    
+    #meeting-toggle-status {
+        font-weight: bold;
+        font-size: 16px;
+        margin-right: 15px; /* Metin ile anahtar arasına boşluk ekle */
+        /* margin-top kaldırıldı */
+    }
+
+    .meeting-title{
+      display: flex;
+      justify-content: space-between;
+            align-items: center;
+
+    }
+
+  @media (max-width: 576px) {
+        /* Konteyner dikey hizalanacak */
+        .meeting-filter-toggle-container {
+            flex-direction: column; /* Metni üste al */
+            align-items: flex-start; /* Sola yasla */
+        }
+
+        /* Anahtar küçültülecek */
+        .meeting-filter-switch {
+            width: 45px; /* Genişlik küçültüldü */
+            height: 25px; /* Yükseklik küçültüldü */
+        }
+
+        /* Daire (slider topu) küçültülecek */
+        .meeting-filter-slider:before {
+            height: 19px; /* Yükseklik küçültüldü */
+            width: 19px;  /* Genişlik küçültüldü */
+            left: 3px;
+            bottom: 3px;
+        }
+
+        /* Dairenin hareket mesafesi ayarlanacak */
+        input:checked + .meeting-filter-slider:before {
+            -webkit-transform: translateX(20px);
+            -ms-transform: translateX(20px);
+            transform: translateX(20px);
+        }
+
+        /* Metin stilleri ayarlanacak */
+        #meeting-toggle-status {
+            font-size: 14px; /* Yazı boyutu küçültüldü */
+            margin-right: 0; /* Sağ boşluk kaldırıldı */
+            margin-bottom: 8px; /* Altına boşluk eklendi */
+        }
+    }

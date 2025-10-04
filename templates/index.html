@@ -314,7 +314,7 @@
             <div class="col-12">
               <div class="sec-heading text-center">
                 <span class="sub-title wow fadeInUp" data-wow-delay=".3s"
-                  ><i class="tji-box"></i>{% trans 'Events' %}</span
+                  ><i class="fa-solid fa-calendar-days"></i>{% trans 'Events' %}</span
                 >
                 <h2 class="sec-title title-anim">
                   <span>{% trans 'Last events' %}</span>
@@ -410,7 +410,7 @@
                 <span
                   class="sub-title text-white wow fadeInUp"
                   data-wow-delay=".3s"
-                  ><i class="tji-box"></i>{% trans 'News' %}</span
+                  ><i class="fa-solid fa-globe"></i>{% trans 'News' %}</span
                 >
                 <h2 class="sec-title text-white title-anim">
                   {% trans 'Last news' %}
@@ -438,9 +438,7 @@
                             >
                           </h4>
                           <p class="desc">
-                            {% if news.description|length > 200 %} {{
-                            news.description|slice:":200" }}... {% else %} {{
-                            news.description }} {% endif %}
+                            {% if news.description|length > 200 %} {{ news.description|slice:":200" }}... {% else %} {{ news.description }} {% endif %}
                           </p>
                           <a
                             class="text-btn"
@@ -532,8 +530,7 @@
 
       <section
         style="margin: 20px 0px 0px"
-        class="tj-contact-section section-gap section-gap-x only-desktop map-section-home"
-      >
+        class="tj-contact-section section-gap section-gap-x map-section-home">
         <div class="container">
           <div class="row">
             <div class="col-lg-6">
@@ -547,8 +544,7 @@
                     <div class="location-tooltip">
                       <span>{% trans "Head office" %}:</span>
                       <p>
-                        {% trans "Natig Aliyev str, 4-a AZ1025, Baku, Republic
-                        of Azerbaijan" %}
+                        {% trans "Natig Aliyev str, 4-a AZ1025, Baku, Republic of Azerbaijan" %}
                       </p>
                       <a href="tel:+994124643134">(+994 12) 464-31-34</a>
                       <a href="info@rocb-europe.org">M: info@rocb-europe.org</a>
@@ -558,8 +554,7 @@
                     <div class="location-tooltip">
                       <span>{% trans "Head office" %}:</span>
                       <p>
-                        {% trans "Thai Customs Department, Sunthornkosa Road,
-                        Klongtoey, Bangkok 10110, Thailand" %}
+                        {% trans "Thai Customs Department, Sunthornkosa Road, Klongtoey, Bangkok 10110, Thailand" %}
                       </p>
                     </div>
                   </div>
@@ -567,8 +562,7 @@
                     <div class="location-tooltip">
                       <span>{% trans "Head office" %}:</span>
                       <p>
-                        {% trans "Al Bustan Office Tower, 29 Street, Abu Dhabi,
-                        United Arab Emirates" %}
+                        {% trans "Al Bustan Office Tower, 29 Street, Abu Dhabi, United Arab Emirates" %}
                       </p>
                     </div>
                   </div>
@@ -576,9 +570,7 @@
                     <div class="location-tooltip">
                       <span>{% trans "Head office" %}:</span>
                       <p>
-                        {% trans "Corporate Business Center, Upper Hill, Elgon
-                        Road, Nairobi, Kenya; P.O. Box 50581–00200 Nairobi,
-                        Kenya" %}
+                        {% trans "Corporate Business Center, Upper Hill, Elgon Road, Nairobi, Kenya; P.O. Box 50581–00200 Nairobi, Kenya" %}
                       </p>
                     </div>
                   </div>
@@ -587,8 +579,7 @@
                     <div class="location-tooltip">
                       <span>{% trans "Head office" %}:</span>
                       <p>
-                        {% trans "Vice-Chair Office in Mali (Samanko II, Kati);
-                        Nigeria Customs HQ in Abuja" %}
+                        {% trans "Vice-Chair Office in Mali (Samanko II, Kati); Nigeria Customs HQ in Abuja" %}
                       </p>
                     </div>
                   </div>
@@ -632,5 +623,7 @@
     <script src="{% static 'assets/js/main.js' %}"></script>
 
     <script src="{% static 'assets/js/navbar.js' %}"></script>
+
+    
   </body>
 </html>

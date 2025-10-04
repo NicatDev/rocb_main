@@ -129,6 +129,9 @@
                     {% endif %}
 
                    {% if countries %}
+                   <div class="country-search-container wow fadeInUp" data-wow-delay=".3s">
+            <input type="text" id="countrySearchInput" class="country-search-input" placeholder="{% trans 'Search' %}">
+        </div>
   <div class="country-grid">
     {% for country in countries %}
       <a class="country-card">
@@ -294,5 +297,42 @@
     <script src="{% static 'assets/js/main.js' %} "></script>
 
     <script src="{% static 'assets/js/navbar.js' %}"></script>
+
+    <script>
+      // Sayfa tamamen yüklendiğinde JavaScript kodunun çalışmasını sağlar
+      document.addEventListener('DOMContentLoaded', function() {
+        
+        // Gerekli HTML elementlerini seçiyoruz
+        const searchInput = document.getElementById('countrySearchInput');
+        const countryCards = document.querySelectorAll('.country-card');
+
+        // Arama kutusu elementinin var olup olmadığını kontrol ediyoruz
+        if (searchInput) {
+          // Arama kutusuna her harf yazıldığında bu fonksiyon çalışır
+          searchInput.addEventListener('keyup', function(event) {
+            
+            // Arama metnini alıp küçük harfe çeviriyoruz
+            const searchTerm = event.target.value.toLowerCase();
+
+            // Tüm ülke kartlarını döngüye alıyoruz
+            countryCards.forEach(function(card) {
+              
+              // Kartın içindeki ülke ismini alıp küçük harfe çeviriyoruz
+              const countryName = card.querySelector('.country-name').textContent.toLowerCase();
+              
+              // Eğer ülke ismi, arama metnini içeriyorsa kartı göster
+              if (countryName.includes(searchTerm)) {
+                card.style.display = 'flex'; // CSS'teki orijinal display değeri
+              } 
+              // İçermiyorsa kartı gizle
+              else {
+                card.style.display = 'none';
+              }
+            });
+          });
+        }
+      });
+    </script>
+
   </body>
 </html>

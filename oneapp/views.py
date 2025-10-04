@@ -65,7 +65,7 @@ def news_page(request):
     if tagParam: 
         news = news.filter(tag=tagParam)
 
-    paginator = Paginator(news, 3)
+    paginator = Paginator(news, 8)
     page_obj = paginator.get_page(page_number)
 
     tabs = News.objects.exclude(id__in=[n.id for n in page_obj]).order_by('-id')[:3]
