@@ -6,19 +6,19 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="{% trans 'Create your ROCB Europe account. Register to access your personal profile and use all platform features.' %}" />
+    <meta
+      name="description"
+      content="{% trans 'Create your ROCB Europe account. Register to access your personal profile and use all platform features.' %}"
+    />
 
-<!-- Site Title -->
-<title>{% trans 'ROCB Europe - Register' %}</title>
+    <title>{% trans 'ROCB Europe - Register' %}</title>
 
-    <!-- Place favicon.ico in the root directory -->
     <link
       rel="shortcut icon"
       type="image/x-icon"
       href="{% static 'logo.png' %}"
     />
 
-    <!-- CSS here -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
     <link
       rel="stylesheet"
@@ -42,7 +42,6 @@
   <body>
     <div class="body-overlay"></div>
 
-    <!-- Preloader Start -->
     <div class="preloader">
       <div class="loading-container">
         <div class="loading"></div>
@@ -51,34 +50,16 @@
         </div>
       </div>
     </div>
-    <!-- Preloader end -->
-
-    <!-- back to top start -->
     <div class="back-to-top-wrapper">
       <button id="back_to_top" type="button" class="back-to-top-btn">
         <span><i class="tji-arrow-up-long"></i></span>
       </button>
     </div>
-    <!-- back to top end -->
-
-    <!-- start: Search Popup -->
     <div class="search-popup-overlay"></div>
-    <!-- end: Search Popup -->
-
-    <!-- start: Offcanvas Menu -->
     {% include 'components/hamburger-menu.html' %}
-    <!-- end: Hamburger Menu -->
-
-    <!-- start: Header Area -->
     {% include 'components/navbar.html' %}
-    <!-- end: Header Area -->
-
-    <!-- start: Header Area -->
     {% include 'components/scroll-navbar.html' %}
-    <!-- end: Header Area -->
-
     <main id="primary" class="site-main">
-      <!-- start: Breadcrumb Section -->
       <section class="tj-page-header section-gap-x">
         <div class="container">
           <div class="row">
@@ -90,7 +71,7 @@
                 <div class="tj-page-link">
                   <span><i class="tji-home"></i></span>
                   <span>
-                    <a href="{% url 'home' %}" >{% trans "Home" %}</a>
+                    <a href="{% url 'home' %}">{% trans "Home" %}</a>
                   </span>
                   <span><i class="tji-arrow-right"></i></span>
                   <span>
@@ -106,102 +87,118 @@
           data-bg-image="{% static 'assets/images/shape/pheader-overlay.webp' %}"
         ></div>
       </section>
-      <!-- end: Breadcrumb Section -->
+      <section class="full-width tj-page__area section-gap-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="tj-page__container">
+                <div class="tj-entry__content">
+                  <div class="woocommerce">
+                    <div class="woo-login-form">
+                      <h3>{% trans "Register" %}</h3>
 
-      <!-- start: Blog Section -->
-    <section class="full-width tj-page__area section-gap-3">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="tj-page__container">
-          <div class="tj-entry__content">
-            <div class="woocommerce">
-              <div class="woo-login-form">
-                <h3>{% trans "Register" %}</h3>
+                      {% if messages %}
+                      <ul class="error-messages">
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                      </ul>
+                      {% endif %}
 
-                {% if messages %}
-                <ul class="error-messages">
-                  {% for message in messages %}
-                  <li>{{ message }}</li>
-                  {% endfor %}
-                </ul>
-                {% endif %}
+                      <form id="registerForm" method="POST">
+                        {% csrf_token %}
 
-                <form id="registerForm" method="POST">
-                  {% csrf_token %}
+                        <p>
+                          <label>{% trans "Username" %}</label>
+                          <input type="text" name="username" required />
+                        </p>
 
-                  <p>
-                    <label>{% trans "Username" %}</label>
-                    <input type="text" name="username" required />
-                  </p>
+                        <div style="display: flex; gap: 10px">
+                          <p style="flex: 1">
+                            <label>{% trans "First Name" %}</label>
+                            <input type="text" name="first_name" required />
+                          </p>
+                          <p style="flex: 1">
+                            <label>{% trans "Last Name" %}</label>
+                            <input type="text" name="last_name" required />
+                          </p>
+                        </div>
 
-                  <div style="display: flex; gap: 10px">
-                    <p style="flex: 1">
-                      <label>{% trans "First Name" %}</label>
-                      <input type="text" name="first_name" required />
-                    </p>
-                    <p style="flex: 1">
-                      <label>{% trans "Last Name" %}</label>
-                      <input type="text" name="last_name" required />
-                    </p>
+                        <p>
+                          <label>{% trans "Email" %}</label>
+                          <input type="email" name="email" required />
+                        </p>
+
+                        <div style="display: flex; gap: 10px">
+                          <p style="flex: 1">
+                            <label>{% trans "Password" %}</label>
+                            <input type="password" name="password1" required />
+                          </p>
+                          <p style="flex: 1">
+                            <label>{% trans "Confirm Password" %}</label>
+                            <input type="password" name="password2" required />
+                          </p>
+                        </div>
+
+                        <div style="display: flex; gap: 10px">
+                          <p style="flex: 1">
+                            <label>{% trans "Phone Number" %}</label>
+                            <input type="text" name="phone_number" />
+                          </p>
+                          <p style="flex: 1">
+                            <label>{% trans "Organization" %}</label>
+                            <input type="text" name="organization" />
+                          </p>
+                        </div>
+
+                        <p>
+                          <label>{% trans "Position" %}</label>
+                          <input type="text" name="position" />
+                        </p>
+
+                        <button
+                          type="submit"
+                          class="woocommerce-button button woocommerce-form-login__submit"
+                          name="login"
+                        >
+                          <span class="btn-text"
+                            ><span>{% trans "Register" %}</span></span
+                          >
+                        </button>
+                      </form>
+                    </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      </main>
 
-                  <p>
-                    <label>{% trans "Email" %}</label>
-                    <input type="email" name="email" required />
-                  </p>
-
-                  <div style="display: flex; gap: 10px">
-                    <p style="flex: 1">
-                      <label>{% trans "Password" %}</label>
-                      <input type="password" name="password1" required />
-                    </p>
-                    <p style="flex: 1">
-                      <label>{% trans "Confirm Password" %}</label>
-                      <input type="password" name="password2" required />
-                    </p>
-                  </div>
-
-                  <div style="display: flex; gap: 10px">
-                    <p style="flex: 1">
-                      <label>{% trans "Phone Number" %}</label>
-                      <input type="text" name="phone_number" />
-                    </p>
-                    <p style="flex: 1">
-                      <label>{% trans "Organization" %}</label>
-                      <input type="text" name="organization" />
-                    </p>
-                  </div>
-
-                  <p>
-                    <label>{% trans "Position" %}</label>
-                    <input type="text" name="position" />
-                  </p>
-
-                  <button
-                    type="submit"
-                    class="woocommerce-button button woocommerce-form-login__submit"
-                    name="login"
-                  >
-                    <span class="btn-text"><span>{% trans "Register" %}</span></sp
-
-
-      <!-- end: Blog Section -->
-
-      <!-- start: Cta Section -->
-
-      <!-- end: Cta Section -->
-    </main>
-
-    <!-- start: Footer Section -->
     {% include 'components/footer.html' %}
-    <!-- end: Footer Section -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-scroll-to-plugin.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-scroll-trigger.min.js' %}"></script>
+    <script src="{% static 'assets/js/gsap-split-text.min.js' %}"></script>
+    <script src="{% static 'assets/js/smooth-scroll.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/swiper.min.js' %}"></script>
+    <script src="{% static 'assets/js/odometer.min.js' %}"></script>
+    <script src="{% static 'assets/js/venobox.min.js' %}"></script>
+    <script src="{% static 'assets/js/appear.min.js' %}"></script>
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/meanmenu.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %} "></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static 'assets/js/navbar.js' %}"></script>
+
     <script>
       document
         .getElementById("registerForm")
         .addEventListener("submit", function (e) {
-          e.preventDefault(); // Prevent normal form submit
+          e.preventDefault(); // This is crucial: it stops the form from submitting the old-fashioned way.
 
           let formData = new FormData(this);
 
@@ -214,53 +211,34 @@
           })
             .then((res) => res.json())
             .then((data) => {
-              console.log(data,'-----')
               if (data.status === "success") {
                 Swal.fire({
                   icon: "success",
-                  title: "Success",
-                  text: data.message,
+                  title: "{% trans 'Registration Successful' %}",
+                  text: "{% trans 'Your registration has been successfully submitted! It will be reviewed by an administrator shortly.' %}",
+                  confirmButtonText: "{% trans 'OK' %}",
                 }).then(() => {
-                  window.location.href = "{% url 'login' %}"; // redirect after success
+                  // This part only runs AFTER the user clicks "OK" on the alert.
+                  window.location.href = "{% url 'home' %}";
                 });
               } else {
+                // If there's an error from the server (e.g., username taken)
                 Swal.fire({
                   icon: "error",
-                  title: "{% trans 'Register failed' %}",
+                  title: "{% trans 'Registration failed' %}",
                   text: data.message,
                 });
               }
             })
             .catch((err) => {
-              console.log(err,'------------------------------')
+              // If there's a network error
               Swal.fire({
                 icon: "error",
-                title: "Error",
-                text: "{% trans 'Something went wrong' %}!",
+                title: "{% trans 'Error' %}",
+                text: "{% trans 'Something went wrong' %}",
               });
             });
         });
     </script>
-
-    <!-- JS here -->
-    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
-    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
-
-
-    <script src="{% static 'assets/js/gsap-scroll-to-plugin.min.js' %}"></script>
-    <script src="{% static 'assets/js/gsap-scroll-trigger.min.js' %}"></script>
-    <script src="{% static 'assets/js/gsap-split-text.min.js' %}"></script>
-    <script src="{% static 'assets/js/smooth-scroll.min.js' %}"></script>
-
-    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
-    <script src="{% static 'assets/js/swiper.min.js' %}"></script>
-    <script src="{% static 'assets/js/odometer.min.js' %}"></script>
-    <script src="{% static 'assets/js/venobox.min.js' %}"></script>
-    <script src="{% static 'assets/js/appear.min.js' %}"></script>
-    <script src="{% static 'assets/js/wow.min.js' %}"></script>
-    <script src="{% static 'assets/js/meanmenu.js' %}"></script>
-    <script src="{% static 'assets/js/main.js' %} "></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{% static 'assets/js/navbar.js' %}"></script>
   </body>
 </html>

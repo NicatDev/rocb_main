@@ -149,11 +149,20 @@
                         >{% trans "Profile" %}</a
                       >
                     </li>
+                    {% if user.is_staff %}
+                  <li>
+                    <a href="{% url 'pending_approvals' %}"
+                        >{% trans "Pending users" %}</a
+                      >
+                    </li>
+                  </li>
+                  {% endif %}
                     <li>
                       <a href="{% url 'logout_url_view' %}"
                         >{% trans "Logout" %}</a
                       >
                     </li>
+                  
                     {% else %}
                     <li><a href="{% url 'login' %}">{% trans "Login" %}</a></li>
                     <li>

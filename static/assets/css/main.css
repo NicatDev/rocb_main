@@ -23851,3 +23851,134 @@ START: Hero CSS
             margin-bottom: 8px; /* Altına boşluk eklendi */
         }
     }
+
+      .approval-section {
+            padding: 50px 0;
+            background-color: #f8f9fa;
+        }
+        .approval-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .approval-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+        .approval-card-info h5 {
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .approval-card-info p {
+            margin: 0;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .approval-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        .btn-approve {
+            background-color: #2e7d32; /* Tünd yaşıl */
+            border: 2px solid transparent;
+        }
+        .btn-approve:hover {
+            background-color: #1b5e20;
+            transform: scale(1.1);
+        }
+        .btn-reject {
+            background-color: #d32f2f; /* Tünd qırmızı */
+            border: 2px solid transparent;
+        }
+        .btn-reject:hover {
+            background-color: #c62828;
+            transform: scale(1.1);
+        }
+        .no-pending {
+            text-align: center;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 12px;
+        }
+
+        /* Mobil üçün nəzərdə tutulan sətir sonunu böyük ekranlarda gizlədirik */
+.mobile-break {
+    display: none;
+}
+
+        @media (max-width: 768px) {
+          /* 768px və daha kiçik ekranlarda sətir sonunu aktiv edirik */
+.mobile-break {
+    display: initial; /* <br> teqinin standart davranışını geri qaytarır */
+}
+    /* Kartın daxili boşluğunu və elementlərin düzülüşünü tənzimləyirik */
+    .approval-card {
+        padding: 15px;
+        /* flex-direction: column; ləğv edildi, çünki elementlərin yan-yana qalmasını istəyirik */
+        align-items: center; /* Elementləri şaquli olaraq mərkəzə gətirir */
+    }
+
+    /* Mətn blokundakı başlıq və paraqraf ölçülərini kiçildiririk */
+    .approval-card-info h5 {
+        font-size: 1rem;
+    }
+    .approval-card-info p {
+        font-size: 0.85rem;
+        line-height: 1.4; /* <br> teqindən sonra sətirlər arası məsafəni nizamlayır */
+    }
+
+    /* Düymələr bloku arasındakı məsafəni azaldırıq */
+    .approval-card-actions {
+        /* margin-top: 15px; və width: 100%; ləğv edildi */
+        gap: 10px; /* Düymələr arasındakı boşluğu azaldırıq */
+    }
+
+    /* Düymələrin özlərini kiçildiririk */
+    .action-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 16px; /* İkon ölçüsünü də uyğunlaşdırırıq */
+    }
+
+    /* Ümumi section üçün daxili boşluqları tənzimləyirik */
+    .approval-section {
+        padding: 30px 15px;
+    }
+    .approval-section h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .action-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 14px;
+    }
+    .approval-card-actions {
+        gap: 9px;
+    }
+        .approval-card {
+        gap: 30px;
+    }
+}

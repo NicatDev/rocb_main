@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from .models import Profile 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import ProfilePictureForm
 
 @login_required
@@ -96,6 +96,9 @@ def register_view(request):
             first_name=first_name,
             last_name=last_name
         )
+        
+        user.is_active = False
+        user.save()
 
         # Create profile with additional fields
         Profile.objects.create(
@@ -106,6 +109,52 @@ def register_view(request):
         )
 
 
-        return JsonResponse({"success": "User registered successfully", 'status':'success'})
+        return JsonResponse({
+            "status": "success",
+            "message": "Your registration has been successfully submitted! It will be reviewed by an administrator shortly."
+        })
 
     return render(request, "register.html")
+
+def is_staff(user):
+    return user.is_staff
+
+@login_required
+@user_passes_test(is_staff)
+def pending_approvals_view(request):
+    # DƏYİŞİKLİK: Yalnız statusu "pending" olanları göstər
+    pending_users = User.objects.filter(profile__status='pending', is_active=False).order_by('-date_joined')
+    context = {
+        'pending_users': pending_users
+    }
+    return render(request, 'pending_approvals.html', context)
+
+@login_required
+@user_passes_test(is_staff)
+def approve_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    
+    # İstifadəçini aktiv et
+    user.is_active = True
+    user.save()
+    
+    # DƏYİŞİKLİK: Profil statusunu "approved" et
+    user.profile.status = 'approved'
+    user.profile.save()
+    
+    messages.success(request, f"User '{user.username}' has been approved.")
+    return redirect('pending_approvals')
+
+@login_required
+@user_passes_test(is_staff)
+def reject_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    username = user.username
+    
+    # DƏYİŞİKLİK: İstifadəçini silmək əvəzinə, profil statusunu "rejected" et
+    # user.delete()  <-- BU SƏTRİ SİLİN VƏ YA KOMMENTƏ ALIN
+    user.profile.status = 'rejected'
+    user.profile.save()
+    
+    messages.warning(request, f"User '{username}' has been rejected.")
+    return redirect('pending_approvals')
