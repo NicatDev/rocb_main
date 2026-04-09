@@ -1,6 +1,10 @@
 # from oneapp.sitemap import BlogSiteMap,ServiceSiteMap,StaticSitemap
 from django.contrib import admin
 from django.urls import path, include, re_path
+
+admin.site.site_header = 'Rocb Europe Admin'
+admin.site.site_title = 'Rocb Europe Admin'
+admin.site.index_title = 'Rocb Europe Admin'
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static

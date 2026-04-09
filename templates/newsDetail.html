@@ -119,7 +119,11 @@
                 {% endif %}
 
                 <div class="blog-text">
-                  <p class="wow fadeInUp" data-wow-delay=".3s">{{ item.description|linebreaks }}</p>
+                  {% if item.content %}
+                    <div class="wow fadeInUp" data-wow-delay=".3s">{{ item.content|safe }}</div>
+                  {% else %}
+                    <p class="wow fadeInUp" data-wow-delay=".3s">{{ item.description|linebreaks }}</p>
+                  {% endif %}
 
                   <div class="blog-images wow fadeInUp" data-wow-delay=".1s">
                     {% if item.image %}

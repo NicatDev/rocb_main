@@ -221,6 +221,12 @@ TRANSLATABLE_MODEL_MODULES = ["oneapp.models", ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Main site pulls global news from rocb_app_news API (root host for API is app.rocbeurope.org)
+RTC_APP_NEWS_API_BASE = os.environ.get(
+    'RTC_APP_NEWS_API_BASE',
+    'https://app.rocbeurope.org/api/v1',
+)
+
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'aytacmehdizade08@gmail.com'

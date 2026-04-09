@@ -430,7 +430,9 @@
                     <div class="swiper-slide">
                       <div class="service-item style-1">
                         <div class="service-img">
-                          <img src="{{news.image.url}}" alt="" />
+                          {% if news.image %}
+                          <img src="{{ news.image.url }}" alt="" />
+                          {% endif %}
                         </div>
                         <div class="service-content">
                           <h4 class="title">

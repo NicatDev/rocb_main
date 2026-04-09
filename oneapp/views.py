@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import resolve, reverse
@@ -13,9 +13,20 @@ from django.views.decorators.csrf import csrf_exempt
 from about.models import About
 from region.models import Region
 from django.contrib.auth.decorators import login_required
-from .models import News, Event, MeetingDocuments, MeetingRegistrations, Registration, Faq
+from .models import Event, MeetingDocuments, MeetingRegistrations, Registration, Faq
+from .news_api_client import (
+    ApiNewsItem,
+    SlugRef,
+    build_page_from_api,
+    discover_tabs_excluding,
+    fetch_main_site_news_batch,
+    fetch_main_site_news_detail,
+    fetch_main_site_news_page,
+    prev_next_slugs,
+    search_news_rows,
+)
 import datetime
-import pytz 
+import pytz
 
 def set_language(request, language):
     for lang, _ in settings.LANGUAGES:
@@ -38,7 +49,11 @@ def set_language(request, language):
 
 def home(request):
     events = Event.objects.filter(in_home=True)[0:8]
-    news = News.objects.filter(in_home=True)[0:8]
+    batch = fetch_main_site_news_batch(8)
+    news = [
+        ApiNewsItem(row, for_detail=False)
+        for row in (batch or {}).get('results', [])
+    ]
     faqs = Faq.objects.order_by('order')
     context = {
         "events": events,
@@ -50,51 +65,64 @@ def home(request):
 
 
 def news_page(request):
-    searchParam = request.GET.get("s")
-    tagParam = request.GET.get('t')
-    page_number = request.GET.get("page", 1)
+    search_param = request.GET.get("s")
+    try:
+        page_number = int(request.GET.get("page", 1) or 1)
+    except ValueError:
+        page_number = 1
 
-    news = News.objects.all()
-    tags = News.objects.values_list("tag", flat=True).distinct()
-
-    if searchParam:
-        news = news.filter(
-            Q(title__icontains=searchParam) | Q(tag__icontains=searchParam)
-        )
-
-    if tagParam: 
-        news = news.filter(tag=tagParam)
-
-    paginator = Paginator(news, 8)
-    page_obj = paginator.get_page(page_number)
-
-    tabs = News.objects.exclude(id__in=[n.id for n in page_obj]).order_by('-id')[:3]
+    page_size = 8
+    data = fetch_main_site_news_page(
+        page=page_number, page_size=page_size, search=search_param
+    )
+    page_obj = build_page_from_api(data, page_number, page_size)
+    tabs = discover_tabs_excluding(page_obj, limit=3)
 
     context = {
-        "items": news,
-        "tags":tags,
+        "tags": [],
         "page_obj": page_obj,
-        "paginator": paginator,
-        "tabs":tabs
+        "paginator": page_obj.paginator,
+        "tabs": tabs,
     }
 
     return render(request, 'news.html', context)
 
 def news_detail(request, slug):
-    item = News.objects.get(slug=slug)
-    items = News.objects.exclude(slug=slug)[0:3]
+    raw = fetch_main_site_news_detail(slug)
+    if not raw:
+        raise Http404()
+    item = ApiNewsItem(raw, for_detail=True)
 
-    prev_item = News.objects.filter(id__lt=item.id).order_by('-id').first()
-    next_item = News.objects.filter(id__gt=item.id).order_by('id').first()
+    prev_slug, next_slug = prev_next_slugs(slug)
+    prev_item = SlugRef(prev_slug) if prev_slug else None
+    next_item = SlugRef(next_slug) if next_slug else None
 
-    tabs = News.objects.exclude(slug=slug).order_by('-id')[0:4]
+    items = []
+    more = fetch_main_site_news_page(1, page_size=6)
+    if more:
+        for row in more.get('results', []):
+            if row.get('slug') == slug:
+                continue
+            items.append(ApiNewsItem(row, for_detail=False))
+            if len(items) >= 3:
+                break
+
+    tab_objs = []
+    tab_batch = fetch_main_site_news_page(1, page_size=8)
+    if tab_batch:
+        for row in tab_batch.get('results', []):
+            if row.get('slug') == slug:
+                continue
+            tab_objs.append(ApiNewsItem(row, for_detail=False))
+            if len(tab_objs) >= 4:
+                break
 
     context = {
         "item": item,
-        "items":items,
-        "prev_item":prev_item,
-        "next_item":next_item,
-        "tabs":tabs
+        "items": items,
+        "prev_item": prev_item,
+        "next_item": next_item,
+        "tabs": tab_objs,
     }
     return render(request, 'newsDetail.html', context)
 
@@ -227,20 +255,8 @@ def search(request):
     results = []
 
     if query:
-        news_results = News.objects.filter(title__icontains=query)
+        news_list = search_news_rows(query)
         event_results = Event.objects.filter(title__icontains=query)
-
-        news_list = [
-            {
-                'title': n.title,
-                'description': n.description,
-                'image': n.image,
-                'date': n.date,
-                'slug': n.slug,
-                'type': 'News'
-            }
-            for n in news_results
-        ]
 
         event_list = [
             {
@@ -269,12 +285,15 @@ def search(request):
 
         results = sorted(combined, key=sort_key, reverse=True)
 
-    page_number = request.GET.get('page', 1)
+    try:
+        page_number = int(request.GET.get('page', 1) or 1)
+    except ValueError:
+        page_number = 1
     paginator = Paginator(results, 5)
     page_obj = paginator.get_page(page_number)
 
     context = {
         'query': query,
-        'page_obj': results,
+        'page_obj': page_obj,
     }
     return render(request, 'search_results.html', context)
