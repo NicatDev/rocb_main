@@ -543,6 +543,14 @@
       {% trans "RTC Bishkek (Kyrgyzstan)" as rtc_lbl_bishkek %}
       {% trans "RTC Astana (Turkmenistan)" as rtc_lbl_turkmenistan %}
       {% trans "RTC Baku (Azerbaijan)" as rtc_lbl_baku %}
+      {% trans "Budapest" as rtc_short_budapest %}
+      {% trans "Moscow" as rtc_short_moscow %}
+      {% trans "Skopje" as rtc_short_skopje %}
+      {% trans "Nur-Sultan" as rtc_short_nur_sultan %}
+      {% trans "Khmelnytskyi" as rtc_short_khmelnytskyi %}
+      {% trans "Bishkek" as rtc_short_bishkek %}
+      {% trans "Ashgabat" as rtc_short_turkmenistan %}
+      {% trans "Baku" as rtc_short_baku %}
       <section
         class="section-gap section-gap-x rocb-rtc-network-section"
         aria-labelledby="rocb-rtc-network-heading"
@@ -628,13 +636,6 @@
               aria-label="{% trans 'Map of Europe and Central Asia with RTC locations' %}"
             ></div>
           </div>
-          <p class="small text-muted mt-3 mb-0" style="font-size: 0.8rem">
-            {% trans "Vector map:" %}
-            <a href="https://github.com/themustafaomar/jsvectormap" rel="noopener noreferrer" target="_blank"
-              >jsVectorMap</a
-            >
-            (MIT)
-          </p>
         </div>
       </section>
 
@@ -682,15 +683,48 @@
             return;
           }
           /* coords: [enlik, uzunluq] = [latitude, longitude] */
+          /* name = tooltip (tam mətn), short = xəritədə görünən qısa ad */
           var markers = [
-            { name: "{{ rtc_lbl_budapest|escapejs }}", coords: [47.4979, 19.0402] },
-            { name: "{{ rtc_lbl_moscow|escapejs }}", coords: [55.7558, 37.6173] },
-            { name: "{{ rtc_lbl_skopje|escapejs }}", coords: [41.9973, 21.428] },
-            { name: "{{ rtc_lbl_nur_sultan|escapejs }}", coords: [51.1606, 71.4708] },
-            { name: "{{ rtc_lbl_khmelnytskyi|escapejs }}", coords: [49.4225, 27.013] },
-            { name: "{{ rtc_lbl_bishkek|escapejs }}", coords: [42.882, 74.5827] },
-            { name: "{{ rtc_lbl_turkmenistan|escapejs }}", coords: [37.9601, 58.3833] },
-            { name: "{{ rtc_lbl_baku|escapejs }}", coords: [40.4093, 49.8671] },
+            {
+              name: "{{ rtc_lbl_budapest|escapejs }}",
+              short: "{{ rtc_short_budapest|escapejs }}",
+              coords: [47.4979, 19.0402],
+            },
+            {
+              name: "{{ rtc_lbl_moscow|escapejs }}",
+              short: "{{ rtc_short_moscow|escapejs }}",
+              coords: [55.7558, 37.6173],
+            },
+            {
+              name: "{{ rtc_lbl_skopje|escapejs }}",
+              short: "{{ rtc_short_skopje|escapejs }}",
+              coords: [41.9973, 21.428],
+            },
+            {
+              name: "{{ rtc_lbl_nur_sultan|escapejs }}",
+              short: "{{ rtc_short_nur_sultan|escapejs }}",
+              coords: [51.1606, 71.4708],
+            },
+            {
+              name: "{{ rtc_lbl_khmelnytskyi|escapejs }}",
+              short: "{{ rtc_short_khmelnytskyi|escapejs }}",
+              coords: [49.4225, 27.013],
+            },
+            {
+              name: "{{ rtc_lbl_bishkek|escapejs }}",
+              short: "{{ rtc_short_bishkek|escapejs }}",
+              coords: [42.882, 74.5827],
+            },
+            {
+              name: "{{ rtc_lbl_turkmenistan|escapejs }}",
+              short: "{{ rtc_short_turkmenistan|escapejs }}",
+              coords: [37.9601, 58.3833],
+            },
+            {
+              name: "{{ rtc_lbl_baku|escapejs }}",
+              short: "{{ rtc_short_baku|escapejs }}",
+              coords: [40.4093, 49.8671],
+            },
           ];
           try {
             _rocbJvm = jsVectorMap({
@@ -718,9 +752,9 @@
               labels: {
                 markers: {
                   render: function (a, b) {
-                    if (a && typeof a === "object" && a.name) return a.name;
+                    if (a && typeof a === "object" && a.short) return a.short;
                     var i = typeof b === "number" ? b : typeof a === "number" ? a : -1;
-                    return i >= 0 && markers[i] ? markers[i].name : "";
+                    return i >= 0 && markers[i] && markers[i].short ? markers[i].short : "";
                   },
                 },
               },
