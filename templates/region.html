@@ -128,7 +128,25 @@
                   </p>
                     {% endif %}
 
-                   {% if countries %}
+                   {% if api_rtc_profiles %}
+                   <div class="country-search-container wow fadeInUp" data-wow-delay=".3s">
+            <input type="text" id="countrySearchInput" class="country-search-input" placeholder="{% trans 'Search' %}">
+        </div>
+  <div class="country-grid">
+    {% for rtc in api_rtc_profiles %}
+      <a class="country-card" href="{{ rtc.detail_url }}" target="_blank" rel="noopener noreferrer">
+        <div>
+          {% if rtc.flag_url or rtc.logo %}
+            <img class="country-flag-img" src="{{ rtc.flag_url|default:rtc.logo }}" alt="{{ rtc.name }}" width="64" height="48">
+          {% else %}
+            <span class="country-flag-fallback">{{ rtc.host_country|default:rtc.name|slice:":2"|upper }}</span>
+          {% endif %}
+        </div>
+        <div class="country-name">{{ rtc.name }}</div>
+      </a>
+    {% endfor %}
+  </div>
+{% elif countries %}
                    <div class="country-search-container wow fadeInUp" data-wow-delay=".3s">
             <input type="text" id="countrySearchInput" class="country-search-input" placeholder="{% trans 'Search' %}">
         </div>

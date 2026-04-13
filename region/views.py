@@ -1,5 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from oneapp.news_api_client import fetch_main_site_rtc_profiles
 from .models import Region, ListSection, MiniTitle, Image, BlockQuote, ListItem, Tag, Country
+
+REGION_RTC_API_SLUG = 'wco-europe-rtcs'
 
 
 def region_page(request, slug=None):
@@ -33,6 +36,9 @@ def region_page(request, slug=None):
 
     countries = Country.objects.filter(region=selected_tab).order_by('title')
 
+    api_rtc_profiles = []
+    if selected_tab.slug == REGION_RTC_API_SLUG:
+        api_rtc_profiles = fetch_main_site_rtc_profiles() or []
 
     return render(request, "region.html", {
         "regiontabs": regiontabs,
@@ -44,7 +50,8 @@ def region_page(request, slug=None):
         "list_sections": list_sections,
         "prev_tab": prev_tab,
         "next_tab": next_tab,
-        'countries': countries
+        'countries': countries,
+        'api_rtc_profiles': api_rtc_profiles,
     })
 
 

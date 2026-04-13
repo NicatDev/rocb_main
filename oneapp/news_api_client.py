@@ -108,6 +108,28 @@ def fetch_main_site_news_batch(page_size: int = 8) -> Optional[dict]:
     return fetch_main_site_news_page(page=1, page_size=page_size, search=None)
 
 
+def _rtc_list_url() -> str:
+    base = getattr(settings, 'RTC_APP_NEWS_API_BASE', 'https://app.rocbeurope.org/api/v1').rstrip('/')
+    return f'{base}/public/main-site/rtc-profiles/'
+
+
+def fetch_main_site_rtc_profiles() -> Optional[list]:
+    """
+    Public RTC list for main site region page (rocb_app_news).
+    Returns a list of dicts with id, name, slug, host_country, logo, flag_url, detail_url.
+    """
+    try:
+        r = requests.get(_rtc_list_url(), timeout=20)
+        r.raise_for_status()
+        data = r.json()
+        if isinstance(data, list):
+            return data
+        return None
+    except Exception as exc:
+        logger.exception('Failed to fetch main-site RTC profiles: %s', exc)
+        return None
+
+
 def prev_next_slugs(current_slug: str) -> Tuple[Optional[str], Optional[str]]:
     """
     Ordering is -created_at (newest first). Prev = older, next = newer.
