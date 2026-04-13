@@ -12,7 +12,8 @@ def region_page(request, slug=None):
         return render(request, "region.html", {
             "resgiontabs": [],
             "selected_tab": None,
-            "region": None
+            "region": None,
+            "suppress_region_sections": False,
         })
 
     if slug:
@@ -37,8 +38,12 @@ def region_page(request, slug=None):
     countries = Country.objects.filter(region=selected_tab).order_by('title')
 
     api_rtc_profiles = []
-    if selected_tab.slug == REGION_RTC_API_SLUG:
+    rtc_api_page = selected_tab.slug == REGION_RTC_API_SLUG
+    if rtc_api_page:
         api_rtc_profiles = fetch_main_site_rtc_profiles() or []
+
+    # WCO Europe RTCs: köhnə admin/HTML-dəki statik RTC siyahısı (sections) təkrarlanmasın
+    suppress_region_sections = rtc_api_page
 
     return render(request, "region.html", {
         "regiontabs": regiontabs,
@@ -52,6 +57,7 @@ def region_page(request, slug=None):
         "next_tab": next_tab,
         'countries': countries,
         'api_rtc_profiles': api_rtc_profiles,
+        'suppress_region_sections': suppress_region_sections,
     })
 
 
