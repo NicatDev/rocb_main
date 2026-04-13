@@ -539,14 +539,16 @@
         <div class="container position-relative">
           <div class="text-center mb-4 mb-lg-4 wow fadeInUp" data-wow-delay=".1s">
             <h2 class="title title-anim mb-2">{% trans "WCO Europe Regional Training Centers" %}</h2>
-            <p class="mb-0 text-muted">{% trans "Explore our RTC network across the region" %}</p>
+            <p class="mb-0 rtc-map-section-intro">{% trans "Explore our RTC network across the region" %}</p>
           </div>
-          <div
-            id="rtc-leaflet-map"
-            class="rtc-leaflet-map"
-            role="application"
-            aria-label="{% trans 'Map of Europe and Central Asia with RTC locations' %}"
-          ></div>
+          <div class="rtc-leaflet-map-box">
+            <div
+              id="rtc-leaflet-map"
+              class="rtc-leaflet-map"
+              role="application"
+              aria-label="{% trans 'Map of Europe and Central Asia with RTC locations' %}"
+            ></div>
+          </div>
         </div>
         <div class="bg-shape-1">
           <img src="{% static 'assets/images/shape/pattern-2.svg' %}" alt="" />
@@ -594,10 +596,26 @@
     {% trans "RTC Baku (Azerbaijan)" as rtc_lbl_baku %}
     <script>
       (function () {
+        var _rtcMapTries = 0;
         function initRtcLeafletMap() {
           var el = document.getElementById("rtc-leaflet-map");
           if (!el || typeof L === "undefined") return;
-          if (el._leaflet_id) return;
+          if (el._leaflet_id) {
+            if (el._rocbRtcMap) {
+              try {
+                el._rocbRtcMap.invalidateSize({ animate: false });
+              } catch (e) {}
+            }
+            return;
+          }
+
+          var box = el.closest(".rtc-leaflet-map-box");
+          var h = el.offsetHeight || (box ? box.offsetHeight : 0);
+          if (h < 64 && _rtcMapTries < 40) {
+            _rtcMapTries += 1;
+            setTimeout(initRtcLeafletMap, 100);
+            return;
+          }
 
           /* WGS84 — şəhər mərkəzləri (Leaflet: lat, lng) */
           var points = [
@@ -620,16 +638,12 @@
             worldCopyJump: false,
           });
 
-          /* CARTO Positron “no labels” — düz, az detallı (vektorvari görünüş, raster tile) */
-          L.tileLayer(
-            "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
-            {
-              attribution:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-              subdomains: "abcd",
-              maxZoom: 20,
-            }
-          ).addTo(map);
+          /* OSM — çox şəbəkələrdə işləyir; tile gəlməsə fon yenə açıq qalır */
+          L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+          }).addTo(map);
 
           var bounds = L.latLngBounds([]);
           var markerIcon = L.divIcon({
@@ -659,6 +673,8 @@
             animate: false,
           });
 
+          el._rocbRtcMap = map;
+
           function invalidate() {
             try {
               map.invalidateSize({ animate: false });
@@ -676,14 +692,27 @@
           setTimeout(invalidate, 200);
           setTimeout(invalidate, 600);
           setTimeout(invalidate, 1400);
-          window.addEventListener("load", invalidate);
         }
 
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", initRtcLeafletMap);
-        } else {
-          initRtcLeafletMap();
+        function scheduleInit() {
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", initRtcLeafletMap);
+          } else {
+            initRtcLeafletMap();
+          }
+          window.addEventListener("load", function () {
+            _rtcMapTries = 0;
+            var el = document.getElementById("rtc-leaflet-map");
+            if (el && el._rocbRtcMap) {
+              try {
+                el._rocbRtcMap.invalidateSize({ animate: false });
+              } catch (e) {}
+              return;
+            }
+            initRtcLeafletMap();
+          });
         }
+        scheduleInit();
       })();
     </script>
 
