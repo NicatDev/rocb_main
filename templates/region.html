@@ -143,8 +143,8 @@
       </a>
     {% endfor %}
   </div>
-{% elif countries and not suppress_region_sections %}
-  <div class="country-search-container wow fadeInUp" data-wow-delay=".3s">
+{% elif countries %}
+                   <div class="country-search-container wow fadeInUp" data-wow-delay=".3s">
             <input type="text" id="countrySearchInput" class="country-search-input" placeholder="{% trans 'Search' %}">
         </div>
   <div class="country-grid">
@@ -163,7 +163,6 @@
   </div>
 {% endif %}
 
-                {% if not suppress_region_sections %}
                 {% for section in sections %} 
                   {% for quote in section.block_quotes.all %}
                   <blockquote class="wow fadeInUp" data-wow-delay=".3s">
@@ -209,19 +208,9 @@
                 </ul>
               {% endif %}
                  {% endfor %}
-                {% endif %}
                 </div>
                
-                <div class="tj-tags-list wow fadeInUp" data-wow-delay=".3s">
-                    {% for list_section in list_sections %}
-                        <a href="{% url 'region:region_detail' slug=list_section.slug %}" class="list-section-title">
-                            {{ list_section.title }}
-                            <span class="icon"><i class="tji-arrow-right"></i></span>
-
-                        </a>
-                    {% endfor %}
-
-                </div>
+               
                  {% if region.author %}
               <div class="about-author region-author">
                 <i class="fa-regular fa-pen"></i>
@@ -316,17 +305,38 @@
     <script src="{% static 'assets/js/navbar.js' %}"></script>
 
     <script>
+      // Sayfa tamamen yüklendiğinde JavaScript kodunun çalışmasını sağlar
       document.addEventListener('DOMContentLoaded', function() {
+        
+        // Gerekli HTML elementlerini seçiyoruz
         const searchInput = document.getElementById('countrySearchInput');
         const countryCards = document.querySelectorAll('.country-card');
-        if (!searchInput) return;
-        searchInput.addEventListener('keyup', function(event) {
-          const searchTerm = event.target.value.toLowerCase();
-          countryCards.forEach(function(card) {
-            const countryName = card.querySelector('.country-name').textContent.toLowerCase();
-            card.style.display = countryName.includes(searchTerm) ? 'flex' : 'none';
+
+        // Arama kutusu elementinin var olup olmadığını kontrol ediyoruz
+        if (searchInput) {
+          // Arama kutusuna her harf yazıldığında bu fonksiyon çalışır
+          searchInput.addEventListener('keyup', function(event) {
+            
+            // Arama metnini alıp küçük harfe çeviriyoruz
+            const searchTerm = event.target.value.toLowerCase();
+
+            // Tüm ülke kartlarını döngüye alıyoruz
+            countryCards.forEach(function(card) {
+              
+              // Kartın içindeki ülke ismini alıp küçük harfe çeviriyoruz
+              const countryName = card.querySelector('.country-name').textContent.toLowerCase();
+              
+              // Eğer ülke ismi, arama metnini içeriyorsa kartı göster
+              if (countryName.includes(searchTerm)) {
+                card.style.display = 'flex'; // CSS'teki orijinal display değeri
+              } 
+              // İçermiyorsa kartı gizle
+              else {
+                card.style.display = 'none';
+              }
+            });
           });
-        });
+        }
       });
     </script>
 
