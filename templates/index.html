@@ -40,8 +40,11 @@
     <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
-    <!-- Leaflet 1.9.4 (vendored — avoids CDN/SRI blocks on some servers) -->
-    <link rel="stylesheet" href="{% static 'vendor/leaflet/leaflet.css' %}" />
+    <!-- jsVectorMap (MIT) — SVG vector map: https://github.com/themustafaomar/jsvectormap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css"
+    />
   </head>
 
   <body>
@@ -530,31 +533,108 @@
       </section>
       <!-- end: Faq Section -->
 
-      <!-- start: Contact Section -->
-      <!-- end: Contact Section -->
-
+      {% trans "WCO Europe Regional Training Centers" as rtc_sec_title %}
+      {% trans "Explore our RTC network across the region" as rtc_sec_subtitle %}
+      {% trans "RTC Budapest (Hungary)" as rtc_lbl_budapest %}
+      {% trans "RTC Moscow (Russian Federation)" as rtc_lbl_moscow %}
+      {% trans "RTC Skopje (North Macedonia)" as rtc_lbl_skopje %}
+      {% trans "RTC Nur-Sultan (Kazakhstan)" as rtc_lbl_nur_sultan %}
+      {% trans "RTC Khmelnytskyi (Ukraine)" as rtc_lbl_khmelnytskyi %}
+      {% trans "RTC Bishkek (Kyrgyzstan)" as rtc_lbl_bishkek %}
+      {% trans "RTC Astana (Turkmenistan)" as rtc_lbl_turkmenistan %}
+      {% trans "RTC Baku (Azerbaijan)" as rtc_lbl_baku %}
       <section
-        style="margin: 20px 0 0"
-        class="tj-contact-section section-gap section-gap-x map-section-home rtc-map-section">
-        <div class="container position-relative">
-          <div class="text-center mb-4 mb-lg-4 wow fadeInUp" data-wow-delay=".1s">
-            <h2 class="title title-anim mb-2">{% trans "WCO Europe Regional Training Centers" %}</h2>
-            <p class="mb-0 rtc-map-section-intro">{% trans "Explore our RTC network across the region" %}</p>
-          </div>
-          <div class="rtc-leaflet-map-box">
+        class="section-gap section-gap-x rocb-rtc-network-section"
+        aria-labelledby="rocb-rtc-network-heading"
+        style="margin: 24px 0 0; background: #f0f4f8; border-radius: 12px; overflow: hidden"
+      >
+        <style>
+          .rocb-rtc-network-section .rocb-rtc-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 2.5rem 1rem 3rem;
+            box-sizing: border-box;
+          }
+          @media (min-width: 768px) {
+            .rocb-rtc-network-section .rocb-rtc-inner {
+              padding-left: 1.25rem;
+              padding-right: 1.25rem;
+            }
+          }
+          .rocb-rtc-network-section #rocb-rtc-network-heading {
+            font-size: clamp(1.35rem, 3vw, 1.85rem);
+            font-weight: 700;
+            color: #1a2d3d;
+            margin: 0 0 0.5rem;
+            line-height: 1.25;
+          }
+          .rocb-rtc-network-section .rocb-rtc-sub {
+            margin: 0 auto 1.5rem;
+            max-width: 36rem;
+            color: #4a6572;
+            font-size: 1rem;
+            line-height: 1.5;
+          }
+          .rocb-rtc-network-section .rocb-rtc-map-wrap {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #e2ebf4;
+            box-shadow: 0 10px 40px rgba(18, 87, 158, 0.12);
+            border: 1px solid rgba(18, 87, 158, 0.12);
+          }
+          .rocb-rtc-network-section #rocb-rtc-jvm-map {
+            width: 100%;
+            height: 420px;
+            min-height: 260px;
+          }
+          @media (max-width: 991.98px) {
+            .rocb-rtc-network-section #rocb-rtc-jvm-map {
+              height: 360px;
+            }
+          }
+          @media (max-width: 575.98px) {
+            .rocb-rtc-network-section .rocb-rtc-inner {
+              padding-top: 1.75rem;
+              padding-bottom: 2rem;
+            }
+            .rocb-rtc-network-section #rocb-rtc-jvm-map {
+              height: 300px;
+              min-height: 240px;
+            }
+          }
+          /* jsVectorMap tooltip body-yə əlavə olunur */
+ .jvm-tooltip {
+            font-family: inherit !important;
+            font-weight: 600 !important;
+            font-size: 13px !important;
+            padding: 8px 12px !important;
+            border-radius: 8px !important;
+            background: #12579e !important;
+            color: #fff !important;
+            border: none !important;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+          }
+        </style>
+        <div class="rocb-rtc-inner text-center">
+          <h2 id="rocb-rtc-network-heading" class="wow fadeInUp" data-wow-delay=".05s">
+            {{ rtc_sec_title }}
+          </h2>
+          <p class="rocb-rtc-sub wow fadeInUp" data-wow-delay=".1s">{{ rtc_sec_subtitle }}</p>
+          <div class="rocb-rtc-map-wrap">
             <div
-              id="rtc-leaflet-map"
-              class="rtc-leaflet-map"
-              role="application"
+              id="rocb-rtc-jvm-map"
+              role="img"
               aria-label="{% trans 'Map of Europe and Central Asia with RTC locations' %}"
             ></div>
           </div>
-        </div>
-        <div class="bg-shape-1">
-          <img src="{% static 'assets/images/shape/pattern-2.svg' %}" alt="" />
-        </div>
-        <div class="bg-shape-2">
-          <img src="{% static 'assets/images/shape/pattern-3.svg' %}" alt="" />
+          <p class="small text-muted mt-3 mb-0" style="font-size: 0.8rem">
+            {% trans "Vector map:" %}
+            <a href="https://github.com/themustafaomar/jsvectormap" rel="noopener noreferrer" target="_blank"
+              >jsVectorMap</a
+            >
+            (MIT)
+          </p>
         </div>
       </section>
 
@@ -585,134 +665,98 @@
     <script src="{% static 'assets/js/main.js' %}"></script>
 
     <script src="{% static 'assets/js/navbar.js' %}"></script>
-    <script src="{% static 'vendor/leaflet/leaflet.js' %}"></script>
-    {% trans "RTC Budapest (Hungary)" as rtc_lbl_budapest %}
-    {% trans "RTC Moscow (Russian Federation)" as rtc_lbl_moscow %}
-    {% trans "RTC Skopje (North Macedonia)" as rtc_lbl_skopje %}
-    {% trans "RTC Nur-Sultan (Kazakhstan)" as rtc_lbl_nur_sultan %}
-    {% trans "RTC Khmelnytskyi (Ukraine)" as rtc_lbl_khmelnytskyi %}
-    {% trans "RTC Bishkek (Kyrgyzstan)" as rtc_lbl_bishkek %}
-    {% trans "RTC Astana (Turkmenistan)" as rtc_lbl_turkmenistan %}
-    {% trans "RTC Baku (Azerbaijan)" as rtc_lbl_baku %}
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js"></script>
     <script>
       (function () {
-        var _rtcMapTries = 0;
-        function initRtcLeafletMap() {
-          var el = document.getElementById("rtc-leaflet-map");
-          if (!el || typeof L === "undefined") return;
-          if (el._leaflet_id) {
-            if (el._rocbRtcMap) {
-              try {
-                el._rocbRtcMap.invalidateSize({ animate: false });
-              } catch (e) {}
-            }
+        var _rocbJvm = null;
+        function initRocbRtcJvm() {
+          var el = document.getElementById("rocb-rtc-jvm-map");
+          if (!el || typeof jsVectorMap !== "function") return;
+          if (_rocbJvm) {
+            onResize();
             return;
           }
-
-          var box = el.closest(".rtc-leaflet-map-box");
-          var h = el.offsetHeight || (box ? box.offsetHeight : 0);
-          if (h < 64 && _rtcMapTries < 40) {
-            _rtcMapTries += 1;
-            setTimeout(initRtcLeafletMap, 100);
+          if (el.offsetHeight < 48) {
+            setTimeout(initRocbRtcJvm, 80);
             return;
           }
-
-          /* WGS84 — şəhər mərkəzləri (Leaflet: lat, lng) */
-          var points = [
-            { lat: 47.4979, lng: 19.0402, label: "{{ rtc_lbl_budapest|escapejs }}" },
-            { lat: 55.7558, lng: 37.6173, label: "{{ rtc_lbl_moscow|escapejs }}" },
-            { lat: 41.9973, lng: 21.4280, label: "{{ rtc_lbl_skopje|escapejs }}" },
-            { lat: 51.1606, lng: 71.4708, label: "{{ rtc_lbl_nur_sultan|escapejs }}" },
-            { lat: 49.4225, lng: 27.0130, label: "{{ rtc_lbl_khmelnytskyi|escapejs }}" },
-            { lat: 42.8820, lng: 74.5827, label: "{{ rtc_lbl_bishkek|escapejs }}" },
-            { lat: 37.9601, lng: 58.3833, label: "{{ rtc_lbl_turkmenistan|escapejs }}" },
-            { lat: 40.4093, lng: 49.8671, label: "{{ rtc_lbl_baku|escapejs }}" },
+          /* coords: [enlik, uzunluq] = [latitude, longitude] */
+          var markers = [
+            { name: "{{ rtc_lbl_budapest|escapejs }}", coords: [47.4979, 19.0402] },
+            { name: "{{ rtc_lbl_moscow|escapejs }}", coords: [55.7558, 37.6173] },
+            { name: "{{ rtc_lbl_skopje|escapejs }}", coords: [41.9973, 21.428] },
+            { name: "{{ rtc_lbl_nur_sultan|escapejs }}", coords: [51.1606, 71.4708] },
+            { name: "{{ rtc_lbl_khmelnytskyi|escapejs }}", coords: [49.4225, 27.013] },
+            { name: "{{ rtc_lbl_bishkek|escapejs }}", coords: [42.882, 74.5827] },
+            { name: "{{ rtc_lbl_turkmenistan|escapejs }}", coords: [37.9601, 58.3833] },
+            { name: "{{ rtc_lbl_baku|escapejs }}", coords: [40.4093, 49.8671] },
           ];
-
-          var map = L.map(el, {
-            scrollWheelZoom: false,
-            zoomControl: true,
-            attributionControl: true,
-            minZoom: 3,
-            maxZoom: 6,
-            worldCopyJump: false,
-          });
-
-          /* OSM — çox şəbəkələrdə işləyir; tile gəlməsə fon yenə açıq qalır */
-          L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            attribution:
-              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-          }).addTo(map);
-
-          var bounds = L.latLngBounds([]);
-          var markerIcon = L.divIcon({
-            className: "rtc-leaflet-marker-wrap",
-            html: '<span class="rtc-leaflet-marker-dot"></span>',
-            iconSize: [22, 22],
-            iconAnchor: [11, 11],
-          });
-
-          points.forEach(function (p) {
-            var ll = L.latLng(p.lat, p.lng);
-            bounds.extend(ll);
-            var m = L.marker(ll, { icon: markerIcon, title: p.label });
-            m.bindTooltip(p.label, {
-              direction: "top",
-              offset: [0, -12],
-              opacity: 1,
-              className: "rtc-leaflet-tooltip",
-              sticky: true,
+          try {
+            _rocbJvm = jsVectorMap({
+              selector: "#rocb-rtc-jvm-map",
+              map: "world",
+              draggable: true,
+              zoomButtons: true,
+              zoomOnScroll: true,
+              zoomOnScrollSpeed: 1,
+              markers: markers,
+              markerStyle: {
+                initial: {
+                  fill: "#12579e",
+                  stroke: "#ffffff",
+                  strokeWidth: 2,
+                  r: 6,
+                },
+                hover: {
+                  fill: "#0c4478",
+                  stroke: "#ffffff",
+                  strokeWidth: 2,
+                  r: 7,
+                },
+              },
+              labels: {
+                markers: {
+                  render: function (a, b) {
+                    if (a && typeof a === "object" && a.name) return a.name;
+                    var i = typeof b === "number" ? b : typeof a === "number" ? a : -1;
+                    return i >= 0 && markers[i] ? markers[i].name : "";
+                  },
+                },
+              },
+              regionStyle: {
+                initial: { fill: "#d4e0eb" },
+                hover: { fill: "#b8cce0" },
+              },
+              focusOn: {
+                coords: [48, 38],
+                scale: 4.2,
+                animate: false,
+              },
             });
-            m.addTo(map);
-          });
-
-          map.fitBounds(bounds, {
-            padding: [24, 24],
-            maxZoom: 5,
-            animate: false,
-          });
-
-          el._rocbRtcMap = map;
-
-          function invalidate() {
+          } catch (err) {
+            console.error("jsVectorMap init failed:", err);
+          }
+        }
+        function onResize() {
+          if (_rocbJvm && typeof _rocbJvm.updateSize === "function") {
             try {
-              map.invalidateSize({ animate: false });
+              _rocbJvm.updateSize();
             } catch (e) {}
           }
-
-          window.addEventListener("resize", invalidate);
-          window.addEventListener("orientationchange", function () {
-            setTimeout(invalidate, 300);
-          });
-          requestAnimationFrame(function () {
-            invalidate();
-            requestAnimationFrame(invalidate);
-          });
-          setTimeout(invalidate, 200);
-          setTimeout(invalidate, 600);
-          setTimeout(invalidate, 1400);
         }
-
-        function scheduleInit() {
-          if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", initRtcLeafletMap);
-          } else {
-            initRtcLeafletMap();
-          }
-          window.addEventListener("load", function () {
-            _rtcMapTries = 0;
-            var el = document.getElementById("rtc-leaflet-map");
-            if (el && el._rocbRtcMap) {
-              try {
-                el._rocbRtcMap.invalidateSize({ animate: false });
-              } catch (e) {}
-              return;
-            }
-            initRtcLeafletMap();
-          });
+        window.addEventListener("resize", onResize);
+        window.addEventListener("orientationchange", function () {
+          setTimeout(onResize, 250);
+        });
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initRocbRtcJvm);
+        } else {
+          initRocbRtcJvm();
         }
-        scheduleInit();
+        window.addEventListener("load", function () {
+          initRocbRtcJvm();
+        });
       })();
     </script>
 
