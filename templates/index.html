@@ -40,6 +40,13 @@
     <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+    <!-- Leaflet (BSD-2-Clause) — https://leafletjs.com/ -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
   </head>
 
   <body>
@@ -542,49 +549,12 @@
                 <p class="mb-0 text-muted">{% trans "Explore our RTC network across the region" %}</p>
               </div>
               <div class="rtc-europe-map-wrap wow fadeInUp" data-wow-delay=".2s">
-                <div class="rtc-europe-map-inner">
-                  <img
-                    class="rtc-europe-map-svg"
-                    src="{% static 'assets/images/bg/europe-rtc-region.svg' %}"
-                    alt="{% trans 'Map of Europe and Central Asia with RTC locations' %}"
-                    width="1000"
-                    height="700"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div class="rtc-map-marker" style="left: 34.04%; top: 66.22%;" tabindex="0" role="img" aria-label="{% trans 'RTC Budapest (Hungary)' %}">
-                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
-                    <div class="rtc-map-tooltip">{% trans "RTC Budapest (Hungary)" %}</div>
-                  </div>
-                  <div class="rtc-map-marker" style="left: 52.62%; top: 43.89%;" tabindex="0" role="img" aria-label="{% trans 'RTC Moscow (Russian Federation)' %}">
-                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
-                    <div class="rtc-map-tooltip">{% trans "RTC Moscow (Russian Federation)" %}</div>
-                  </div>
-                  <div class="rtc-map-marker" style="left: 36.43%; top: 81.08%;" tabindex="0" role="img" aria-label="{% trans 'RTC Skopje (North Macedonia)' %}">
-                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
-                    <div class="rtc-map-tooltip">{% trans "RTC Skopje (North Macedonia)" %}</div>
-                  </div>
-                  <div class="rtc-map-marker" style="left: 86.43%; top: 56.28%;" tabindex="0" role="img" aria-label="{% trans 'RTC Nur-Sultan (Kazakhstan)' %}">
-                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
-                    <div class="rtc-map-tooltip">{% trans "RTC Nur-Sultan (Kazakhstan)" %}</div>
-                  </div>
-                  <div class="rtc-map-marker" style="left: 41.99%; top: 61.03%;" tabindex="0" role="img" aria-label="{% trans 'RTC Khmelnytskyi (Ukraine)' %}">
-                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
-                    <div class="rtc-map-tooltip">{% trans "RTC Khmelnytskyi (Ukraine)" %}</div>
-                  </div>
-                  <div class="rtc-map-marker" style="left: 89.57%; top: 78.73%;" tabindex="0" role="img" aria-label="{% trans 'RTC Bishkek (Kyrgyzstan)' %}">
-                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
-                    <div class="rtc-map-tooltip">{% trans "RTC Bishkek (Kyrgyzstan)" %}</div>
-                  </div>
-                  <div class="rtc-map-marker" style="left: 73.38%; top: 91.99%;" tabindex="0" role="img" aria-label="{% trans 'RTC Astana (Turkmenistan)' %}">
-                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
-                    <div class="rtc-map-tooltip">{% trans "RTC Astana (Turkmenistan)" %}</div>
-                  </div>
-                  <div class="rtc-map-marker" style="left: 64.87%; top: 85.38%;" tabindex="0" role="img" aria-label="{% trans 'RTC Baku (Azerbaijan)' %}">
-                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
-                    <div class="rtc-map-tooltip">{% trans "RTC Baku (Azerbaijan)" %}</div>
-                  </div>
-                </div>
+                <div
+                  id="rtc-leaflet-map"
+                  class="rtc-leaflet-map"
+                  role="application"
+                  aria-label="{% trans 'Map of Europe and Central Asia with RTC locations' %}"
+                ></div>
               </div>
             </div>
           </div>
@@ -624,6 +594,86 @@
     <script src="{% static 'assets/js/main.js' %}"></script>
 
     <script src="{% static 'assets/js/navbar.js' %}"></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    {% trans "RTC Budapest (Hungary)" as rtc_lbl_budapest %}
+    {% trans "RTC Moscow (Russian Federation)" as rtc_lbl_moscow %}
+    {% trans "RTC Skopje (North Macedonia)" as rtc_lbl_skopje %}
+    {% trans "RTC Nur-Sultan (Kazakhstan)" as rtc_lbl_nur_sultan %}
+    {% trans "RTC Khmelnytskyi (Ukraine)" as rtc_lbl_khmelnytskyi %}
+    {% trans "RTC Bishkek (Kyrgyzstan)" as rtc_lbl_bishkek %}
+    {% trans "RTC Astana (Turkmenistan)" as rtc_lbl_turkmenistan %}
+    {% trans "RTC Baku (Azerbaijan)" as rtc_lbl_baku %}
+    <script>
+      (function () {
+        var el = document.getElementById("rtc-leaflet-map");
+        if (!el || typeof L === "undefined") return;
+
+        var points = [
+          { lat: 47.4979, lng: 19.0402, label: "{{ rtc_lbl_budapest|escapejs }}" },
+          { lat: 55.7558, lng: 37.6173, label: "{{ rtc_lbl_moscow|escapejs }}" },
+          { lat: 41.9961, lng: 21.4314, label: "{{ rtc_lbl_skopje|escapejs }}" },
+          { lat: 51.1694, lng: 71.4304, label: "{{ rtc_lbl_nur_sultan|escapejs }}" },
+          { lat: 49.4229, lng: 26.9871, label: "{{ rtc_lbl_khmelnytskyi|escapejs }}" },
+          { lat: 42.8746, lng: 74.5698, label: "{{ rtc_lbl_bishkek|escapejs }}" },
+          { lat: 37.9601, lng: 58.3833, label: "{{ rtc_lbl_turkmenistan|escapejs }}" },
+          { lat: 40.4093, lng: 49.8671, label: "{{ rtc_lbl_baku|escapejs }}" },
+        ];
+
+        var map = L.map(el, {
+          scrollWheelZoom: false,
+          zoomControl: true,
+          attributionControl: true,
+        });
+
+        L.tileLayer(
+          "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+          {
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: "abcd",
+            maxZoom: 20,
+          }
+        ).addTo(map);
+
+        var bounds = L.latLngBounds([]);
+        var markerIcon = L.divIcon({
+          className: "rtc-leaflet-marker-wrap",
+          html: '<span class="rtc-leaflet-marker-dot"></span>',
+          iconSize: [22, 22],
+          iconAnchor: [11, 11],
+        });
+
+        points.forEach(function (p) {
+          var ll = L.latLng(p.lat, p.lng);
+          bounds.extend(ll);
+          var m = L.marker(ll, { icon: markerIcon, title: p.label });
+          m.bindTooltip(p.label, {
+            direction: "top",
+            offset: [0, -12],
+            opacity: 1,
+            className: "rtc-leaflet-tooltip",
+            sticky: true,
+          });
+          m.addTo(map);
+        });
+
+        map.fitBounds(bounds, { padding: [32, 32], maxZoom: 6 });
+
+        function invalidate() {
+          try {
+            map.invalidateSize();
+          } catch (e) {}
+        }
+
+        window.addEventListener("resize", invalidate);
+        setTimeout(invalidate, 400);
+        setTimeout(invalidate, 1200);
+      })();
+    </script>
 
     <script>
   document.addEventListener('DOMContentLoaded', function() {
