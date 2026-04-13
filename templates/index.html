@@ -40,13 +40,8 @@
     <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
-    <!-- Leaflet (BSD-2-Clause) — https://leafletjs.com/ -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
+    <!-- Leaflet 1.9.4 (vendored — avoids CDN/SRI blocks on some servers) -->
+    <link rel="stylesheet" href="{% static 'vendor/leaflet/leaflet.css' %}" />
   </head>
 
   <body>
@@ -548,7 +543,8 @@
                 <h2 class="title title-anim mb-2">{% trans "WCO Europe Regional Training Centers" %}</h2>
                 <p class="mb-0 text-muted">{% trans "Explore our RTC network across the region" %}</p>
               </div>
-              <div class="rtc-europe-map-wrap wow fadeInUp" data-wow-delay=".2s">
+              {# No .wow on map wrapper: WOW keeps visibility:hidden until scroll — Leaflet then measures 0×0 and stays blank #}
+              <div class="rtc-europe-map-wrap">
                 <div
                   id="rtc-leaflet-map"
                   class="rtc-leaflet-map"
@@ -594,11 +590,7 @@
     <script src="{% static 'assets/js/main.js' %}"></script>
 
     <script src="{% static 'assets/js/navbar.js' %}"></script>
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-    ></script>
+    <script src="{% static 'vendor/leaflet/leaflet.js' %}"></script>
     {% trans "RTC Budapest (Hungary)" as rtc_lbl_budapest %}
     {% trans "RTC Moscow (Russian Federation)" as rtc_lbl_moscow %}
     {% trans "RTC Skopje (North Macedonia)" as rtc_lbl_skopje %}
@@ -609,69 +601,84 @@
     {% trans "RTC Baku (Azerbaijan)" as rtc_lbl_baku %}
     <script>
       (function () {
-        var el = document.getElementById("rtc-leaflet-map");
-        if (!el || typeof L === "undefined") return;
+        function initRtcLeafletMap() {
+          var el = document.getElementById("rtc-leaflet-map");
+          if (!el || typeof L === "undefined") return;
+          if (el._leaflet_id) return;
 
-        var points = [
-          { lat: 47.4979, lng: 19.0402, label: "{{ rtc_lbl_budapest|escapejs }}" },
-          { lat: 55.7558, lng: 37.6173, label: "{{ rtc_lbl_moscow|escapejs }}" },
-          { lat: 41.9961, lng: 21.4314, label: "{{ rtc_lbl_skopje|escapejs }}" },
-          { lat: 51.1694, lng: 71.4304, label: "{{ rtc_lbl_nur_sultan|escapejs }}" },
-          { lat: 49.4229, lng: 26.9871, label: "{{ rtc_lbl_khmelnytskyi|escapejs }}" },
-          { lat: 42.8746, lng: 74.5698, label: "{{ rtc_lbl_bishkek|escapejs }}" },
-          { lat: 37.9601, lng: 58.3833, label: "{{ rtc_lbl_turkmenistan|escapejs }}" },
-          { lat: 40.4093, lng: 49.8671, label: "{{ rtc_lbl_baku|escapejs }}" },
-        ];
+          var points = [
+            { lat: 47.4979, lng: 19.0402, label: "{{ rtc_lbl_budapest|escapejs }}" },
+            { lat: 55.7558, lng: 37.6173, label: "{{ rtc_lbl_moscow|escapejs }}" },
+            { lat: 41.9961, lng: 21.4314, label: "{{ rtc_lbl_skopje|escapejs }}" },
+            { lat: 51.1694, lng: 71.4304, label: "{{ rtc_lbl_nur_sultan|escapejs }}" },
+            { lat: 49.4229, lng: 26.9871, label: "{{ rtc_lbl_khmelnytskyi|escapejs }}" },
+            { lat: 42.8746, lng: 74.5698, label: "{{ rtc_lbl_bishkek|escapejs }}" },
+            { lat: 37.9601, lng: 58.3833, label: "{{ rtc_lbl_turkmenistan|escapejs }}" },
+            { lat: 40.4093, lng: 49.8671, label: "{{ rtc_lbl_baku|escapejs }}" },
+          ];
 
-        var map = L.map(el, {
-          scrollWheelZoom: false,
-          zoomControl: true,
-          attributionControl: true,
-        });
-
-        L.tileLayer(
-          "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-          {
-            attribution:
-              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-            subdomains: "abcd",
-            maxZoom: 20,
-          }
-        ).addTo(map);
-
-        var bounds = L.latLngBounds([]);
-        var markerIcon = L.divIcon({
-          className: "rtc-leaflet-marker-wrap",
-          html: '<span class="rtc-leaflet-marker-dot"></span>',
-          iconSize: [22, 22],
-          iconAnchor: [11, 11],
-        });
-
-        points.forEach(function (p) {
-          var ll = L.latLng(p.lat, p.lng);
-          bounds.extend(ll);
-          var m = L.marker(ll, { icon: markerIcon, title: p.label });
-          m.bindTooltip(p.label, {
-            direction: "top",
-            offset: [0, -12],
-            opacity: 1,
-            className: "rtc-leaflet-tooltip",
-            sticky: true,
+          var map = L.map(el, {
+            scrollWheelZoom: false,
+            zoomControl: true,
+            attributionControl: true,
           });
-          m.addTo(map);
-        });
 
-        map.fitBounds(bounds, { padding: [32, 32], maxZoom: 6 });
+          // CARTO (light). If tiles fail on your network, switch URL to OSM below.
+          L.tileLayer(
+            "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+            {
+              attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+              subdomains: "abcd",
+              maxZoom: 20,
+            }
+          ).addTo(map);
 
-        function invalidate() {
-          try {
-            map.invalidateSize();
-          } catch (e) {}
+          var bounds = L.latLngBounds([]);
+          var markerIcon = L.divIcon({
+            className: "rtc-leaflet-marker-wrap",
+            html: '<span class="rtc-leaflet-marker-dot"></span>',
+            iconSize: [22, 22],
+            iconAnchor: [11, 11],
+          });
+
+          points.forEach(function (p) {
+            var ll = L.latLng(p.lat, p.lng);
+            bounds.extend(ll);
+            var m = L.marker(ll, { icon: markerIcon, title: p.label });
+            m.bindTooltip(p.label, {
+              direction: "top",
+              offset: [0, -12],
+              opacity: 1,
+              className: "rtc-leaflet-tooltip",
+              sticky: true,
+            });
+            m.addTo(map);
+          });
+
+          map.fitBounds(bounds, { padding: [32, 32], maxZoom: 6 });
+
+          function invalidate() {
+            try {
+              map.invalidateSize();
+            } catch (e) {}
+          }
+
+          window.addEventListener("resize", invalidate);
+          requestAnimationFrame(function () {
+            invalidate();
+            requestAnimationFrame(invalidate);
+          });
+          setTimeout(invalidate, 300);
+          setTimeout(invalidate, 1000);
+          window.addEventListener("load", invalidate);
         }
 
-        window.addEventListener("resize", invalidate);
-        setTimeout(invalidate, 400);
-        setTimeout(invalidate, 1200);
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initRtcLeafletMap);
+        } else {
+          initRtcLeafletMap();
+        }
       })();
     </script>
 
