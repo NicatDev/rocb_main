@@ -533,58 +533,56 @@
 
       <section
         style="margin: 20px 0px 0px"
-        class="tj-contact-section section-gap section-gap-x map-section-home">
+        class="tj-contact-section section-gap section-gap-x map-section-home rtc-map-section">
         <div class="container">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="global-map wow fadeInUp" data-wow-delay=".3s">
-                <div class="global-map-img">
+          <div class="row justify-content-center">
+            <div class="col-12 col-xl-11">
+              <div class="text-center mb-4 mb-lg-5 wow fadeInUp" data-wow-delay=".1s">
+                <h2 class="title title-anim mb-2">{% trans "WCO Europe Regional Training Centers" %}</h2>
+                <p class="mb-0 text-muted">{% trans "Explore our RTC network across the region" %}</p>
+              </div>
+              <div class="rtc-europe-map-wrap wow fadeInUp" data-wow-delay=".2s">
+                <div class="rtc-europe-map-inner">
                   <img
-                    src="{% static 'assets/images/bg/map.svg' %}"
-                    alt="Image"
+                    class="rtc-europe-map-svg"
+                    src="{% static 'assets/images/bg/europe-rtc-region.svg' %}"
+                    alt="{% trans 'Map of Europe and Central Asia with RTC locations' %}"
+                    width="1000"
+                    height="700"
+                    loading="lazy"
+                    decoding="async"
                   />
-                  <div class="location-indicator loc-1">
-                    <div class="location-tooltip">
-                      <span>{% trans "Head office" %}:</span>
-                      <p>
-                        {% trans "Natig Aliyev str, 4-a AZ1025, Baku, Republic of Azerbaijan" %}
-                      </p>
-                      <a href="tel:+994124643134">(+994 12) 464-31-34</a>
-                      <a href="info@rocb-europe.org">M: info@rocb-europe.org</a>
-                    </div>
+                  <div class="rtc-map-marker" style="left: 34.04%; top: 66.22%;" tabindex="0" role="img" aria-label="{% trans 'RTC Budapest (Hungary)' %}">
+                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
+                    <div class="rtc-map-tooltip">{% trans "RTC Budapest (Hungary)" %}</div>
                   </div>
-                  <div class="location-indicator loc-2">
-                    <div class="location-tooltip">
-                      <span>{% trans "Head office" %}:</span>
-                      <p>
-                        {% trans "Thai Customs Department, Sunthornkosa Road, Klongtoey, Bangkok 10110, Thailand" %}
-                      </p>
-                    </div>
+                  <div class="rtc-map-marker" style="left: 52.62%; top: 43.89%;" tabindex="0" role="img" aria-label="{% trans 'RTC Moscow (Russian Federation)' %}">
+                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
+                    <div class="rtc-map-tooltip">{% trans "RTC Moscow (Russian Federation)" %}</div>
                   </div>
-                  <div class="location-indicator loc-4">
-                    <div class="location-tooltip">
-                      <span>{% trans "Head office" %}:</span>
-                      <p>
-                        {% trans "Al Bustan Office Tower, 29 Street, Abu Dhabi, United Arab Emirates" %}
-                      </p>
-                    </div>
+                  <div class="rtc-map-marker" style="left: 36.43%; top: 81.08%;" tabindex="0" role="img" aria-label="{% trans 'RTC Skopje (North Macedonia)' %}">
+                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
+                    <div class="rtc-map-tooltip">{% trans "RTC Skopje (North Macedonia)" %}</div>
                   </div>
-                  <div class="location-indicator loc-3">
-                    <div class="location-tooltip">
-                      <span>{% trans "Head office" %}:</span>
-                      <p>
-                        {% trans "Corporate Business Center, Upper Hill, Elgon Road, Nairobi, Kenya; P.O. Box 50581–00200 Nairobi, Kenya" %}
-                      </p>
-                    </div>
+                  <div class="rtc-map-marker" style="left: 86.43%; top: 56.28%;" tabindex="0" role="img" aria-label="{% trans 'RTC Nur-Sultan (Kazakhstan)' %}">
+                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
+                    <div class="rtc-map-tooltip">{% trans "RTC Nur-Sultan (Kazakhstan)" %}</div>
                   </div>
-
-                  <div class="location-indicator loc-5">
-                    <div class="location-tooltip">
-                      <span>{% trans "Head office" %}:</span>
-                      <p>
-                        {% trans "Vice-Chair Office in Mali (Samanko II, Kati); Nigeria Customs HQ in Abuja" %}
-                      </p>
-                    </div>
+                  <div class="rtc-map-marker" style="left: 41.99%; top: 61.03%;" tabindex="0" role="img" aria-label="{% trans 'RTC Khmelnytskyi (Ukraine)' %}">
+                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
+                    <div class="rtc-map-tooltip">{% trans "RTC Khmelnytskyi (Ukraine)" %}</div>
+                  </div>
+                  <div class="rtc-map-marker" style="left: 89.57%; top: 78.73%;" tabindex="0" role="img" aria-label="{% trans 'RTC Bishkek (Kyrgyzstan)' %}">
+                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
+                    <div class="rtc-map-tooltip">{% trans "RTC Bishkek (Kyrgyzstan)" %}</div>
+                  </div>
+                  <div class="rtc-map-marker" style="left: 73.38%; top: 91.99%;" tabindex="0" role="img" aria-label="{% trans 'RTC Astana (Turkmenistan)' %}">
+                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
+                    <div class="rtc-map-tooltip">{% trans "RTC Astana (Turkmenistan)" %}</div>
+                  </div>
+                  <div class="rtc-map-marker" style="left: 64.87%; top: 85.38%;" tabindex="0" role="img" aria-label="{% trans 'RTC Baku (Azerbaijan)' %}">
+                    <span class="rtc-map-marker-dot" aria-hidden="true"></span>
+                    <div class="rtc-map-tooltip">{% trans "RTC Baku (Azerbaijan)" %}</div>
                   </div>
                 </div>
               </div>

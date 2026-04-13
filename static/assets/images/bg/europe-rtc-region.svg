@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid meet" fill="none">
+  <defs>
+    <linearGradient id="rtcWater" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e9f2fa"/>
+      <stop offset="100%" stop-color="#d7e6f3"/>
+    </linearGradient>
+    <linearGradient id="rtcLand" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c4d4e4"/>
+      <stop offset="100%" stop-color="#a3b8cc"/>
+    </linearGradient>
+    <filter id="rtcShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="1000" height="700" rx="12" fill="url(#rtcWater)"/>
+  <!-- Stylized Europe + Western / Central Asia landmass (original simplified paths) -->
+  <g filter="url(#rtcShadow)">
+    <path fill="url(#rtcLand)" stroke="#7d94ab" stroke-width="1.25" stroke-linejoin="round"
+      d="M 95 395 Q 85 340 130 295 Q 195 250 275 235 Q 355 220 430 195 Q 505 175 585 165 Q 675 155 765 175 Q 855 205 915 275 Q 965 345 955 425 Q 935 515 855 575 Q 755 635 615 648 Q 465 655 330 615 Q 205 575 130 505 Q 85 450 95 395 Z"/>
+    <path fill="url(#rtcLand)" stroke="#7d94ab" stroke-width="1.1" stroke-linejoin="round"
+      d="M 335 218 L 385 118 L 455 95 L 495 125 L 475 188 L 405 228 L 355 245 Z"/>
+    <path fill="url(#rtcLand)" stroke="#7d94ab" stroke-width="1.1" stroke-linejoin="round"
+      d="M 175 268 L 235 238 L 268 258 L 252 308 L 195 318 Z"/>
+    <path fill="url(#rtcLand)" stroke="#7d94ab" stroke-width="1" stroke-linejoin="round" opacity="0.92"
+      d="M 320 398 Q 360 368 415 385 Q 455 405 448 448 Q 430 485 385 478 Q 335 465 320 428 Z"/>
+  </g>
+</svg>

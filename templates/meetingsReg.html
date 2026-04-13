@@ -248,7 +248,7 @@ document.querySelectorAll('.btn-register').forEach(button => {
                 if (!full_name || !phone_number || !email || !note || !organization || !position) {
                     Swal.showValidationMessage(`Please enter all fields`)
                 }
-                return { full_name, phone_number, email, subject  }
+                return { full_name, phone_number, email, subject, note, organization, position }
             }
         }).then((result) => {
             if (result.isConfirmed) {

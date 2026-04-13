@@ -220,10 +220,10 @@ def register_meeting(request):
         full_name = data.get("full_name")
         phone_number = data.get("phone_number")
         email = data.get("email")
-        subject = data.get("subject"),
-        position = data.get("position"),
-        organization = data.get("organization"),
-        note = data.get("note"),
+        subject = data.get("subject")
+        position = data.get("position")
+        organization = data.get("organization")
+        note = data.get("note")
 
         registration = Registration.objects.create(
             full_name=full_name,
