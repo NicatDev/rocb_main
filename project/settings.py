@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.sitemaps',
-    'oneapp',
+    'oneapp.apps.OneappConfig',
 
     # third party apps
     'ckeditor',
@@ -228,10 +228,16 @@ RTC_APP_NEWS_API_BASE = os.environ.get(
 )
 
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'aytacmehdizade08@gmail.com'
-EMAIL_HOST_PASSWORD = 'pful vvvc uhib hxup'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# --- Outgoing email — set user + app password below ---
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER or "noreply@rocb-europe.org"
+
+ROCB_NOTIFY_STAFF_EMAILS = [
+    "info@rocb-europe.org",
+    "nicat254memmedov@gmail.com",
+]

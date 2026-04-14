@@ -12,7 +12,7 @@
 
     <!-- Site Title -->
     <title>
-      {% blocktrans %}ROCB Europe - WCO Regional Office for Capacity Building{% endblocktrans %}
+      {% blocktrans %}Regional Office for Capacity Building for the WCO Europe Region{% endblocktrans %}
     </title>
 
     <!-- Place favicon.ico in the root directory -->
@@ -434,17 +434,19 @@
                     {% for news in news %}
                     <div class="swiper-slide">
                       <div class="service-item style-1">
-                        <div class="service-img">
-                          {% if news.image %}
-                          <img src="{{ news.image.url }}" alt="" />
-                          {% endif %}
-                        </div>
                         <div class="service-content">
                           <h4 class="title">
                             <a href="{% url 'news_detail' news.slug %}"
                               >{{ news.title }}</a
                             >
                           </h4>
+                          <div class="service-img">
+                            {% if news.image %}
+                            <a href="{% url 'news_detail' news.slug %}"
+                              ><img src="{{ news.image.url }}" alt=""
+                            /></a>
+                            {% endif %}
+                          </div>
                           <p class="desc">
                             {% if news.description|length > 200 %} {{ news.description|slice:":200" }}... {% else %} {{ news.description }} {% endif %}
                           </p>
@@ -538,7 +540,7 @@
       {% trans "RTC Budapest (Hungary)" as rtc_lbl_budapest %}
       {% trans "RTC Moscow (Russian Federation)" as rtc_lbl_moscow %}
       {% trans "RTC Skopje (North Macedonia)" as rtc_lbl_skopje %}
-      {% trans "RTC Nur-Sultan (Kazakhstan)" as rtc_lbl_nur_sultan %}
+      {% trans "RTC Astana (Kazakhstan)" as rtc_lbl_astana %}
       {% trans "RTC Khmelnytskyi (Ukraine)" as rtc_lbl_khmelnytskyi %}
       {% trans "RTC Bishkek (Kyrgyzstan)" as rtc_lbl_bishkek %}
       {% trans "RTC Astana (Turkmenistan)" as rtc_lbl_turkmenistan %}
@@ -546,7 +548,7 @@
       {% trans "Budapest" as rtc_short_budapest %}
       {% trans "Moscow" as rtc_short_moscow %}
       {% trans "Skopje" as rtc_short_skopje %}
-      {% trans "Nur-Sultan" as rtc_short_nur_sultan %}
+      {% trans "Astana" as rtc_short_astana %}
       {% trans "Khmelnytskyi" as rtc_short_khmelnytskyi %}
       {% trans "Bishkek" as rtc_short_bishkek %}
       {% trans "Ashgabat" as rtc_short_turkmenistan %}
@@ -701,9 +703,9 @@
               coords: [41.9973, 21.428],
             },
             {
-              name: "{{ rtc_lbl_nur_sultan|escapejs }}",
-              short: "{{ rtc_short_nur_sultan|escapejs }}",
-              coords: [51.1606, 71.4708],
+              name: "{{ rtc_lbl_astana|escapejs }}",
+              short: "{{ rtc_short_astana|escapejs }}",
+              coords: [51.1699, 71.4491],
             },
             {
               name: "{{ rtc_lbl_khmelnytskyi|escapejs }}",

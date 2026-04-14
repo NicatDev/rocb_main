@@ -57,12 +57,23 @@ class ApiNewsItem:
         self.id = data.get('id')
         self.slug = data.get('slug') or ''
         self.title = data.get('title') or ''
+        raw_summary = (data.get('summary') or '').strip()
+        self.summary = raw_summary if for_detail else None
         raw_content = data.get('content') or ''
         self.content = raw_content if for_detail else None
         plain = _strip_html(raw_content)
-        self.description = plain[:2000] if plain else ''
+        if raw_summary:
+            self.description = raw_summary[:2000]
+        else:
+            self.description = plain[:2000] if plain else ''
         img = _abs_media_url(data.get('image'))
         self.image = _Image(img) if img else None
+        extras = []
+        for row in data.get('extra_images') or []:
+            u = _abs_media_url(row.get('image'))
+            if u:
+                extras.append(_Image(u))
+        self.extra_images = extras if for_detail else []
         self.tag = ''
         created = data.get('created_at')
         dt = parse_datetime(created) if created else None

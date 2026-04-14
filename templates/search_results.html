@@ -94,30 +94,28 @@
               <div class="blog-post-wrapper">
                 {% if page_obj %}
                 {% for item in page_obj %}
-                  <article class="blog-item blog-item-wrap wow fadeInUp" data-wow-delay=".1s">
-                    {% if item.image %}
-                      <div class="blog-thumb blog-item-wrap-left">
-                        <a href="{% if item.type == 'News' %}{% url 'news_detail' item.slug %}{% else %}{% url 'events_detail' item.slug %}{% endif %}"><img src="{{ item.image.url }}" alt="" /></a>
-                        <div class="blog-date">
-                          <span class="date">{{ item.date|date:'d' }}</span>
-                          <span class="month">{{ item.date|date:'M' }}</span>
-                        </div>
-                      </div>
-                    {% endif %}
-                    <div class="blog-content blog-item-wrap-right">
-                     
+                  <article class="blog-item wow fadeInUp" data-wow-delay=".1s">
+                    <div class="blog-content">
                       <h3 class="title"><a href="{% if item.type == 'News' %}{% url 'news_detail' item.slug %}{% else %}{% url 'events_detail' item.slug %}{% endif %}">{{ item.title }}</a></h3>
-                        <div class="blog-meta">
-                          <span class="categories"><a>{% if item.type == 'Event' %}{% trans 'Event' %}{% else %}{% trans 'News' %}{% endif %}</a></span>
+                      {% if item.image %}
+                        <div class="blog-thumb" style="margin-top: 1rem; margin-bottom: 1.25rem;">
+                          <a href="{% if item.type == 'News' %}{% url 'news_detail' item.slug %}{% else %}{% url 'events_detail' item.slug %}{% endif %}"><img src="{{ item.image.url }}" alt="" /></a>
+                          <div class="blog-date">
+                            <span class="date">{{ item.date|date:'d' }}</span>
+                            <span class="month">{{ item.date|date:'M' }}</span>
+                          </div>
                         </div>
-                   {% if item.description %}
+                      {% endif %}
+                      <div class="blog-meta">
+                        <span class="categories"><a>{% if item.type == 'Event' %}{% trans 'Event' %}{% else %}{% trans 'News' %}{% endif %}</a></span>
+                      </div>
+                      {% if item.description %}
                         {% if item.description|length > 200 %}
-                            <p class="desc">{{ item.description|slice:":200" }}...</p>
+                          <p class="desc">{{ item.description|slice:":200" }}...</p>
                         {% else %}
-                            <p class="desc">{{ item.description }}</p>
+                          <p class="desc">{{ item.description }}</p>
                         {% endif %}
-                    {% endif %}
-
+                      {% endif %}
                       <a class="text-btn" href="{% if item.type == 'News' %}{% url 'news_detail' item.slug %}{% else %}{% url 'events_detail' item.slug %}{% endif %}">
                         <span class="btn-text"><span>{% trans 'Read More' %}</span></span>
                         <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
