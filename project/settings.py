@@ -228,14 +228,14 @@ RTC_APP_NEWS_API_BASE = os.environ.get(
 )
 
 
-# --- Outgoing email — set user + app password below ---
+# --- Outgoing email (Gmail SMTP) ---
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER or "noreply@rocb-europe.org"
+EMAIL_HOST_USER = "europerocb@gmail.com"
+EMAIL_HOST_PASSWORD = "srvl cyqk tvzl odpc"
+DEFAULT_FROM_EMAIL = "europerocb@gmail.com"
 
 ROCB_NOTIFY_STAFF_EMAILS = [
     "info@rocb-europe.org",
