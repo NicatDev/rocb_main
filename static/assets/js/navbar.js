@@ -49,41 +49,7 @@ function switchLanguage(langCode) {
 
     form.submit();
   } 
-  document.addEventListener("DOMContentLoaded", function () {
-  // Flag button və dropdown elementlərini seçək
-  const flagBtn1 = document.getElementById("flagButton1");
-  const dropdown1 = document.getElementById("dropdown1");
-
-  // Əlavə olaraq flagButton2 və dropdown2 varsa (gələcək üçün)
-  const flagBtn2 = document.getElementById("flagButton2");
-  const dropdown2 = document.getElementById("dropdown2");
-
-  function toggleDropdown(button, dropdown) {
-    if (!button || !dropdown) return;
-
-    button.addEventListener("click", function (event) {
-      event.stopPropagation(); // document click eventinə düşməsin
-      dropdown.classList.toggle("show"); // show class-ı aç/bağla
-    });
-  }
-
-  function closeOnOutsideClick(dropdown) {
-    document.addEventListener("click", function (event) {
-      if (!dropdown.contains(event.target)) {
-        dropdown.classList.remove("show");
-      }
-    });
-  }
-
-  // Funksiyaları tətbiq edirik
-  toggleDropdown(flagBtn1, dropdown1);
-  closeOnOutsideClick(dropdown1);
-
-  if (flagBtn2 && dropdown2) {
-    toggleDropdown(flagBtn2, dropdown2);
-    closeOnOutsideClick(dropdown2);
-  }
-});
+// Dropdown-based language switcher removed in favor of two inline flags.
 
  function getCsrfToken() {
     // Try meta tag first

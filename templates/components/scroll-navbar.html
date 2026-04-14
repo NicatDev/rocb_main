@@ -34,6 +34,31 @@
       });
   });
 </script>
+<style>
+  .lang-flags {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .lang-flag-btn {
+    border: 1px solid transparent;
+    background: transparent;
+    border-radius: 999px;
+    padding: 2px;
+    line-height: 0;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+  .lang-flag-btn img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: block;
+  }
+  .lang-flag-btn.is-active {
+    border-color: rgba(18, 87, 158, 0.45);
+  }
+</style>
 
 <header
   class="header-area header-1 header-duplicate header-sticky section-gap-x"
@@ -177,46 +202,27 @@
           <!-- header right info -->
           <div class="header-right-item d-none d-lg-inline-flex">
             <div class="header-flag">
-              <button class="flag" id="flagButton2">
-                <img
-                  id="currentFlag2"
-                  src="{% if LANGUAGE_CODE == 'en' %}
-                    {% static 'assets/images/united-kingdom (1).png' %}
-                  {% elif LANGUAGE_CODE == 'ru' %}
-                    data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkZGRkYiLz4KPG1hc2sgaWQ9Im1hc2swXzEyMl8yNzQiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjE2IiBmaWxsPSIjRkZGRkZGIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMjJfMjc0KSI+CjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iI0ZGRkZGRiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgMTAuNjY2N0gzMlYyMS4zMzMzSDBWMTAuNjY2N1oiIGZpbGw9IiMwMDUyQjQiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDIxLjMzMzNIMzJWMzJIMFYyMS4zMzMzWiIgZmlsbD0iI0REMDAzNyIvPgo8L2c+Cjwvc3ZnPgo=
-                  {% else %}
-                    {% static 'assets/images/united-kingdom (1).png' %}
-                  {% endif %}"
-                  alt="language"
-                />
-                <i class="fa-solid fa-caret-down"></i>
-              </button>
-              <div class="dropdown" id="dropdown2">
+              <div class="lang-flags">
                 <button
-                  class="dropdown-item"
-                  data-country="uk"
+                  class="lang-flag-btn {% if LANGUAGE_CODE == 'en' %}is-active{% endif %}"
                   data-lang="en"
-                  data-flag="{% static 'assets/images/united-kingdom (1).png' %}"
                   id="lang-en-button2"
+                  aria-label="{% trans 'English' %}"
+                  type="button"
                 >
-                  <img
-                    src="{% static 'assets/images/united-kingdom (1).png' %}"
-                    alt="UK Flag"
-                  />
-                  <span>{% trans 'English' %}</span>
+                  <img src="{% static 'assets/images/united-kingdom (1).png' %}" alt="English" />
                 </button>
                 <button
-                  class="dropdown-item"
-                  data-country="ru"
+                  class="lang-flag-btn {% if LANGUAGE_CODE == 'ru' %}is-active{% endif %}"
                   data-lang="ru"
-                  data-flag="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkZGRkYiLz4KPG1hc2sgaWQ9Im1hc2swXzEyMl8yNzQiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjE2IiBmaWxsPSIjRkZGRkZGIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMjJfMjc0KSI+CjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iI0ZGRkZGRiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgMTAuNjY2N0gzMlYyMS4zMzMzSDBWMTAuNjY2N1oiIGZpbGw9IiMwMDUyQjQiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDIxLjMzMzNIMzJWMzJIMFYyMS4zMzMzWiIgZmlsbD0iI0REMDAzNyIvPgo8L2c+Cjwvc3ZnPgo="
                   id="lang-ru-button2"
+                  aria-label="{% trans 'Russian' %}"
+                  type="button"
                 >
                   <img
                     src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkZGRkYiLz4KPG1hc2sgaWQ9Im1hc2swXzEyMl8yNzQiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjE2IiBmaWxsPSIjRkZGRkZGIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMjJfMjc0KSI+CjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iI0ZGRkZGRiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgMTAuNjY2N0gzMlYyMS4zMzMzSDBWMTAuNjY2N1oiIGZpbGw9IiMwMDUyQjQiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDIxLjMzMzNIMzJWMzJIMFYyMS4zMzMzWiIgZmlsbD0iI0REMDAzNyIvPgo8L2c+Cjwvc3ZnPgo="
-                    alt="Russian Flag"
+                    alt="Russian"
                   />
-                  <span>{% trans 'Русский' %}</span>
                 </button>
               </div>
             </div>

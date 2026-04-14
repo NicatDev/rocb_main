@@ -1,6 +1,30 @@
 {% load static %} {% load i18n %}
 
 <div class="hamburger-area d-lg-none">
+  <style>
+    .mobile-lang-flags {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .mobile-lang-flag-btn {
+      border: 1px solid transparent;
+      background: transparent;
+      border-radius: 999px;
+      padding: 2px;
+      line-height: 0;
+    }
+    .mobile-lang-flag-btn img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: block;
+    }
+    .mobile-lang-flag-btn.is-active {
+      border-color: rgba(18, 87, 158, 0.45);
+    }
+  </style>
   <div class="hamburger_bg"></div>
   <div class="hamburger_wrapper">
     <div class="hamburger_inner">
@@ -94,45 +118,26 @@
 
       <div class="hamburger-infos">
         <h5 class="hamburger-title">{% trans "Language" %}</h5>
-        <div class="header-flag mobile-flag">
-          <button class="flag" id="mobileFlagButton">
-            <img
-              id="mobileCurrentFlag"
-              src="{% if LANGUAGE_CODE == 'en' %}
-                       {% static 'assets/images/united-kingdom (1).png' %}
-                     {% elif LANGUAGE_CODE == 'ru' %}
-                       data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkZGRkYiLz4KPG1hc2sgaWQ9Im1hc2swXzEyMl8yNzQiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjE2IiBmaWxsPSIjRkZGRkZGIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMjJfMjc0KSI+CjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iI0ZGRkZGRiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgMTAuNjY2N0gzMlYyMS4zMzMzSDBWMTAuNjY2N1oiIGZpbGw9IiMwMDUyQjQiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDIxLjMzMzNIMzJWMzJIMFYyMS4zMzMzWiIgZmlsbD0iI0REMDAzNyIvPgo8L2c+Cjwvc3ZnPgo=
-                     {% else %}
-                       {% static 'assets/images/united-kingdom (1).png' %}
-                     {% endif %}"
-              alt="language"
-            />
-            <i class="fa-solid fa-caret-down"></i>
+        <div class="mobile-lang-flags">
+          <button
+            class="mobile-lang-flag-btn dropdown-item {% if LANGUAGE_CODE == 'en' %}is-active{% endif %}"
+            data-lang="en"
+            type="button"
+            aria-label="{% trans 'English' %}"
+          >
+            <img src="{% static 'assets/images/united-kingdom (1).png' %}" alt="English" />
           </button>
-          <div class="dropdown" id="mobileDropdown">
-            <button
-              class="dropdown-item"
-              data-lang="en"
-              data-flag="{% static 'assets/images/united-kingdom (1).png' %}"
-            >
-              <img
-                src="{% static 'assets/images/united-kingdom (1).png' %}"
-                alt="UK Flag"
-              />
-              <span>{% trans 'English' %}</span>
-            </button>
-            <button
-              class="dropdown-item"
-              data-lang="ru"
-              data-flag="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkZGRkYiLz4KPG1hc2sgaWQ9Im1hc2swXzEyMl8yNzQiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjE2IiBmaWxsPSIjRkZGRkZGIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMjJfMjc0KSI+CjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iI0ZGRkZGRiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgMTAuNjY2N0gzMlYyMS4zMzMzSDBWMTAuNjY2N1oiIGZpbGw9IiMwMDUyQjQiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDIxLjMzMzNIMzJWMzJIMFYyMS4zMzMzWiIgZmlsbD0iI0REMDAzNyIvPgo8L2c+Cjwvc3ZnPgo="
-            >
-              <img
-                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkZGRkYiLz4KPG1hc2sgaWQ9Im1hc2swXzEyMl8yNzQiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjE2IiBmaWxsPSIjRkZGRkZGIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMjJfMjc0KSI+CjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iI0ZGRkZGRiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgMTAuNjY2N0gzMlYyMS4zMzMzSDBWMTAuNjY2N1oiIGZpbGw9IiMwMDUyQjQiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDIxLjMzMzNIMzJWMzJIMFYyMS4zMzMzWiIgZmlsbD0iI0REMDAzNyIvPgo8L2c+Cjwvc3ZnPgo="
-                alt="Russian Flag"
-              />
-              <span>{% trans 'Русский' %}</span>
-            </button>
-          </div>
+          <button
+            class="mobile-lang-flag-btn dropdown-item {% if LANGUAGE_CODE == 'ru' %}is-active{% endif %}"
+            data-lang="ru"
+            type="button"
+            aria-label="{% trans 'Russian' %}"
+          >
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGRkZGRkYiLz4KPG1hc2sgaWQ9Im1hc2swXzEyMl8yNzQiIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjE2IiBmaWxsPSIjRkZGRkZGIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMjJfMjc0KSI+CjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iI0ZGRkZGRiIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgMTAuNjY2N0gzMlYyMS4zMzMzSDBWMTAuNjY2N1oiIGZpbGw9IiMwMDUyQjQiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDIxLjMzMzNIMzJWMzJIMFYyMS4zMzMzWiIgZmlsbD0iI0REMDAzNyIvPgo8L2c+Cjwvc3ZnPgo="
+              alt="Russian"
+            />
+          </button>
         </div>
       </div>
 
@@ -190,46 +195,28 @@
         console.error("Error fetching data for mobile menu:", error);
       });
 
-    const mobileFlagButton = document.getElementById("mobileFlagButton");
-    const mobileDropdown = document.getElementById("mobileDropdown");
+    document.querySelectorAll(".mobile-lang-flags .dropdown-item").forEach((button) => {
+      button.addEventListener("click", function () {
+        const lang = this.getAttribute("data-lang");
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = '{% url "set_language" %}';
 
-    if (mobileFlagButton && mobileDropdown) {
-      mobileFlagButton.addEventListener("click", () => {
-        mobileDropdown.classList.toggle("show");
+        const csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = "csrfmiddlewaretoken";
+        csrfInput.value = "{{ csrf_token }}";
+        form.appendChild(csrfInput);
+
+        const langInput = document.createElement("input");
+        langInput.type = "hidden";
+        langInput.name = "language";
+        langInput.value = lang;
+        form.appendChild(langInput);
+
+        document.body.appendChild(form);
+        form.submit();
       });
-
-      document.addEventListener("click", function (event) {
-        if (
-          !mobileFlagButton.contains(event.target) &&
-          !mobileDropdown.contains(event.target)
-        ) {
-          mobileDropdown.classList.remove("show");
-        }
-      });
-
-      mobileDropdown.querySelectorAll(".dropdown-item").forEach((button) => {
-        button.addEventListener("click", function () {
-          const lang = this.getAttribute("data-lang");
-          const form = document.createElement("form");
-          form.method = "POST";
-          form.action = '{% url "set_language" %}';
-
-          const csrfInput = document.createElement("input");
-          csrfInput.type = "hidden";
-          csrfInput.name = "csrfmiddlewaretoken";
-          csrfInput.value = "{{ csrf_token }}";
-          form.appendChild(csrfInput);
-
-          const langInput = document.createElement("input");
-          langInput.type = "hidden";
-          langInput.name = "language";
-          langInput.value = lang;
-          form.appendChild(langInput);
-
-          document.body.appendChild(form);
-          form.submit();
-        });
-      });
-    }
+    });
   });
 </script>
