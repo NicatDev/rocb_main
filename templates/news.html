@@ -116,7 +116,7 @@
                         <p class="desc">{{ item.description }}</p>
                       {% endif %}
                       <a class="text-btn" href="{% url 'news_detail' item.slug %}">
-                        <span class="btn-text"><span>Read More</span></span>
+                        <span class="btn-text"><span>{% trans 'Read More' %}</span></span>
                         <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
                       </a>
                     </div>

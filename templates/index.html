@@ -100,7 +100,7 @@
             </p>
           </div>
           <div class="hamburger-search-area">
-            <h5 class="hamburger-title">Search Now!</h5>
+            <h5 class="hamburger-title">{% trans 'Search Now!' %}</h5>
             <div class="hamburger_search">
               <form method="get" action="{% url 'home' %}">
                 <button type="submit"><i class="tji-search"></i></button>
@@ -109,7 +109,7 @@
                   autocomplete="off"
                   name="s"
                   value=""
-                  placeholder="Search here..."
+                  placeholder="{% trans 'Search here...' %}"
                 />
               </form>
             </div>
@@ -124,13 +124,13 @@
                 >
               </div>
               <div class="contact-item">
-                <span class="subtitle">Email</span>
+                <span class="subtitle">{% trans 'Email' %}</span>
                 <a class="contact-link" href="mailto:info@bexon.com"
                   >info@bexon.com</a
                 >
               </div>
               <div class="contact-item">
-                <span class="subtitle">Location</span>
+                <span class="subtitle">{% trans 'Location' %}</span>
                 <span class="contact-link"
                   >993 Renner Burg, West Rond, MT 94251-030</span
                 >
