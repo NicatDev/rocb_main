@@ -10,7 +10,7 @@ import requests
 from typing import Optional, Tuple
 
 from django.conf import settings
-from django.utils.dateparse import parse_datetime
+from django.utils.dateparse import parse_datetime, parse_date
 
 logger = logging.getLogger(__name__)
 
@@ -75,8 +75,12 @@ class ApiNewsItem:
                 extras.append(_Image(u))
         self.extra_images = extras if for_detail else []
         self.tag = ''
-        created = data.get('created_at')
-        dt = parse_datetime(created) if created else None
+        display_date = data.get('news_date') or data.get('created_at')
+        dt = parse_datetime(display_date) if display_date else None
+        if dt is None and display_date:
+            d = parse_date(display_date)
+            if d is not None:
+                dt = d
         self.date = dt
         self.created_by = None
         self.autorized_image = None
