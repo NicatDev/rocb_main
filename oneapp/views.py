@@ -48,7 +48,7 @@ def set_language(request, language):
 
 
 def home(request):
-    events = Event.objects.filter(in_home=True)[0:8]
+    events = Event.objects.filter(in_home=True).order_by('-date', '-id')[0:8]
     batch = fetch_main_site_news_batch(8)
     news = [
         ApiNewsItem(row, for_detail=False)
@@ -132,7 +132,7 @@ def events_page(request):
     tagParam = request.GET.get('t')
     page_number = request.GET.get("page", 1)
 
-    events = Event.objects.all()
+    events = Event.objects.all().order_by('-date', '-id')
     tags = Event.objects.values_list("tag", flat=True).distinct()
 
     if searchParam:
@@ -146,7 +146,7 @@ def events_page(request):
     paginator = Paginator(events, 3)
     page_obj = paginator.get_page(page_number)
 
-    tabs = Event.objects.exclude(id__in=[n.id for n in page_obj]).order_by('-id')[:3]
+    tabs = Event.objects.exclude(id__in=[n.id for n in page_obj]).order_by('-date', '-id')[:3]
 
     context = {
         "items": events,
