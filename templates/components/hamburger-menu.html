@@ -52,6 +52,14 @@
         <div class="mobile_menu">
           <nav class="mainmenu" id='menu-pc'>
             <ul>
+              <li>
+                <a
+                  href="https://rtc.rocbeurope.org/rtc-dashboard"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >{% trans 'RTC Dashboard' %}</a
+                >
+              </li>
               <li class="has-dropdown">
                 <a href="{% url 'about:about_default' %}">{% trans 'About Us' %}</a>
                 <ul id="about-list1" class="sub-menu">
@@ -104,14 +112,28 @@
                 </ul>
               </li>
               <li><a href="{% url 'contact:contact' %}">{% trans 'Contact' %} </a></li>
-              <li>
-                <a
-                  href="https://rtc.rocbeurope.org/rtc-dashboard"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >{% trans 'RTC Dashboard' %}</a
-                >
+              {% if user.is_authenticated %}
+              <li class="has-dropdown">
+                <a href="#">{% trans "My Account" %}</a>
+                <ul class="sub-menu">
+                  <li>
+                    <a href="{% url 'profile_view' %}">{% trans "Profile" %}</a>
+                  </li>
+                  {% if user.is_staff %}
+                  <li>
+                    <a href="{% url 'pending_approvals' %}"
+                      >{% trans "Pending users" %}</a
+                    >
+                  </li>
+                  {% endif %}
+                  <li>
+                    <a href="{% url 'logout_url_view' %}">{% trans "Logout" %}</a>
+                  </li>
+                </ul>
               </li>
+              {% else %}
+              <li><a href="{% url 'login' %}">{% trans "Login" %}</a></li>
+              {% endif %}
             </ul>
           </nav>
         </div>
