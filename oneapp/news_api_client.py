@@ -46,14 +46,16 @@ class _Image:
 
 
 class _ApiNewsSection:
-    __slots__ = ('id', 'title', 'content', 'description', 'depth')
+    __slots__ = ('id', 'title', 'content', 'description', 'depth', 'image')
 
-    def __init__(self, section_id, title: str, content: str, depth: int = 0):
+    def __init__(self, section_id, title: str, content: str, depth: int = 0, *, image_url=None):
         self.id = section_id
         self.title = title or ''
         self.content = content or ''
         self.description = self.content
         self.depth = depth
+        img = _abs_media_url(image_url)
+        self.image = _Image(img) if img else None
 
 
 class _NewsSectionsList:
@@ -112,6 +114,7 @@ class ApiNewsItem:
                         row.get('title') or '',
                         row.get('content') or '',
                         depth,
+                        image_url=row.get('image'),
                     )
                 )
             self.news_sections = _NewsSectionsList(built)

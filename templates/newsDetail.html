@@ -137,6 +137,22 @@
                     <p class="wow fadeInUp" data-wow-delay=".3s">{{ item.description|linebreaks }}</p>
                   {% endif %}
 
+                  {% if item.sections %}
+                    <div class="news-detail-sections">
+                      {% for section in item.sections %}
+                        <div class="news-detail-section wow fadeInUp" data-wow-delay=".35s"{% if section.depth %} style="margin-left: calc({{ section.depth }} * 1rem);"{% endif %}>
+                          <h3 class="news-detail-section-title">{{ section.title }}</h3>
+                          {% if section.image %}
+                            <div class="news-detail-section-image wow fadeInUp" data-wow-delay=".35s">
+                              <img src="{{ section.image.url }}" alt="{{ section.title }}" />
+                            </div>
+                          {% endif %}
+                          <div class="news-detail-section-body">{{ section.content|safe }}</div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+
                   {% if item.extra_images %}
                     <div class="row g-3 wow fadeInUp news-detail-extra-images" data-wow-delay=".35s" style="margin-top: 2rem;">
                       {% for ei in item.extra_images %}
@@ -144,17 +160,6 @@
                           <div class="image-box" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);">
                             <img src="{{ ei.url }}" alt="" style="width: 100%; height: auto; display: block;" />
                           </div>
-                        </div>
-                      {% endfor %}
-                    </div>
-                  {% endif %}
-
-                  {% if item.sections %}
-                    <div class="news-detail-sections">
-                      {% for section in item.sections %}
-                        <div class="news-detail-section wow fadeInUp" data-wow-delay=".35s"{% if section.depth %} style="margin-left: calc({{ section.depth }} * 1rem);"{% endif %}>
-                          <h3 class="news-detail-section-title">{{ section.title }}</h3>
-                          <div class="news-detail-section-body">{{ section.content|safe }}</div>
                         </div>
                       {% endfor %}
                     </div>

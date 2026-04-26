@@ -55,3 +55,14 @@
 .post-details-wrapper .news-detail-section-body p:last-child {
 	margin-bottom: 0;
 }
+.post-details-wrapper .news-detail-section-image {
+	margin-bottom: 1rem;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+.post-details-wrapper .news-detail-section-image img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
