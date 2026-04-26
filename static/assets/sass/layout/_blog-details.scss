@@ -780,21 +780,26 @@ blockquote {
 		position: relative;
 		top: 2px;
 	}
-	.project-icons--x-twitter {
-		background: #000000;
-		color: #ffffff;
+	/* Chained .project-icons.modifier beats same-specificity base .project-icons */
+	.project-icons.project-icons--x-twitter {
+		background: #ececee;
+		color: #000000;
+		border: 1px solid rgba(0, 0, 0, 0.08);
 	}
-	.project-icons--linkedin {
+	.project-icons.project-icons--linkedin {
 		background: #0a66c2;
 		color: #ffffff;
+		border: 1px solid rgba(0, 0, 0, 0.06);
 	}
-	.project-icons--phone {
+	.project-icons.project-icons--phone {
 		background: #16a34a;
 		color: #ffffff;
+		border: 1px solid rgba(0, 0, 0, 0.06);
 	}
-	.project-icons--website {
+	.project-icons.project-icons--website {
 		background: var(--tj-color-theme-primary);
 		color: var(--tj-color-common-white);
+		border: 1px solid rgba(0, 0, 0, 0.06);
 	}
 	.project-text {
 		span {

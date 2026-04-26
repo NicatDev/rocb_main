@@ -13899,21 +13899,25 @@ blockquote cite::before {
   position: relative;
   top: 2px;
 }
-.infos-item .project-icons--x-twitter {
-  background: #000000;
-  color: #ffffff;
+.infos-item .project-icons.project-icons--x-twitter {
+  background: #ececee;
+  color: #000000;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
-.infos-item .project-icons--linkedin {
+.infos-item .project-icons.project-icons--linkedin {
   background: #0a66c2;
   color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
-.infos-item .project-icons--phone {
+.infos-item .project-icons.project-icons--phone {
   background: #16a34a;
   color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
-.infos-item .project-icons--website {
+.infos-item .project-icons.project-icons--website {
   background: var(--tj-color-theme-primary);
   color: var(--tj-color-common-white);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 .infos-item .project-text span {
   display: inline-block;

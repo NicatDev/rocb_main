@@ -306,25 +306,42 @@
   margin-top: 2.5rem !important;
 }
 
-/* Sidebar: social icons — brand colors (loads after main.css on pages like about.html) */
-.tj-sidebar-widget.rocb-social-networks .infos-item .project-icons.project-icons--x-twitter {
-  background: #000000;
-  color: #ffffff;
+/* Sidebar: social icons — brand colors (about/who-we-are loads main then this file) */
+.tj-main-sidebar .infos-item .project-icons.project-icons--x-twitter {
+  background: #ececee !important;
+  color: #000000 !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
-.tj-sidebar-widget.rocb-social-networks .infos-item .project-icons.project-icons--linkedin {
-  background: #0a66c2;
-  color: #ffffff;
+.tj-main-sidebar .infos-item .project-icons.project-icons--x-twitter i,
+.tj-main-sidebar .infos-item .project-icons.project-icons--x-twitter i::before {
+  color: #000000 !important;
 }
-.tj-sidebar-widget.rocb-social-networks .infos-item .project-icons.project-icons--phone {
-  background: #16a34a;
-  color: #ffffff;
+.tj-main-sidebar .infos-item .project-icons.project-icons--linkedin {
+  background: #0a66c2 !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
 }
-.tj-sidebar-widget.rocb-social-networks .infos-item .project-icons.project-icons--website {
-  background: var(--tj-color-theme-primary);
-  color: var(--tj-color-common-white);
+.tj-main-sidebar .infos-item .project-icons.project-icons--linkedin i,
+.tj-main-sidebar .infos-item .project-icons.project-icons--linkedin i::before {
+  color: #ffffff !important;
 }
-.tj-sidebar-widget.rocb-social-networks .infos-item .project-icons i {
-  color: inherit;
+.tj-main-sidebar .infos-item .project-icons.project-icons--phone {
+  background: #16a34a !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+.tj-main-sidebar .infos-item .project-icons.project-icons--phone i,
+.tj-main-sidebar .infos-item .project-icons.project-icons--phone i::before {
+  color: #ffffff !important;
+}
+.tj-main-sidebar .infos-item .project-icons.project-icons--website {
+  background: var(--tj-color-theme-primary) !important;
+  color: var(--tj-color-common-white) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+.tj-main-sidebar .infos-item .project-icons.project-icons--website i,
+.tj-main-sidebar .infos-item .project-icons.project-icons--website i::before {
+  color: var(--tj-color-common-white) !important;
 }
 
 /* Home: “Last news” cards — bounded image height, center crop */
