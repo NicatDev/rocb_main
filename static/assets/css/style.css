@@ -305,3 +305,52 @@
 .post-details-wrapper .blog-images.news-detail-featured-image {
   margin-top: 2.5rem !important;
 }
+
+/* Sidebar: social icons — brand colors (loads after main.css on pages like about.html) */
+.tj-sidebar-widget.rocb-social-networks .infos-item .project-icons.project-icons--x-twitter {
+  background: #000000;
+  color: #ffffff;
+}
+.tj-sidebar-widget.rocb-social-networks .infos-item .project-icons.project-icons--linkedin {
+  background: #0a66c2;
+  color: #ffffff;
+}
+.tj-sidebar-widget.rocb-social-networks .infos-item .project-icons.project-icons--phone {
+  background: #16a34a;
+  color: #ffffff;
+}
+.tj-sidebar-widget.rocb-social-networks .infos-item .project-icons.project-icons--website {
+  background: var(--tj-color-theme-primary);
+  color: var(--tj-color-common-white);
+}
+.tj-sidebar-widget.rocb-social-networks .infos-item .project-icons i {
+  color: inherit;
+}
+
+/* Home: “Last news” cards — bounded image height, center crop */
+.tj-blog-section.rocb-home-last-news .blog-item .blog-thumb {
+  min-height: 0;
+  max-height: 240px;
+  height: 240px;
+}
+.tj-blog-section.rocb-home-last-news .blog-item .blog-thumb img {
+  min-height: 0;
+  max-height: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+@media only screen and (min-width: 1200px) and (max-width: 1399px),
+  only screen and (min-width: 992px) and (max-width: 1199px),
+  (max-width: 575px) {
+  .tj-blog-section.rocb-home-last-news .blog-item .blog-thumb {
+    max-height: 220px;
+    height: 220px;
+  }
+}
+
+/* Home: FAQ lives inside .tj-service-section — light bg so accordion stays readable */
+.tj-service-section.rocb-home-faq-in-service {
+  background-color: var(--tj-color-theme-bg);
+}

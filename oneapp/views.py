@@ -48,7 +48,7 @@ def set_language(request, language):
 
 
 def home(request):
-    batch = fetch_main_site_news_batch(8)
+    batch = fetch_main_site_news_batch(3)
     news = [
         ApiNewsItem(row, for_detail=False)
         for row in (batch or {}).get('results', [])

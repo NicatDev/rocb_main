@@ -314,7 +314,7 @@
       <!-- end: Banner Section -->
 
       <!-- start: Blog Section -->
-      <section id="scollto" class="tj-blog-section section-gap">
+      <section id="scollto" class="tj-blog-section section-gap rocb-home-last-news">
         <div class="container">
           <div class="row">
             <div class="col-12">
@@ -407,68 +407,56 @@
       </section>
       {% endcomment %}
 
-      <!-- start: Service Section -->
+      <!-- start: FAQ inside former service section wrapper -->
       <section
-        class="tj-service-section overflow-hidden section-gap section-gap-x"
+        class="tj-service-section overflow-hidden section-gap section-gap-x rocb-home-faq-in-service"
       >
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <div class="sec-heading text-center">
-                <span
-                  class="sub-title text-white wow fadeInUp"
-                  data-wow-delay=".3s"
-                  ><i class="fa-solid fa-globe"></i>{% trans 'News' %}</span
-                >
-                <h2 class="sec-title text-white title-anim">
-                  {% trans 'Last news' %}
-                </h2>
+        <div class="tj-faq-section">
+          <div class="container">
+            <div class="row justify-content-between">
+              <div class="col-lg-6">
+                <div class="faq-img-area wow fadeInLeft" data-wow-delay=".3s">
+                  <div class="faq-img">
+                    <img src="{% static 'rocb_build.jpg' %}" alt="" />
+                    <h2 class="title title-anim">
+                      {% trans 'Frequently Asked Questions' %}
+                    </h2>
+                  </div>
+                  <div style="max-width: 300px" class="box-area">
+                    <div class="call-box wow fadeInUp" data-wow-delay=".4s">
+                      <h4 class="title">{% trans 'Call us for more' %}</h4>
+                      <span class="call-icon"><i class="tji-phone"></i></span>
+                      <a class="number" href="tel:+994 12 4643134"
+                        ><span>+994 12 4643134</span></a
+                      >
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="container-fluid p-0">
-          <div class="row">
-            <div class="col-12">
-              <div class="service-wrapper wow fadeInUp" data-wow-delay=".4s">
-                <div class="swiper service-slider">
-                  <div class="swiper-wrapper">
-                    {% for news in news %}
-                    <div class="swiper-slide">
-                      <div class="service-item style-1">
-                        <div class="service-content">
-                          <h4 class="title">
-                            <a href="{% url 'news_detail' news.slug %}"
-                              >{{ news.title }}</a
-                            >
-                          </h4>
-                          <div class="service-img">
-                            {% if news.image %}
-                            <a href="{% url 'news_detail' news.slug %}"
-                              ><img src="{{ news.image.url }}" alt=""
-                            /></a>
-                            {% endif %}
-                          </div>
-                          <p class="desc">
-                            {% if news.description|length > 200 %} {{ news.description|slice:":200" }}... {% else %} {{ news.description }} {% endif %}
-                          </p>
-                          <a
-                            class="text-btn"
-                            href="{% url 'news_detail' news.slug %}"
-                          >
-                            <span class="btn-text"
-                              ><span>{% trans 'Learn More' %}</span></span
-                            >
-                            <span class="btn-icon"
-                              ><i class="tji-arrow-right-long"></i
-                            ></span>
-                          </a>
-                        </div>
+              <div class="col-lg-6">
+                <div class="accordion tj-faq" id="faqOne">
+                  {% for faq in faqs %}
+                  <div class="accordion-item wow fadeInUp" data-wow-delay=".3s">
+                    <button
+                      class="faq-title collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#faq-{{ forloop.counter }}"
+                      aria-expanded="false"
+                    >
+                      {{ faq.question}}
+                    </button>
+                    <div
+                      id="faq-{{ forloop.counter }}"
+                      class="collapse"
+                      data-bs-parent="#faq-{{ forloop.counter }}-{{ forloop.counter }}"
+                    >
+                      <div class="accordion-body faq-text">
+                        <p>{{ faq.answer }}</p>
                       </div>
                     </div>
-                    {% endfor %}
                   </div>
-                  <div class="swiper-pagination-area white-pagination"></div>
+                  {% endfor %}
                 </div>
               </div>
             </div>
@@ -481,61 +469,7 @@
           <img src="{% static 'assets/images/shape/pattern-3.svg' %}" alt="" />
         </div>
       </section>
-      <!-- end: Service Section -->
-
-      <!-- start: Faq Section -->
-      <section class="tj-faq-section section-gap">
-        <div class="container">
-          <div class="row justify-content-between">
-            <div class="col-lg-6">
-              <div class="faq-img-area wow fadeInLeft" data-wow-delay=".3s">
-                <div class="faq-img">
-                  <img src="{% static 'rocb_build.jpg' %}" alt="" />
-                  <h2 class="title title-anim">
-                    {% trans 'Frequently Asked Questions' %}
-                  </h2>
-                </div>
-                <div style="max-width: 300px" class="box-area">
-                  <div class="call-box wow fadeInUp" data-wow-delay=".4s">
-                    <h4 class="title">{% trans 'Call us for more' %}</h4>
-                    <span class="call-icon"><i class="tji-phone"></i></span>
-                    <a class="number" href="tel:+994 12 4643134"
-                      ><span>+994 12 4643134</span></a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="accordion tj-faq" id="faqOne">
-                {% for faq in faqs %}
-                <div class="accordion-item wow fadeInUp" data-wow-delay=".3s">
-                  <button
-                    class="faq-title collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#faq-{{ forloop.counter }}"
-                    aria-expanded="false"
-                  >
-                    {{ faq.question}}
-                  </button>
-                  <div
-                    id="faq-{{ forloop.counter }}"
-                    class="collapse"
-                    data-bs-parent="#faq-{{ forloop.counter }}-{{ forloop.counter }}"
-                  >
-                    <div class="accordion-body faq-text">
-                      <p>{{ faq.answer }}</p>
-                    </div>
-                  </div>
-                </div>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- end: Faq Section -->
+      <!-- end: FAQ in service wrapper -->
 
       {% trans "WCO Europe Regional Training Centers" as rtc_sec_title %}
       {% trans "Explore our RTC network across the region" as rtc_sec_subtitle %}
