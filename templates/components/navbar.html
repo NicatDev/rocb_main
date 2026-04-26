@@ -57,30 +57,6 @@
   .lang-flag-btn.is-active {
     border-color: rgba(18, 87, 158, 0.45);
   }
-  .menu-area {
-    flex: 1;
-    min-width: 0;
-    justify-content: flex-start;
-  }
-  .menu-area .mainmenu {
-    width: 100%;
-  }
-  .menu-area .mainmenu > ul {
-    width: 100%;
-  }
-  .menu-area .mainmenu > ul > li.header-nav-account {
-    margin-inline-start: auto;
-  }
-  .header-login-link {
-    display: inline-block;
-    padding: 37px 12px;
-    font-size: 16px;
-    font-weight: var(--tj-fw-medium, 500);
-    color: var(--tj-color-heading-primary);
-  }
-  .header-login-link:hover {
-    color: var(--tj-color-theme-primary);
-  }
 </style>
 
 <header class="header-area header-1 section-gap-x">
@@ -196,7 +172,7 @@
                   >
                 </li>
                 {% if user.is_authenticated %}
-                <li class="has-dropdown header-nav-account">
+                <li class="has-dropdown">
                   <a href="#">{% trans "My Account" %}</a>
                   <ul class="sub-menu">
                     <li>
@@ -219,10 +195,8 @@
                   </ul>
                 </li>
                 {% else %}
-                <li class="header-nav-account">
-                  <a class="header-login-link" href="{% url 'login' %}"
-                    >{% trans "Login" %}</a
-                  >
+                <li>
+                  <a href="{% url 'login' %}">{% trans "Login" %}</a>
                 </li>
                 {% endif %}
               </ul>
