@@ -12,7 +12,8 @@
     {% trans 'Regional Office for Capacity Building for the WCO Europe Region' as seo_home_title %}
     {% blocktrans trimmed asvar seo_home_desc %}Regional Office for Capacity Building for the WCO Europe Region — news, training, and customs capacity building for the WCO Europe Region.{% endblocktrans %}
     {% firstof public_site 'https://rocbeurope.org' as seo_base %}
-    {% with seo_canonical=seo_base|add:request.path seo_image=seo_base|add:'/'|add:STATIC_URL|add:'logo.png' seo_desc=seo_home_desc|truncatechars:300 %}
+    {% static 'logo.png' as seo_logo_path %}
+    {% with seo_canonical=seo_base|add:request.path seo_image=seo_base|add:seo_logo_path seo_desc=seo_home_desc|truncatechars:300 %}
       {% include 'components/seo_meta.html' with seo_title=seo_home_title seo_description=seo_desc seo_type='website' seo_canonical=seo_canonical seo_image=seo_image %}
       {% for lang_code, _ in LANGUAGES %}
         {% language lang_code %}

@@ -10,13 +10,14 @@
     <meta name="description" content="{{ seo_news_plain|striptags|truncatechars:300 }}" />
 
     {% firstof public_site 'https://rocbeurope.org' as seo_base %}
+    {% static 'logo.png' as seo_logo_path %}
     {% with seo_canonical=seo_base|add:request.path %}
       {% if item.image %}
         {% with seo_img=item.image.url %}
           {% include 'components/seo_meta.html' with seo_title=item.title seo_description=seo_news_plain|striptags|truncatechars:500 seo_type='article' seo_canonical=seo_canonical seo_image=seo_img seo_article_published=item.date|date:'c' %}
         {% endwith %}
       {% else %}
-        {% with seo_img=seo_base|add:'/'|add:STATIC_URL|add:'logo.png' %}
+        {% with seo_img=seo_base|add:seo_logo_path %}
           {% include 'components/seo_meta.html' with seo_title=item.title seo_description=seo_news_plain|striptags|truncatechars:500 seo_type='article' seo_canonical=seo_canonical seo_image=seo_img seo_article_published=item.date|date:'c' %}
         {% endwith %}
       {% endif %}
