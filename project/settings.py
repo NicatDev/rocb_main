@@ -190,13 +190,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
+#
+# static/          — source files in repo (STATICFILES_DIRS). Used by runserver when DEBUG=True.
+# staticfiles/     — collectstatic output (STATIC_ROOT). Point nginx /static/ here when DEBUG=False.
+# Do not set STATIC_ROOT to the same path as STATICFILES_DIRS.
 
 STATIC_URL = 'static/'
-
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

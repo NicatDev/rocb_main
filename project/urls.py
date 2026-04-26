@@ -41,5 +41,7 @@ urlpatterns += i18n_patterns(
     # path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 )
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# DEBUG=True: staticfiles app serves /static/ from STATICFILES_DIRS (no urlpattern needed).
+# DEBUG=False: run collectstatic, then nginx (or similar) should serve STATIC_ROOT at STATIC_URL.
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
