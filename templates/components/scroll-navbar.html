@@ -58,22 +58,19 @@
   .lang-flag-btn.is-active {
     border-color: rgba(18, 87, 158, 0.45);
   }
-  .header-account-nav {
-    margin-inline-start: 8px;
+  .menu-area {
+    flex: 1;
+    min-width: 0;
+    justify-content: flex-start;
   }
-  .header-account-nav .mainmenu > ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    align-items: center;
+  .menu-area .mainmenu {
+    width: 100%;
   }
-  .header-account-nav .mainmenu > ul > li > a {
-    display: block;
-    padding: 37px 12px;
-    font-size: 16px;
-    font-weight: var(--tj-fw-medium, 500);
-    color: var(--tj-color-heading-primary);
+  .menu-area .mainmenu > ul {
+    width: 100%;
+  }
+  .menu-area .mainmenu > ul > li.header-nav-account {
+    margin-inline-start: auto;
   }
   .header-login-link {
     display: inline-block;
@@ -201,46 +198,42 @@
                     >{% trans 'RTC Dashboard' %}</a
                   >
                 </li>
+                {% if user.is_authenticated %}
+                <li class="has-dropdown header-nav-account">
+                  <a href="#">{% trans "My Account" %}</a>
+                  <ul class="sub-menu">
+                    <li>
+                      <a href="{% url 'profile_view' %}"
+                        >{% trans "Profile" %}</a
+                      >
+                    </li>
+                    {% if user.is_staff %}
+                    <li>
+                      <a href="{% url 'pending_approvals' %}"
+                        >{% trans "Pending users" %}</a
+                      >
+                    </li>
+                    {% endif %}
+                    <li>
+                      <a href="{% url 'logout_url_view' %}"
+                        >{% trans "Logout" %}</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                {% else %}
+                <li class="header-nav-account">
+                  <a class="header-login-link" href="{% url 'login' %}"
+                    >{% trans "Login" %}</a
+                  >
+                </li>
+                {% endif %}
               </ul>
             </nav>
           </div>
 
           <!-- header right info -->
           <div class="header-right-item d-none d-lg-inline-flex">
-            <div class="header-account-nav d-none d-lg-inline-flex align-items-center">
-              {% if user.is_authenticated %}
-              <nav class="mainmenu">
-                <ul>
-                  <li class="has-dropdown">
-                    <a href="#">{% trans "My Account" %}</a>
-                    <ul class="sub-menu">
-                      <li>
-                        <a href="{% url 'profile_view' %}"
-                          >{% trans "Profile" %}</a
-                        >
-                      </li>
-                      {% if user.is_staff %}
-                      <li>
-                        <a href="{% url 'pending_approvals' %}"
-                          >{% trans "Pending users" %}</a
-                        >
-                      </li>
-                      {% endif %}
-                      <li>
-                        <a href="{% url 'logout_url_view' %}"
-                          >{% trans "Logout" %}</a
-                        >
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </nav>
-              {% else %}
-              <a class="header-login-link" href="{% url 'login' %}"
-                >{% trans "Login" %}</a
-              >
-              {% endif %}
-            </div>
             <div class="header-flag">
               <div class="lang-flags">
                 <button
