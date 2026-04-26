@@ -1,0 +1,31 @@
+/** ROCB: logo + preloader (keep last in main.scss so it wins over theme) */
+
+.header-area .site_logo img.logo-height-80,
+.header-area.header-sticky .site_logo img.logo-height-80,
+.header-area.header-duplicate .site_logo img.logo-height-80,
+.hamburger_logo img.logo-height-80,
+.logo-height-80 {
+	height: 45px !important;
+	max-height: 45px !important;
+	width: auto !important;
+	object-fit: contain;
+}
+
+.preloader .loading-container,
+.preloader .loading {
+	height: 200px !important;
+	width: 200px !important;
+}
+
+.preloader #loading-icon {
+	max-width: 170px !important;
+	width: 85% !important;
+}
+
+.preloader #loading-icon img {
+	max-height: 120px !important;
+	max-width: 100% !important;
+	width: auto !important;
+	height: auto !important;
+	object-fit: contain !important;
+}

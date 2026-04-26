@@ -23297,8 +23297,17 @@ START: Hero CSS
   }
 }
 
+/* Header / mobile menu logos (high specificity so theme rules cannot win) */
+.header-area .site_logo img.logo-height-80,
+.header-area.header-sticky .site_logo img.logo-height-80,
+.header-area.header-duplicate .site_logo img.logo-height-80,
+.hamburger_logo img.logo-height-80,
 .logo-height-80 {
   height: 45px !important;
+  max-height: 45px !important;
+  width: auto !important;
+  -o-object-fit: contain;
+  object-fit: contain;
 }
 
 .meeting-location {
@@ -23543,9 +23552,9 @@ START: Hero CSS
 
 .loading-container,
 .loading {
-  height: 150px;
+  height: 200px;
   position: relative;
-  width: 150px;
+  width: 200px;
   border-radius: 100%;
 }
 
@@ -23583,8 +23592,8 @@ START: Hero CSS
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  max-width: 132px;
-  width: 78%;
+  max-width: 170px;
+  width: 85%;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -23595,7 +23604,7 @@ START: Hero CSS
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: 80px;
+  max-height: 120px;
   -o-object-fit: contain;
   object-fit: contain;
 }
