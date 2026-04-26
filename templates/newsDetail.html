@@ -175,9 +175,12 @@
                     {% if item.extra_images|length == 1 %}
                       {% with ei=item.extra_images|first %}
                         <div class="wow fadeInUp news-detail-extra-images news-detail-extra-images--single" data-wow-delay=".35s" style="margin-top: 2rem;">
-                          <div class="image-box" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);">
-                            <img src="{{ ei.url }}" alt="" style="width: 100%; height: auto; display: block;" />
-                          </div>
+                          <a class="news-extra-veno" href="{{ ei.url }}" data-gall="news-extra-imgs" data-title="" aria-label="{% trans 'View full image' %}">
+                            <div class="news-extra-slide-crop">
+                              <img src="{{ ei.url }}" alt="" loading="lazy" decoding="async" />
+                            </div>
+                            <span class="news-extra-zoom" aria-hidden="true"><i class="fas fa-search-plus"></i></span>
+                          </a>
                         </div>
                       {% endwith %}
                     {% else %}
@@ -185,10 +188,13 @@
                         <div class="swiper news-extra-images-swiper">
                           <div class="swiper-wrapper">
                             {% for ei in item.extra_images %}
-                              <div class="swiper-slide">
-                                <div class="image-box" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);">
-                                  <img src="{{ ei.url }}" alt="" style="width: 100%; height: auto; display: block;" />
-                                </div>
+                              <div class="swiper-slide news-extra-swiper-slide">
+                                <a class="news-extra-veno" href="{{ ei.url }}" data-gall="news-extra-imgs" data-title="" aria-label="{% trans 'View full image' %}">
+                                  <div class="news-extra-slide-crop">
+                                    <img src="{{ ei.url }}" alt="" loading="lazy" decoding="async" />
+                                  </div>
+                                  <span class="news-extra-zoom" aria-hidden="true"><i class="fas fa-search-plus"></i></span>
+                                </a>
                               </div>
                             {% endfor %}
                           </div>
@@ -267,25 +273,80 @@
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         var root = document.querySelector('.news-extra-images-swiper');
-        if (!root || typeof Swiper === 'undefined') return;
-        new Swiper('.news-extra-images-swiper', {
-          slidesPerView: 1,
-          spaceBetween: 16,
-          grabCursor: true,
-          watchOverflow: true,
-          pagination: {
-            el: '.news-extra-images-pagination',
-            clickable: true,
-          },
-          breakpoints: {
-            0: { slidesPerView: 1, spaceBetween: 12 },
-            576: { slidesPerView: 1, spaceBetween: 14 },
-            768: { slidesPerView: 1, spaceBetween: 16 },
-          },
-        });
+        if (root && typeof Swiper !== 'undefined') {
+          new Swiper('.news-extra-images-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 16,
+            grabCursor: true,
+            watchOverflow: true,
+            autoHeight: false,
+            pagination: {
+              el: '.news-extra-images-pagination',
+              clickable: true,
+            },
+            breakpoints: {
+              0: { slidesPerView: 1, spaceBetween: 12 },
+              576: { slidesPerView: 1, spaceBetween: 14 },
+              768: { slidesPerView: 1, spaceBetween: 16 },
+            },
+          });
+        }
+        if (document.querySelector('.news-extra-veno') && typeof VenoBox !== 'undefined') {
+          new VenoBox({
+            selector: '.news-extra-veno',
+            numeration: true,
+            infinigall: true,
+            spinner: 'pulse',
+          });
+        }
       });
     </script>
     <style>
+      .news-extra-veno {
+        position: relative;
+        display: block;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+        text-decoration: none;
+        color: inherit;
+      }
+      .news-extra-veno:hover {
+        color: inherit;
+      }
+      .news-extra-slide-crop {
+        height: clamp(220px, 42vw, 420px);
+        overflow: hidden;
+        background: #e8ecef;
+      }
+      .news-extra-slide-crop img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+      .news-extra-zoom {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.42);
+        color: #fff;
+        font-size: 2rem;
+        opacity: 0;
+        transition: opacity 0.22s ease;
+        pointer-events: none;
+      }
+      .news-extra-veno:hover .news-extra-zoom,
+      .news-extra-veno:focus-visible .news-extra-zoom {
+        opacity: 1;
+      }
+      .news-detail-extra-swiper-wrap .news-extra-swiper-slide {
+        height: auto;
+        align-self: stretch;
+      }
       .news-detail-extra-swiper-wrap .news-extra-images-pagination {
         position: relative;
         margin-top: 14px;
