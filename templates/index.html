@@ -332,7 +332,7 @@
             {% for item in news|slice:":3" %}
             <div class="col-xl-4 col-md-6">
               <div class="blog-item wow fadeInUp" data-wow-delay=".4s">
-                <div class="blog-thumb">
+                <div style="max-height: 300px;" class="blog-thumb">
                   <a href="{% url 'news_detail' item.slug %}">
                     {% if item.image %}
                     <img src="{{ item.image.url }}" alt="" />
@@ -422,7 +422,7 @@
                       {% trans 'Frequently Asked Questions' %}
                     </h2>
                   </div>
-                  <div style="max-width: 300px" class="box-area">
+                  <div style="max-width: 300px; background-color:'transparent; padding:10px" class="box-area">
                     <div class="call-box wow fadeInUp" data-wow-delay=".4s">
                       <h4 class="title">{% trans 'Call us for more' %}</h4>
                       <span class="call-icon"><i class="tji-phone"></i></span>
