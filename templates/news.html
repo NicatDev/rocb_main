@@ -1,12 +1,18 @@
-{% load static %} {% load i18n %}
+{% load static %} {% load i18n %} {% load custom_filters %}
 
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="{{ request.LANGUAGE_CODE|default:'en' }}">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="{% trans 'Stay updated with the latest news, insights, and developments from ROCB Europe, focusing on customs capacity building, international trade, and WCO initiatives.' %}" />
+    <meta name="robots" content="{{ request.LANGUAGE_CODE|news_seo_robots }}" />
+    {% firstof public_site 'https://rocbeurope.org' as seo_base %}
+    {% language 'en' %}
+      {% url 'news' as news_list_path_en %}
+    {% endlanguage %}
+    <link rel="canonical" href="{{ seo_base }}{{ news_list_path_en }}" />
 
     <!-- Site Title -->
     <title>{% trans 'Rocb Europe - News' %}</title>

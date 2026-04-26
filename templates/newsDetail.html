@@ -1,4 +1,4 @@
-{% load static %} {% load i18n %}
+{% load static %} {% load i18n %} {% load custom_filters %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="{{ request.LANGUAGE_CODE|default:'en' }}">
@@ -11,24 +11,19 @@
 
     {% firstof public_site 'https://rocbeurope.org' as seo_base %}
     {% static 'logo.png' as seo_logo_path %}
-    {% with seo_canonical=seo_base|add:request.path %}
+    {% language 'en' %}
+      {% url 'news_detail' item.slug as news_detail_path_en %}
+    {% endlanguage %}
+    {% with seo_canonical=seo_base|add:news_detail_path_en %}
       {% if item.image %}
         {% with seo_img=item.image.url %}
-          {% include 'components/seo_meta.html' with seo_title=item.title seo_description=seo_news_plain|striptags|truncatechars:500 seo_type='article' seo_canonical=seo_canonical seo_image=seo_img seo_article_published=item.date|date:'c' %}
+          {% include 'components/seo_meta.html' with seo_title=item.title seo_description=seo_news_plain|striptags|truncatechars:500 seo_type='article' seo_canonical=seo_canonical seo_image=seo_img seo_article_published=item.date|date:'c' robots=request.LANGUAGE_CODE|news_seo_robots %}
         {% endwith %}
       {% else %}
         {% with seo_img=seo_base|add:seo_logo_path %}
-          {% include 'components/seo_meta.html' with seo_title=item.title seo_description=seo_news_plain|striptags|truncatechars:500 seo_type='article' seo_canonical=seo_canonical seo_image=seo_img seo_article_published=item.date|date:'c' %}
+          {% include 'components/seo_meta.html' with seo_title=item.title seo_description=seo_news_plain|striptags|truncatechars:500 seo_type='article' seo_canonical=seo_canonical seo_image=seo_img seo_article_published=item.date|date:'c' robots=request.LANGUAGE_CODE|news_seo_robots %}
         {% endwith %}
       {% endif %}
-      {% for lang_code, _ in LANGUAGES %}
-        {% language lang_code %}
-          <link rel="alternate" hreflang="{{ lang_code }}" href="{{ seo_base }}{% url 'news_detail' item.slug %}" />
-        {% endlanguage %}
-      {% endfor %}
-      {% language LANGUAGES.0.0 %}
-        <link rel="alternate" hreflang="x-default" href="{{ seo_base }}{% url 'news_detail' item.slug %}" />
-      {% endlanguage %}
     {% endwith %}
 
     <!-- Site Title -->

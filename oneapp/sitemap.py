@@ -34,20 +34,22 @@ class HomeSitemap(RocbSitemap):
 
 
 class NewsIndexSitemap(RocbSitemap):
-    """Localized /news listing pages."""
+    """English-only /news listing (SEO index)."""
 
     changefreq = 'daily'
     priority = 0.9
 
     def items(self):
-        return [code for code, _ in settings.LANGUAGES]
+        return ['en']
 
-    def location(self, lang_code):
-        translation.activate(lang_code)
+    def location(self, _item):
+        translation.activate(settings.LANGUAGE_CODE)
         return reverse('news')
 
 
 class NewsSitemap(RocbSitemap):
+    """English-only news detail URLs (SEO index)."""
+
     changefreq = 'weekly'
     priority = 0.8
 
@@ -59,14 +61,13 @@ class NewsSitemap(RocbSitemap):
             if not slug:
                 continue
             lastmod = row.get('lastmod')
-            for lang_code, _ in settings.LANGUAGES:
-                out.append((slug, lang_code, lastmod))
+            out.append((slug, lastmod))
         return out
 
     def lastmod(self, item):
-        return item[2]
+        return item[1]
 
     def location(self, item):
-        slug, lang_code, _ = item
-        translation.activate(lang_code)
+        slug, _lastmod = item
+        translation.activate(settings.LANGUAGE_CODE)
         return reverse('news_detail', kwargs={'slug': slug})
