@@ -306,6 +306,32 @@
   margin-top: 2.5rem !important;
 }
 
+/* News detail: sections from rocb_app_news API (parity with app NewsDetail) */
+.post-details-wrapper .news-detail-sections {
+  margin-top: 0.5rem;
+}
+.post-details-wrapper .news-detail-section {
+  margin-top: 1.75rem;
+}
+.post-details-wrapper .news-detail-section-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 0.75rem;
+  color: #1a1a1a;
+}
+.post-details-wrapper .news-detail-section-body {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #4a6572;
+}
+.post-details-wrapper .news-detail-section-body p {
+  margin-bottom: 1rem;
+}
+.post-details-wrapper .news-detail-section-body p:last-child {
+  margin-bottom: 0;
+}
+
 /* Sidebar: social icons — brand colors (about/who-we-are loads main then this file) */
 .tj-main-sidebar .infos-item .project-icons.project-icons--x-twitter {
   background: #ececee !important;

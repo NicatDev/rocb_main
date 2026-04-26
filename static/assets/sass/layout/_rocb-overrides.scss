@@ -29,3 +29,29 @@
 	height: auto !important;
 	object-fit: contain !important;
 }
+
+/* News detail: API sections (rocb_app_news — same layout as app NewsDetail) */
+.post-details-wrapper .news-detail-sections {
+	margin-top: 0.5rem;
+}
+.post-details-wrapper .news-detail-section {
+	margin-top: 1.75rem;
+}
+.post-details-wrapper .news-detail-section-title {
+	font-size: 1.35rem;
+	font-weight: 600;
+	line-height: 1.35;
+	margin-bottom: 0.75rem;
+	color: #1a1a1a;
+}
+.post-details-wrapper .news-detail-section-body {
+	font-size: 1.125rem;
+	line-height: 1.7;
+	color: #4a6572;
+}
+.post-details-wrapper .news-detail-section-body p {
+	margin-bottom: 1rem;
+}
+.post-details-wrapper .news-detail-section-body p:last-child {
+	margin-bottom: 0;
+}

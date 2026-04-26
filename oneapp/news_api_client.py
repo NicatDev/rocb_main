@@ -45,9 +45,23 @@ class _Image:
         self.url = url
 
 
-class _EmptyNewsSections:
+class _ApiNewsSection:
+    __slots__ = ('id', 'title', 'content', 'description', 'depth')
+
+    def __init__(self, section_id, title: str, content: str, depth: int = 0):
+        self.id = section_id
+        self.title = title or ''
+        self.content = content or ''
+        self.description = self.content
+        self.depth = depth
+
+
+class _NewsSectionsList:
+    def __init__(self, items: list):
+        self._items = items
+
     def all(self):
-        return []
+        return self._items
 
 
 class ApiNewsItem:
@@ -84,7 +98,30 @@ class ApiNewsItem:
         self.date = dt
         self.created_by = None
         self.autorized_image = None
-        self.news_sections = _EmptyNewsSections()
+        if for_detail:
+            section_rows = data.get('sections') or []
+            built = []
+            for row in section_rows:
+                try:
+                    depth = int(row.get('depth') or 0)
+                except (TypeError, ValueError):
+                    depth = 0
+                built.append(
+                    _ApiNewsSection(
+                        row.get('id'),
+                        row.get('title') or '',
+                        row.get('content') or '',
+                        depth,
+                    )
+                )
+            self.news_sections = _NewsSectionsList(built)
+        else:
+            self.news_sections = _NewsSectionsList([])
+
+    @property
+    def sections(self):
+        """Ordered section blocks from API (same shape as rocb_app_news `sections` JSON)."""
+        return self.news_sections.all()
 
 
 def _list_url() -> str:
