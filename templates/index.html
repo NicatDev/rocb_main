@@ -1,6 +1,6 @@
 {% load static %} {% load i18n %}
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="{{ request.LANGUAGE_CODE|default:'en' }}">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
@@ -9,6 +9,20 @@
       name="description"
       content="{% trans 'Regional Office for Capacity Building for the WCO Europe Region' %}"
     />
+    {% trans 'Regional Office for Capacity Building for the WCO Europe Region' as seo_home_title %}
+    {% blocktrans trimmed asvar seo_home_desc %}Regional Office for Capacity Building for the WCO Europe Region — news, training, and customs capacity building for the WCO Europe Region.{% endblocktrans %}
+    {% firstof public_site 'https://rocb-europe.org' as seo_base %}
+    {% with seo_canonical=seo_base|add:request.path seo_image=seo_base|add:'/'|add:STATIC_URL|add:'logo.png' seo_desc=seo_home_desc|truncatechars:300 %}
+      {% include 'components/seo_meta.html' with seo_title=seo_home_title seo_description=seo_desc seo_type='website' seo_canonical=seo_canonical seo_image=seo_image %}
+      {% for lang_code, _ in LANGUAGES %}
+        {% language lang_code %}
+          <link rel="alternate" hreflang="{{ lang_code }}" href="{{ seo_base }}{% url 'home' %}" />
+        {% endlanguage %}
+      {% endfor %}
+      {% language LANGUAGES.0.0 %}
+        <link rel="alternate" hreflang="x-default" href="{{ seo_base }}{% url 'home' %}" />
+      {% endlanguage %}
+    {% endwith %}
 
     <!-- Site Title -->
     <title>

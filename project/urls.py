@@ -1,31 +1,29 @@
-# from oneapp.sitemap import BlogSiteMap,ServiceSiteMap,StaticSitemap
 from django.contrib import admin
 from django.urls import path, include, re_path
 
-admin.site.site_header = 'Rocb Europe Admin'
-admin.site.site_title = 'Rocb Europe Admin'
-admin.site.index_title = 'Rocb Europe Admin'
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
-# from marketapp.sitemap import BlogSiteMap,ServiceSitemap, StaticSitemap
-from django.views.generic import TemplateView
-from django.conf.urls.i18n import i18n_patterns
 
+from oneapp.sitemap import HomeSitemap, NewsIndexSitemap, NewsSitemap
+from oneapp.views import robots_txt
 
-# sitemaps = {
-#     'blog_sitepap':BlogSiteMap,
-#     'service_sitemap': ServiceSiteMap,
-#     'static_sitemap': StaticSitemap,
-# }
+admin.site.site_header = 'Rocb Europe Admin'
+admin.site.site_title = 'Rocb Europe Admin'
+admin.site.index_title = 'Rocb Europe Admin'
+
+sitemaps = {
+    'home': HomeSitemap,
+    'news_index': NewsIndexSitemap,
+    'news': NewsSitemap,
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
-
-    path('robots.txt/', TemplateView.as_view(template_name='robots.txt',
-         content_type="text/plain")),
+    path('robots.txt', robots_txt),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
 
 urlpatterns += i18n_patterns(
@@ -38,7 +36,6 @@ urlpatterns += i18n_patterns(
     path('', include("analytics.urls")),
     path('publicity/', include("publicity.urls")),
     path('', include("etraining.urls")),
-    # path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 )
 
 # DEBUG=True: staticfiles app serves /static/ from STATICFILES_DIRS (no urlpattern needed).

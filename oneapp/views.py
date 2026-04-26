@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.shortcuts import render
+from django.template.response import TemplateResponse
 from django.http import JsonResponse, Http404
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -27,6 +28,15 @@ from .news_api_client import (
 )
 import datetime
 import pytz
+
+def robots_txt(request):
+    return TemplateResponse(
+        request,
+        'robots.txt',
+        {'public_site': getattr(settings, 'PUBLIC_SITE_URL', 'https://rocb-europe.org').rstrip('/')},
+        content_type='text/plain',
+    )
+
 
 def set_language(request, language):
     for lang, _ in settings.LANGUAGES:

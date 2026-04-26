@@ -1,12 +1,34 @@
 {% load static %} {% load i18n %}
 
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="{{ request.LANGUAGE_CODE|default:'en' }}">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="{% if item.summary %}{{ item.summary|truncatechars:200 }}{% elif item.description|length > 200 %}{{ item.description|slice:':200' }}...{% else %}{{ item.description }}{% endif %}" />
+    {% firstof item.summary item.description item.title '' as seo_news_plain %}
+    <meta name="description" content="{{ seo_news_plain|striptags|truncatechars:300 }}" />
+
+    {% firstof public_site 'https://rocb-europe.org' as seo_base %}
+    {% with seo_canonical=seo_base|add:request.path %}
+      {% if item.image %}
+        {% with seo_img=item.image.url %}
+          {% include 'components/seo_meta.html' with seo_title=item.title seo_description=seo_news_plain|striptags|truncatechars:500 seo_type='article' seo_canonical=seo_canonical seo_image=seo_img seo_article_published=item.date|date:'c' %}
+        {% endwith %}
+      {% else %}
+        {% with seo_img=seo_base|add:'/'|add:STATIC_URL|add:'logo.png' %}
+          {% include 'components/seo_meta.html' with seo_title=item.title seo_description=seo_news_plain|striptags|truncatechars:500 seo_type='article' seo_canonical=seo_canonical seo_image=seo_img seo_article_published=item.date|date:'c' %}
+        {% endwith %}
+      {% endif %}
+      {% for lang_code, _ in LANGUAGES %}
+        {% language lang_code %}
+          <link rel="alternate" hreflang="{{ lang_code }}" href="{{ seo_base }}{% url 'news_detail' item.slug %}" />
+        {% endlanguage %}
+      {% endfor %}
+      {% language LANGUAGES.0.0 %}
+        <link rel="alternate" hreflang="x-default" href="{{ seo_base }}{% url 'news_detail' item.slug %}" />
+      {% endlanguage %}
+    {% endwith %}
 
     <!-- Site Title -->
     <title>{{ item.title }}</title>
@@ -154,15 +176,30 @@
                   {% endif %}
 
                   {% if item.extra_images %}
-                    <div class="row g-3 wow fadeInUp news-detail-extra-images" data-wow-delay=".35s" style="margin-top: 2rem;">
-                      {% for ei in item.extra_images %}
-                        <div class="col-12 col-md-6">
+                    {% if item.extra_images|length == 1 %}
+                      {% with ei=item.extra_images|first %}
+                        <div class="wow fadeInUp news-detail-extra-images news-detail-extra-images--single" data-wow-delay=".35s" style="margin-top: 2rem;">
                           <div class="image-box" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);">
                             <img src="{{ ei.url }}" alt="" style="width: 100%; height: auto; display: block;" />
                           </div>
                         </div>
-                      {% endfor %}
-                    </div>
+                      {% endwith %}
+                    {% else %}
+                      <div class="wow fadeInUp news-detail-extra-images news-detail-extra-swiper-wrap" data-wow-delay=".35s" style="margin-top: 2rem;">
+                        <div class="swiper news-extra-images-swiper">
+                          <div class="swiper-wrapper">
+                            {% for ei in item.extra_images %}
+                              <div class="swiper-slide">
+                                <div class="image-box" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);">
+                                  <img src="{{ ei.url }}" alt="" style="width: 100%; height: auto; display: block;" />
+                                </div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                          <div class="swiper-pagination news-extra-images-pagination"></div>
+                        </div>
+                      </div>
+                    {% endif %}
                   {% endif %}
                 </div>
 
@@ -231,5 +268,35 @@
     <script src="{% static 'assets/js/main.js' %} "></script>
 
     <script src="{% static 'assets/js/navbar.js' %}"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var root = document.querySelector('.news-extra-images-swiper');
+        if (!root || typeof Swiper === 'undefined') return;
+        new Swiper('.news-extra-images-swiper', {
+          slidesPerView: 1,
+          spaceBetween: 16,
+          grabCursor: true,
+          watchOverflow: true,
+          pagination: {
+            el: '.news-extra-images-pagination',
+            clickable: true,
+          },
+          breakpoints: {
+            0: { slidesPerView: 1, spaceBetween: 12 },
+            576: { slidesPerView: 1, spaceBetween: 14 },
+            768: { slidesPerView: 1, spaceBetween: 16 },
+          },
+        });
+      });
+    </script>
+    <style>
+      .news-detail-extra-swiper-wrap .news-extra-images-pagination {
+        position: relative;
+        margin-top: 14px;
+      }
+      .news-detail-extra-swiper-wrap .swiper-pagination-bullet-active {
+        opacity: 1;
+      }
+    </style>
   </body>
 </html>

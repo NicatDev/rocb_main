@@ -98,6 +98,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 "django.template.context_processors.i18n",
+                'oneapp.context_processors.public_site_url',
             ],
         },
     },
@@ -227,6 +228,9 @@ RTC_APP_NEWS_API_BASE = os.environ.get(
     'RTC_APP_NEWS_API_BASE',
     'https://app.rocbeurope.org/api/v1',
 )
+
+# Canonical origin for sitemaps, Open Graph, and robots.txt (no trailing slash).
+PUBLIC_SITE_URL = os.environ.get('PUBLIC_SITE_URL', 'https://rocb-europe.org').rstrip('/')
 
 
 # --- Outgoing email (Gmail SMTP) ---

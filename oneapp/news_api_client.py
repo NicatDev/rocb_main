@@ -163,6 +163,43 @@ def fetch_main_site_news_batch(page_size: int = 8) -> Optional[dict]:
     return fetch_main_site_news_page(page=1, page_size=page_size, search=None)
 
 
+def fetch_main_site_news_for_sitemap() -> list[dict]:
+    """
+    All global main-site news slugs for sitemap.xml.
+    Each item: {'slug': str, 'lastmod': datetime | None} (timezone-aware when parsed).
+    """
+    from datetime import datetime
+
+    from django.utils import timezone
+    from django.utils.dateparse import parse_date, parse_datetime
+
+    rows_out: list[dict] = []
+    page = 1
+    page_size = 50
+    safety_pages = 500
+    while page <= safety_pages:
+        data = fetch_main_site_news_page(page=page, page_size=page_size)
+        if not data:
+            break
+        for row in data.get('results') or []:
+            slug = row.get('slug')
+            if not slug:
+                continue
+            lm = row.get('updated_at') or row.get('created_at') or row.get('news_date')
+            lastmod = None
+            if lm:
+                lastmod = parse_datetime(str(lm))
+                if lastmod is None:
+                    pd = parse_date(str(lm)[:10])
+                    if pd:
+                        lastmod = timezone.make_aware(datetime.combine(pd, datetime.min.time()))
+            rows_out.append({'slug': slug, 'lastmod': lastmod})
+        if not data.get('next'):
+            break
+        page += 1
+    return rows_out
+
+
 def _rtc_list_url() -> str:
     base = getattr(settings, 'RTC_APP_NEWS_API_BASE', 'https://app.rocbeurope.org/api/v1').rstrip('/')
     return f'{base}/public/main-site/rtc-profiles/'

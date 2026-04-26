@@ -1,3 +1,15 @@
-User-Agent: *
+User-agent: *
+Allow: /
+
 Disallow: /admin/
+Disallow: /rosetta/
+Disallow: /login
+Disallow: /logout
+Disallow: /register
+Disallow: /profile
+Disallow: /pending-approvals/
+Disallow: /approve-user/
+Disallow: /reject-user/
+Disallow: /i18n/
+
 Sitemap: https://rocb-europe.org/sitemap.xml
