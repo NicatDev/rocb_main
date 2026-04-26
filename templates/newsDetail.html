@@ -140,7 +140,7 @@
                   {% if item.sections %}
                     <div style="margin-top: 1rem;" class="news-detail-sections">
                       {% for section in item.sections %}
-                        <div class="news-detail-section wow fadeInUp" data-wow-delay=".35s"{% if section.depth %} style="margin-left: calc({{ section.depth }} * 1rem);"{% endif %}>
+                        <div class="news-detail-section wow fadeInUp" data-wow-delay=".35s"{% if section.depth %} data-depth="{{ section.depth }}"{% endif %}>
                           <h3 class="news-detail-section-title">{{ section.title }}</h3>
                           {% if section.image %}
                             <div style="margin-bottom: 1rem;" class="news-detail-section-image wow fadeInUp" data-wow-delay=".35s">
