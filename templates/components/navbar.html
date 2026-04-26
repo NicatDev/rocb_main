@@ -106,14 +106,6 @@
           <div class="menu-area d-none d-lg-inline-flex align-items-center">
             <nav id="mobile-menu" class="mainmenu">
               <ul>
-                <li>
-                  <a
-                    href="https://rtc.rocbeurope.org/rtc-dashboard"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >{% trans 'RTC Dashboard' %}</a
-                  >
-                </li>
                 <li class="has-dropdown">
                   <a href="{% url 'about:about_default' %}"
                     >{% trans 'About Us' %}</a
@@ -198,46 +190,54 @@
                     >{% trans 'Contact' %}
                   </a>
                 </li>
-                <li class="header-account-nav d-none d-lg-inline-flex align-items-center">
-                  {% if user.is_authenticated %}
-                  <nav class="mainmenu">
-                    <ul>
-                      <li class="has-dropdown">
-                        <a href="#">{% trans "My Account" %}</a>
-                        <ul class="sub-menu">
-                          <li>
-                            <a href="{% url 'profile_view' %}"
-                              >{% trans "Profile" %}</a
-                            >
-                          </li>
-                          {% if user.is_staff %}
-                          <li>
-                            <a href="{% url 'pending_approvals' %}"
-                              >{% trans "Pending users" %}</a
-                            >
-                          </li>
-                          {% endif %}
-                          <li>
-                            <a href="{% url 'logout_url_view' %}"
-                              >{% trans "Logout" %}</a
-                            >
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </nav>
-                  {% else %}
-                  <a class="header-login-link" href="{% url 'login' %}"
-                    >{% trans "Login" %}</a
+                <li>
+                  <a
+                    href="https://rtc.rocbeurope.org/rtc-dashboard"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >{% trans 'RTC Dashboard' %}</a
                   >
-                  {% endif %}
-                </div>
+                </li>
               </ul>
             </nav>
           </div>
 
           <!-- header right info -->
           <div class="header-right-item d-none d-lg-inline-flex">
+            <div class="header-account-nav d-none d-lg-inline-flex align-items-center">
+              {% if user.is_authenticated %}
+              <nav class="mainmenu">
+                <ul>
+                  <li class="has-dropdown">
+                    <a href="#">{% trans "My Account" %}</a>
+                    <ul class="sub-menu">
+                      <li>
+                        <a href="{% url 'profile_view' %}"
+                          >{% trans "Profile" %}</a
+                        >
+                      </li>
+                      {% if user.is_staff %}
+                      <li>
+                        <a href="{% url 'pending_approvals' %}"
+                          >{% trans "Pending users" %}</a
+                        >
+                      </li>
+                      {% endif %}
+                      <li>
+                        <a href="{% url 'logout_url_view' %}"
+                          >{% trans "Logout" %}</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+              {% else %}
+              <a class="header-login-link" href="{% url 'login' %}"
+                >{% trans "Login" %}</a
+              >
+              {% endif %}
+            </div>
             <div class="header-flag">
               <div class="lang-flags">
                 <button
@@ -292,7 +292,6 @@
                 </svg>
               </button>
             </div>
-           
             {% comment %}
             <div class="menu_bar menu_offcanvas d-none d-lg-inline-flex">
               <span></span>
