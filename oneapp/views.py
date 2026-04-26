@@ -33,7 +33,7 @@ def robots_txt(request):
     return TemplateResponse(
         request,
         'robots.txt',
-        {'public_site': getattr(settings, 'PUBLIC_SITE_URL', 'https://rocb-europe.org').rstrip('/')},
+        {'public_site': getattr(settings, 'PUBLIC_SITE_URL', 'https://rocbeurope.org').rstrip('/')},
         content_type='text/plain',
     )
 

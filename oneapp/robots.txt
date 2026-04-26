@@ -12,4 +12,4 @@ Disallow: /approve-user/
 Disallow: /reject-user/
 Disallow: /i18n/
 
-Sitemap: https://rocb-europe.org/sitemap.xml
+Sitemap: https://rocbeurope.org/sitemap.xml

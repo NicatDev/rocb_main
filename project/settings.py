@@ -29,12 +29,21 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CORS_ALLOWED_ORIGINS = [
+    'https://rocbeurope.org',
+    'https://www.rocbeurope.org',
+    'https://demo.rocbeurope.org',
     'https://demo.rocb-europe.org',
     'https://rocb-europe.org',
     'https://www.rocb-europe.org',
 ]
 # Application definition
 CSRF_TRUSTED_ORIGINS = [
+    'https://rocbeurope.org',
+    'http://rocbeurope.org',
+    'https://www.rocbeurope.org',
+    'http://www.rocbeurope.org',
+    'https://demo.rocbeurope.org',
+    'http://demo.rocbeurope.org',
     'https://rocb-europe.org',
     'http://rocb-europe.org',
     'https://demo.rocb-europe.org',
@@ -230,7 +239,7 @@ RTC_APP_NEWS_API_BASE = os.environ.get(
 )
 
 # Canonical origin for sitemaps, Open Graph, and robots.txt (no trailing slash).
-PUBLIC_SITE_URL = os.environ.get('PUBLIC_SITE_URL', 'https://rocb-europe.org').rstrip('/')
+PUBLIC_SITE_URL = os.environ.get('PUBLIC_SITE_URL', 'https://rocbeurope.org').rstrip('/')
 
 
 # --- Outgoing email (Gmail SMTP) ---

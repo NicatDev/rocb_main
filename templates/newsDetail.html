@@ -9,7 +9,7 @@
     {% firstof item.summary item.description item.title '' as seo_news_plain %}
     <meta name="description" content="{{ seo_news_plain|striptags|truncatechars:300 }}" />
 
-    {% firstof public_site 'https://rocb-europe.org' as seo_base %}
+    {% firstof public_site 'https://rocbeurope.org' as seo_base %}
     {% with seo_canonical=seo_base|add:request.path %}
       {% if item.image %}
         {% with seo_img=item.image.url %}

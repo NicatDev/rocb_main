@@ -12,13 +12,13 @@ class RocbSitemap(Sitemap):
     protocol = 'https'
 
     def get_domain(self, site=None):
-        base = getattr(settings, 'PUBLIC_SITE_URL', '') or 'https://rocb-europe.org'
+        base = getattr(settings, 'PUBLIC_SITE_URL', '') or 'https://rocbeurope.org'
         host = urlparse(base).netloc
         if host:
             return host
         if site is not None and getattr(site, 'domain', None):
             return site.domain
-        return 'rocb-europe.org'
+        return 'rocbeurope.org'
 
 
 class HomeSitemap(RocbSitemap):
