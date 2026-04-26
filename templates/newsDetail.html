@@ -143,7 +143,7 @@
                         <div class="news-detail-section wow fadeInUp" data-wow-delay=".35s"{% if section.depth %} style="margin-left: calc({{ section.depth }} * 1rem);"{% endif %}>
                           <h3 class="news-detail-section-title">{{ section.title }}</h3>
                           {% if section.image %}
-                            <div class="news-detail-section-image wow fadeInUp" data-wow-delay=".35s">
+                            <div style="margin-bottom: 1rem;" class="news-detail-section-image wow fadeInUp" data-wow-delay=".35s">
                               <img src="{{ section.image.url }}" alt="{{ section.title }}" />
                             </div>
                           {% endif %}
