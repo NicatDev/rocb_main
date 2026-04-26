@@ -48,7 +48,6 @@ def set_language(request, language):
 
 
 def home(request):
-    events = Event.objects.filter(in_home=True).order_by('-date', '-id')[0:8]
     batch = fetch_main_site_news_batch(8)
     news = [
         ApiNewsItem(row, for_detail=False)
@@ -56,9 +55,8 @@ def home(request):
     ]
     faqs = Faq.objects.order_by('order')
     context = {
-        "events": events,
         "news": news,
-        "faqs":faqs
+        "faqs": faqs,
     }
 
     return render(request, 'index.html', context)

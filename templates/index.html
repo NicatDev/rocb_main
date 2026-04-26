@@ -320,44 +320,46 @@
             <div class="col-12">
               <div class="sec-heading text-center">
                 <span class="sub-title wow fadeInUp" data-wow-delay=".3s"
-                  ><i class="fa-solid fa-calendar-days"></i>{% trans 'Events' %}</span
+                  ><i class="fa-solid fa-newspaper"></i>{% trans 'News' %}</span
                 >
                 <h2 class="sec-title title-anim">
-                  <span>{% trans 'Last events' %}</span>
+                  <span>{% trans 'Last news' %}</span>
                 </h2>
               </div>
             </div>
           </div>
           <div class="row row-gap-4">
-            {% for event in events %}
+            {% for item in news|slice:":3" %}
             <div class="col-xl-4 col-md-6">
               <div class="blog-item wow fadeInUp" data-wow-delay=".4s">
                 <div class="blog-thumb">
-                  <a href="{% url 'events_detail' event.slug %}">
-                    {% if event.image %}
-                    <img src="{{event.image.url}}" alt="" />
+                  <a href="{% url 'news_detail' item.slug %}">
+                    {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="" />
                     {% endif %}
                   </a>
+                  {% if item.date %}
                   <div class="blog-date">
-                    <span class="date">{{ event.date|date:"j" }}</span>
-                    <span class="month">{{ event.date|date:"M" }}</span>
+                    <span class="date">{{ item.date|date:"j" }}</span>
+                    <span class="month">{{ item.date|date:"M" }}</span>
                   </div>
+                  {% endif %}
                 </div>
                 <div class="blog-content">
-                  {% if event.tag %}
+                  {% if item.tag %}
                   <div class="blog-meta">
-                    <span class="categories"><a>{{ event.tag }}</a></span>
+                    <span class="categories"><a>{{ item.tag }}</a></span>
                   </div>
                   {% endif %}
 
                   <h4 class="title">
-                    <a href="{% url 'events_detail' event.slug %}"
-                      >{{ event.title }}</a
+                    <a href="{% url 'news_detail' item.slug %}"
+                      >{{ item.title }}</a
                     >
                   </h4>
                   <a
                     class="text-btn"
-                    href="{% url 'events_detail' event.slug %}"
+                    href="{% url 'news_detail' item.slug %}"
                   >
                     <span class="btn-text"
                       ><span>{% trans 'Read More' %}</span></span

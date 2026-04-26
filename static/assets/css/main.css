@@ -13899,6 +13899,22 @@ blockquote cite::before {
   position: relative;
   top: 2px;
 }
+.infos-item .project-icons--x-twitter {
+  background: #000000;
+  color: #ffffff;
+}
+.infos-item .project-icons--linkedin {
+  background: #0a66c2;
+  color: #ffffff;
+}
+.infos-item .project-icons--phone {
+  background: #16a34a;
+  color: #ffffff;
+}
+.infos-item .project-icons--website {
+  background: var(--tj-color-theme-primary);
+  color: var(--tj-color-common-white);
+}
 .infos-item .project-text span {
   display: inline-block;
   font-size: 14px;

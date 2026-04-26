@@ -780,6 +780,22 @@ blockquote {
 		position: relative;
 		top: 2px;
 	}
+	.project-icons--x-twitter {
+		background: #000000;
+		color: #ffffff;
+	}
+	.project-icons--linkedin {
+		background: #0a66c2;
+		color: #ffffff;
+	}
+	.project-icons--phone {
+		background: #16a34a;
+		color: #ffffff;
+	}
+	.project-icons--website {
+		background: var(--tj-color-theme-primary);
+		color: var(--tj-color-common-white);
+	}
 	.project-text {
 		span {
 			display: inline-block;
