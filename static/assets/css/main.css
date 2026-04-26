@@ -23295,13 +23295,10 @@ START: Hero CSS
   .blog-category-two {
     padding: 0px !important;
   }
-  .logo-height-80 {
-    height: 58px !important;
-  }
 }
 
 .logo-height-80 {
-  height: 75px;
+  height: 45px !important;
 }
 
 .meeting-location {
@@ -23546,9 +23543,9 @@ START: Hero CSS
 
 .loading-container,
 .loading {
-  height: 100px;
+  height: 150px;
   position: relative;
-  width: 100px;
+  width: 150px;
   border-radius: 100%;
 }
 
@@ -23577,10 +23574,30 @@ START: Hero CSS
   position: absolute;
   top: 50%;
   left: 50%;
-  max-width: 66px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  max-width: 132px;
+  width: 78%;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+#loading-icon img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 80px;
+  -o-object-fit: contain;
+  object-fit: contain;
 }
 
 @-webkit-keyframes rotate-loading {
