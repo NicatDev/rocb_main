@@ -390,6 +390,8 @@
               {% endfor %}
             </div>
             <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
           </div>
           <div class="row mt-4">
             <div class="col-12 text-center">
@@ -769,6 +771,10 @@
         pagination: {
           el: '.rocb-news-slider .swiper-pagination',
           clickable: true,
+        },
+        navigation: {
+          nextEl: '.rocb-news-slider .swiper-button-next',
+          prevEl: '.rocb-news-slider .swiper-button-prev',
         },
         breakpoints: {
           0: { slidesPerView: 1, spaceBetween: 15 },
