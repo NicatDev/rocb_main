@@ -343,7 +343,35 @@
               </div>
             </div>
           </div>
-          <div class="swiper-container rocb-news-slider" style="padding-bottom: 50px; overflow: hidden;">
+          <style>
+            .rocb-news-slider .rocb-custom-pagination {
+              position: absolute;
+              bottom: 10px;
+              left: 0;
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 8px;
+              z-index: 10;
+            }
+            .rocb-news-slider .swiper-pagination-bullet {
+              width: 10px;
+              height: 10px;
+              background-color: #d1d5db;
+              border-radius: 5px;
+              opacity: 1;
+              margin: 0 !important;
+              transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              cursor: pointer;
+            }
+            .rocb-news-slider .swiper-pagination-bullet-active {
+              width: 28px;
+              background-color: #0b2239; /* ROCB dark blue */
+              border-radius: 5px;
+            }
+          </style>
+          <div class="swiper-container rocb-news-slider" style="padding-bottom: 50px; overflow: hidden; position: relative;">
             <div class="swiper-wrapper">
               {% for item in news|slice:":6" %}
               <div class="swiper-slide">
@@ -389,9 +417,7 @@
               </div>
               {% endfor %}
             </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination rocb-custom-pagination"></div>
           </div>
           <div class="row mt-4">
             <div class="col-12 text-center">
@@ -771,10 +797,6 @@
         pagination: {
           el: '.rocb-news-slider .swiper-pagination',
           clickable: true,
-        },
-        navigation: {
-          nextEl: '.rocb-news-slider .swiper-button-next',
-          prevEl: '.rocb-news-slider .swiper-button-prev',
         },
         breakpoints: {
           0: { slidesPerView: 1, spaceBetween: 15 },
