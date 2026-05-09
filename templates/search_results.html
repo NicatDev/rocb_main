@@ -110,11 +110,7 @@
                         <span class="categories"><a>{% if item.type == 'Event' %}{% trans 'Event' %}{% else %}{% trans 'News' %}{% endif %}</a></span>
                       </div>
                       {% if item.description %}
-                        {% if item.description|length > 200 %}
-                          <p class="desc">{{ item.description|slice:":200" }}...</p>
-                        {% else %}
-                          <p class="desc">{{ item.description }}</p>
-                        {% endif %}
+                        <p class="desc">{{ item.description|striptags|truncatechars:200 }}</p>
                       {% endif %}
                       <a class="text-btn" href="{% if item.type == 'News' %}{% url 'news_detail' item.slug %}{% else %}{% url 'events_detail' item.slug %}{% endif %}">
                         <span class="btn-text"><span>{% trans 'Read More' %}</span></span>

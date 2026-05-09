@@ -12842,14 +12842,15 @@ START: Blog Details CSS
 .post-details-wrapper .blog-text h3 {
   margin-bottom: 25px;
 }
-.post-details-wrapper .blog-text ul {
+/* Only top-level checklist (mini titles); not lists inside .event-rich-text (CKEditor) */
+.post-details-wrapper .blog-text > ul {
   margin-bottom: 50px;
   list-style: none;
   -webkit-columns: 2;
   -moz-columns: 2;
   columns: 2;
 }
-.post-details-wrapper .blog-text ul li {
+.post-details-wrapper .blog-text > ul > li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -12863,10 +12864,10 @@ START: Blog Details CSS
   font-weight: var(--tj-fw-medium);
   margin-bottom: 16px;
 }
-.post-details-wrapper .blog-text ul li:last-child {
+.post-details-wrapper .blog-text > ul > li:last-child {
   margin-bottom: 0;
 }
-.post-details-wrapper .blog-text ul li span {
+.post-details-wrapper .blog-text > ul > li > span {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -12889,12 +12890,49 @@ START: Blog Details CSS
   border-radius: 50%;
 }
 @media (max-width: 575px) {
-  .post-details-wrapper .blog-text ul {
+  .post-details-wrapper .blog-text > ul {
     margin-bottom: 30px;
     -webkit-columns: 1;
     -moz-columns: 1;
     columns: 1;
   }
+}
+/* CKEditor / rich HTML inside event detail */
+.post-details-wrapper .blog-text .event-rich-text {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+.post-details-wrapper .blog-text .event-rich-text p {
+  margin-bottom: 1em;
+}
+.post-details-wrapper .blog-text .event-rich-text p:last-child {
+  margin-bottom: 0;
+}
+.post-details-wrapper .blog-text .event-rich-text ul,
+.post-details-wrapper .blog-text .event-rich-text ol {
+  margin: 0 0 1em 1.25em;
+  padding: 0;
+  list-style: disc;
+  -webkit-columns: unset;
+  -moz-columns: unset;
+  columns: unset;
+}
+.post-details-wrapper .blog-text .event-rich-text ol {
+  list-style: decimal;
+}
+.post-details-wrapper .blog-text .event-rich-text ul li,
+.post-details-wrapper .blog-text .event-rich-text ol li {
+  display: list-item;
+  margin-bottom: 0.35em;
+  color: inherit;
+  font-weight: inherit;
+}
+.post-details-wrapper .blog-text .event-rich-text a {
+  text-decoration: underline;
+}
+.post-details-wrapper .blog-text .event-rich-text img {
+  max-width: 100%;
+  height: auto;
 }
 .post-details-wrapper .blog-text .blog-video {
   position: relative;

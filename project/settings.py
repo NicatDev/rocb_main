@@ -14,20 +14,36 @@ from dotenv import load_dotenv
 from django.utils.translation import gettext_lazy as _
 from pathlib import Path
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv(BASE_DIR.parent / '.env')
+load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-86u+ann-lni!djybxc5dut!lrbb%4ud#yo#y=f+@#o0w(jx&oi'
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    'django-insecure-86u+ann-lni!djybxc5dut!lrbb%4ud#yo#y=f+@#o0w(jx&oi',
+)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+_allowed_default = (
+    'localhost,127.0.0.1,'
+    'rocbeurope.org,www.rocbeurope.org,'
+    'rocb-europe.org,www.rocb-europe.org,'
+    'demo.rocbeurope.org,demo.rocb-europe.org,'
+    'app.rocbeurope.org,rtc.rocbeurope.org'
+)
+ALLOWED_HOSTS = [
+    h.strip()
+    for h in os.environ.get('DJANGO_ALLOWED_HOSTS', _allowed_default).split(',')
+    if h.strip()
+]
 CORS_ALLOWED_ORIGINS = [
     'https://rocbeurope.org',
     'https://www.rocbeurope.org',
@@ -119,9 +135,6 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-
-load_dotenv()
 
 USE_POSTGRES = os.getenv('USE_POSTGRES', 'false').lower() == 'true'
 
