@@ -112,11 +112,7 @@
                         </div>
                       {% endif %}
                    {% if item.description %}
-                        {% if item.description|length > 200 %}
-                            <p class="desc">{{ item.description|slice:":200" }}...</p>
-                        {% else %}
-                            <p class="desc">{{ item.description }}</p>
-                        {% endif %}
+                        <p class="desc">{{ item.description|striptags|truncatechars:200 }}</p>
                     {% endif %}
 
                       <a class="text-btn" href="{% url 'events_detail' item.slug %}">

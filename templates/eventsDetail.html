@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="{% if item.description|length > 200 %}{{ item.description|slice:':200' }}...{% else %}{{ item.description }}{% endif %}" />
+    <meta name="description" content="{{ item.description|striptags|truncatechars:300 }}" />
 
     <!-- Site Title -->
     <title>{{ item.title }}</title>
@@ -119,8 +119,8 @@
                 {% endif %}
 
                 <div class="blog-text">
-                  {% if item.description %}<p class="wow fadeInUp" data-wow-delay=".3s">{{ item.description }}</p>
-                  
+                  {% if item.description %}
+                  <div class="wow fadeInUp event-rich-text" data-wow-delay=".3s">{{ item.description|safe }}</div>
                   {% endif %}
 
                   <div class="blog-images wow fadeInUp" data-wow-delay=".1s">
@@ -130,7 +130,9 @@
                   </div>
                   {% for section in item.events_sections.all %}
                     <h3 class="wow fadeInUp" data-wow-delay=".3s">{{ section.title }}</h3>
-                    <p class="wow fadeInUp" data-wow-delay=".3s">{{ section.description }}</p>
+                    {% if section.description %}
+                    <div class="wow fadeInUp event-rich-text" data-wow-delay=".3s">{{ section.description|safe }}</div>
+                    {% endif %}
                     <div class="images-wrap">
                       <div class="row">
                         <div class="col-sm-6">

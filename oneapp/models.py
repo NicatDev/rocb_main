@@ -97,6 +97,9 @@ class Event(BaseMixin):
         return reverse('event-single', kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
+        from oneapp.sanitize_html import sanitize_translated_descriptions
+
+        sanitize_translated_descriptions(self, 'description')
         if not self.slug:
             new_slug = slugify(self.title)
             self.slug = new_slug
@@ -114,6 +117,12 @@ class EventSection(models.Model):
     title = models.CharField(max_length=500)
     description = models.TextField()
     image = models.ImageField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        from oneapp.sanitize_html import sanitize_translated_descriptions
+
+        sanitize_translated_descriptions(self, 'description')
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f'-{self.title}'

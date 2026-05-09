@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.db import models
+from ckeditor.widgets import CKEditorWidget
+
 from .models import (
     Registration, Event, EventSection, News, NewsSection,
     MeetingRegistrations, Faq, MeetingDocuments, DocumentExperts, DocumentFiles
@@ -7,9 +10,13 @@ from modeltranslation.admin import (
     TabbedTranslationAdmin, TranslationStackedInline, TranslationTabularInline
 )
 
+CKEDITOR_TEXTFIELD = {'widget': CKEditorWidget(config_name='default')}
+
+
 class EventModelInline(TranslationStackedInline):
     model = EventSection
     extra = 0
+    formfield_overrides = {models.TextField: CKEDITOR_TEXTFIELD}
 
 class NewsModelInline(TranslationStackedInline):
     model = NewsSection
@@ -27,6 +34,7 @@ class DocumentFilesInline(TranslationTabularInline):
 class EventAdmin(TabbedTranslationAdmin):
     list_display = ("title",)
     inlines = [EventModelInline]
+    formfield_overrides = {models.TextField: CKEDITOR_TEXTFIELD}
 
 @admin.register(News)
 class NewsAdmin(TabbedTranslationAdmin): 
