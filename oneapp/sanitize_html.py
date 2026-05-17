@@ -1,7 +1,11 @@
 """Server-side HTML cleanup for rich-text fields (CKEditor / admin)."""
 
 import bleach
-from bleach.css_sanitizer import CSSSanitizer
+
+try:
+    from bleach.css_sanitizer import CSSSanitizer
+except ImportError:
+    CSSSanitizer = None  # type: ignore[misc, assignment]
 
 _ALLOWED_TAGS = frozenset(
     [
@@ -40,24 +44,28 @@ _ALLOWED_TAGS = frozenset(
     ]
 )
 
-_RICH_TEXT_CSS = CSSSanitizer(
-    allowed_css_properties=[
-        'text-align',
-        'margin',
-        'margin-left',
-        'margin-right',
-        'margin-top',
-        'margin-bottom',
-        'padding',
-        'padding-left',
-        'padding-right',
-        'width',
-        'max-width',
-        'height',
-        'float',
-        'display',
-    ],
+_RICH_TEXT_CSS_PROPERTIES = (
+    'text-align',
+    'margin',
+    'margin-left',
+    'margin-right',
+    'margin-top',
+    'margin-bottom',
+    'padding',
+    'padding-left',
+    'padding-right',
+    'width',
+    'max-width',
+    'height',
+    'float',
+    'display',
 )
+
+
+def _rich_text_css_sanitizer():
+    if CSSSanitizer is None:
+        return None
+    return CSSSanitizer(allowed_css_properties=_RICH_TEXT_CSS_PROPERTIES)
 
 _ALLOWED_ATTRIBUTES = {
     'a': ['href', 'title', 'rel', 'target'],
@@ -69,13 +77,15 @@ _ALLOWED_ATTRIBUTES = {
 def sanitize_rich_html(value: str) -> str:
     if not value:
         return ''
-    return bleach.clean(
-        str(value),
-        tags=_ALLOWED_TAGS,
-        attributes=_ALLOWED_ATTRIBUTES,
-        css_sanitizer=_RICH_TEXT_CSS,
-        strip=True,
-    )
+    kwargs = {
+        'tags': _ALLOWED_TAGS,
+        'attributes': _ALLOWED_ATTRIBUTES,
+        'strip': True,
+    }
+    css = _rich_text_css_sanitizer()
+    if css is not None:
+        kwargs['css_sanitizer'] = css
+    return bleach.clean(str(value), **kwargs)
 
 
 def sanitize_translated_descriptions(instance, base_field: str = 'description') -> None:

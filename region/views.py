@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_http_methods
 
 from oneapp.news_api_client import fetch_main_site_rtc_profiles
@@ -11,6 +12,7 @@ from .models import Region, ListSection, MiniTitle, Image, BlockQuote, ListItem,
 REGION_RTC_API_SLUG = 'wco-europe-rtcs'
 
 
+@ensure_csrf_cookie
 def region_page(request, slug=None):
     regiontabs = list(Region.objects.order_by('created_at'))
 
@@ -104,7 +106,10 @@ def _get_country_or_404(pk):
 
 
 def _user_owns_country(user, country):
-    return user.is_authenticated and country.owner_id and country.owner_id == user.id
+    if not user.is_authenticated:
+        return False
+    owner_id = getattr(country, 'owner_id', None)
+    return owner_id is not None and owner_id == user.pk
 
 
 @require_GET
@@ -118,7 +123,14 @@ def country_detail_json(request, pk):
 def country_owner_edit(request, pk):
     country = _get_country_or_404(pk)
     if not _user_owns_country(request.user, country):
-        return HttpResponseForbidden('You are not the owner of this country.')
+        return JsonResponse(
+            {
+                'success': False,
+                'error': 'not_owner',
+                'message': 'You are not assigned as the owner of this country in admin.',
+            },
+            status=403,
+        )
 
     if request.method == 'GET':
         form = CountryOwnerForm(instance=country)

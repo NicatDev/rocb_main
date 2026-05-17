@@ -1,0 +1,368 @@
+/* Member Administrations — country cards & modals */
+
+.country-grid {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.country-card {
+  position: relative;
+  padding: 18px 18px 14px;
+  border: 1px solid rgba(18, 87, 158, 0.08);
+  cursor: pointer;
+}
+
+.country-card:focus-visible {
+  outline: 2px solid var(--tj-color-theme-primary, #12579e);
+  outline-offset: 2px;
+}
+
+.country-card-edit {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--tj-color-theme-primary, #12579e);
+  box-shadow: 0 2px 10px rgba(18, 87, 158, 0.15);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.country-card-edit:hover {
+  background: var(--tj-color-theme-primary, #12579e);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.country-card-main {
+  padding-right: 28px;
+}
+
+.country-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tj-color-theme-primary, #12579e);
+  opacity: 0.85;
+  transition: gap 0.2s, opacity 0.2s;
+}
+
+.country-card:hover .country-card-cta {
+  gap: 10px;
+  opacity: 1;
+}
+
+/* Modals above theme overlays (body-overlay z-index: 9999) */
+.modal-backdrop.country-modal-backdrop {
+  z-index: 10040 !important;
+}
+
+.country-modal {
+  z-index: 10050 !important;
+}
+
+.country-modal .modal-dialog {
+  margin: 1.25rem auto;
+}
+
+.country-modal .modal-content {
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.18);
+}
+
+.country-modal .modal-header {
+  align-items: flex-start;
+  gap: 12px;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #e8eef4;
+  background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+}
+
+.country-modal .modal-title-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.country-modal .modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+
+.country-modal .modal-subtitle {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.country-modal .btn-close {
+  margin: 0;
+  padding: 0.5rem;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.country-modal .btn-close:hover {
+  opacity: 1;
+}
+
+.country-modal .modal-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.country-modal .modal-footer {
+  padding: 1rem 1.5rem 1.25rem;
+  border-top: 1px solid #e8eef4;
+  background: #f8fafc;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.country-modal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.55rem 1.25rem;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.country-modal-btn--primary {
+  background: var(--tj-color-theme-primary, #12579e);
+  color: #fff;
+}
+
+.country-modal-btn--primary:hover {
+  background: #0d4378;
+  color: #fff;
+}
+
+.country-modal-btn--ghost {
+  background: #fff;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
+.country-modal-btn--ghost:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+/* View modal content */
+.country-view-hero {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #e8eef4;
+}
+
+.country-view-hero .flag,
+.country-view-flag {
+  flex-shrink: 0;
+}
+
+.country-view-flag {
+  width: 72px;
+  height: 54px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.country-view-section {
+  margin-bottom: 1.25rem;
+}
+
+.country-view-section:last-child {
+  margin-bottom: 0;
+}
+
+.country-view-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--tj-color-theme-primary, #12579e);
+  margin: 0 0 0.5rem;
+}
+
+.country-view-section p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #334155;
+}
+
+.country-view-section a {
+  color: var(--tj-color-theme-primary, #12579e);
+  word-break: break-all;
+}
+
+.country-info-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.country-info-item {
+  padding: 12px 14px;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e8eef4;
+}
+
+.country-info-item dt {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748b;
+  margin: 0 0 4px;
+}
+
+.country-info-item dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #1e293b;
+}
+
+.country-view-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+.country-modal-loading {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: #64748b;
+}
+
+.country-modal-loading::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin: 1rem auto 0;
+  border: 3px solid #e2e8f0;
+  border-top-color: var(--tj-color-theme-primary, #12579e);
+  border-radius: 50%;
+  animation: country-modal-spin 0.7s linear infinite;
+}
+
+@keyframes country-modal-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Edit form inside modal */
+.country-edit-lang-tabs .nav-link {
+  font-weight: 600;
+  color: #64748b;
+  border: none;
+  border-bottom: 2px solid transparent;
+}
+
+.country-edit-lang-tabs .nav-link.active {
+  color: var(--tj-color-theme-primary, #12579e);
+  border-bottom-color: var(--tj-color-theme-primary, #12579e);
+  background: transparent;
+}
+
+.country-edit-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
+}
+
+.country-info-formset-row {
+  background: #f8fafc;
+  border: 1px solid #e8eef4 !important;
+  border-radius: 12px !important;
+}
+
+.country-info-formset-row .form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.country-search-container {
+  max-width: 1000px;
+  margin: 0 auto 1rem;
+  padding: 0 20px;
+}
+
+@media (max-width: 767px) {
+  .country-grid {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 14px;
+  }
+
+  .country-card {
+    padding: 16px;
+  }
+
+  .country-modal .modal-dialog {
+    margin: 0.5rem;
+    max-width: calc(100% - 1rem);
+  }
+
+  .country-modal .modal-header,
+  .country-modal .modal-body,
+  .country-modal .modal-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .country-info-formset-row .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 575px) {
+  .country-modal .modal-dialog {
+    margin: 0;
+    max-width: 100%;
+    min-height: 100%;
+    height: 100%;
+  }
+
+  .country-modal .modal-content {
+    min-height: 100dvh;
+    border-radius: 0;
+  }
+
+  .country-modal .modal-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+  }
+}

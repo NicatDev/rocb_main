@@ -1,31 +1,37 @@
 {% load i18n %}
-<div class="modal fade country-modal" id="countryViewModal" tabindex="-1" aria-labelledby="countryViewModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+<div class="modal fade country-modal" id="countryViewModal" tabindex="-1" aria-labelledby="countryViewModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="countryViewModalLabel">{% trans "Country details" %}</h5>
+        <div class="modal-title-wrap">
+          <h2 class="modal-title" id="countryViewModalLabel">{% trans "Country details" %}</h2>
+          <p class="modal-subtitle" id="countryViewModalSubtitle"></p>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Close' %}"></button>
       </div>
       <div class="modal-body" id="countryViewModalBody">
-        <div class="text-center py-4 text-muted">{% trans "Loading..." %}</div>
+        <div class="country-modal-loading">{% trans "Loading..." %}</div>
       </div>
       <div class="modal-footer">
-        <button type="button" id="countryViewEditBtn" class="btn btn-primary d-none">{% trans "Edit" %}</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
+        <button type="button" id="countryViewEditBtn" class="country-modal-btn country-modal-btn--primary d-none">{% trans "Edit" %}</button>
+        <button type="button" class="country-modal-btn country-modal-btn--ghost" data-bs-dismiss="modal">{% trans "Close" %}</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade country-modal" id="countryEditModal" tabindex="-1" aria-labelledby="countryEditModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+<div class="modal fade country-modal" id="countryEditModal" tabindex="-1" aria-labelledby="countryEditModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="countryEditModalLabel">{% trans "Edit country information" %}</h5>
+        <div class="modal-title-wrap">
+          <h2 class="modal-title" id="countryEditModalLabel">{% trans "Edit country information" %}</h2>
+          <p class="modal-subtitle">{% trans "Changes are saved for all visitors." %}</p>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Close' %}"></button>
       </div>
       <div class="modal-body" id="countryEditModalBody">
-        <div class="text-center py-4 text-muted">{% trans "Loading..." %}</div>
+        <div class="country-modal-loading">{% trans "Loading..." %}</div>
       </div>
     </div>
   </div>

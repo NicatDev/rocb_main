@@ -5,25 +5,57 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from .models import Profile 
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .forms import ProfilePictureForm
+from django.utils.translation import gettext as _
+from .forms import ProfileEditForm, ProfilePictureForm
+
 
 @login_required
 def profile_view(request):
     user = request.user
-    profile, created = Profile.objects.get_or_create(user=user)
+    profile, _ = Profile.objects.get_or_create(user=user)
 
-    if request.method == "POST":
-        form = ProfilePictureForm(request.POST, request.FILES, instance=profile)
+    if request.method == 'POST':
+        action = request.POST.get('action', 'save_details')
+
+        if action == 'remove_picture':
+            if profile.profile_picture:
+                profile.profile_picture.delete(save=False)
+            profile.profile_picture = None
+            profile.save(update_fields=['profile_picture'])
+            messages.success(request, _('Profile picture removed.'))
+            return redirect('profile_view')
+
+        if action == 'upload_avatar':
+            pic_form = ProfilePictureForm(request.POST, request.FILES, instance=profile)
+            if pic_form.is_valid():
+                pic_form.save()
+                messages.success(request, _('Profile picture updated.'))
+            else:
+                messages.error(request, _('Could not upload image. Please use JPEG, PNG, or WebP.'))
+            return redirect('profile_view')
+
+        form = ProfileEditForm(request.POST, request.FILES, user=user, profile=profile)
         if form.is_valid():
             form.save()
-            return redirect("profile_view")
+            messages.success(request, _('Profile saved successfully.'))
+            return redirect('profile_view')
+        messages.error(request, _('Please correct the errors below.'))
     else:
-        form = ProfilePictureForm(instance=profile)
+        form = ProfileEditForm(user=user, profile=profile)
 
-    return render(request, "profile.html", {
-        "user": user,
-        "profile": profile,
-        "form": form
+    avatar_initials = ''
+    if user.first_name:
+        avatar_initials += user.first_name[0].upper()
+    if user.last_name:
+        avatar_initials += user.last_name[0].upper()
+    if not avatar_initials and user.username:
+        avatar_initials = user.username[0].upper()
+
+    return render(request, 'profile.html', {
+        'user': user,
+        'profile': profile,
+        'form': form,
+        'avatar_initials': avatar_initials,
     })
 
 def logout_view(request):

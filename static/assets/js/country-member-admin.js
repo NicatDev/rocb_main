@@ -1,109 +1,225 @@
 (function () {
+  const MODAL_IDS = ['countryViewModal', 'countryEditModal'];
+
   function getCsrfToken() {
-    const match = document.cookie.match(/csrftoken=([^;]+)/);
-    return match ? decodeURIComponent(match[1]) : '';
+    const fromCookie = document.cookie.match(/csrftoken=([^;]+)/);
+    if (fromCookie) {
+      return decodeURIComponent(fromCookie[1]);
+    }
+    const input = document.querySelector('#countryOwnerEditForm input[name="csrfmiddlewaretoken"]');
+    return input ? input.value : '';
   }
 
   function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text == null ? '' : String(text);
-    return div.innerHTML;
+    const el = document.createElement('div');
+    el.textContent = text == null ? '' : String(text);
+    return el.innerHTML;
   }
 
-  function countryJsonUrl(id) {
-    const tpl = document.getElementById('countryApiConfig')?.dataset.jsonUrlTemplate;
-    if (!tpl) return `/region/country/${id}/json/`;
-    return tpl.replace('0', String(id));
+  function resolveUrl(el, kind) {
+    if (!el) return null;
+    if (kind === 'json') {
+      return el.dataset.jsonUrl || el.closest('.country-card')?.dataset.jsonUrl;
+    }
+    return el.dataset.editUrl || el.closest('.country-card')?.dataset.editUrl;
   }
 
-  function countryEditUrl(id) {
-    const tpl = document.getElementById('countryApiConfig')?.dataset.editUrlTemplate;
-    if (!tpl) return `/region/country/${id}/edit/`;
-    return tpl.replace('0', String(id));
+  function initCountryModals() {
+    MODAL_IDS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (el.parentElement !== document.body) {
+        document.body.appendChild(el);
+      }
+
+      el.addEventListener('show.bs.modal', () => {
+        document.querySelector('.body-overlay')?.classList.remove('opened');
+      });
+
+      el.addEventListener('shown.bs.modal', () => {
+        document.querySelector('.modal-backdrop')?.classList.add('country-modal-backdrop');
+      });
+
+      el.addEventListener('hidden.bs.modal', () => {
+        document.body.classList.remove('modal-open');
+        document.body.style.removeProperty('overflow');
+        document.body.style.removeProperty('padding-right');
+        document.querySelectorAll('.modal-backdrop').forEach((b) => b.remove());
+        document.querySelector('.body-overlay')?.classList.remove('opened');
+      });
+    });
+  }
+
+  function getModalInstance(modalEl) {
+    if (!modalEl || !window.bootstrap) return null;
+    return bootstrap.Modal.getOrCreateInstance(modalEl, {
+      backdrop: true,
+      keyboard: true,
+      focus: true,
+    });
   }
 
   function renderViewModal(data) {
     const body = document.getElementById('countryViewModalBody');
     const title = document.getElementById('countryViewModalLabel');
+    const subtitle = document.getElementById('countryViewModalSubtitle');
     const editBtn = document.getElementById('countryViewEditBtn');
     if (!body || !title) return;
 
     title.textContent = data.title || '';
-    let html = '<div class="country-view-header">';
+    if (subtitle) {
+      subtitle.textContent = data.code ? String(data.code).toUpperCase() : '';
+    }
+
+    let html = '<div class="country-view-hero">';
     if (data.flag_url) {
-      html += `<img class="country-view-flag" src="${escapeHtml(data.flag_url)}" alt="" width="80" height="60">`;
+      html += `<img class="country-view-flag" src="${escapeHtml(data.flag_url)}" alt="">`;
     } else if (data.code) {
       html += `<span class="flag">${escapeHtml(data.code)}</span>`;
     }
     html += '</div>';
 
+    let hasContent = false;
+
     if (data.description) {
-      html += `<div class="country-view-block"><h6>Description</h6><p>${escapeHtml(data.description).replace(/\n/g, '<br>')}</p></div>`;
+      hasContent = true;
+      html += `<section class="country-view-section"><h3 class="country-view-section-title">Description</h3><p>${escapeHtml(data.description).replace(/\n/g, '<br>')}</p></section>`;
     }
     if (data.href) {
-      html += `<div class="country-view-block"><h6>Website</h6><p><a href="${escapeHtml(data.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(data.href)}</a></p></div>`;
+      hasContent = true;
+      html += `<section class="country-view-section"><h3 class="country-view-section-title">Website</h3><p><a href="${escapeHtml(data.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(data.href)}</a></p></section>`;
     }
     if (data.additional_information && data.additional_information.length) {
-      html += '<div class="country-view-block"><h6>Additional information</h6><dl class="country-info-dl">';
+      hasContent = true;
+      html += '<section class="country-view-section"><h3 class="country-view-section-title">Additional information</h3><dl class="country-info-grid">';
       data.additional_information.forEach((row) => {
-        html += `<dt>${escapeHtml(row.key)}</dt><dd>${escapeHtml(row.value).replace(/\n/g, '<br>')}</dd>`;
+        if (!row.key && !row.value) return;
+        html += `<div class="country-info-item"><dt>${escapeHtml(row.key)}</dt><dd>${escapeHtml(row.value).replace(/\n/g, '<br>')}</dd></div>`;
       });
-      html += '</dl></div>';
+      html += '</dl></section>';
     }
-    if (!data.description && !(data.additional_information || []).length && !data.href) {
-      html += '<p class="text-muted">No additional information yet.</p>';
+
+    if (!hasContent) {
+      html += '<p class="country-view-empty">No additional information available yet.</p>';
     }
+
     body.innerHTML = html;
 
     if (editBtn) {
       if (data.can_edit) {
         editBtn.classList.remove('d-none');
         editBtn.dataset.countryId = data.id;
+        if (data.edit_url) {
+          editBtn.dataset.editUrl = data.edit_url;
+        }
       } else {
         editBtn.classList.add('d-none');
         delete editBtn.dataset.countryId;
+        delete editBtn.dataset.editUrl;
       }
     }
   }
 
-  async function openViewModal(countryId) {
+  async function openViewModal(countryId, sourceEl) {
     const modalEl = document.getElementById('countryViewModal');
-    if (!modalEl || !window.bootstrap) return;
+    const modal = getModalInstance(modalEl);
+    if (!modal) return;
+
+    const url = resolveUrl(sourceEl, 'json');
+    if (!url) return;
+
     const body = document.getElementById('countryViewModalBody');
-    if (body) body.innerHTML = '<div class="text-center py-4 text-muted">Loading...</div>';
-    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    if (body) {
+      body.innerHTML = '<div class="country-modal-loading">Loading…</div>';
+    }
     modal.show();
+
     try {
-      const res = await fetch(countryJsonUrl(countryId), { credentials: 'same-origin' });
-      if (!res.ok) throw new Error('Failed to load');
+      const res = await fetch(url, { credentials: 'same-origin' });
+      if (!res.ok) throw new Error('Failed');
       const data = await res.json();
+      const editUrl = resolveUrl(sourceEl, 'edit');
+      if (editUrl) {
+        data.edit_url = editUrl;
+      }
       renderViewModal(data);
     } catch (e) {
-      if (body) body.innerHTML = '<div class="alert alert-danger">Could not load country details.</div>';
+      if (body) {
+        body.innerHTML = '<p class="country-view-empty">Could not load country details. Please try again.</p>';
+      }
     }
   }
 
-  async function openEditModal(countryId) {
+  function editErrorMessage(res, data) {
+    if (res.status === 403 && data?.error === 'not_owner') {
+      return data.message || 'You are not the owner of this country. Ask an admin to set you as Owner in Django admin.';
+    }
+    if (res.status === 401 || res.status === 403) {
+      return 'Please log in with the account that owns this country.';
+    }
+    return 'Could not open the edit form. Please try again.';
+  }
+
+  async function openEditModal(countryId, sourceEl) {
     const modalEl = document.getElementById('countryEditModal');
-    if (!modalEl || !window.bootstrap) return;
+    const modal = getModalInstance(modalEl);
+    if (!modal) return;
+
+    const url = resolveUrl(sourceEl, 'edit');
+    if (!url) return;
+
     const body = document.getElementById('countryEditModalBody');
-    if (body) body.innerHTML = '<div class="text-center py-4 text-muted">Loading...</div>';
-    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    if (body) {
+      body.innerHTML = '<div class="country-modal-loading">Loading…</div>';
+    }
     modal.show();
+
     try {
-      const res = await fetch(countryEditUrl(countryId), { credentials: 'same-origin' });
-      if (!res.ok) throw new Error('Forbidden');
-      body.innerHTML = await res.text();
-      bindEditForm(countryId);
+      const res = await fetch(url, { credentials: 'same-origin' });
+      const contentType = res.headers.get('content-type') || '';
+
+      if (res.redirected || contentType.includes('text/html') && !contentType.includes('countryOwnerEditForm') && res.url && res.url.includes('login')) {
+        if (body) {
+          body.innerHTML = '<p class="country-view-empty">Please <a href="/login/">log in</a> to edit this country.</p>';
+        }
+        return;
+      }
+
+      if (!res.ok) {
+        let data = {};
+        try {
+          data = await res.json();
+        } catch (err) {
+          /* ignore */
+        }
+        if (body) {
+          body.innerHTML = `<p class="country-view-empty">${escapeHtml(editErrorMessage(res, data))}</p>`;
+        }
+        return;
+      }
+
+      const html = await res.text();
+      if (!html.includes('countryOwnerEditForm')) {
+        if (body) {
+          body.innerHTML = '<p class="country-view-empty">Unexpected response. Please refresh and log in again.</p>';
+        }
+        return;
+      }
+
+      body.innerHTML = html;
+      bindEditForm(countryId, url);
     } catch (e) {
-      if (body) body.innerHTML = '<div class="alert alert-danger">Could not load edit form.</div>';
+      if (body) {
+        body.innerHTML = '<p class="country-view-empty">Could not load edit form.</p>';
+      }
     }
   }
 
-  function bindEditForm(countryId) {
+  function bindEditForm(countryId, editUrl) {
     const form = document.getElementById('countryOwnerEditForm');
     if (!form) return;
-    form.addEventListener('submit', async (evt) => {
+
+    const handler = async (evt) => {
       evt.preventDefault();
       const errBox = document.getElementById('countryEditFormErrors');
       if (errBox) {
@@ -111,16 +227,28 @@
         errBox.textContent = '';
       }
       const fd = new FormData(form);
+      const token = getCsrfToken();
+      const headers = {};
+      if (token) {
+        headers['X-CSRFToken'] = token;
+      }
       try {
-        const res = await fetch(countryEditUrl(countryId), {
+        const res = await fetch(editUrl, {
           method: 'POST',
           body: fd,
           credentials: 'same-origin',
-          headers: { 'X-CSRFToken': getCsrfToken() },
+          headers,
         });
-        const data = await res.json();
+        let data = {};
+        try {
+          data = await res.json();
+        } catch (err) {
+          /* non-json */
+        }
         if (!res.ok || !data.success) {
-          const msg = data.errors ? JSON.stringify(data.errors) : 'Save failed';
+          const msg =
+            data?.message ||
+            (data?.errors ? 'Please check the form fields.' : editErrorMessage(res, data));
           if (errBox) {
             errBox.textContent = msg;
             errBox.classList.remove('d-none');
@@ -129,17 +257,26 @@
         }
         const editModal = bootstrap.Modal.getInstance(document.getElementById('countryEditModal'));
         if (editModal) editModal.hide();
-        await openViewModal(countryId);
+        const card = document.querySelector(`.country-card[data-country-id="${countryId}"]`);
+        setTimeout(() => openViewModal(countryId, card), 300);
       } catch (e) {
         if (errBox) {
-          errBox.textContent = 'Save failed.';
+          errBox.textContent = 'Save failed. Please try again.';
           errBox.classList.remove('d-none');
         }
       }
-    });
+    };
+
+    if (form._countrySubmitHandler) {
+      form.removeEventListener('submit', form._countrySubmitHandler);
+    }
+    form._countrySubmitHandler = handler;
+    form.addEventListener('submit', handler);
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    initCountryModals();
+
     const grid = document.getElementById('memberCountryGrid');
     if (!grid) return;
 
@@ -148,19 +285,13 @@
       if (editBtn) {
         evt.preventDefault();
         evt.stopPropagation();
-        openEditModal(editBtn.dataset.countryId);
+        openEditModal(editBtn.dataset.countryId, editBtn);
         return;
       }
-      const viewBtn = evt.target.closest('.country-btn-view');
-      if (viewBtn) {
-        evt.preventDefault();
-        evt.stopPropagation();
-        openViewModal(viewBtn.dataset.countryId);
-        return;
-      }
+
       const card = evt.target.closest('.country-card');
       if (card && card.dataset.countryId) {
-        openViewModal(card.dataset.countryId);
+        openViewModal(card.dataset.countryId, card);
       }
     });
 
@@ -169,7 +300,7 @@
       const card = evt.target.closest('.country-card');
       if (!card || !card.dataset.countryId) return;
       evt.preventDefault();
-      openViewModal(card.dataset.countryId);
+      openViewModal(card.dataset.countryId, card);
     });
 
     const viewEditBtn = document.getElementById('countryViewEditBtn');
@@ -179,7 +310,7 @@
         if (!id) return;
         const viewModal = bootstrap.Modal.getInstance(document.getElementById('countryViewModal'));
         if (viewModal) viewModal.hide();
-        openEditModal(id);
+        setTimeout(() => openEditModal(id, viewEditBtn), 300);
       });
     }
 

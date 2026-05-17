@@ -37,6 +37,9 @@
     <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+    {% if countries %}
+    <link rel="stylesheet" href="{% static 'assets/css/country-member-admin.css' %}" />
+    {% endif %}
   </head>
 
   <body>
@@ -149,7 +152,16 @@
         </div>
   <div class="country-grid" id="memberCountryGrid">
     {% for country in countries %}
-      <div class="country-card" data-country-id="{{ country.id }}" role="button" tabindex="0" aria-label="{{ country.title }}">
+      <div
+        class="country-card"
+        data-country-id="{{ country.id }}"
+        data-json-url="{% url 'region:country_detail_json' country.pk %}"
+        data-edit-url="{% url 'region:country_owner_edit' country.pk %}"
+        data-can-edit="{% if user.is_authenticated and country.owner_id == user.pk %}1{% else %}0{% endif %}"
+        role="button"
+        tabindex="0"
+        aria-label="{{ country.title }}"
+      >
         <div class="country-card-main">
           {% if country.flag_url %}
             <img class="country-flag-img" src="{{ country.flag_url }}" alt="{{ country.title }} flag" width="64" height="48">
@@ -158,12 +170,12 @@
           {% endif %}
           <div class="country-name">{{ country.title }}</div>
         </div>
-        <div class="country-card-actions">
-          <button type="button" class="btn btn-sm btn-outline-primary country-btn-view" data-country-id="{{ country.id }}">{% trans "View" %}</button>
-          {% if user.is_authenticated and country.owner_id == user.id %}
-            <button type="button" class="btn btn-sm btn-primary country-btn-edit" data-country-id="{{ country.id }}">{% trans "Edit" %}</button>
-          {% endif %}
-        </div>
+        {% if user.is_authenticated and country.owner_id == user.pk %}
+          <button type="button" class="country-card-edit country-btn-edit" data-country-id="{{ country.id }}" data-edit-url="{% url 'region:country_owner_edit' country.pk %}" title="{% trans 'Edit' %}" aria-label="{% trans 'Edit' %}">
+            <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
+          </button>
+        {% endif %}
+        <span class="country-card-cta">{% trans "View details" %} <i class="tji-arrow-right" aria-hidden="true"></i></span>
       </div>
     {% endfor %}
   </div>

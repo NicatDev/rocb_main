@@ -34,11 +34,12 @@ def serialize_additional_row(info: AdditionalInformation, lang: str, include_all
 
 def serialize_country(country: Country, user=None, *, for_edit: bool = False) -> dict:
     lang = (translation.get_language() or 'en')[:2]
+    owner_id = getattr(country, 'owner_id', None)
     can_edit = bool(
         user
         and user.is_authenticated
-        and country.owner_id
-        and country.owner_id == user.id
+        and owner_id is not None
+        and owner_id == user.pk
     )
 
     data = {
