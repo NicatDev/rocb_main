@@ -1,0 +1,61 @@
+Country Member Owners — login credentials
+Format: Country | Username | Password
+================================================================================
+
+Albania | albania | albania-123456
+Andorra | andorra | andorra-123456
+Armenia | armenia | armenia-123456
+Austria | austria | austria-123456
+Azerbaijan | azerbaijan | azerbaijan-123456
+Belarus | belarus | belarus-123456
+Belgium | belgium | belgium-123456
+Bosnia and Herzegovina | bosnia-and-herzegovina | bosnia-and-herzegovina-123456
+Bulgaria | bulgaria | bulgaria-123456
+Croatia | croatia | croatia-123456
+Cyprus | cyprus | cyprus-123456
+Czech Republic | czech-republic | czech-republic-123456
+Denmark | denmark | denmark-123456
+Estonia | estonia | estonia-123456
+European Union | european-union | european-union-123456
+Finland | finland | finland-123456
+France | france | france-123456
+Georgia | georgia | georgia-123456
+Germany | germany | germany-123456
+Greece | greece | greece-123456
+Hungary | hungary | hungary-123456
+Iceland | iceland | iceland-123456
+Ireland | ireland | ireland-123456
+Israel | israel | israel-123456
+Italy | italy | italy-123456
+Kazakhstan | kazakhstan | kazakhstan-123456
+Kosovo | kosovo | kosovo-123456
+Kyrgyz Republic | kyrgyz-republic | kyrgyz-republic-123456
+Latvia | latvia | latvia-123456
+Lithuania | lithuania | lithuania-123456
+Luxembourg | luxembourg | luxembourg-123456
+Malta | malta | malta-123456
+Moldova | moldova | moldova-123456
+Montenegro | montenegro | montenegro-123456
+Netherlands | netherlands | netherlands-123456
+North Macedonia | north-macedonia | north-macedonia-123456
+Norway | norway | norway-123456
+Poland | poland | poland-123456
+Portugal | portugal | portugal-123456
+Romania | romania | romania-123456
+Russian Federation | russian-federation | russian-federation-123456
+Serbia | serbia | serbia-123456
+Slovakia | slovakia | slovakia-123456
+Slovenia | slovenia | slovenia-123456
+Spain | spain | spain-123456
+Sweden | sweden | sweden-123456
+Switzerland | switzerland | switzerland-123456
+Tajikistan | tajikistan | tajikistan-123456
+Turkey | turkey | turkey-123456
+Turkmenistan | turkmenistan | turkmenistan-123456
+Ukraine | ukraine | ukraine-123456
+United Kingdom | united-kingdom | united-kingdom-123456
+Uzbekistan | uzbekistan | uzbekistan-123456
+
+================================================================================
+Email (auto): username@members.rocbeurope.org
+Each user is Country.owner for the matching country on Member Administrations.
