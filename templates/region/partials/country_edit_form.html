@@ -1,93 +1,130 @@
 {% load i18n %}
-<form id="countryOwnerEditForm" method="post" action="{% url 'region:country_owner_edit' country.pk %}" class="country-edit-form">
+<form
+  id="countryOwnerEditForm"
+  method="post"
+  action="{% url 'region:country_owner_edit' country.pk %}"
+  class="country-edit-form"
+  data-active-lang="en"
+>
   {% csrf_token %}
 
-  <section class="country-edit-block">
-    <h3 class="country-edit-block-title">{% trans "Description" %}</h3>
-    <div class="country-edit-lang-field">
-      <div class="country-edit-lang-switch" role="tablist" aria-label="{% trans 'Description language' %}">
-        <button type="button" class="country-lang-tab is-active" data-lang="en" role="tab" aria-selected="true">{% trans "English" %}</button>
-        <button type="button" class="country-lang-tab" data-lang="ru" role="tab" aria-selected="false">{% trans "Russian" %}</button>
-      </div>
-      <div class="country-edit-lang-panel is-active" data-lang-panel="en">
-        <label class="form-label" for="{{ form.description_en.id_for_label }}">{% trans "Information" %}</label>
-        {{ form.description_en }}
-      </div>
-      <div class="country-edit-lang-panel" data-lang-panel="ru">
-        <label class="form-label" for="{{ form.description_ru.id_for_label }}">{% trans "Information" %}</label>
-        {{ form.description_ru }}
-      </div>
+  <div class="country-edit-tabs-wrap">
+    <p class="country-edit-tabs-lead">{% trans "Select a language, then edit the fields for that language." %}</p>
+    <div class="country-edit-tabs" role="tablist" aria-label="{% trans 'Content language' %}">
+      <button
+        type="button"
+        class="country-edit-tab is-active"
+        role="tab"
+        id="countryEditTabEn"
+        data-edit-lang="en"
+        aria-selected="true"
+        aria-controls="countryEditLangEn"
+      >
+        <span class="country-edit-tab-code" aria-hidden="true">EN</span>
+        <span class="country-edit-tab-label">{% trans "English" %}</span>
+      </button>
+      <button
+        type="button"
+        class="country-edit-tab"
+        role="tab"
+        id="countryEditTabRu"
+        data-edit-lang="ru"
+        aria-selected="false"
+        aria-controls="countryEditLangRu"
+      >
+        <span class="country-edit-tab-code" aria-hidden="true">RU</span>
+        <span class="country-edit-tab-label">{% trans "Russian" %}</span>
+      </button>
+    </div>
+  </div>
+
+  <section class="country-edit-section" aria-labelledby="countryEditDescHeading">
+    <h3 class="country-edit-section-title" id="countryEditDescHeading">{% trans "Description" %}</h3>
+    <div class="country-field country-field--en" id="countryEditLangEn" role="tabpanel" aria-labelledby="countryEditTabEn">
+      <label class="form-label" for="{{ form.description_en.id_for_label }}">{% trans "Information" %} ({% trans "English" %})</label>
+      {{ form.description_en }}
+      {% if form.description_en.errors %}
+        <div class="invalid-feedback d-block">{{ form.description_en.errors }}</div>
+      {% endif %}
+    </div>
+    <div class="country-field country-field--ru" id="countryEditLangRu" role="tabpanel" aria-labelledby="countryEditTabRu">
+      <label class="form-label" for="{{ form.description_ru.id_for_label }}">{% trans "Information" %} ({% trans "Russian" %})</label>
+      {{ form.description_ru }}
+      {% if form.description_ru.errors %}
+        <div class="invalid-feedback d-block">{{ form.description_ru.errors }}</div>
+      {% endif %}
     </div>
   </section>
 
-  <section class="country-edit-block">
-    <label class="form-label country-edit-block-title" for="{{ form.href.id_for_label }}">{% trans "Website" %}</label>
+  <section class="country-edit-section country-edit-section--website">
+    <label class="form-label country-edit-section-title" for="{{ form.href.id_for_label }}">{% trans "Website" %}</label>
+    <p class="country-edit-section-hint">{% trans "Same link for all languages." %}</p>
     {{ form.href }}
+    {% if form.href.errors %}
+      <div class="invalid-feedback d-block">{{ form.href.errors }}</div>
+    {% endif %}
   </section>
 
-  <section class="country-edit-block country-edit-block--entries">
-    <div class="country-edit-block-head">
-      <h3 class="country-edit-block-title">{% trans "Additional entries" %}</h3>
-      <p class="country-edit-block-hint">{% trans "Each entry has a label and information text in English and Russian." %}</p>
+  <section class="country-edit-section country-edit-section--entries">
+    <div class="country-edit-section-head">
+      <h3 class="country-edit-section-title">{% trans "Additional entries" %}</h3>
+      <p class="country-edit-section-hint">{% trans "Each entry has a label and information in English and Russian. Switch the language tab above to edit the other language." %}</p>
     </div>
 
     {{ formset.management_form }}
     <div id="countryInfoFormsetRows" class="country-info-formset-list">
       {% for info_form in formset %}
-        <div class="country-info-formset-row" data-formset-row>
+        <article class="country-info-card" data-formset-row>
           {% for hidden in info_form.hidden_fields %}{{ hidden }}{% endfor %}
 
-          <div class="country-info-row-top">
-            <span class="country-info-row-badge">{% trans "Entry" %} {{ forloop.counter }}</span>
+          <header class="country-info-card__head">
+            <span class="country-info-card__badge">{% trans "Entry" %} {{ forloop.counter }}</span>
             {% if info_form.DELETE %}
               <label class="country-info-delete">
                 {{ info_form.DELETE }}
-                <span>{% trans "Remove" %}</span>
+                <span>{% trans "Remove entry" %}</span>
               </label>
             {% endif %}
-          </div>
+          </header>
 
           {% if info_form.non_field_errors %}
             <div class="alert alert-danger country-info-row-error">{{ info_form.non_field_errors }}</div>
           {% endif %}
 
-          <div class="country-edit-lang-field country-edit-lang-field--row">
-            <div class="country-edit-lang-switch" role="tablist">
-              <button type="button" class="country-lang-tab is-active" data-lang="en" role="tab">{% trans "English" %}</button>
-              <button type="button" class="country-lang-tab" data-lang="ru" role="tab">{% trans "Russian" %}</button>
+          <div class="country-field country-field--en">
+            <div class="country-info-field">
+              <label class="form-label" for="{{ info_form.key_en.id_for_label }}">{% trans "Label" %}</label>
+              {{ info_form.key_en }}
+              {% if info_form.key_en.errors %}<div class="invalid-feedback d-block">{{ info_form.key_en.errors }}</div>{% endif %}
             </div>
-
-            <div class="country-edit-lang-panel is-active" data-lang-panel="en">
-              <div class="country-info-field">
-                <label class="form-label" for="{{ info_form.key_en.id_for_label }}">{% trans "Label" %}</label>
-                {{ info_form.key_en }}
-              </div>
-              <div class="country-info-field">
-                <label class="form-label" for="{{ info_form.value_en.id_for_label }}">{% trans "Information" %}</label>
-                {{ info_form.value_en }}
-              </div>
-            </div>
-
-            <div class="country-edit-lang-panel" data-lang-panel="ru">
-              <div class="country-info-field">
-                <label class="form-label" for="{{ info_form.key_ru.id_for_label }}">{% trans "Label" %}</label>
-                {{ info_form.key_ru }}
-              </div>
-              <div class="country-info-field">
-                <label class="form-label" for="{{ info_form.value_ru.id_for_label }}">{% trans "Information" %}</label>
-                {{ info_form.value_ru }}
-              </div>
+            <div class="country-info-field">
+              <label class="form-label" for="{{ info_form.value_en.id_for_label }}">{% trans "Information" %}</label>
+              {{ info_form.value_en }}
+              {% if info_form.value_en.errors %}<div class="invalid-feedback d-block">{{ info_form.value_en.errors }}</div>{% endif %}
             </div>
           </div>
-        </div>
+
+          <div class="country-field country-field--ru">
+            <div class="country-info-field">
+              <label class="form-label" for="{{ info_form.key_ru.id_for_label }}">{% trans "Label" %}</label>
+              {{ info_form.key_ru }}
+              {% if info_form.key_ru.errors %}<div class="invalid-feedback d-block">{{ info_form.key_ru.errors }}</div>{% endif %}
+            </div>
+            <div class="country-info-field">
+              <label class="form-label" for="{{ info_form.value_ru.id_for_label }}">{% trans "Information" %}</label>
+              {{ info_form.value_ru }}
+              {% if info_form.value_ru.errors %}<div class="invalid-feedback d-block">{{ info_form.value_ru.errors }}</div>{% endif %}
+            </div>
+          </div>
+        </article>
       {% endfor %}
     </div>
   </section>
 
   <div id="countryEditFormErrors" class="alert alert-danger d-none" role="alert"></div>
 
-  <div class="country-edit-form-actions">
+  <footer class="country-edit-form-actions">
     <button type="button" class="country-modal-btn country-modal-btn--ghost" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
     <button type="submit" class="country-modal-btn country-modal-btn--primary">{% trans "Save changes" %}</button>
-  </div>
+  </footer>
 </form>

@@ -33,12 +33,12 @@
 </div>
 
 <div class="modal fade country-modal" id="countryEditModal" tabindex="-1" aria-labelledby="countryEditModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable country-edit-modal-dialog modal-fullscreen-sm-down">
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title-wrap">
           <h2 class="modal-title" id="countryEditModalLabel">{% trans "Edit country information" %}</h2>
-          <p class="modal-subtitle">{% trans "Changes are saved for all visitors." %}</p>
+          <p class="modal-subtitle" id="countryEditModalSubtitle" data-default-subtitle="{% trans 'Changes are saved for all visitors.' %}">{% trans "Changes are saved for all visitors." %}</p>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Close' %}"></button>
       </div>

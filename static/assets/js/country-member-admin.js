@@ -228,7 +228,8 @@
 
       body.innerHTML = html;
       bindEditForm(countryId, url);
-      initCountryEditLangTabs(document.getElementById('countryOwnerEditForm'));
+      initCountryEditLanguageSwitcher(document.getElementById('countryOwnerEditForm'));
+      setEditModalSubtitle(countryId);
     } catch (e) {
       if (body) {
         body.innerHTML = '<p class="country-view-empty">Could not load edit form.</p>';
@@ -236,27 +237,46 @@
     }
   }
 
-  function initCountryEditLangTabs(root) {
-    if (!root) return;
-    root.querySelectorAll('.country-edit-lang-field').forEach((field) => {
-      const tabs = field.querySelectorAll('.country-lang-tab');
-      const panels = field.querySelectorAll('[data-lang-panel]');
+  function setEditModalSubtitle(countryId) {
+    const subtitle = document.getElementById('countryEditModalSubtitle');
+    if (!subtitle) return;
+    const defaultText = subtitle.dataset.defaultSubtitle || subtitle.textContent;
+    const card = document.querySelector(`.country-card[data-country-id="${countryId}"]`);
+    const name = card?.querySelector('.country-name')?.textContent?.trim();
+    subtitle.textContent = name || defaultText;
+  }
+
+  function initCountryEditLanguageSwitcher(form) {
+    if (!form || form._langSwitcherBound) return;
+    form._langSwitcherBound = true;
+
+    const tablist = form.querySelector('.country-edit-tabs');
+    if (!tablist) return;
+
+    const tabs = tablist.querySelectorAll('[data-edit-lang]');
+
+    function setLang(lang) {
+      const active = lang === 'ru' ? 'ru' : 'en';
+      form.dataset.activeLang = active;
       tabs.forEach((tab) => {
-        if (tab.dataset.langBound) return;
-        tab.dataset.langBound = '1';
-        tab.addEventListener('click', () => {
-          const lang = tab.dataset.lang;
-          tabs.forEach((t) => {
-            const active = t === tab;
-            t.classList.toggle('is-active', active);
-            t.setAttribute('aria-selected', active ? 'true' : 'false');
-          });
-          panels.forEach((panel) => {
-            panel.classList.toggle('is-active', panel.dataset.langPanel === lang);
-          });
-        });
+        const isActive = tab.dataset.editLang === active;
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
       });
+      const enPanel = form.querySelector('#countryEditLangEn');
+      const ruPanel = form.querySelector('#countryEditLangRu');
+      if (enPanel) enPanel.hidden = active !== 'en';
+      if (ruPanel) ruPanel.hidden = active !== 'ru';
+    }
+
+    tablist.addEventListener('click', (evt) => {
+      const tab = evt.target.closest('[data-edit-lang]');
+      if (!tab || !tablist.contains(tab)) return;
+      evt.preventDefault();
+      setLang(tab.dataset.editLang);
     });
+
+    setLang(form.dataset.activeLang || 'en');
   }
 
   function bindEditForm(countryId, editUrl) {
