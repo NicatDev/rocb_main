@@ -1,4 +1,16 @@
 {% load i18n %}
+<div
+  id="countryModalI18n"
+  class="d-none"
+  data-label-description="{% trans 'Description' %}"
+  data-label-website="{% trans 'Website' %}"
+  data-label-entries="{% trans 'Additional entries' %}"
+  data-label-label="{% trans 'Label' %}"
+  data-label-information="{% trans 'Information' %}"
+  data-empty="{% trans 'No information available yet.' %}"
+  aria-hidden="true"
+></div>
+
 <div class="modal fade country-modal" id="countryViewModal" tabindex="-1" aria-labelledby="countryViewModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down">
     <div class="modal-content">

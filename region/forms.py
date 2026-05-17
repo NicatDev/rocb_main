@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import inlineformset_factory
+from django.utils.translation import gettext_lazy as _
 
 from .models import AdditionalInformation, Country
 
@@ -13,9 +14,9 @@ class CountryOwnerForm(forms.ModelForm):
             'href',
         )
         widgets = {
-            'description_en': forms.Textarea(attrs={'rows': 4, 'class': 'form-control'}),
-            'description_ru': forms.Textarea(attrs={'rows': 4, 'class': 'form-control'}),
-            'href': forms.URLInput(attrs={'class': 'form-control'}),
+            'description_en': forms.Textarea(attrs={'rows': 5, 'class': 'form-control country-info-input'}),
+            'description_ru': forms.Textarea(attrs={'rows': 5, 'class': 'form-control country-info-input'}),
+            'href': forms.URLInput(attrs={'class': 'form-control country-info-input'}),
         }
 
 
@@ -30,18 +31,38 @@ class AdditionalInformationOwnerForm(forms.ModelForm):
             'order',
         )
         widgets = {
-            'key_en': forms.TextInput(attrs={'class': 'form-control'}),
-            'key_ru': forms.TextInput(attrs={'class': 'form-control'}),
-            'value_en': forms.Textarea(attrs={'rows': 2, 'class': 'form-control'}),
-            'value_ru': forms.Textarea(attrs={'rows': 2, 'class': 'form-control'}),
-            'order': forms.NumberInput(attrs={'class': 'form-control', 'min': 0}),
+            'key_en': forms.TextInput(attrs={'class': 'form-control country-info-input'}),
+            'key_ru': forms.TextInput(attrs={'class': 'form-control country-info-input'}),
+            'value_en': forms.Textarea(attrs={'rows': 3, 'class': 'form-control country-info-input'}),
+            'value_ru': forms.Textarea(attrs={'rows': 3, 'class': 'form-control country-info-input'}),
+            'order': forms.HiddenInput(),
         }
+        labels = {
+            'key_en': _('Label'),
+            'key_ru': _('Label'),
+            'value_en': _('Information'),
+            'value_ru': _('Information'),
+        }
+
+
+class BaseAdditionalInformationFormSet(forms.BaseInlineFormSet):
+    def save(self, commit=True):
+        instances = super().save(commit=False)
+        for order, instance in enumerate(instances):
+            instance.order = order
+        if commit:
+            for obj in self.deleted_objects:
+                obj.delete()
+            for instance in instances:
+                instance.save()
+        return instances
 
 
 AdditionalInformationFormSet = inlineformset_factory(
     Country,
     AdditionalInformation,
     form=AdditionalInformationOwnerForm,
+    formset=BaseAdditionalInformationFormSet,
     extra=1,
     can_delete=True,
 )

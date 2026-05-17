@@ -1,6 +1,7 @@
 from django.conf import settings
-from django.utils.text import slugify
 from django.db import models
+from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
 
 
 class Region(models.Model):
@@ -187,9 +188,9 @@ class AdditionalInformation(models.Model):
         on_delete=models.CASCADE,
         related_name='additional_information',
     )
-    key = models.CharField(max_length=255, verbose_name='Key')
-    value = models.TextField(verbose_name='Value', blank=True)
-    order = models.PositiveIntegerField(default=0, verbose_name='Order')
+    key = models.CharField(max_length=255, verbose_name=_('Label'))
+    value = models.TextField(verbose_name=_('Information'), blank=True)
+    order = models.PositiveIntegerField(default=0, verbose_name=_('Order'))
 
     class Meta:
         verbose_name = 'Additional information'

@@ -61,6 +61,18 @@
     });
   }
 
+  function getModalI18n() {
+    const el = document.getElementById('countryModalI18n');
+    return {
+      description: el?.dataset.labelDescription || 'Description',
+      website: el?.dataset.labelWebsite || 'Website',
+      entries: el?.dataset.labelEntries || 'Additional entries',
+      label: el?.dataset.labelLabel || 'Label',
+      information: el?.dataset.labelInformation || 'Information',
+      empty: el?.dataset.empty || 'No information available yet.',
+    };
+  }
+
   function renderViewModal(data) {
     const body = document.getElementById('countryViewModalBody');
     const title = document.getElementById('countryViewModalLabel');
@@ -68,43 +80,49 @@
     const editBtn = document.getElementById('countryViewEditBtn');
     if (!body || !title) return;
 
+    const i18n = getModalI18n();
+
     title.textContent = data.title || '';
     if (subtitle) {
       subtitle.textContent = data.code ? String(data.code).toUpperCase() : '';
     }
 
-    let html = '<div class="country-view-hero">';
+    let html = '<div class="country-view-layout"><header class="country-view-hero">';
     if (data.flag_url) {
       html += `<img class="country-view-flag" src="${escapeHtml(data.flag_url)}" alt="">`;
     } else if (data.code) {
-      html += `<span class="flag">${escapeHtml(data.code)}</span>`;
+      html += `<span class="country-view-flag-fallback">${escapeHtml(data.code)}</span>`;
     }
-    html += '</div>';
+    if (data.title) {
+      html += `<h3 class="country-view-hero-title">${escapeHtml(data.title)}</h3>`;
+    }
+    html += '</header>';
 
     let hasContent = false;
 
     if (data.description) {
       hasContent = true;
-      html += `<section class="country-view-section"><h3 class="country-view-section-title">Description</h3><p>${escapeHtml(data.description).replace(/\n/g, '<br>')}</p></section>`;
+      html += `<article class="country-view-card"><span class="country-view-card-label">${escapeHtml(i18n.description)}</span><div class="country-view-card-body">${escapeHtml(data.description).replace(/\n/g, '<br>')}</div></article>`;
     }
     if (data.href) {
       hasContent = true;
-      html += `<section class="country-view-section"><h3 class="country-view-section-title">Website</h3><p><a href="${escapeHtml(data.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(data.href)}</a></p></section>`;
+      html += `<a class="country-view-card country-view-card--link" href="${escapeHtml(data.href)}" target="_blank" rel="noopener noreferrer"><span class="country-view-card-label">${escapeHtml(i18n.website)}</span><span class="country-view-link-text">${escapeHtml(data.href)}</span><i class="fa-regular fa-arrow-up-right-from-square country-view-link-icon" aria-hidden="true"></i></a>`;
     }
-    if (data.additional_information && data.additional_information.length) {
+    const entries = (data.additional_information || []).filter((row) => row.key || row.value);
+    if (entries.length) {
       hasContent = true;
-      html += '<section class="country-view-section"><h3 class="country-view-section-title">Additional information</h3><dl class="country-info-grid">';
-      data.additional_information.forEach((row) => {
-        if (!row.key && !row.value) return;
-        html += `<div class="country-info-item"><dt>${escapeHtml(row.key)}</dt><dd>${escapeHtml(row.value).replace(/\n/g, '<br>')}</dd></div>`;
+      html += `<section class="country-view-entries-section"><h3 class="country-view-section-heading">${escapeHtml(i18n.entries)}</h3><div class="country-view-entries">`;
+      entries.forEach((row, index) => {
+        html += `<article class="country-view-entry" style="--entry-delay:${index * 40}ms"><div class="country-view-entry-head"><span class="country-view-entry-index">${index + 1}</span><span class="country-view-entry-label-title">${escapeHtml(i18n.label)}</span></div><p class="country-view-entry-label-text">${escapeHtml(row.key)}</p><span class="country-view-entry-info-title">${escapeHtml(i18n.information)}</span><p class="country-view-entry-info-text">${escapeHtml(row.value).replace(/\n/g, '<br>')}</p></article>`;
       });
-      html += '</dl></section>';
+      html += '</div></section>';
     }
 
     if (!hasContent) {
-      html += '<p class="country-view-empty">No additional information available yet.</p>';
+      html += `<p class="country-view-empty">${escapeHtml(i18n.empty)}</p>`;
     }
 
+    html += '</div>';
     body.innerHTML = html;
 
     if (editBtn) {
@@ -210,11 +228,35 @@
 
       body.innerHTML = html;
       bindEditForm(countryId, url);
+      initCountryEditLangTabs(document.getElementById('countryOwnerEditForm'));
     } catch (e) {
       if (body) {
         body.innerHTML = '<p class="country-view-empty">Could not load edit form.</p>';
       }
     }
+  }
+
+  function initCountryEditLangTabs(root) {
+    if (!root) return;
+    root.querySelectorAll('.country-edit-lang-field').forEach((field) => {
+      const tabs = field.querySelectorAll('.country-lang-tab');
+      const panels = field.querySelectorAll('[data-lang-panel]');
+      tabs.forEach((tab) => {
+        if (tab.dataset.langBound) return;
+        tab.dataset.langBound = '1';
+        tab.addEventListener('click', () => {
+          const lang = tab.dataset.lang;
+          tabs.forEach((t) => {
+            const active = t === tab;
+            t.classList.toggle('is-active', active);
+            t.setAttribute('aria-selected', active ? 'true' : 'false');
+          });
+          panels.forEach((panel) => {
+            panel.classList.toggle('is-active', panel.dataset.langPanel === lang);
+          });
+        });
+      });
+    });
   }
 
   function bindEditForm(countryId, editUrl) {
