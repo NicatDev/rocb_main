@@ -1,12 +1,28 @@
+import json
+
+from django import forms
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-from .models import Profile 
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_protect
+from .models import Profile
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.translation import gettext as _
 from .forms import ProfileEditForm, ProfilePictureForm
+
+
+PROFILE_FIELD_CONFIG = {
+    'first_name': {'target': 'user', 'attr': 'first_name', 'form_field': 'first_name'},
+    'last_name': {'target': 'user', 'attr': 'last_name', 'form_field': 'last_name'},
+    'email': {'target': 'user', 'attr': 'email', 'form_field': 'email'},
+    'phone_number': {'target': 'profile', 'attr': 'phone_number', 'form_field': 'phone_number'},
+    'organization': {'target': 'profile', 'attr': 'organization', 'form_field': 'organization'},
+    'position': {'target': 'profile', 'attr': 'position', 'form_field': 'position'},
+    'birth_date': {'target': 'profile', 'attr': 'birth_date', 'form_field': 'birth_date'},
+}
 
 
 @login_required
@@ -51,12 +67,85 @@ def profile_view(request):
     if not avatar_initials and user.username:
         avatar_initials = user.username[0].upper()
 
+    field_values = {
+        'username': user.username,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+        'phone_number': profile.phone_number,
+        'organization': profile.organization,
+        'position': profile.position,
+        'birth_date': profile.birth_date.isoformat() if profile.birth_date else '',
+    }
+
     return render(request, 'profile.html', {
         'user': user,
         'profile': profile,
         'form': form,
         'avatar_initials': avatar_initials,
+        'field_values': field_values,
     })
+
+
+@login_required
+@require_POST
+@csrf_protect
+def profile_field_update(request):
+    """Save a single profile field (AJAX from profile page)."""
+    user = request.user
+    profile, _ = Profile.objects.get_or_create(user=user)
+
+    try:
+        if request.content_type and 'application/json' in request.content_type:
+            payload = json.loads(request.body.decode('utf-8'))
+            field_name = payload.get('field')
+            raw_value = payload.get('value', '')
+        else:
+            field_name = request.POST.get('field')
+            raw_value = request.POST.get('value', '')
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return JsonResponse({'success': False, 'message': _('Invalid request.')}, status=400)
+
+    if field_name not in PROFILE_FIELD_CONFIG:
+        return JsonResponse({'success': False, 'message': _('Unknown field.')}, status=400)
+
+    config = PROFILE_FIELD_CONFIG[field_name]
+    form = ProfileEditForm(user=user, profile=profile)
+    form_field = form.fields[config['form_field']]
+
+    if raw_value in (None, ''):
+        cleaned = '' if form_field.required is False else None
+        if form_field.required:
+            return JsonResponse(
+                {'success': False, 'message': _('This field is required.')},
+                status=400,
+            )
+    else:
+        try:
+            cleaned = form_field.clean(raw_value)
+        except forms.ValidationError as exc:
+            return JsonResponse(
+                {'success': False, 'message': '; '.join(exc.messages)},
+                status=400,
+            )
+
+    if config['target'] == 'user':
+        if cleaned == '' and not form_field.required:
+            setattr(user, config['attr'], '')
+        else:
+            setattr(user, config['attr'], cleaned)
+        user.save(update_fields=[config['attr']])
+        display_value = getattr(user, config['attr']) or ''
+    else:
+        setattr(profile, config['attr'], cleaned if cleaned != '' else None)
+        profile.save(update_fields=[config['attr']])
+        val = getattr(profile, config['attr'])
+        if field_name == 'birth_date' and val:
+            display_value = val.isoformat()
+        else:
+            display_value = val or ''
+
+    return JsonResponse({'success': True, 'field': field_name, 'value': display_value})
 
 def logout_view(request):
     if request.method == "POST":

@@ -63,6 +63,23 @@
   opacity: 1;
 }
 
+/* Theme main.css sets .modal { background: rgba(0,0,0,.6) } — must not dim page when closed */
+.modal.country-modal {
+  background: transparent !important;
+}
+
+.modal.country-modal:not(.show) {
+  display: none !important;
+  pointer-events: none;
+}
+
+body:not(.modal-open) .modal-backdrop {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 /* Modals above theme overlays (body-overlay z-index: 9999) */
 .modal-backdrop.country-modal-backdrop {
   z-index: 10040 !important;

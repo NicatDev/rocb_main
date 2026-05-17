@@ -46,6 +46,11 @@ class ProfileEditForm(forms.Form):
         required=False,
         widget=forms.TextInput(attrs={'class': 'form-control profile-input'}),
     )
+    birth_date = forms.DateField(
+        label=_('Date of birth'),
+        required=False,
+        widget=forms.DateInput(attrs={'class': 'form-control profile-input', 'type': 'date'}),
+    )
     profile_picture = forms.ImageField(
         label=_('Profile picture'),
         required=False,
@@ -64,6 +69,7 @@ class ProfileEditForm(forms.Form):
             self.fields['phone_number'].initial = profile.phone_number
             self.fields['organization'].initial = profile.organization
             self.fields['position'].initial = profile.position
+            self.fields['birth_date'].initial = profile.birth_date
 
     def save(self):
         user = self.user
@@ -76,6 +82,7 @@ class ProfileEditForm(forms.Form):
         profile.phone_number = self.cleaned_data.get('phone_number') or None
         profile.organization = self.cleaned_data.get('organization') or None
         profile.position = self.cleaned_data.get('position') or None
+        profile.birth_date = self.cleaned_data.get('birth_date') or None
 
         new_picture = self.cleaned_data.get('profile_picture')
         if new_picture:

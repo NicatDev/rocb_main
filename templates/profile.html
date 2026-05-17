@@ -70,131 +70,260 @@
         <div class="page-header-overlay" data-bg-image="{% static 'assets/images/shape/pheader-overlay.webp' %}"></div>
       </section>
 
-      <section class="full-width tj-page__area section-gap-3">
+      <section class="full-width tj-page__area section-gap-3 profile-page-section">
         <div class="container">
-          <div class="post-details-wrapper">
-            <h1 class="title title-anim">{% trans 'Profile' %}</h1>
-          </div>
-        </div>
-
-        <div class="container container-profile">
-          <aside class="sidebar">
-            {% if profile %}
-            <div class="profile-avatar-block">
-              <form method="post" enctype="multipart/form-data" id="profile-avatar-upload-form" class="profile-avatar-wrap">
-                {% csrf_token %}
-                <input type="hidden" name="action" value="upload_avatar">
-                <label for="profile-picture-input" class="profile-avatar" title="{% trans 'Change photo' %}">
-                  {% if profile.profile_picture %}
-                    <img src="{{ profile.profile_picture.url }}" alt="{% trans 'Profile picture' %}">
-                  {% else %}
-                    <span class="profile-avatar-placeholder">
-                      <span class="profile-avatar-initials">{{ avatar_initials }}</span>
-                      <span class="profile-avatar-hint">{% trans "Add photo" %}</span>
-                    </span>
-                  {% endif %}
-                  <span class="profile-avatar-overlay" aria-hidden="true"><i class="fa-regular fa-camera"></i></span>
-                </label>
-                <input type="file" id="profile-picture-input" name="profile_picture" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
-              </form>
-
-              <div class="profile-avatar-actions">
-                <label for="profile-picture-input" class="profile-avatar-btn profile-avatar-btn--primary">
-                  <i class="fa-regular fa-image" aria-hidden="true"></i>
-                  {% trans "Change photo" %}
-                </label>
-                {% if profile.profile_picture %}
-                <form method="post" class="d-inline" onsubmit="return confirm('{% trans "Remove profile picture?" %}');">
+          {% if profile %}
+          <div
+            class="profile-layout"
+            id="profilePageRoot"
+            data-field-url="{% url 'profile_field_update' %}"
+            data-empty-label="{% trans 'No information' %}"
+          >
+            <aside class="profile-sidebar-card">
+              <div class="profile-avatar-block">
+                <form method="post" enctype="multipart/form-data" id="profile-avatar-upload-form" class="profile-avatar-wrap">
                   {% csrf_token %}
-                  <input type="hidden" name="action" value="remove_picture">
-                  <button type="submit" class="profile-avatar-btn profile-avatar-btn--danger">
-                    <i class="fa-regular fa-trash-can" aria-hidden="true"></i>
-                    {% trans "Remove" %}
-                  </button>
+                  <input type="hidden" name="action" value="upload_avatar">
+                  <label for="profile-picture-input" class="profile-avatar" title="{% trans 'Change photo' %}">
+                    {% if profile.profile_picture %}
+                      <img src="{{ profile.profile_picture.url }}" alt="{% trans 'Profile picture' %}">
+                    {% else %}
+                      <span class="profile-avatar-placeholder">
+                        <span class="profile-avatar-initials">{{ avatar_initials }}</span>
+                        <span class="profile-avatar-hint">{% trans "Add photo" %}</span>
+                      </span>
+                    {% endif %}
+                    <span class="profile-avatar-overlay" aria-hidden="true"><i class="fa-regular fa-camera"></i></span>
+                  </label>
+                  <input type="file" id="profile-picture-input" name="profile_picture" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
                 </form>
-                {% endif %}
+
+                <div class="profile-avatar-actions">
+                  <label for="profile-picture-input" class="profile-avatar-btn profile-avatar-btn--primary">
+                    <i class="fa-regular fa-image" aria-hidden="true"></i>
+                    {% trans "Change photo" %}
+                  </label>
+                  {% if profile.profile_picture %}
+                  <form method="post" class="profile-avatar-remove-form" onsubmit="return confirm('{% trans "Remove profile picture?" %}');">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="remove_picture">
+                    <button type="submit" class="profile-avatar-btn profile-avatar-btn--danger">
+                      <i class="fa-regular fa-trash-can" aria-hidden="true"></i>
+                      {% trans "Remove" %}
+                    </button>
+                  </form>
+                  {% endif %}
+                </div>
               </div>
-            </div>
 
-            <h2>{{ user.first_name }} {{ user.last_name }}</h2>
-            <p class="text-muted small mb-0">@{{ user.username }}</p>
-            {% else %}
-            <p class="inactive">{% trans "Profile inactive" %}</p>
-            {% endif %}
-          </aside>
+              <h2 class="profile-display-name" id="profileDisplayName">{{ user.first_name }} {{ user.last_name }}</h2>
+              <p class="profile-username">@{{ user.username }}</p>
+            </aside>
 
-          <div class="details">
-            {% if profile %}
-            <form method="post" enctype="multipart/form-data" class="profile-details-form">
-              {% csrf_token %}
-              <input type="hidden" name="action" value="save_details">
-
+            <div class="profile-details-card">
               {% if messages %}
                 {% for message in messages %}
-                  <div class="profile-alert profile-alert--{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                  <div class="profile-toast profile-toast--{% if message.tags == 'error' %}error{% else %}success{% endif %}" role="alert">
                     {{ message }}
                   </div>
                 {% endfor %}
               {% endif %}
 
-              {% if form.non_field_errors %}
-                <div class="profile-form-errors profile-alert profile-alert--error">
-                  {{ form.non_field_errors }}
+              <div class="profile-details-header">
+                <h3>{% trans "Account details" %}</h3>
+                <p>{% trans "Click the edit icon on any field to update your information." %}</p>
+              </div>
+
+              <div class="profile-fields-list">
+                <div class="profile-field-row profile-field-row--readonly" data-field="username" data-editable="false">
+                  <label class="profile-field-label">{% trans "Username" %}</label>
+                  <div class="profile-field-body">
+                    <div class="profile-field-display">
+                      <span class="profile-field-value">{{ user.username }}</span>
+                    </div>
+                  </div>
                 </div>
-              {% endif %}
 
-              <div class="profile-field profile-field--readonly">
-                <label>{% trans "Username" %}</label>
-                <div class="profile-readonly-value">{{ user.username }}</div>
-              </div>
+                <div class="profile-field-row" data-field="first_name" data-editable="true" data-input-type="text">
+                  <label class="profile-field-label">{% trans "First Name" %}</label>
+                  <div class="profile-field-body">
+                    <div class="profile-field-display">
+                      <span class="profile-field-value">{{ field_values.first_name }}</span>
+                      <span class="profile-field-empty">{% trans "No information" %}</span>
+                      <button type="button" class="profile-field-btn profile-field-btn--edit" title="{% trans 'Edit' %}" aria-label="{% trans 'Edit' %}">
+                        <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div class="profile-field-edit is-hidden">
+                      <input class="profile-field-input" type="text" value="{{ field_values.first_name }}" />
+                      <div class="profile-field-edit-actions">
+                        <button type="button" class="profile-field-btn profile-field-btn--save" title="{% trans 'Save' %}" aria-label="{% trans 'Save' %}">
+                          <i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="profile-field-btn profile-field-btn--cancel" title="{% trans 'Cancel' %}" aria-label="{% trans 'Cancel' %}">
+                          <i class="fa-regular fa-xmark" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <p class="profile-field-error is-hidden" role="alert"></p>
+                  </div>
+                </div>
 
-              <div class="profile-field">
-                <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
-                {{ form.first_name }}
-                {% if form.first_name.errors %}<ul class="profile-error-list">{% for e in form.first_name.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
-              </div>
+                <div class="profile-field-row" data-field="last_name" data-editable="true" data-input-type="text">
+                  <label class="profile-field-label">{% trans "Last Name" %}</label>
+                  <div class="profile-field-body">
+                    <div class="profile-field-display">
+                      <span class="profile-field-value">{{ field_values.last_name }}</span>
+                      <span class="profile-field-empty">{% trans "No information" %}</span>
+                      <button type="button" class="profile-field-btn profile-field-btn--edit" title="{% trans 'Edit' %}" aria-label="{% trans 'Edit' %}">
+                        <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div class="profile-field-edit is-hidden">
+                      <input class="profile-field-input" type="text" value="{{ field_values.last_name }}" />
+                      <div class="profile-field-edit-actions">
+                        <button type="button" class="profile-field-btn profile-field-btn--save" title="{% trans 'Save' %}" aria-label="{% trans 'Save' %}">
+                          <i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="profile-field-btn profile-field-btn--cancel" title="{% trans 'Cancel' %}" aria-label="{% trans 'Cancel' %}">
+                          <i class="fa-regular fa-xmark" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <p class="profile-field-error is-hidden" role="alert"></p>
+                  </div>
+                </div>
 
-              <div class="profile-field">
-                <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
-                {{ form.last_name }}
-                {% if form.last_name.errors %}<ul class="profile-error-list">{% for e in form.last_name.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
-              </div>
+                <div class="profile-field-row" data-field="email" data-editable="true" data-input-type="email">
+                  <label class="profile-field-label">{% trans "Email" %}</label>
+                  <div class="profile-field-body">
+                    <div class="profile-field-display">
+                      <span class="profile-field-value">{{ field_values.email }}</span>
+                      <span class="profile-field-empty">{% trans "No information" %}</span>
+                      <button type="button" class="profile-field-btn profile-field-btn--edit" title="{% trans 'Edit' %}" aria-label="{% trans 'Edit' %}">
+                        <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div class="profile-field-edit is-hidden">
+                      <input class="profile-field-input" type="email" value="{{ field_values.email }}" />
+                      <div class="profile-field-edit-actions">
+                        <button type="button" class="profile-field-btn profile-field-btn--save" title="{% trans 'Save' %}" aria-label="{% trans 'Save' %}">
+                          <i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="profile-field-btn profile-field-btn--cancel" title="{% trans 'Cancel' %}" aria-label="{% trans 'Cancel' %}">
+                          <i class="fa-regular fa-xmark" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <p class="profile-field-error is-hidden" role="alert"></p>
+                  </div>
+                </div>
 
-              <div class="profile-field">
-                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-                {{ form.email }}
-                {% if form.email.errors %}<ul class="profile-error-list">{% for e in form.email.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
-              </div>
+                <div class="profile-field-row" data-field="phone_number" data-editable="true" data-input-type="text">
+                  <label class="profile-field-label">{% trans "Phone Number" %}</label>
+                  <div class="profile-field-body">
+                    <div class="profile-field-display">
+                      <span class="profile-field-value">{{ field_values.phone_number }}</span>
+                      <span class="profile-field-empty">{% trans "No information" %}</span>
+                      <button type="button" class="profile-field-btn profile-field-btn--edit" title="{% trans 'Edit' %}" aria-label="{% trans 'Edit' %}">
+                        <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div class="profile-field-edit is-hidden">
+                      <input class="profile-field-input" type="text" value="{{ field_values.phone_number }}" />
+                      <div class="profile-field-edit-actions">
+                        <button type="button" class="profile-field-btn profile-field-btn--save" title="{% trans 'Save' %}" aria-label="{% trans 'Save' %}">
+                          <i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="profile-field-btn profile-field-btn--cancel" title="{% trans 'Cancel' %}" aria-label="{% trans 'Cancel' %}">
+                          <i class="fa-regular fa-xmark" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <p class="profile-field-error is-hidden" role="alert"></p>
+                  </div>
+                </div>
 
-              <div class="profile-field">
-                <label for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }}</label>
-                {{ form.phone_number }}
-                {% if form.phone_number.errors %}<ul class="profile-error-list">{% for e in form.phone_number.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
-              </div>
+                <div class="profile-field-row" data-field="organization" data-editable="true" data-input-type="text">
+                  <label class="profile-field-label">{% trans "Organization" %}</label>
+                  <div class="profile-field-body">
+                    <div class="profile-field-display">
+                      <span class="profile-field-value">{{ field_values.organization }}</span>
+                      <span class="profile-field-empty">{% trans "No information" %}</span>
+                      <button type="button" class="profile-field-btn profile-field-btn--edit" title="{% trans 'Edit' %}" aria-label="{% trans 'Edit' %}">
+                        <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div class="profile-field-edit is-hidden">
+                      <input class="profile-field-input" type="text" value="{{ field_values.organization }}" />
+                      <div class="profile-field-edit-actions">
+                        <button type="button" class="profile-field-btn profile-field-btn--save" title="{% trans 'Save' %}" aria-label="{% trans 'Save' %}">
+                          <i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="profile-field-btn profile-field-btn--cancel" title="{% trans 'Cancel' %}" aria-label="{% trans 'Cancel' %}">
+                          <i class="fa-regular fa-xmark" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <p class="profile-field-error is-hidden" role="alert"></p>
+                  </div>
+                </div>
 
-              <div class="profile-field">
-                <label for="{{ form.organization.id_for_label }}">{{ form.organization.label }}</label>
-                {{ form.organization }}
-                {% if form.organization.errors %}<ul class="profile-error-list">{% for e in form.organization.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
-              </div>
+                <div class="profile-field-row" data-field="position" data-editable="true" data-input-type="text">
+                  <label class="profile-field-label">{% trans "Position" %}</label>
+                  <div class="profile-field-body">
+                    <div class="profile-field-display">
+                      <span class="profile-field-value">{{ field_values.position }}</span>
+                      <span class="profile-field-empty">{% trans "No information" %}</span>
+                      <button type="button" class="profile-field-btn profile-field-btn--edit" title="{% trans 'Edit' %}" aria-label="{% trans 'Edit' %}">
+                        <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div class="profile-field-edit is-hidden">
+                      <input class="profile-field-input" type="text" value="{{ field_values.position }}" />
+                      <div class="profile-field-edit-actions">
+                        <button type="button" class="profile-field-btn profile-field-btn--save" title="{% trans 'Save' %}" aria-label="{% trans 'Save' %}">
+                          <i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="profile-field-btn profile-field-btn--cancel" title="{% trans 'Cancel' %}" aria-label="{% trans 'Cancel' %}">
+                          <i class="fa-regular fa-xmark" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <p class="profile-field-error is-hidden" role="alert"></p>
+                  </div>
+                </div>
 
-              <div class="profile-field">
-                <label for="{{ form.position.id_for_label }}">{{ form.position.label }}</label>
-                {{ form.position }}
-                {% if form.position.errors %}<ul class="profile-error-list">{% for e in form.position.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                <div class="profile-field-row" data-field="birth_date" data-editable="true" data-input-type="date">
+                  <label class="profile-field-label">{% trans "Date of birth" %}</label>
+                  <div class="profile-field-body">
+                    <div class="profile-field-display">
+                      <span class="profile-field-value">{{ field_values.birth_date }}</span>
+                      <span class="profile-field-empty">{% trans "No information" %}</span>
+                      <button type="button" class="profile-field-btn profile-field-btn--edit" title="{% trans 'Edit' %}" aria-label="{% trans 'Edit' %}">
+                        <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div class="profile-field-edit is-hidden">
+                      <input class="profile-field-input" type="date" value="{{ field_values.birth_date }}" />
+                      <div class="profile-field-edit-actions">
+                        <button type="button" class="profile-field-btn profile-field-btn--save" title="{% trans 'Save' %}" aria-label="{% trans 'Save' %}">
+                          <i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="profile-field-btn profile-field-btn--cancel" title="{% trans 'Cancel' %}" aria-label="{% trans 'Cancel' %}">
+                          <i class="fa-regular fa-xmark" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <p class="profile-field-error is-hidden" role="alert"></p>
+                  </div>
+                </div>
               </div>
-
-              <div class="profile-form-actions">
-                <button type="submit" class="profile-save-btn">
-                  <i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>
-                  {% trans "Save changes" %}
-                </button>
-              </div>
-            </form>
-            {% else %}
-            <p class="inactive">{% trans "No profile information available." %}</p>
-            {% endif %}
+            </div>
           </div>
+          {% else %}
+          <p class="profile-inactive">{% trans "No profile information available." %}</p>
+          {% endif %}
         </div>
       </section>
     </main>
@@ -217,12 +346,6 @@
     <script src="{% static 'assets/js/meanmenu.js' %}"></script>
     <script src="{% static 'assets/js/main.js' %}"></script>
     <script src="{% static 'assets/js/navbar.js' %}"></script>
-    <script>
-      document.getElementById('profile-picture-input')?.addEventListener('change', function () {
-        if (this.files && this.files.length) {
-          document.getElementById('profile-avatar-upload-form').submit();
-        }
-      });
-    </script>
+    <script src="{% static 'assets/js/profile-page.js' %}"></script>
   </body>
 </html>

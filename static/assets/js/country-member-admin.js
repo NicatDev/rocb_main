@@ -1,6 +1,14 @@
 (function () {
   const MODAL_IDS = ['countryViewModal', 'countryEditModal'];
 
+  function cleanupModalArtifacts() {
+    document.body.classList.remove('modal-open');
+    document.body.style.removeProperty('overflow');
+    document.body.style.removeProperty('padding-right');
+    document.querySelectorAll('.modal-backdrop').forEach((b) => b.remove());
+    document.querySelector('.body-overlay')?.classList.remove('opened');
+  }
+
   function getCsrfToken() {
     const fromCookie = document.cookie.match(/csrftoken=([^;]+)/);
     if (fromCookie) {
@@ -40,13 +48,7 @@
         document.querySelector('.modal-backdrop')?.classList.add('country-modal-backdrop');
       });
 
-      el.addEventListener('hidden.bs.modal', () => {
-        document.body.classList.remove('modal-open');
-        document.body.style.removeProperty('overflow');
-        document.body.style.removeProperty('padding-right');
-        document.querySelectorAll('.modal-backdrop').forEach((b) => b.remove());
-        document.querySelector('.body-overlay')?.classList.remove('opened');
-      });
+      el.addEventListener('hidden.bs.modal', cleanupModalArtifacts);
     });
   }
 
@@ -275,6 +277,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    cleanupModalArtifacts();
     initCountryModals();
 
     const grid = document.getElementById('memberCountryGrid');
