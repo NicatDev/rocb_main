@@ -120,7 +120,7 @@
 
                 <div class="blog-text">
                   {% if item.description %}
-                  <div class="wow fadeInUp event-rich-text" data-wow-delay=".3s">{{ item.description|safe }}</div>
+                  <div class="wow fadeInUp event-rich-text rich-text-detail" data-wow-delay=".3s">{{ item.description|safe }}</div>
                   {% endif %}
 
                   <div class="blog-images wow fadeInUp" data-wow-delay=".1s">
@@ -131,7 +131,7 @@
                   {% for section in item.events_sections.all %}
                     <h3 class="wow fadeInUp" data-wow-delay=".3s">{{ section.title }}</h3>
                     {% if section.description %}
-                    <div class="wow fadeInUp event-rich-text" data-wow-delay=".3s">{{ section.description|safe }}</div>
+                    <div class="wow fadeInUp event-rich-text rich-text-detail" data-wow-delay=".3s">{{ section.description|safe }}</div>
                     {% endif %}
                     <div class="images-wrap">
                       <div class="row">

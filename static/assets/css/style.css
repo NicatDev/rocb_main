@@ -53,14 +53,72 @@
 
 .country-card {
   display: flex;
-  align-items: center;
-  gap: 15px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
   background: white;
   padding: 15px 20px;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   cursor: pointer;
+}
+
+.country-card-main {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.country-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+.country-view-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 1rem;
+}
+
+.country-view-flag {
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.country-view-block {
+  margin-bottom: 1.25rem;
+}
+
+.country-view-block h6 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.country-info-dl dt {
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+.country-info-dl dd {
+  margin-bottom: 0;
+  margin-left: 0;
+}
+
+.country-edit-lang-tabs {
+  margin-bottom: 1rem;
+}
+
+.country-edit-tab-content {
+  margin-bottom: 1rem;
+}
+
+.country-info-formset-row {
+  background: #f8fafc;
 }
 
 .country-card:hover {

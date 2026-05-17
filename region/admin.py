@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     Region, RegionSection, MiniTitle, Image, BlockQuote, Tag,
-    ListSection, ListItem, Country, ListSectionFile
+    ListSection, ListItem, Country, ListSectionFile, AdditionalInformation,
 )
 from modeltranslation.admin import (
     TabbedTranslationAdmin, TranslationTabularInline, TranslationStackedInline
@@ -87,9 +87,31 @@ class ListItemAdmin(TabbedTranslationAdmin):
     list_display = ('title', 'list_section')
 
 
+class AdditionalInformationInline(TranslationTabularInline):
+    model = AdditionalInformation
+    extra = 1
+    fields = ('key', 'value', 'order')
+
+
 @admin.register(Country)
 class CountryAdmin(TabbedTranslationAdmin):
-    list_display = ("title", "region")
-    search_fields = ("title", "description")
+    list_display = ("title", "region", "owner")
+    search_fields = ("title", "description", "owner__username", "owner__email")
     list_filter = ("region",)
-    list_editable = ("region",)
+    autocomplete_fields = ('owner',)
+    inlines = [AdditionalInformationInline]
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'code', 'region', 'owner', 'flag_url', 'href'),
+        }),
+        ('Description', {
+            'fields': ('description',),
+        }),
+    )
+
+
+@admin.register(AdditionalInformation)
+class AdditionalInformationAdmin(TabbedTranslationAdmin):
+    list_display = ('country', 'key', 'order')
+    list_filter = ('country__region', 'country')
+    search_fields = ('key', 'value', 'country__title')

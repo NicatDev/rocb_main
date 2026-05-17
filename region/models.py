@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.utils.text import slugify
 from django.db import models
 
@@ -162,6 +163,15 @@ class Country(models.Model):
         max_length=200, verbose_name="Country Link", blank=True, null=True)
     flag_url = models.URLField(
         max_length=300, verbose_name="Flag Image URL", blank=True, null=True)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='owned_countries',
+        verbose_name='Owner',
+        help_text='User who may edit this country on the Member Administrations page.',
+    )
 
     class Meta:
         verbose_name = "Country"
@@ -169,3 +179,22 @@ class Country(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class AdditionalInformation(models.Model):
+    country = models.ForeignKey(
+        Country,
+        on_delete=models.CASCADE,
+        related_name='additional_information',
+    )
+    key = models.CharField(max_length=255, verbose_name='Key')
+    value = models.TextField(verbose_name='Value', blank=True)
+    order = models.PositiveIntegerField(default=0, verbose_name='Order')
+
+    class Meta:
+        verbose_name = 'Additional information'
+        verbose_name_plural = 'Additional information'
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return f'{self.country.title}: {self.key}'

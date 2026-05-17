@@ -1,6 +1,7 @@
 """Server-side HTML cleanup for rich-text fields (CKEditor / admin)."""
 
 import bleach
+from bleach.css_sanitizer import CSSSanitizer
 
 _ALLOWED_TAGS = frozenset(
     [
@@ -39,10 +40,29 @@ _ALLOWED_TAGS = frozenset(
     ]
 )
 
+_RICH_TEXT_CSS = CSSSanitizer(
+    allowed_css_properties=[
+        'text-align',
+        'margin',
+        'margin-left',
+        'margin-right',
+        'margin-top',
+        'margin-bottom',
+        'padding',
+        'padding-left',
+        'padding-right',
+        'width',
+        'max-width',
+        'height',
+        'float',
+        'display',
+    ],
+)
+
 _ALLOWED_ATTRIBUTES = {
     'a': ['href', 'title', 'rel', 'target'],
     'img': ['src', 'alt', 'title', 'width', 'height'],
-    '*': ['class'],
+    '*': ['class', 'style', 'align'],
 }
 
 
@@ -53,6 +73,7 @@ def sanitize_rich_html(value: str) -> str:
         str(value),
         tags=_ALLOWED_TAGS,
         attributes=_ALLOWED_ATTRIBUTES,
+        css_sanitizer=_RICH_TEXT_CSS,
         strip=True,
     )
 

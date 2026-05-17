@@ -147,20 +147,31 @@
                    <div class="country-search-container wow fadeInUp" data-wow-delay=".3s">
             <input type="text" id="countrySearchInput" class="country-search-input" placeholder="{% trans 'Search' %}">
         </div>
-  <div class="country-grid">
+  <div class="country-grid" id="memberCountryGrid">
     {% for country in countries %}
-      <a class="country-card">
-        <div>
+      <div class="country-card" data-country-id="{{ country.id }}" role="button" tabindex="0" aria-label="{{ country.title }}">
+        <div class="country-card-main">
           {% if country.flag_url %}
             <img class="country-flag-img" src="{{ country.flag_url }}" alt="{{ country.title }} flag" width="64" height="48">
           {% else %}
-            {{ country.code }}
+            <span class="flag">{{ country.code }}</span>
+          {% endif %}
+          <div class="country-name">{{ country.title }}</div>
+        </div>
+        <div class="country-card-actions">
+          <button type="button" class="btn btn-sm btn-outline-primary country-btn-view" data-country-id="{{ country.id }}">{% trans "View" %}</button>
+          {% if user.is_authenticated and country.owner_id == user.id %}
+            <button type="button" class="btn btn-sm btn-primary country-btn-edit" data-country-id="{{ country.id }}">{% trans "Edit" %}</button>
           {% endif %}
         </div>
-        <div class="country-name">{{ country.title }}</div>
-      </a>
+      </div>
     {% endfor %}
   </div>
+
+  <div id="countryApiConfig" hidden
+    data-json-url-template="{% url 'region:country_detail_json' pk=0 %}"
+    data-edit-url-template="{% url 'region:country_owner_edit' pk=0 %}"></div>
+  {% include 'region/partials/country_modals.html' %}
 {% endif %}
 
                 {% for section in sections %} 
@@ -303,42 +314,7 @@
     <script src="{% static 'assets/js/main.js' %} "></script>
 
     <script src="{% static 'assets/js/navbar.js' %}"></script>
-
-    <script>
-      // Sayfa tamamen yüklendiğinde JavaScript kodunun çalışmasını sağlar
-      document.addEventListener('DOMContentLoaded', function() {
-        
-        // Gerekli HTML elementlerini seçiyoruz
-        const searchInput = document.getElementById('countrySearchInput');
-        const countryCards = document.querySelectorAll('.country-card');
-
-        // Arama kutusu elementinin var olup olmadığını kontrol ediyoruz
-        if (searchInput) {
-          // Arama kutusuna her harf yazıldığında bu fonksiyon çalışır
-          searchInput.addEventListener('keyup', function(event) {
-            
-            // Arama metnini alıp küçük harfe çeviriyoruz
-            const searchTerm = event.target.value.toLowerCase();
-
-            // Tüm ülke kartlarını döngüye alıyoruz
-            countryCards.forEach(function(card) {
-              
-              // Kartın içindeki ülke ismini alıp küçük harfe çeviriyoruz
-              const countryName = card.querySelector('.country-name').textContent.toLowerCase();
-              
-              // Eğer ülke ismi, arama metnini içeriyorsa kartı göster
-              if (countryName.includes(searchTerm)) {
-                card.style.display = 'flex'; // CSS'teki orijinal display değeri
-              } 
-              // İçermiyorsa kartı gizle
-              else {
-                card.style.display = 'none';
-              }
-            });
-          });
-        }
-      });
-    </script>
+    <script src="{% static 'assets/js/country-member-admin.js' %}"></script>
 
   </body>
 </html>

@@ -1,5 +1,11 @@
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_GET, require_http_methods
+
 from oneapp.news_api_client import fetch_main_site_rtc_profiles
+from .country_api import serialize_country
+from .forms import AdditionalInformationFormSet, CountryOwnerForm
 from .models import Region, ListSection, MiniTitle, Image, BlockQuote, ListItem, Tag, Country
 
 REGION_RTC_API_SLUG = 'wco-europe-rtcs'
@@ -34,7 +40,12 @@ def region_page(request, slug=None):
         'list_items'
     ).order_by('order')
 
-    countries = Country.objects.filter(region=selected_tab).order_by('title')
+    countries = (
+        Country.objects.filter(region=selected_tab)
+        .select_related('owner')
+        .prefetch_related('additional_information')
+        .order_by('title')
+    )
 
     api_rtc_profiles = []
     if selected_tab.slug == REGION_RTC_API_SLUG:
@@ -83,3 +94,55 @@ def listsection_detail(request, slug):
         "prev_tab": prev_tab,
         "next_tab": next_tab,
     })
+
+
+def _get_country_or_404(pk):
+    return get_object_or_404(
+        Country.objects.select_related('owner').prefetch_related('additional_information'),
+        pk=pk,
+    )
+
+
+def _user_owns_country(user, country):
+    return user.is_authenticated and country.owner_id and country.owner_id == user.id
+
+
+@require_GET
+def country_detail_json(request, pk):
+    country = _get_country_or_404(pk)
+    return JsonResponse(serialize_country(country, request.user))
+
+
+@login_required
+@require_http_methods(['GET', 'POST'])
+def country_owner_edit(request, pk):
+    country = _get_country_or_404(pk)
+    if not _user_owns_country(request.user, country):
+        return HttpResponseForbidden('You are not the owner of this country.')
+
+    if request.method == 'GET':
+        form = CountryOwnerForm(instance=country)
+        formset = AdditionalInformationFormSet(instance=country, prefix='info')
+        return render(request, 'region/partials/country_edit_form.html', {
+            'country': country,
+            'form': form,
+            'formset': formset,
+        })
+
+    form = CountryOwnerForm(request.POST, instance=country)
+    formset = AdditionalInformationFormSet(request.POST, instance=country, prefix='info')
+    if form.is_valid() and formset.is_valid():
+        form.save()
+        formset.save()
+        country = _get_country_or_404(pk)
+        return JsonResponse({
+            'success': True,
+            'country': serialize_country(country, request.user),
+        })
+    return JsonResponse({
+        'success': False,
+        'errors': {
+            'form': form.errors,
+            'formset': formset.errors,
+        },
+    }, status=400)
