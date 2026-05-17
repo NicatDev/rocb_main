@@ -503,8 +503,14 @@ body:not(.modal-open) .modal-backdrop {
   background: rgba(18, 87, 158, 0.12);
 }
 
+#countryOwnerEditForm.is-country-lang-en .country-field--ru,
+#countryOwnerEditForm.is-country-lang-ru .country-field--en,
 .country-edit-form[data-active-lang='en'] .country-field--ru,
 .country-edit-form[data-active-lang='ru'] .country-field--en {
+  display: none !important;
+}
+
+.country-field[hidden] {
   display: none !important;
 }
 

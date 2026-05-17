@@ -1,9 +1,15 @@
 {% load i18n %}
+<style>
+  #countryOwnerEditForm.is-country-lang-en .country-field--ru,
+  #countryOwnerEditForm.is-country-lang-ru .country-field--en {
+    display: none !important;
+  }
+</style>
 <form
   id="countryOwnerEditForm"
   method="post"
   action="{% url 'region:country_owner_edit' country.pk %}"
-  class="country-edit-form"
+  class="country-edit-form is-country-lang-en"
   data-active-lang="en"
 >
   {% csrf_token %}
@@ -47,7 +53,7 @@
         <div class="invalid-feedback d-block">{{ form.description_en.errors }}</div>
       {% endif %}
     </div>
-    <div class="country-field country-field--ru" id="countryEditLangRu" role="tabpanel" aria-labelledby="countryEditTabRu">
+    <div class="country-field country-field--ru" id="countryEditLangRu" role="tabpanel" aria-labelledby="countryEditTabRu" hidden>
       <label class="form-label" for="{{ form.description_ru.id_for_label }}">{% trans "Information" %} ({% trans "Russian" %})</label>
       {{ form.description_ru }}
       {% if form.description_ru.errors %}
@@ -104,7 +110,7 @@
             </div>
           </div>
 
-          <div class="country-field country-field--ru">
+          <div class="country-field country-field--ru" hidden>
             <div class="country-info-field">
               <label class="form-label" for="{{ info_form.key_ru.id_for_label }}">{% trans "Label" %}</label>
               {{ info_form.key_ru }}
