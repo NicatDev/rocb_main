@@ -410,6 +410,22 @@ body:not(.modal-open) .modal-backdrop {
   }
 }
 
+/* View modal — wide on desktop, edge-to-edge on mobile */
+#countryViewModal .country-view-modal-dialog {
+  width: min(1140px, calc(100vw - 2rem));
+  max-width: min(1140px, calc(100vw - 2rem));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#countryViewModal .modal-content {
+  width: 100%;
+}
+
+#countryViewModal .modal-body {
+  overflow-x: hidden;
+}
+
 /* Edit modal — wide on desktop, edge-to-edge on mobile */
 #countryEditModal .country-edit-modal-dialog {
   width: min(1140px, calc(100vw - 2rem));
@@ -673,10 +689,10 @@ body:not(.modal-open) .modal-backdrop {
     padding: 16px;
   }
 
-  #countryViewModal .modal-dialog {
+  #countryViewModal .country-view-modal-dialog {
     margin: 0.5rem auto;
-    max-width: calc(100vw - 1rem);
     width: calc(100vw - 1rem);
+    max-width: calc(100vw - 1rem);
   }
 
   #countryEditModal .country-edit-modal-dialog {
@@ -705,10 +721,10 @@ body:not(.modal-open) .modal-backdrop {
 }
 
 @media (max-width: 575px) {
-  #countryViewModal .modal-dialog {
+  #countryViewModal .country-view-modal-dialog {
     margin: 0;
-    max-width: 100%;
     width: 100%;
+    max-width: 100%;
     min-height: 100%;
     height: 100%;
   }
@@ -716,6 +732,13 @@ body:not(.modal-open) .modal-backdrop {
   #countryViewModal .modal-content {
     min-height: 100dvh;
     border-radius: 0;
+  }
+
+  #countryViewModal .modal-body,
+  #countryViewModal .modal-header,
+  #countryViewModal .modal-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   #countryEditModal .country-edit-modal-dialog {

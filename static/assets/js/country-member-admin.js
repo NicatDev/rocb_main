@@ -111,7 +111,7 @@
     const entries = (data.additional_information || []).filter((row) => row.key || row.value);
     if (entries.length) {
       hasContent = true;
-      html += `<section class="country-view-entries-section"><h3 class="country-view-section-heading">${escapeHtml(i18n.entries)}</h3><div class="country-view-entries">`;
+      html += '<section class="country-view-entries-section"><div class="country-view-entries">';
       entries.forEach((row, index) => {
         html += `<article class="country-view-entry" style="--entry-delay:${index * 40}ms"><div class="country-view-entry-head"><span class="country-view-entry-index">${index + 1}</span><span class="country-view-entry-label-title">${escapeHtml(i18n.label)}</span></div><p class="country-view-entry-label-text">${escapeHtml(row.key)}</p><span class="country-view-entry-info-title">${escapeHtml(i18n.information)}</span><p class="country-view-entry-info-text">${escapeHtml(row.value).replace(/\n/g, '<br>')}</p></article>`;
       });
