@@ -410,15 +410,22 @@ body:not(.modal-open) .modal-backdrop {
   }
 }
 
-/* Edit modal — wider dialog */
+/* Edit modal — wide on desktop, edge-to-edge on mobile */
 #countryEditModal .country-edit-modal-dialog {
-  max-width: min(960px, calc(100vw - 2.5rem));
+  width: min(1140px, calc(100vw - 2rem));
+  max-width: min(1140px, calc(100vw - 2rem));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#countryEditModal .modal-content {
   width: 100%;
 }
 
 #countryEditModal .modal-body {
   padding: 0 1.75rem 1.75rem;
   background: #f8fafc;
+  overflow-x: hidden;
 }
 
 #countryEditModal .modal-header {
@@ -436,8 +443,8 @@ body:not(.modal-open) .modal-backdrop {
   position: sticky;
   top: 0;
   z-index: 2;
-  margin: 0 -0.25rem;
-  padding: 1rem 0.25rem 0.75rem;
+  margin: 0;
+  padding: 1rem 0 0.75rem;
   background: linear-gradient(180deg, #f8fafc 85%, rgba(248, 250, 252, 0));
 }
 
@@ -640,10 +647,10 @@ body:not(.modal-open) .modal-backdrop {
   flex-wrap: wrap;
   gap: 12px;
   padding: 16px 20px;
-  margin: 0 -1.75rem -1.75rem;
+  margin: 8px 0 0;
   background: #fff;
   border-top: 1px solid #e2e8f0;
-  border-radius: 0 0 16px 16px;
+  border-radius: 0 0 14px 14px;
   position: sticky;
   bottom: 0;
   z-index: 2;
@@ -666,14 +673,27 @@ body:not(.modal-open) .modal-backdrop {
     padding: 16px;
   }
 
-  .country-modal .modal-dialog {
-    margin: 0.5rem;
-    max-width: calc(100% - 1rem);
+  #countryViewModal .modal-dialog {
+    margin: 0.5rem auto;
+    max-width: calc(100vw - 1rem);
+    width: calc(100vw - 1rem);
   }
 
-  .country-modal .modal-header,
-  .country-modal .modal-body,
-  .country-modal .modal-footer {
+  #countryEditModal .country-edit-modal-dialog {
+    margin: 0.5rem auto;
+    width: calc(100vw - 1rem);
+    max-width: calc(100vw - 1rem);
+  }
+
+  #countryEditModal .modal-body,
+  #countryEditModal .modal-header {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  #countryViewModal .modal-header,
+  #countryViewModal .modal-body,
+  #countryViewModal .modal-footer {
     padding-left: 1rem;
     padding-right: 1rem;
   }
@@ -685,19 +705,39 @@ body:not(.modal-open) .modal-backdrop {
 }
 
 @media (max-width: 575px) {
-  .country-modal .modal-dialog {
+  #countryViewModal .modal-dialog {
     margin: 0;
+    max-width: 100%;
+    width: 100%;
+    min-height: 100%;
+    height: 100%;
+  }
+
+  #countryViewModal .modal-content {
+    min-height: 100dvh;
+    border-radius: 0;
+  }
+
+  #countryEditModal .country-edit-modal-dialog {
+    margin: 0;
+    width: 100%;
     max-width: 100%;
     min-height: 100%;
     height: 100%;
   }
 
-  .country-modal .modal-content {
+  #countryEditModal .modal-content {
     min-height: 100dvh;
     border-radius: 0;
   }
 
-  .country-modal .modal-footer {
+  #countryEditModal .modal-body,
+  #countryEditModal .modal-header {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  #countryViewModal .modal-footer {
     position: sticky;
     bottom: 0;
     z-index: 1;
