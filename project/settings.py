@@ -255,6 +255,9 @@ RTC_APP_NEWS_API_BASE = os.environ.get(
 # Canonical origin for sitemaps, Open Graph, and robots.txt (no trailing slash).
 PUBLIC_SITE_URL = os.environ.get('PUBLIC_SITE_URL', 'https://rocbeurope.org').rstrip('/')
 
+# Optional header X-Country-Owner-Api-Key for /api/region/country-owners/ (staff session also allowed)
+COUNTRY_OWNER_BULK_API_KEY = os.environ.get('COUNTRY_OWNER_BULK_API_KEY', '')
+
 
 # --- Outgoing email (Gmail SMTP) ---
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
