@@ -296,12 +296,7 @@ body:not(.modal-open) .modal-backdrop {
 }
 
 .country-view-section-heading {
-  margin: 0;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #64748b;
+  display: none !important;
 }
 
 .country-view-entries {
@@ -412,8 +407,9 @@ body:not(.modal-open) .modal-backdrop {
 
 /* View modal — wide on desktop, edge-to-edge on mobile */
 #countryViewModal .country-view-modal-dialog {
-  width: min(1140px, calc(100vw - 2rem));
-  max-width: min(1140px, calc(100vw - 2rem));
+  --bs-modal-width: min(1140px, calc(100vw - 2rem));
+  width: min(1140px, calc(100vw - 2rem)) !important;
+  max-width: min(1140px, calc(100vw - 2rem)) !important;
   margin-left: auto;
   margin-right: auto;
 }
@@ -428,8 +424,9 @@ body:not(.modal-open) .modal-backdrop {
 
 /* Edit modal — wide on desktop, edge-to-edge on mobile */
 #countryEditModal .country-edit-modal-dialog {
-  width: min(1140px, calc(100vw - 2rem));
-  max-width: min(1140px, calc(100vw - 2rem));
+  --bs-modal-width: min(1140px, calc(100vw - 2rem));
+  width: min(1140px, calc(100vw - 2rem)) !important;
+  max-width: min(1140px, calc(100vw - 2rem)) !important;
   margin-left: auto;
   margin-right: auto;
 }

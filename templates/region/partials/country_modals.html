@@ -1,4 +1,34 @@
 {% load i18n %}
+<style>
+  #countryViewModal .modal-dialog.country-view-modal-dialog,
+  #countryEditModal .modal-dialog.country-edit-modal-dialog {
+    --bs-modal-width: min(1140px, calc(100vw - 2rem));
+    width: min(1140px, calc(100vw - 2rem)) !important;
+    max-width: min(1140px, calc(100vw - 2rem)) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  #countryViewModal .country-view-section-heading {
+    display: none !important;
+  }
+  @media (max-width: 767px) {
+    #countryViewModal .modal-dialog.country-view-modal-dialog,
+    #countryEditModal .modal-dialog.country-edit-modal-dialog {
+      --bs-modal-width: calc(100vw - 1rem);
+      width: calc(100vw - 1rem) !important;
+      max-width: calc(100vw - 1rem) !important;
+    }
+  }
+  @media (max-width: 575px) {
+    #countryViewModal .modal-dialog.country-view-modal-dialog,
+    #countryEditModal .modal-dialog.country-edit-modal-dialog {
+      --bs-modal-width: 100%;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+    }
+  }
+</style>
 <div
   id="countryModalI18n"
   class="d-none"
