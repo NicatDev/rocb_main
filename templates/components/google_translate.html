@@ -1,0 +1,32 @@
+{% load i18n %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'assets/css/google-translate.css' %}?v=1" />
+<div class="google-translate-toolbar notranslate" aria-label="{% trans 'Translate page' %}">
+  <span class="google-translate-toolbar__label notranslate">{% trans "Translate" %}</span>
+  <div id="google_translate_element"></div>
+</div>
+<script>
+  function googleTranslateElementInit() {
+    if (window.__rocbGoogleTranslateReady) return;
+    window.__rocbGoogleTranslateReady = true;
+    var pageLang = document.documentElement.lang || 'en';
+    if (pageLang.indexOf('-') > -1) pageLang = pageLang.split('-')[0];
+    new google.translate.TranslateElement(
+      {
+        pageLanguage: pageLang,
+        includedLanguages: 'en,ru,az,fr,de,es,it,tr,uk,pl,ro,ka,kk,uz,tg,hy,be,bs,sq,mk,sr,hr,bg,lt,lv,et,fi,sv,no,da,nl,cs,sk,sl,hu,el,he,pt,mt,is,me,md,ky',
+        autoDisplay: false,
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      },
+      'google_translate_element'
+    );
+  }
+  (function () {
+    if (document.getElementById('rocb-google-translate-script')) return;
+    var s = document.createElement('script');
+    s.id = 'rocb-google-translate-script';
+    s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    s.defer = true;
+    document.body.appendChild(s);
+  })();
+</script>
