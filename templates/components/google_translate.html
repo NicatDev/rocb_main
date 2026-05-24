@@ -1,11 +1,54 @@
 {% load i18n %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'assets/css/google-translate.css' %}?v=10" />
+<link rel="stylesheet" href="{% static 'assets/css/google-translate.css' %}?v=11" />
 <div class="rocb-gt-fab notranslate" id="rocbGtFab">
   <div class="rocb-gt-fab__panel" id="rocbGtPanel" aria-hidden="true">
     <label class="rocb-gt-fab__label" for="rocbGtLangSelect">{% trans "Choose language" %}</label>
     <select id="rocbGtLangSelect" class="rocb-gt-fab__select" aria-label="{% trans 'Choose language' %}">
       <option value="" disabled selected>{% trans "Choose language" %}…</option>
+      <option value="en">English</option>
+      <option value="ru">Русский</option>
+      <option value="az">Azərbaycan</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="es">Español</option>
+      <option value="it">Italiano</option>
+      <option value="tr">Türkçe</option>
+      <option value="uk">Українська</option>
+      <option value="pl">Polski</option>
+      <option value="ro">Română</option>
+      <option value="ka">ქართული</option>
+      <option value="kk">Қазақ</option>
+      <option value="uz">Oʻzbek</option>
+      <option value="tg">Тоҷикӣ</option>
+      <option value="hy">Հայերեն</option>
+      <option value="be">Беларуская</option>
+      <option value="bs">Bosanski</option>
+      <option value="sq">Shqip</option>
+      <option value="mk">Македонски</option>
+      <option value="sr">Српски</option>
+      <option value="hr">Hrvatski</option>
+      <option value="bg">Български</option>
+      <option value="lt">Lietuvių</option>
+      <option value="lv">Latviešu</option>
+      <option value="et">Eesti</option>
+      <option value="fi">Suomi</option>
+      <option value="sv">Svenska</option>
+      <option value="no">Norsk</option>
+      <option value="da">Dansk</option>
+      <option value="nl">Nederlands</option>
+      <option value="cs">Čeština</option>
+      <option value="sk">Slovenčina</option>
+      <option value="sl">Slovenščina</option>
+      <option value="hu">Magyar</option>
+      <option value="el">Ελληνικά</option>
+      <option value="he">עברית</option>
+      <option value="pt">Português</option>
+      <option value="mt">Malti</option>
+      <option value="is">Íslenska</option>
+      <option value="me">Crnogorski</option>
+      <option value="md">Moldovenească</option>
+      <option value="ky">Кыргызча</option>
     </select>
     <div id="google_translate_element" class="rocb-gt-fab__gt-sr" aria-hidden="true"></div>
   </div>
@@ -23,199 +66,4 @@
     </svg>
   </button>
 </div>
-<script>
-  (function () {
-    var GT_LANGS = 'en,ru,az,fr,de,es,it,tr,uk,pl,ro,ka,kk,uz,tg,hy,be,bs,sq,mk,sr,hr,bg,lt,lv,et,fi,sv,no,da,nl,cs,sk,sl,hu,el,he,pt,mt,is,me,md,ky';
-    var GT_LANG_LABELS = {
-      en: 'English', ru: 'Русский', az: 'Azərbaycan', fr: 'Français', de: 'Deutsch', es: 'Español',
-      it: 'Italiano', tr: 'Türkçe', uk: 'Українська', pl: 'Polski', ro: 'Română', ka: 'ქართული',
-      kk: 'Қазақ', uz: 'Oʻzbek', tg: 'Тоҷикӣ', hy: 'Հայերեն', be: 'Беларуская', bs: 'Bosanski',
-      sq: 'Shqip', mk: 'Македонски', sr: 'Српски', hr: 'Hrvatski', bg: 'Български', lt: 'Lietuvių',
-      lv: 'Latviešu', et: 'Eesti', fi: 'Suomi', sv: 'Svenska', no: 'Norsk', da: 'Dansk', nl: 'Nederlands',
-      cs: 'Čeština', sk: 'Slovenčina', sl: 'Slovenščina', hu: 'Magyar', el: 'Ελληνικά', he: 'עברית',
-      pt: 'Português', mt: 'Malti', is: 'Íslenska', me: 'Crnogorski', md: 'Moldovenească', ky: 'Кыргызча'
-    };
-
-    function getGtCombo() {
-      return document.querySelector('#google_translate_element .goog-te-combo');
-    }
-
-    function applyGtLanguage(lang) {
-      var combo = getGtCombo();
-      if (!combo) return false;
-      combo.value = lang;
-      combo.dispatchEvent(new Event('change', { bubbles: true }));
-      return true;
-    }
-
-    function populateLangSelect() {
-      var sel = document.getElementById('rocbGtLangSelect');
-      if (!sel || sel.options.length > 2) return;
-      GT_LANGS.split(',').forEach(function (code) {
-        var opt = document.createElement('option');
-        opt.value = code;
-        opt.textContent = GT_LANG_LABELS[code] || code;
-        sel.appendChild(opt);
-      });
-    }
-
-    function wireLangSelect() {
-      var sel = document.getElementById('rocbGtLangSelect');
-      if (!sel || sel.dataset.wired === '1') return;
-      sel.dataset.wired = '1';
-      sel.addEventListener('change', function () {
-        if (!sel.value) return;
-        if (!applyGtLanguage(sel.value)) {
-          var tries = 0;
-          var timer = setInterval(function () {
-            tries += 1;
-            if (applyGtLanguage(sel.value) || tries >= 30) clearInterval(timer);
-          }, 200);
-        }
-      });
-    }
-
-    function initGoogleTranslate() {
-      if (window.__rocbGtInited || !window.google || !window.google.translate) return;
-      var mount = document.getElementById('google_translate_element');
-      if (!mount) return;
-      window.__rocbGtInited = true;
-      var pageLang = (document.documentElement.lang || 'en').split('-')[0];
-      new google.translate.TranslateElement(
-        {
-          pageLanguage: pageLang,
-          includedLanguages: GT_LANGS,
-          autoDisplay: false,
-          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-        },
-        'google_translate_element'
-      );
-      [0, 300, 1000].forEach(function (ms) {
-        setTimeout(hideGtTopChrome, ms);
-      });
-    }
-
-    window.googleTranslateElementInit = initGoogleTranslate;
-
-    function loadGtScript() {
-      if (document.getElementById('rocb-google-translate-script')) {
-        initGoogleTranslate();
-        hideGtTopChrome();
-        return;
-      }
-      var s = document.createElement('script');
-      s.id = 'rocb-google-translate-script';
-      s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      s.async = true;
-      document.body.appendChild(s);
-    }
-
-    function isInsideGtFab(el) {
-      var fab = document.getElementById('rocbGtFab');
-      return fab && fab.contains(el);
-    }
-
-    function isGtBannerIframe(el) {
-      if (!el || el.tagName !== 'IFRAME') return false;
-      if (el.classList.contains('goog-te-banner-frame')) return true;
-      if (el.className && String(el.className).indexOf('VIpgJd-') !== -1) return true;
-      if (el.id && String(el.id).indexOf('container') !== -1) return true;
-      if (el.classList.contains('skiptranslate') && el.getAttribute('src') === '#') return true;
-      return false;
-    }
-
-    function isGtTopChrome(el) {
-      if (!el || isInsideGtFab(el)) return false;
-      if (el.tagName === 'IFRAME') return isGtBannerIframe(el);
-      if (el.tagName === 'DIV' && el.classList.contains('skiptranslate') && el.parentElement === document.body) {
-        return !!el.querySelector(
-          'iframe.goog-te-banner-frame, iframe[class*="VIpgJd-"], iframe[id*="container"], iframe.skiptranslate[src="#"]'
-        );
-      }
-      return false;
-    }
-
-    function applyGtChromeHide(el) {
-      el.style.setProperty('display', 'none', 'important');
-      el.style.setProperty('visibility', 'hidden', 'important');
-      el.style.setProperty('height', '0', 'important');
-      el.style.setProperty('width', '0', 'important');
-      el.style.setProperty('overflow', 'hidden', 'important');
-    }
-
-    function hideGtTopChrome() {
-      document.querySelectorAll('body > div.skiptranslate, body > iframe.skiptranslate, iframe').forEach(function (el) {
-        if (!isGtTopChrome(el)) return;
-        applyGtChromeHide(el);
-      });
-      document.body.style.setProperty('top', '0', 'important');
-      document.body.style.setProperty('margin-top', '0', 'important');
-    }
-
-    function watchGtTopChrome() {
-      hideGtTopChrome();
-      if (window.__rocbGtChromeObserver) return;
-      window.__rocbGtChromeObserver = new MutationObserver(hideGtTopChrome);
-      window.__rocbGtChromeObserver.observe(document.body, {
-        childList: true,
-        subtree: true,
-        attributes: true,
-        attributeFilter: ['style', 'class'],
-      });
-    }
-
-    function setupFab() {
-      var btn = document.getElementById('rocbGtToggle');
-      var panel = document.getElementById('rocbGtPanel');
-      var fab = document.getElementById('rocbGtFab');
-      if (!btn || !panel) return;
-
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var open = !fab.classList.contains('is-open');
-        fab.classList.toggle('is-open', open);
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        panel.setAttribute('aria-hidden', open ? 'false' : 'true');
-        if (open) {
-          populateLangSelect();
-          wireLangSelect();
-          loadGtScript();
-          setTimeout(function () {
-            var sel = document.getElementById('rocbGtLangSelect');
-            if (sel) sel.focus();
-          }, 150);
-        }
-      });
-
-      document.addEventListener('click', function (e) {
-        if (!fab.classList.contains('is-open')) return;
-        if (fab.contains(e.target)) return;
-        fab.classList.remove('is-open');
-        btn.setAttribute('aria-expanded', 'false');
-        panel.setAttribute('aria-hidden', 'true');
-      });
-
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && fab.classList.contains('is-open')) {
-          fab.classList.remove('is-open');
-          btn.setAttribute('aria-expanded', 'false');
-          panel.setAttribute('aria-hidden', 'true');
-        }
-      });
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function () {
-        populateLangSelect();
-        wireLangSelect();
-        setupFab();
-        watchGtTopChrome();
-      });
-    } else {
-      populateLangSelect();
-      wireLangSelect();
-      setupFab();
-      watchGtTopChrome();
-    }
-  })();
-</script>
+<script src="{% static 'assets/js/google-translate-fab.js' %}?v=1"></script>
