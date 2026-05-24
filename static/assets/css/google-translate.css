@@ -1,53 +1,127 @@
-/* Google Translate toolbar — rocb_main */
+/* Floating Google Translate — right edge, minimal */
 
-.google-translate-toolbar {
+.rocb-gt-fab {
   position: fixed;
-  top: 88px;
-  right: 16px;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 10030;
-  display: inline-flex;
+  display: flex;
+  flex-direction: row-reverse;
   align-items: center;
-  gap: 8px;
-  padding: 6px 10px 6px 12px;
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 999px;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.12);
+  gap: 0;
+  font-family: inherit;
 }
 
-.google-translate-toolbar__label {
-  font-size: 12px;
+.rocb-gt-fab__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-right: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 12px 0 0 12px;
+  background: var(--tj-color-theme-primary, #12579e);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: -2px 2px 14px rgba(18, 87, 158, 0.35);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.rocb-gt-fab__btn:hover {
+  background: #0d4378;
+}
+
+.rocb-gt-fab.is-open .rocb-gt-fab__btn {
+  background: #0d4378;
+}
+
+.rocb-gt-fab__icon {
+  display: block;
+}
+
+.rocb-gt-fab__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  max-width: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding: 0;
+  margin-right: 0;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  box-shadow: -4px 4px 20px rgba(15, 23, 42, 0.12);
+  pointer-events: none;
+  transition: max-width 0.25s ease, opacity 0.2s ease, padding 0.25s ease;
+}
+
+.rocb-gt-fab.is-open .rocb-gt-fab__panel {
+  max-width: min(220px, calc(100vw - 70px));
+  max-height: 120px;
+  opacity: 1;
+  padding: 12px 14px;
+  pointer-events: auto;
+}
+
+.rocb-gt-fab__hint {
+  margin: 0;
+  font-size: 11px;
   font-weight: 700;
-  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
   white-space: nowrap;
 }
 
 #google_translate_element {
-  display: inline-flex;
-  align-items: center;
-  line-height: 1;
+  min-height: 32px;
+  line-height: 1.2;
 }
 
+/* Hide "Powered by Google", keep select visible */
 #google_translate_element .goog-te-gadget {
   font-family: inherit !important;
-  font-size: 0 !important;
-  color: transparent !important;
+  font-size: 14px !important;
+  color: #0f172a !important;
 }
 
 #google_translate_element .goog-te-gadget .goog-te-combo {
+  display: block !important;
+  visibility: visible !important;
+  width: 100% !important;
+  min-width: 160px !important;
+  max-width: 100% !important;
   margin: 0 !important;
-  padding: 4px 8px !important;
-  font-size: 13px !important;
-  font-weight: 600 !important;
+  padding: 8px 10px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
   color: #0f172a !important;
+  background: #f8fafc !important;
   border: 1px solid #cbd5e1 !important;
   border-radius: 8px !important;
-  background: #f8fafc !important;
-  max-width: 160px;
+  cursor: pointer !important;
 }
 
-.goog-te-banner-frame.skiptranslate,
-body > .skiptranslate {
+#google_translate_element .goog-te-gadget > span {
+  display: none !important;
+}
+
+#google_translate_element .goog-te-gadget a {
+  display: none !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+iframe.goog-te-banner-frame {
   display: none !important;
 }
 
@@ -55,23 +129,21 @@ body {
   top: 0 !important;
 }
 
-@media (max-width: 991px) {
-  .google-translate-toolbar {
-    top: auto;
-    bottom: 16px;
-    right: 12px;
-    left: auto;
-    max-width: calc(100vw - 24px);
-  }
-
-  .google-translate-toolbar__label {
-    display: none;
-  }
-}
-
 @media (max-width: 575px) {
+  .rocb-gt-fab__btn {
+    width: 42px;
+    height: 42px;
+    margin-right: 6px;
+    border-radius: 10px 0 0 10px;
+  }
+
+  .rocb-gt-fab.is-open .rocb-gt-fab__panel {
+    max-width: calc(100vw - 58px);
+    padding: 10px 12px;
+  }
+
   #google_translate_element .goog-te-gadget .goog-te-combo {
-    max-width: 130px;
-    font-size: 12px !important;
+    min-width: 130px !important;
+    font-size: 13px !important;
   }
 }
