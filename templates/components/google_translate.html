@@ -1,10 +1,13 @@
 {% load i18n %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'assets/css/google-translate.css' %}?v=7" />
+<link rel="stylesheet" href="{% static 'assets/css/google-translate.css' %}?v=8" />
 <div class="rocb-gt-fab notranslate" id="rocbGtFab">
   <div class="rocb-gt-fab__panel" id="rocbGtPanel" aria-hidden="true">
-    <p class="rocb-gt-fab__hint">{% trans "Choose language" %}</p>
-    <div id="google_translate_element"></div>
+    <label class="rocb-gt-fab__label" for="rocbGtLangSelect">{% trans "Choose language" %}</label>
+    <select id="rocbGtLangSelect" class="rocb-gt-fab__select" aria-label="{% trans 'Choose language' %}">
+      <option value="">{% trans "Choose language" %}…</option>
+    </select>
+    <div id="google_translate_element" class="rocb-gt-fab__gt-mount" aria-hidden="true"></div>
   </div>
   <button
     type="button"
@@ -23,6 +26,54 @@
 <script>
   (function () {
     var GT_LANGS = 'en,ru,az,fr,de,es,it,tr,uk,pl,ro,ka,kk,uz,tg,hy,be,bs,sq,mk,sr,hr,bg,lt,lv,et,fi,sv,no,da,nl,cs,sk,sl,hu,el,he,pt,mt,is,me,md,ky';
+    var GT_LANG_LABELS = {
+      en: 'English', ru: 'Русский', az: 'Azərbaycan', fr: 'Français', de: 'Deutsch', es: 'Español',
+      it: 'Italiano', tr: 'Türkçe', uk: 'Українська', pl: 'Polski', ro: 'Română', ka: 'ქართული',
+      kk: 'Қазақ', uz: 'Oʻzbek', tg: 'Тоҷикӣ', hy: 'Հայերեն', be: 'Беларуская', bs: 'Bosanski',
+      sq: 'Shqip', mk: 'Македонски', sr: 'Српски', hr: 'Hrvatski', bg: 'Български', lt: 'Lietuvių',
+      lv: 'Latviešu', et: 'Eesti', fi: 'Suomi', sv: 'Svenska', no: 'Norsk', da: 'Dansk', nl: 'Nederlands',
+      cs: 'Čeština', sk: 'Slovenčina', sl: 'Slovenščina', hu: 'Magyar', el: 'Ελληνικά', he: 'עברית',
+      pt: 'Português', mt: 'Malti', is: 'Íslenska', me: 'Crnogorski', md: 'Moldovenească', ky: 'Кыргызча'
+    };
+
+    function getGtCombo() {
+      return document.querySelector('#google_translate_element .goog-te-combo');
+    }
+
+    function applyGtLanguage(lang) {
+      var combo = getGtCombo();
+      if (!combo) return false;
+      combo.value = lang;
+      combo.dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    }
+
+    function populateLangSelect() {
+      var sel = document.getElementById('rocbGtLangSelect');
+      if (!sel || sel.options.length > 1) return;
+      GT_LANGS.split(',').forEach(function (code) {
+        var opt = document.createElement('option');
+        opt.value = code;
+        opt.textContent = GT_LANG_LABELS[code] || code;
+        sel.appendChild(opt);
+      });
+    }
+
+    function wireCustomLangSelect() {
+      var sel = document.getElementById('rocbGtLangSelect');
+      if (!sel || sel.dataset.wired === '1') return;
+      sel.dataset.wired = '1';
+      sel.addEventListener('change', function () {
+        if (!sel.value) return;
+        if (!applyGtLanguage(sel.value)) {
+          var tries = 0;
+          var timer = setInterval(function () {
+            tries += 1;
+            if (applyGtLanguage(sel.value) || tries >= 25) clearInterval(timer);
+          }, 200);
+        }
+      });
+    }
 
     function initGoogleTranslate() {
       if (window.__rocbGtInited || !window.google || !window.google.translate) return;
@@ -40,7 +91,10 @@
         'google_translate_element'
       );
       [0, 300, 1000].forEach(function (ms) {
-        setTimeout(hideGtTopChrome, ms);
+        setTimeout(function () {
+          hideGtTopChrome();
+          wireCustomLangSelect();
+        }, ms);
       });
     }
 
@@ -125,7 +179,15 @@
         fab.classList.toggle('is-open', open);
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         panel.setAttribute('aria-hidden', open ? 'false' : 'true');
-        if (open) loadGtScript();
+        if (open) {
+          populateLangSelect();
+          wireCustomLangSelect();
+          loadGtScript();
+          setTimeout(function () {
+            var sel = document.getElementById('rocbGtLangSelect');
+            if (sel) sel.focus();
+          }, 120);
+        }
       });
 
       document.addEventListener('click', function (e) {
@@ -147,10 +209,14 @@
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', function () {
+        populateLangSelect();
+        wireCustomLangSelect();
         setupFab();
         watchGtTopChrome();
       });
     } else {
+      populateLangSelect();
+      wireCustomLangSelect();
       setupFab();
       watchGtTopChrome();
     }
