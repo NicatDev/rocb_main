@@ -117,16 +117,31 @@
   display: none !important;
 }
 
-.goog-te-banner-frame.skiptranslate {
+/* Google-in yuxarı banneri / boşluğu — bizim widget deyil, gizlədirik */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+iframe.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover {
   display: none !important;
-}
-
-iframe.goog-te-banner-frame {
-  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
 }
 
 body {
   top: 0 !important;
+  margin-top: 0 !important;
+  position: static !important;
+}
+
+html.translated-ltr body,
+html.translated-rtl body {
+  top: 0 !important;
+  margin-top: 0 !important;
 }
 
 @media (max-width: 575px) {
