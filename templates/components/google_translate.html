@@ -1,6 +1,6 @@
 {% load i18n %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'assets/css/google-translate.css' %}?v=5" />
+<link rel="stylesheet" href="{% static 'assets/css/google-translate.css' %}?v=7" />
 <div class="rocb-gt-fab notranslate" id="rocbGtFab">
   <div class="rocb-gt-fab__panel" id="rocbGtPanel" aria-hidden="true">
     <p class="rocb-gt-fab__hint">{% trans "Choose language" %}</p>
@@ -39,6 +39,9 @@
         },
         'google_translate_element'
       );
+      [0, 300, 1000].forEach(function (ms) {
+        setTimeout(hideGtTopChrome, ms);
+      });
     }
 
     window.googleTranslateElementInit = initGoogleTranslate;
@@ -46,6 +49,7 @@
     function loadGtScript() {
       if (document.getElementById('rocb-google-translate-script')) {
         initGoogleTranslate();
+        hideGtTopChrome();
         return;
       }
       var s = document.createElement('script');
@@ -53,6 +57,60 @@
       s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
       s.async = true;
       document.body.appendChild(s);
+    }
+
+    function isInsideGtFab(el) {
+      var fab = document.getElementById('rocbGtFab');
+      return fab && fab.contains(el);
+    }
+
+    function isGtBannerIframe(el) {
+      if (!el || el.tagName !== 'IFRAME') return false;
+      if (el.classList.contains('goog-te-banner-frame')) return true;
+      if (el.className && String(el.className).indexOf('VIpgJd-') !== -1) return true;
+      if (el.id && String(el.id).indexOf('container') !== -1) return true;
+      if (el.classList.contains('skiptranslate') && el.getAttribute('src') === '#') return true;
+      return false;
+    }
+
+    function isGtTopChrome(el) {
+      if (!el || isInsideGtFab(el)) return false;
+      if (el.tagName === 'IFRAME') return isGtBannerIframe(el);
+      if (el.tagName === 'DIV' && el.classList.contains('skiptranslate') && el.parentElement === document.body) {
+        return !!el.querySelector(
+          'iframe.goog-te-banner-frame, iframe[class*="VIpgJd-"], iframe[id*="container"], iframe.skiptranslate[src="#"]'
+        );
+      }
+      return false;
+    }
+
+    function applyGtChromeHide(el) {
+      el.style.setProperty('display', 'none', 'important');
+      el.style.setProperty('visibility', 'hidden', 'important');
+      el.style.setProperty('height', '0', 'important');
+      el.style.setProperty('width', '0', 'important');
+      el.style.setProperty('overflow', 'hidden', 'important');
+    }
+
+    function hideGtTopChrome() {
+      document.querySelectorAll('body > div.skiptranslate, body > iframe.skiptranslate, iframe').forEach(function (el) {
+        if (!isGtTopChrome(el)) return;
+        applyGtChromeHide(el);
+      });
+      document.body.style.setProperty('top', '0', 'important');
+      document.body.style.setProperty('margin-top', '0', 'important');
+    }
+
+    function watchGtTopChrome() {
+      hideGtTopChrome();
+      if (window.__rocbGtChromeObserver) return;
+      window.__rocbGtChromeObserver = new MutationObserver(hideGtTopChrome);
+      window.__rocbGtChromeObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'class'],
+      });
     }
 
     function setupFab() {
@@ -88,9 +146,13 @@
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', setupFab);
+      document.addEventListener('DOMContentLoaded', function () {
+        setupFab();
+        watchGtTopChrome();
+      });
     } else {
       setupFab();
+      watchGtTopChrome();
     }
   })();
 </script>
