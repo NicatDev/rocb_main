@@ -19,7 +19,7 @@
       {% if news_kind == 'rocb_europe' %}
         {% trans 'Rocb Europe - News from Rocb Europe' %}
       {% elif news_kind == 'from_region' %}
-        {% trans 'Rocb Europe - News from the region' %}
+        {% trans 'Rocb Europe - News from the Region' %}
       {% else %}
         {% trans 'Rocb Europe - News' %}
       {% endif %}
@@ -89,7 +89,7 @@
                   {% if news_kind == 'rocb_europe' %}
                     {% trans 'News from Rocb Europe' %}
                   {% elif news_kind == 'from_region' %}
-                    {% trans 'News from the region' %}
+                    {% trans 'News from the Region' %}
                   {% else %}
                     {% trans 'News' %}
                   {% endif %}
@@ -103,7 +103,7 @@
                       {% if news_kind == 'rocb_europe' %}
                         {% trans 'News from Rocb Europe' %}
                       {% elif news_kind == 'from_region' %}
-                        {% trans 'News from the region' %}
+                        {% trans 'News from the Region' %}
                       {% else %}
                         {% trans 'News' %}
                       {% endif %}
@@ -153,6 +153,55 @@
                       </a>
                     </div>
                   </article>
+                {% empty %}
+                <div class="news-empty-state wow fadeInUp" data-wow-delay=".1s">
+                  <div class="news-empty-state__icon" aria-hidden="true">
+                    <i class="tji-list"></i>
+                  </div>
+                  {% if request.GET.s %}
+                    <h3 class="news-empty-state__title">{% trans 'No news found' %}</h3>
+                    <p class="news-empty-state__text">
+                      {% trans 'No news articles match your search. Try different keywords or browse all news.' %}
+                    </p>
+                  {% elif news_kind == 'rocb_europe' %}
+                    <h3 class="news-empty-state__title">{% trans 'No news available' %}</h3>
+                    <p class="news-empty-state__text">
+                      {% trans 'There are no Rocb Europe news articles at the moment. Please check back later.' %}
+                    </p>
+                  {% elif news_kind == 'from_region' %}
+                    <h3 class="news-empty-state__title">{% trans 'No news available' %}</h3>
+                    <p class="news-empty-state__text">
+                      {% trans 'There are no regional news articles at the moment. Please check back later.' %}
+                    </p>
+                  {% else %}
+                    <h3 class="news-empty-state__title">{% trans 'No news available' %}</h3>
+                    <p class="news-empty-state__text">
+                      {% trans 'There are no news articles at the moment. Please check back later.' %}
+                    </p>
+                  {% endif %}
+                  {% if request.GET.s %}
+                    {% if news_kind == 'rocb_europe' %}
+                      <a class="text-btn news-empty-state__link" href="{% url 'news_rocb_europe' %}">
+                    {% elif news_kind == 'from_region' %}
+                      <a class="text-btn news-empty-state__link" href="{% url 'news_from_region' %}">
+                    {% else %}
+                      <a class="text-btn news-empty-state__link" href="{% url 'news' %}">
+                    {% endif %}
+                    <span class="btn-text"><span>{% trans 'Clear search' %}</span></span>
+                    <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                  </a>
+                  {% elif news_kind == 'rocb_europe' or news_kind == 'from_region' %}
+                  <a class="text-btn news-empty-state__link" href="{% url 'news' %}">
+                    <span class="btn-text"><span>{% trans 'View all news' %}</span></span>
+                    <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                  </a>
+                  {% else %}
+                  <a class="text-btn news-empty-state__link" href="{% url 'home' %}">
+                    <span class="btn-text"><span>{% trans 'Back to Home' %}</span></span>
+                    <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                  </a>
+                  {% endif %}
+                </div>
                 {% endfor %}
                 {% if paginator.num_pages > 1 %}
                 <div class="tj-pagination d-flex">
