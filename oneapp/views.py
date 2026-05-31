@@ -72,7 +72,7 @@ def home(request):
     return render(request, 'index.html', context)
 
 
-def news_page(request):
+def news_page(request, news_kind='all'):
     search_param = request.GET.get("s")
     try:
         page_number = int(request.GET.get("page", 1) or 1)
@@ -81,19 +81,31 @@ def news_page(request):
 
     page_size = 8
     data = fetch_main_site_news_page(
-        page=page_number, page_size=page_size, search=search_param
+        page=page_number,
+        page_size=page_size,
+        search=search_param,
+        news_kind=news_kind,
     )
     page_obj = build_page_from_api(data, page_number, page_size)
-    tabs = discover_tabs_excluding(page_obj, limit=3)
+    tabs = discover_tabs_excluding(page_obj, limit=3, news_kind=news_kind)
 
     context = {
         "tags": [],
         "page_obj": page_obj,
         "paginator": page_obj.paginator,
         "tabs": tabs,
+        "news_kind": news_kind,
     }
 
     return render(request, 'news.html', context)
+
+
+def news_page_rocb_europe(request):
+    return news_page(request, news_kind='rocb_europe')
+
+
+def news_page_from_region(request):
+    return news_page(request, news_kind='from_region')
 
 def news_detail(request, slug):
     raw = fetch_main_site_news_detail(slug)

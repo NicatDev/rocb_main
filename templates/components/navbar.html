@@ -99,8 +99,19 @@
                     </li>
                   </ul>
                 </li>
-                <li>
+                <li class="has-dropdown">
                   <a href="{% url 'news' %}">{% trans 'News' %}</a>
+                  <ul class="sub-menu">
+                    <li>
+                      <a href="{% url 'news' %}">{% trans 'News' %}</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'news_rocb_europe' %}">{% trans 'News from Rocb Europe' %}</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'news_from_region' %}">{% trans 'News from the region' %}</a>
+                    </li>
+                  </ul>
                 </li>
                 <li class="has-dropdown">
                   <a href="{% url 'events' %}">{% trans 'Events' %}</a>

@@ -127,21 +127,34 @@ class ApiNewsItem:
         return self.news_sections.all()
 
 
-def _list_url() -> str:
+NEWS_KIND_PATHS = {
+    'all': 'all',
+    'rocb_europe': 'rocb-europe',
+    'from_region': 'from-region',
+}
+
+
+def _list_url(news_kind: str = 'all') -> str:
     base = getattr(settings, 'RTC_APP_NEWS_API_BASE', 'https://app.rocbeurope.org/api/v1').rstrip('/')
-    return f'{base}/public/main-site/news/'
+    segment = NEWS_KIND_PATHS.get(news_kind, 'all')
+    return f'{base}/public/main-site/integration/news/{segment}/'
 
 
-def fetch_main_site_news_page(page: int = 1, page_size: int = 8, search: Optional[str] = None) -> Optional[dict]:
+def fetch_main_site_news_page(
+    page: int = 1,
+    page_size: int = 8,
+    search: Optional[str] = None,
+    news_kind: str = 'all',
+) -> Optional[dict]:
     params = {'page': page, 'page_size': page_size}
     if search:
         params['search'] = search
     try:
-        r = requests.get(_list_url(), params=params, timeout=20)
+        r = requests.get(_list_url(news_kind), params=params, timeout=20)
         r.raise_for_status()
         return r.json()
     except Exception as exc:
-        logger.exception('Failed to fetch main-site news: %s', exc)
+        logger.exception('Failed to fetch main-site news (%s): %s', news_kind, exc)
         return None
 
 
@@ -159,8 +172,8 @@ def fetch_main_site_news_detail(slug: str) -> Optional[dict]:
         return None
 
 
-def fetch_main_site_news_batch(page_size: int = 8) -> Optional[dict]:
-    return fetch_main_site_news_page(page=1, page_size=page_size, search=None)
+def fetch_main_site_news_batch(page_size: int = 8, news_kind: str = 'all') -> Optional[dict]:
+    return fetch_main_site_news_page(page=1, page_size=page_size, search=None, news_kind=news_kind)
 
 
 def fetch_main_site_news_for_sitemap() -> list[dict]:
@@ -222,11 +235,11 @@ def fetch_main_site_rtc_profiles() -> Optional[list]:
         return None
 
 
-def prev_next_slugs(current_slug: str) -> Tuple[Optional[str], Optional[str]]:
+def prev_next_slugs(current_slug: str, news_kind: str = 'all') -> Tuple[Optional[str], Optional[str]]:
     """
     Ordering is -created_at (newest first). Prev = older, next = newer.
     """
-    data = fetch_main_site_news_page(page=1, page_size=100, search=None)
+    data = fetch_main_site_news_page(page=1, page_size=100, search=None, news_kind=news_kind)
     if not data or 'results' not in data:
         return None, None
     slugs = [row.get('slug') for row in data['results'] if row.get('slug')]
@@ -286,9 +299,9 @@ class SlugRef:
         self.slug = slug
 
 
-def discover_tabs_excluding(page_obj, limit: int = 3):
-    """Sidebar 'Discover More' links — latest global news not on the current page."""
-    data = fetch_main_site_news_page(1, page_size=16)
+def discover_tabs_excluding(page_obj, limit: int = 3, news_kind: str = 'all'):
+    """Sidebar 'Discover More' links — latest news not on the current page."""
+    data = fetch_main_site_news_page(1, page_size=16, news_kind=news_kind)
     if not data:
         return []
     on_page = {getattr(x, 'slug', None) for x in page_obj.object_list}
