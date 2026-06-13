@@ -232,24 +232,15 @@
     document.querySelectorAll(".mobile-lang-flags .dropdown-item").forEach((button) => {
       button.addEventListener("click", function () {
         const lang = this.getAttribute("data-lang");
+        if (window.OpenAITranslate && typeof window.OpenAITranslate.switchLanguage === "function") {
+          window.OpenAITranslate.switchLanguage(lang);
+          return;
+        }
+        /* Legacy Django POST — kept for reference:
         const form = document.createElement("form");
-        form.method = "POST";
-        form.action = '{% url "set_language" %}';
-
-        const csrfInput = document.createElement("input");
-        csrfInput.type = "hidden";
-        csrfInput.name = "csrfmiddlewaretoken";
-        csrfInput.value = "{{ csrf_token }}";
-        form.appendChild(csrfInput);
-
-        const langInput = document.createElement("input");
-        langInput.type = "hidden";
-        langInput.name = "language";
-        langInput.value = lang;
-        form.appendChild(langInput);
-
-        document.body.appendChild(form);
+        ...
         form.submit();
+        */
       });
     });
   });

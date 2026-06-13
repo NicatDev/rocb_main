@@ -3,14 +3,14 @@
 
   var STORAGE_KEY = 'openai_page_lang';
   var ORIGINAL_ATTR = 'data-openai-original-html';
-  var SOURCE_LANG = 'en';
   var CONTENT_SELECTOR = 'main#primary, main.site-main';
   var API_URL = '/api/translate/';
   var loadingEl = null;
 
-  function getSourceLanguage() {
-    var lang = (document.documentElement.getAttribute('lang') || SOURCE_LANG).toLowerCase();
-    return lang.indexOf('ru') === 0 ? 'ru' : 'en';
+  function getPageSourceLanguage() {
+    var lang = (document.documentElement.getAttribute('lang') || 'en').toLowerCase();
+    if (lang.indexOf('ru') === 0) return 'ru';
+    return 'en';
   }
 
   function getCsrfToken() {
@@ -59,14 +59,15 @@
   }
 
   function updateFlagState(langCode) {
-    document.querySelectorAll('.lang-flag-btn').forEach(function (btn) {
-      var active = btn.dataset.lang === langCode;
-      btn.style.opacity = active ? '1' : '0.55';
-      btn.style.outline = active ? '2px solid #12579e' : 'none';
+    document.querySelectorAll('.lang-flag-btn, .mobile-lang-flag-btn').forEach(function (btn) {
+      var isActive = btn.dataset.lang === langCode;
+      btn.classList.toggle('is-active', isActive);
+      btn.style.opacity = '';
+      btn.style.outline = '';
     });
   }
 
-  function translateHtml(html, targetLang) {
+  function translateHtml(html, targetLang, sourceLang) {
     var csrf = getCsrfToken();
     var headers = { 'Content-Type': 'application/json' };
     if (csrf) headers['X-CSRFToken'] = csrf;
@@ -77,7 +78,7 @@
       credentials: 'same-origin',
       body: JSON.stringify({
         html: html,
-        source_language: getSourceLanguage(),
+        source_language: sourceLang,
         target_language: targetLang,
       }),
     }).then(function (response) {
@@ -98,19 +99,22 @@
       }
     });
     localStorage.setItem(STORAGE_KEY, 'en');
-    updateFlagState('en');
     document.documentElement.setAttribute('lang', 'en');
+    updateFlagState('en');
   }
 
   function switchLanguage(langCode) {
     langCode = (langCode || 'en').toLowerCase();
-    localStorage.setItem(STORAGE_KEY, langCode);
-    document.documentElement.setAttribute('lang', langCode);
+    var sourceLang = getPageSourceLanguage();
 
-    if (langCode === 'en' || langCode === getSourceLanguage()) {
+    if (langCode === 'en') {
       restoreOriginal();
       return Promise.resolve();
     }
+
+    localStorage.setItem(STORAGE_KEY, langCode);
+    document.documentElement.setAttribute('lang', langCode);
+    updateFlagState(langCode);
 
     var elements = getContentElements();
     if (!elements.length) {
@@ -123,16 +127,13 @@
     elements.forEach(function (el) {
       chain = chain.then(function () {
         var original = ensureOriginalHtml(el);
-        return translateHtml(original, langCode).then(function (translated) {
+        return translateHtml(original, langCode, sourceLang).then(function (translated) {
           el.innerHTML = translated;
         });
       });
     });
 
     return chain
-      .then(function () {
-        updateFlagState(langCode);
-      })
       .catch(function (err) {
         console.error('OpenAI translate error:', err);
         window.alert(err.message || 'Could not translate this page.');
@@ -143,7 +144,7 @@
   function initFromStorage() {
     var saved = (localStorage.getItem(STORAGE_KEY) || 'en').toLowerCase();
     updateFlagState(saved);
-    if (saved !== 'en' && saved !== getSourceLanguage()) {
+    if (saved !== 'en') {
       switchLanguage(saved);
     }
   }
