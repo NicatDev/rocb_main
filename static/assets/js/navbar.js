@@ -8,17 +8,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function switchLanguage(langCode) {
-  // OpenAI DOM translation (primary language switcher)
-  if (window.OpenAITranslate && typeof window.OpenAITranslate.switchLanguage === "function") {
-    window.OpenAITranslate.switchLanguage(langCode);
-    return;
-  }
+  // OpenAI DOM translation (disabled — see OPENAI_TRANSLATION_NOTES.md):
+  // if (window.OpenAITranslate && typeof window.OpenAITranslate.switchLanguage === "function") {
+  //   window.OpenAITranslate.switchLanguage(langCode);
+  //   return;
+  // }
 
-  // Legacy Django i18n redirect — kept for reference, disabled in favour of OpenAI:
-  // switchLanguageDjango(langCode);
+  switchLanguageDjango(langCode);
 }
 
-/*
 function switchLanguageDjango(langCode) {
     let csrfValue = getCsrfToken();
     if (!csrfValue) {
@@ -49,7 +47,10 @@ function switchLanguageDjango(langCode) {
     document.body.appendChild(form);
     form.submit();
 }
-*/
+
+function redirectWithLanguage(langCode) {
+  window.location.href = calculateNewPath(langCode);
+}
 
  function getCsrfToken() {
     const csrfMeta = document.querySelector('meta[name="csrf-token"]');

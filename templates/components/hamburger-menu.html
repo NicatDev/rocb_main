@@ -232,15 +232,14 @@
     document.querySelectorAll(".mobile-lang-flags .dropdown-item").forEach((button) => {
       button.addEventListener("click", function () {
         const lang = this.getAttribute("data-lang");
-        if (window.OpenAITranslate && typeof window.OpenAITranslate.switchLanguage === "function") {
-          window.OpenAITranslate.switchLanguage(lang);
-          return;
+        // OpenAI DOM translation (disabled — see OPENAI_TRANSLATION_NOTES.md):
+        // if (window.OpenAITranslate && typeof window.OpenAITranslate.switchLanguage === "function") {
+        //   window.OpenAITranslate.switchLanguage(lang);
+        //   return;
+        // }
+        if (typeof switchLanguage === "function") {
+          switchLanguage(lang);
         }
-        /* Legacy Django POST — kept for reference:
-        const form = document.createElement("form");
-        ...
-        form.submit();
-        */
       });
     });
   });
