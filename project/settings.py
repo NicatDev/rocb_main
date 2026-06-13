@@ -258,6 +258,13 @@ PUBLIC_SITE_URL = os.environ.get('PUBLIC_SITE_URL', 'https://rocbeurope.org').rs
 # Optional header X-Country-Owner-Api-Key for /api/region/country-owners/ (staff session also allowed)
 COUNTRY_OWNER_BULK_API_KEY = os.environ.get('COUNTRY_OWNER_BULK_API_KEY', '')
 
+# OpenAI page translation (key must be set in environment — never commit secrets)
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '')
+OPENAI_TRANSLATE_MODEL = os.environ.get('OPENAI_TRANSLATE_MODEL', 'gpt-4o-mini')
+OPENAI_TRANSLATE_MAX_HTML_LENGTH = int(os.environ.get('OPENAI_TRANSLATE_MAX_HTML_LENGTH', '48000'))
+OPENAI_TRANSLATE_CHUNK_SIZE = int(os.environ.get('OPENAI_TRANSLATE_CHUNK_SIZE', '6000'))
+OPENAI_TRANSLATE_TIMEOUT = int(os.environ.get('OPENAI_TRANSLATE_TIMEOUT', '90'))
+
 
 # --- Outgoing email (Gmail SMTP) ---
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

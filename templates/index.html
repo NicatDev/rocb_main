@@ -657,7 +657,8 @@
     <script src="{% static 'assets/js/meanmenu.js' %}"></script>
     <script src="{% static 'assets/js/main.js' %}"></script>
 
-    <script src="{% static 'assets/js/navbar.js' %}"></script>
+    {% include 'components/openai_translate_assets.html' %}
+        <script src="{% static 'assets/js/navbar.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js"></script>
     <script>

@@ -325,7 +325,8 @@
     <script src="{% static 'assets/js/meanmenu.js' %}"></script>
     <script src="{% static 'assets/js/main.js' %} "></script>
 
-    <script src="{% static 'assets/js/navbar.js' %}"></script>
+    {% include 'components/openai_translate_assets.html' %}
+        <script src="{% static 'assets/js/navbar.js' %}"></script>
     <script src="{% static 'assets/js/country-member-admin.js' %}?v=20260518"></script>
 
   </body>

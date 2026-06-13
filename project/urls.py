@@ -8,6 +8,7 @@ from django.contrib.sitemaps.views import sitemap
 
 from oneapp.sitemap import HomeSitemap, NewsIndexSitemap, NewsSitemap
 from oneapp.views import robots_txt
+from oneapp.views_translate import translate_html_api
 
 admin.site.site_header = 'Rocb Europe Admin'
 admin.site.site_title = 'Rocb Europe Admin'
@@ -22,6 +23,7 @@ sitemaps = {
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/region/', include('region.api_urls')),
+    path('api/translate/', translate_html_api, name='openai_translate'),
     path('i18n/', include('django.conf.urls.i18n')),
     path('robots.txt', robots_txt),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
