@@ -258,7 +258,7 @@ PUBLIC_SITE_URL = os.environ.get('PUBLIC_SITE_URL', 'https://rocbeurope.org').rs
 # Optional header X-Country-Owner-Api-Key for /api/region/country-owners/ (staff session also allowed)
 COUNTRY_OWNER_BULK_API_KEY = os.environ.get('COUNTRY_OWNER_BULK_API_KEY', '')
 
-# OpenAI page translation (key must be set in environment — never commit secrets)
+# OpenAI page translation — set OPENAI_API_KEY in rocb_main/.env (see .env.example)
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '')
 OPENAI_TRANSLATE_MODEL = os.environ.get('OPENAI_TRANSLATE_MODEL', 'gpt-4o-mini')
 OPENAI_TRANSLATE_MAX_HTML_LENGTH = int(os.environ.get('OPENAI_TRANSLATE_MAX_HTML_LENGTH', '48000'))

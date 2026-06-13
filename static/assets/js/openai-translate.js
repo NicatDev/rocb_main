@@ -3,40 +3,29 @@
 
   var STORAGE_KEY = 'openai_page_lang';
   var ORIGINAL_ATTR = 'data-openai-original-html';
+  var ORIGINAL_LANG_ATTR = 'data-openai-original-lang';
   var CONTENT_SELECTOR = 'main#primary, main.site-main';
   var API_URL = '/api/translate/';
+  var CLIENT_CHUNK_SIZE = 3500;
   var loadingEl = null;
 
-  function getLanguageFromUrl() {
-    var path = window.location.pathname;
-    if (path === '/ru' || path.indexOf('/ru/') === 0) return 'ru';
-    if (path === '/en' || path.indexOf('/en/') === 0) return 'en';
-    return null;
-  }
-
-  function pathWithLanguagePrefix(langCode) {
-    var path = window.location.pathname;
-    var bare = path;
-
-    if (bare.indexOf('/ru/') === 0) bare = bare.substring(3) || '/';
-    else if (bare.indexOf('/en/') === 0) bare = bare.substring(3) || '/';
-    else if (bare === '/ru' || bare === '/en') bare = '/';
-
-    if (langCode === 'ru') return '/ru' + (bare === '/' ? '' : bare);
-    if (langCode === 'en') return '/en' + (bare === '/' ? '' : bare);
-    return bare === '' ? '/' : bare;
-  }
-
-  function getPageSourceLanguage() {
-    var urlLang = getLanguageFromUrl();
-    if (urlLang) return urlLang;
-    var lang = (document.documentElement.getAttribute('lang') || 'en').toLowerCase();
-    if (lang.indexOf('ru') === 0) return 'ru';
-    return 'en';
-  }
-
-  function resolveActiveLanguage() {
-    return getLanguageFromUrl() || (localStorage.getItem(STORAGE_KEY) || 'en').toLowerCase();
+  function splitHtmlChunks(html, maxLen) {
+    maxLen = maxLen || CLIENT_CHUNK_SIZE;
+    if (!html || html.length <= maxLen) return [html];
+    var chunks = [];
+    var start = 0;
+    while (start < html.length) {
+      var end = Math.min(start + maxLen, html.length);
+      if (end < html.length) {
+        var splitAt = html.lastIndexOf('</', start, end);
+        if (splitAt > start + maxLen / 3) {
+          end = splitAt + html.slice(splitAt).indexOf('>') + 1;
+        }
+      }
+      chunks.push(html.slice(start, end));
+      start = end;
+    }
+    return chunks;
   }
 
   function getCsrfToken() {
@@ -59,11 +48,22 @@
     return nodes.length ? Array.prototype.slice.call(nodes) : [];
   }
 
+  function detectPageLanguage() {
+    var lang = (document.documentElement.getAttribute('lang') || 'en').toLowerCase();
+    if (lang.indexOf('ru') === 0) return 'ru';
+    return 'en';
+  }
+
   function ensureOriginalHtml(el) {
     if (!el.hasAttribute(ORIGINAL_ATTR)) {
       el.setAttribute(ORIGINAL_ATTR, el.innerHTML);
+      el.setAttribute(ORIGINAL_LANG_ATTR, detectPageLanguage());
     }
     return el.getAttribute(ORIGINAL_ATTR);
+  }
+
+  function getOriginalSourceLang(el) {
+    return el.getAttribute(ORIGINAL_LANG_ATTR) || 'en';
   }
 
   function showLoading() {
@@ -92,7 +92,7 @@
     });
   }
 
-  function translateHtml(html, targetLang, sourceLang) {
+  function translateHtmlRequest(html, targetLang, sourceLang) {
     var csrf = getCsrfToken();
     var headers = { 'Content-Type': 'application/json' };
     if (csrf) headers['X-CSRFToken'] = csrf;
@@ -116,6 +116,25 @@
     });
   }
 
+  function translateHtmlInChunks(html, targetLang, sourceLang) {
+    var chunks = splitHtmlChunks(html);
+    if (chunks.length === 1) {
+      return translateHtmlRequest(html, targetLang, sourceLang);
+    }
+    var chain = Promise.resolve([]);
+    chunks.forEach(function (chunk) {
+      chain = chain.then(function (parts) {
+        return translateHtmlRequest(chunk, targetLang, sourceLang).then(function (translated) {
+          parts.push(translated);
+          return parts;
+        });
+      });
+    });
+    return chain.then(function (parts) {
+      return parts.join('');
+    });
+  }
+
   function restoreOriginal() {
     getContentElements().forEach(function (el) {
       var original = el.getAttribute(ORIGINAL_ATTR);
@@ -123,31 +142,22 @@
         el.innerHTML = original;
       }
     });
+    localStorage.setItem(STORAGE_KEY, 'en');
+    document.documentElement.setAttribute('lang', 'en');
+    updateFlagState('en');
   }
 
   function switchLanguage(langCode) {
     langCode = (langCode || 'en').toLowerCase();
     localStorage.setItem(STORAGE_KEY, langCode);
-
-    var nextPath = pathWithLanguagePrefix(langCode);
-    if (nextPath !== window.location.pathname) {
-      window.location.assign(nextPath + window.location.search + window.location.hash);
-      return Promise.resolve();
-    }
-
     updateFlagState(langCode);
     document.documentElement.setAttribute('lang', langCode);
-
-    if (getLanguageFromUrl() === langCode) {
-      return Promise.resolve();
-    }
 
     if (langCode === 'en') {
       restoreOriginal();
       return Promise.resolve();
     }
 
-    var sourceLang = getPageSourceLanguage();
     var elements = getContentElements();
     if (!elements.length) {
       return Promise.resolve();
@@ -159,7 +169,8 @@
     elements.forEach(function (el) {
       chain = chain.then(function () {
         var original = ensureOriginalHtml(el);
-        return translateHtml(original, langCode, sourceLang).then(function (translated) {
+        var sourceLang = getOriginalSourceLang(el);
+        return translateHtmlInChunks(original, langCode, sourceLang).then(function (translated) {
           el.innerHTML = translated;
         });
       });
@@ -174,17 +185,12 @@
   }
 
   function initFromStorage() {
-    var active = resolveActiveLanguage();
-    localStorage.setItem(STORAGE_KEY, active);
-    updateFlagState(active);
-    document.documentElement.setAttribute('lang', active);
+    var saved = (localStorage.getItem(STORAGE_KEY) || 'en').toLowerCase();
+    updateFlagState(saved);
+    document.documentElement.setAttribute('lang', saved);
 
-    if (getLanguageFromUrl()) {
-      return;
-    }
-
-    if (active !== 'en') {
-      switchLanguage(active);
+    if (saved !== 'en') {
+      switchLanguage(saved);
     }
   }
 
@@ -192,7 +198,6 @@
     switchLanguage: switchLanguage,
     restoreOriginal: restoreOriginal,
     init: initFromStorage,
-    getLanguageFromUrl: getLanguageFromUrl,
   };
 
   if (document.readyState === 'loading') {
