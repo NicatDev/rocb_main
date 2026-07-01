@@ -194,6 +194,11 @@
                         >{% trans "Profile" %}</a
                       >
                     </li>
+                    <li>
+                      <a href="#" class="change-password-menu-link" data-open-change-password>
+                        {% trans "Change password" %}
+                      </a>
+                    </li>
                     {% if user.is_staff %}
                     <li>
                       <a href="{% url 'pending_approvals' %}"

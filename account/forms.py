@@ -1,8 +1,32 @@
 from django import forms
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
 from .models import Profile
+
+
+class ChangePasswordForm(PasswordChangeForm):
+    """Change password for the logged-in user (old + new + confirm)."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        field_attrs = {
+            'class': 'change-password-input',
+            'autocomplete': 'off',
+        }
+        self.fields['old_password'].widget = forms.PasswordInput(
+            attrs={**field_attrs, 'autocomplete': 'current-password', 'id': 'id_old_password'},
+        )
+        self.fields['new_password1'].widget = forms.PasswordInput(
+            attrs={**field_attrs, 'autocomplete': 'new-password', 'id': 'id_new_password1'},
+        )
+        self.fields['new_password2'].widget = forms.PasswordInput(
+            attrs={**field_attrs, 'autocomplete': 'new-password', 'id': 'id_new_password2'},
+        )
+        self.fields['old_password'].label = _('Current password')
+        self.fields['new_password1'].label = _('New password')
+        self.fields['new_password2'].label = _('Confirm new password')
 
 
 class ProfilePictureForm(forms.ModelForm):

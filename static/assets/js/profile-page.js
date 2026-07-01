@@ -48,6 +48,8 @@
     setTimeout(() => toast.remove(), 4000);
   }
 
+  window.showProfileToast = showToast;
+
   function enterEditMode(row) {
     document.querySelectorAll('.profile-field-row.is-editing').forEach((other) => {
       if (other !== row) exitEditMode(other, true);

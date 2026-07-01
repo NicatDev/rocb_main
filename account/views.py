@@ -2,7 +2,7 @@ import json
 
 from django import forms
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth.models import User
@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_protect
 from .models import Profile
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.translation import gettext as _
-from .forms import ProfileEditForm, ProfilePictureForm
+from .forms import ProfileEditForm, ProfilePictureForm, ChangePasswordForm
 
 
 PROFILE_FIELD_CONFIG = {
@@ -146,6 +146,40 @@ def profile_field_update(request):
             display_value = val or ''
 
     return JsonResponse({'success': True, 'field': field_name, 'value': display_value})
+
+
+@login_required
+@require_POST
+@csrf_protect
+def change_password_view(request):
+    """Change password (AJAX modal or standard POST)."""
+    form = ChangePasswordForm(user=request.user, data=request.POST)
+    is_ajax = (
+        request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+        or 'application/json' in (request.content_type or '')
+    )
+
+    if form.is_valid():
+        user = form.save()
+        update_session_auth_hash(request, user)
+        message = _('Password updated successfully.')
+        if is_ajax:
+            return JsonResponse({'success': True, 'message': message})
+        messages.success(request, message)
+        return redirect('profile_view')
+
+    errors = {field: [str(err) for err in errs] for field, errs in form.errors.items()}
+    first_error = next((msgs[0] for msgs in errors.values() if msgs), _('Please correct the errors below.'))
+
+    if is_ajax:
+        return JsonResponse(
+            {'success': False, 'message': first_error, 'errors': errors},
+            status=400,
+        )
+
+    messages.error(request, first_error)
+    return redirect('profile_view')
+
 
 def logout_view(request):
     if request.method == "POST":

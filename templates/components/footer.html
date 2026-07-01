@@ -147,3 +147,8 @@
     <img src="{% static 'assets/images/shape/pattern-3.svg' %}" alt="" />
   </div>
 </footer>
+{% if user.is_authenticated %}
+<link rel="stylesheet" href="{% static 'assets/css/change-password-modal.css' %}" />
+{% include 'components/change_password_modal.html' %}
+<script src="{% static 'assets/js/change-password-modal.js' %}"></script>
+{% endif %}

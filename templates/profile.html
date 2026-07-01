@@ -319,6 +319,20 @@
                   </div>
                 </div>
               </div>
+
+              <div class="profile-security-card">
+                <h3 class="profile-security-card__title">
+                  <i class="fa-regular fa-lock" aria-hidden="true"></i>
+                  {% trans "Security" %}
+                </h3>
+                <p class="profile-security-card__text">
+                  {% trans "Update your password regularly to keep your account secure." %}
+                </p>
+                <button type="button" class="profile-security-btn" data-open-change-password>
+                  <i class="fa-regular fa-key" aria-hidden="true"></i>
+                  {% trans "Change password" %}
+                </button>
+              </div>
             </div>
           </div>
           {% else %}
